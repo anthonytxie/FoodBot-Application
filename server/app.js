@@ -1,7 +1,7 @@
-import express from 'express'
-import routes from './routes'
-import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
+const express = require('express');
+const routes = require('./routes');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 
 const app = express();
@@ -11,4 +11,4 @@ const app = express();
 app.use(bodyParser.json())
 app.use(routes)
 
-export default app
+module.exports = app
