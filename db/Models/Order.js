@@ -44,6 +44,11 @@ const orderSchema = new Schema({
     type: Date
   },
 
+  isConfirmed: {
+    type: Boolean,
+    default: false
+  },
+
   isDelivery: {
     type: Boolean,
     default: false 

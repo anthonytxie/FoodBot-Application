@@ -9,6 +9,13 @@ const userSchema = new Schema ({
     required: false,
     trim: true
   },
+  phoneNumber: {
+    type: String,
+    required: false,
+    trim: true
+  
+  },
+
   createdAt: {
     type: Date,
     default: Date.now

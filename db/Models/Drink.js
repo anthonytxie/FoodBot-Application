@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 const drinkSchema = new Schema ({
   type: {
     type: String,
-    enum: ['vanilla', 'strawberry', 'chocolate']
+    enum: ['Dr. Pepper', 'Rootbeer', 'Coke', 'Pepsi', 'Mountain Dew', 'Orange Juice', 'Milk']
   },
 
   size: {
