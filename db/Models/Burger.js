@@ -9,6 +9,7 @@ const burgerSchema = new Schema ({
 
   bunType: {
     type: String,
+    enum: ['white', 'rye', 'whole-wheat']
   },
 
   meatType: {
@@ -92,3 +93,5 @@ const burgerSchema = new Schema ({
 
 
 const Burger = mongoose.model('Burger', burgerSchema);
+
+module.exports = Burger;

@@ -11,11 +11,8 @@ orderController.post = (req, res) => {
   order.save()
     .then((order) => {
       res.status(400).send(order)
-    })
+    });
 };
-
-
-
 
 
 
