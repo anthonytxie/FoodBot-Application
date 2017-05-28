@@ -5,28 +5,22 @@ const User = require('./../db/models/User')
 userController.post = (req, res) => {
   const { phoneNumber } = req.body;
 
-  User.find({phoneNumber})
-    .then((user) => {
-      if(!user.length) {
-        const user = newUser({phoneNumber});
+  User.findOne({phoneNumber})
+    .then((user) => { //if non-existent then this sends back empty array
+      if(!user) { 
+        const user = new User({phoneNumber});
         user.save()
           .then((user) => {
-            res.json({
-              data: user,
-              success:true
-            });
+            req.session.user = user;
+            res.status(200);
           }).catch((err) => {
-            res.json({
-              data:err,
-              success:false
-            });
+            res.status(400);
           });
       }
     else {
-      
-
-
-      
+      req.session.user = user;
+      res.status(200);
+      res.redirect('/getMostRecentOrder')
     }
     })
 };
@@ -45,6 +39,10 @@ userController.get = (req, res) => {
       });
     });
 };
+
+userController.getUserSession = (req, res) => {
+  res.send(req.session.user);
+}
 
 module.exports = userController;
 

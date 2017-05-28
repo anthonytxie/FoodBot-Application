@@ -1,24 +1,17 @@
 const orderController = {};
+const Order = require('./../db/models/Order')
 
 
 
 orderController.post = (req, res) => {
-
-
-}
-
-
-toDoController.post = (req,res) => {
-  const { text, _user } = req.body;
-  const toDo = new db.toDo({
-    text,
-    _user,
-  })
-  toDo.save().then((toDo) => {
-    res.send(toDo);
-  }).catch((err) => {
-    res.status(400).send(err)
+  const user = req.session.user;
+  const order = new Order({
+    _user: user._id,
   });
+  order.save()
+    .then((order) => {
+      res.status(400).send(order)
+    })
 };
 
 
@@ -26,8 +19,31 @@ toDoController.post = (req,res) => {
 
 
 
-basicController.get = (req, res) => {
-  res.send('Welcome to the Application');
+
+
+
+orderController.getMostRecentOrder = (req, res) => {
+  const user = req.session.user;
+  Order.findOne({_user: user._id}).sort({createdAt: -1})
+    .then((order) => {
+      if (!order) {
+        return res.send('Would you like to make a new order?');
+      }
+      else if(order.isConfirmed) {
+        res.send('Would you like to order the same thing as last time?');
+      }
+
+      else if (!order.isConfirmed) {
+        res.send('Would you like to continue where you left off on your last order?');
+      }
+    });
 };
 
-module.exports = basicController;
+
+
+
+
+
+
+
+module.exports = orderController;
