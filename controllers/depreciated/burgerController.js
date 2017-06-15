@@ -1,6 +1,6 @@
 const burgerController = {};
 const Burger = require('./../db/models/Burger');
-
+const Order = require('./../db/models/Order');
 
 burgerController.post = (req, res) => {
 	const {
@@ -39,13 +39,16 @@ burgerController.post = (req, res) => {
 		egg
 	});
 
+	const order = req.session.order
+
 	burger.save()
 		.then((burger) => {
-			res.send(burger);
-		}).catch((err) => {
-			res.send(err);
+			return Order.findOneAndUpdate(order._id, { $push: {'_burgers': burger._id}})
 		})
-
+		.then((updatedUser) => {
+			return res.send(updatedUser)
+		
+		})
 };
 
 module.exports = burgerController;

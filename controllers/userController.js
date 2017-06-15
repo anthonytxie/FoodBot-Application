@@ -1,48 +1,20 @@
 const userController = {};
-const User = require('./../db/models/User')
-
+const userDAO = require('./../db/dao/userDAO');
+const promiseHelper = require('./helper-functions');
 
 userController.post = (req, res) => {
-  const { phoneNumber } = req.body;
-
-  User.findOne({phoneNumber})
-    .then((user) => { //if non-existent then this sends back empty array
-      if(!user) { 
-        const user = new User({phoneNumber});
-        user.save()
-          .then((user) => {
-            req.session.user = user;
-            res.status(200);
-          }).catch((err) => {
-            res.status(400);
-          });
-      }
-    else {
-      req.session.user = user;
-      res.status(200);
-      res.redirect('/getMostRecentOrder')
-    }
-    })
+  let { phoneNumber } = req.body;
+  promiseHelper(req,res,userDAO.createUser(phoneNumber));
 };
 
-userController.get = (req, res) => {
-  User.find()
-    .then((users) => {
-      res.json({
-        data: users,
-        success: true
-      });
-    }).catch((err) => {
-      res.json({
-      data: err,
-      success: false
-      });
-    });
+userController.getAll = (req, res) => {
+  promiseHelper(req, res, userDAO.findAllUsers());
 };
 
-userController.getUserSession = (req, res) => {
-  res.send(req.session.user);
-}
+userController.getByPhoneNumber = (req, res) => {
+  let { phoneNumber } = req.params;
+  phoneNumber = phoneNumber.trim();
+  promiseHelper(req,res,userDAO.findUserByPhoneNumber(phoneNumber));
+};
 
 module.exports = userController;
-
