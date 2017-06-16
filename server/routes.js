@@ -1,8 +1,8 @@
 const express = require('express');
 const basicController = require('./../controllers/basicController');
 const userController = require('./../controllers/userController');
-// const orderController = require('./../controllers/orderController');
-// const burgerController = require('./../controllers/burgerController');
+const orderController = require('./../controllers/orderController');
+const burgerController = require('./../controllers/burgerController');
 
 const routes = express();
 
@@ -12,16 +12,22 @@ routes.get('/', basicController.get);
 
 // //User
 
-routes.post('/user', userController.post);
+routes.post('/initializeuser', userController.initializeUser);
+routes.get('/currentusersession', userController.getCurrentSession);
 routes.get('/users', userController.getAll);
 routes.get('/user/:phoneNumber', userController.getByPhoneNumber);
 
 
 
+
+
 // //Order
-// routes.post('/order', orderController.postNewOrder);
-// routes.get('/getMostRecentOrder', orderController.getMostRecentOrder);
-// routes.get('/orders', orderController.getAllOrdersFromUser);
+routes.post('/mostrecentorder', orderController.userPreviousOrder);
+routes.post('/order', orderController.postNewOrder);
+routes.get('/allordersfromuser', orderController.getAllOrdersFromUser);
+routes.get('/orders', orderController.getAllOrders);
+routes.get('/currentorder', orderController.getCurrentOrder);
+routes.get('/findorder', orderController.getOrderByID)
 // routes.get('/currentorder', orderController.getCurrentOrder);
 
 
@@ -30,8 +36,7 @@ routes.get('/user/:phoneNumber', userController.getByPhoneNumber);
 
 
 // //Burger
-// routes.post('/burger', burgerController.post);
-
+routes.get('/burger', burgerController.postNewBurger);
 
 
 

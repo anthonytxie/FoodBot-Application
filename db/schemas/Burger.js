@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
 
 
-const burgerSchema = new Schema ({
+const burgerSchema = new Schema({
   
 //normal shit
 

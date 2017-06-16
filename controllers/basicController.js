@@ -1,7 +1,7 @@
 const basicController = {};
 
 const userDAO = require('./../db/DAO/userDAO')
-const serDAO = require('./../db/DAO/OrderDAO')
+const orderDAO = require('./../db/DAO/OrderDAO')
 
 
 basicController.get = (req, res) => {

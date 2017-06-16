@@ -2,9 +2,35 @@ const userController = {};
 const userDAO = require('./../db/dao/userDAO');
 const promiseHelper = require('./helper-functions');
 
-userController.post = (req, res) => {
+userController.initializeUser = (req, res) => {
   let { phoneNumber } = req.body;
-  promiseHelper(req,res,userDAO.createUser(phoneNumber));
+  userDAO.findUserByPhoneNumber(phoneNumber)
+  	.then((status) => {
+  		if(!status) {
+  			userDAO.createUser(phoneNumber)
+  				.then((user) => {
+  					req.session.user = user;
+  					res.send(user);
+  				}).catch((err) => res.send(err));
+  		}
+  		else {
+  			userDAO.findUserByPhoneNumber(phoneNumber)
+  				.then((user) => {
+  					req.session.user = user;
+  					res.send(user);
+  				}).catch((err) => res.send(err));
+  		}
+  	});
+};
+
+
+userController.getCurrentSession = (req, res) => {
+	if (!req.session.user) {
+		return res.send('no user session currently');
+	}
+	else {
+		return res.send(req.session.user);
+	}
 };
 
 userController.getAll = (req, res) => {
@@ -16,5 +42,7 @@ userController.getByPhoneNumber = (req, res) => {
   phoneNumber = phoneNumber.trim();
   promiseHelper(req,res,userDAO.findUserByPhoneNumber(phoneNumber));
 };
+
+
 
 module.exports = userController;

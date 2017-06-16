@@ -1,5 +1,5 @@
 const Order = require('./../schemas/order');
-
+const mongoose = require('mongoose');
 const orderDAO = {};
 
 
@@ -60,6 +60,13 @@ orderDAO.postNewOrder = function(userID) {
 	});
 };
 
+orderDAO.findByID = function(orderID) {
+	// const ObjectID = mongoose.Types.ObjectId(orderID)
+	return new Promise ((resolve, reject) => {
+		Order.findOne({_id: orderID})
+		.then((order)=> resolve(order)).catch((err) => reject(err));
+	});
+};
 
 
 

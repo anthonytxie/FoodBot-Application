@@ -11,12 +11,12 @@ UserDAO.findUserByPhoneNumber = function(phoneNumber) {
         User.findOne({phoneNumber})
             .then((user) => {
                 if (!user) {
-                    return reject(false);
+                    return resolve(false);
                 }
                 else {
-                    return resolve(true);
+                    return resolve(user);
                 }
-            });
+            }).catch((err) => reject(err));
     });
 };
 
