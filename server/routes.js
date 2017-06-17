@@ -51,7 +51,7 @@ routes.get('/allordersfromuser', orderController.getAllOrdersFromUser);
 // deletes the most recent item added on req.session.order
 routes.delete('/mostrecentitem', orderController.deleteMostRecentItem);
 
-// //Post Foods pretty self-explanatory
+// //Post Foods pretty self-explanatory... look up the fooditem DAOs to see what kind of stuff you need to send in the post body.
 
 // Drink
 routes.post('/drink', drinkController.postNewDrink);
