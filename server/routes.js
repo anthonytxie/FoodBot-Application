@@ -45,6 +45,7 @@ routes.post('/drink', drinkController.postNewDrink);
 
 // //Burger
 routes.post('/burger', burgerController.postNewBurger);
+routes.get('/burger', burgerController.getBurger)
 
 //Fry
 routes.post('/fry', fryController.postNewFry);

@@ -55,4 +55,13 @@ burgerDAO.post = function(orderID, burgerObject) {
   });
 };
 
+burgerDAO.get = function () {
+    return new Promise((resolve,reject) => {
+        Burger.findOne()
+            .then((burger) => {
+                resolve([burger])
+            }).catch((err) => res.send(err));
+    });
+};
+
 module.exports = burgerDAO;

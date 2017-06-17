@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
-
-
+const schemaOptions =  require('./settings/schemasettings');
 const burgerSchema = new Schema({
   
 //normal shit
@@ -89,8 +88,12 @@ const burgerSchema = new Schema({
     type: Boolean,
     default: false,
   }
-});
+}, schemaOptions);
 
+
+burgerSchema.virtual('price').get(function() {
+  return (4 + (this.patties * 2) + (this.cheddar * 1) + (this.swiss * 1) + (this.blueCheese * 1));
+});
 
 const Burger = mongoose.model('Burger', burgerSchema);
 

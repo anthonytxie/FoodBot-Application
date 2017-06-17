@@ -10,4 +10,7 @@ burgerController.postNewBurger =  (req, res) => {
 };
 
 
+burgerController.getBurger = (req, res) => {
+  promiseHelper(req, res, burgerDAO.get());
+};
 module.exports = burgerController;

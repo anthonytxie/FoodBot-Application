@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
-
+const schemaOptions =  require('./settings/schemasettings');
 
 const orderSchema = new Schema({
   _user: {
