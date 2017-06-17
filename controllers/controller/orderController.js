@@ -1,7 +1,6 @@
 const orderController = {};
-const orderDAO = require('./../db/dao/orderDAO');
-const promiseHelper = require('./helper-functions');
-
+const orderDAO = require('./../../db/dao/orderDAO');
+const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 
 orderController.userPreviousOrder = (req, res) => {
@@ -23,7 +22,7 @@ orderController.userPreviousOrder = (req, res) => {
 
 orderController.postNewOrder = (req, res) => {
   const user = req.session.user;
-  promiseHelper(req,res,orderDAO.postNewOrder(user._id));
+  orderPromiseHelper(req, res, orderDAO.postNewOrder(user._id));
 };
 
 
@@ -48,7 +47,15 @@ orderController.getCurrentOrder = (req ,res) => {
 	res.send(order);
 };
 
+orderController.confirmOrder = (req, res) => {
+	const order = req.session.order;
+	orderPromiseHelper(req, res, orderDAO.confirmOrder(true, order._id));
+};
 
+orderController.unconfirmOrder = (req, res) => {
+	const order = req.session.order;
+	orderPromiseHelper(req, res, orderDAO.confirmOrder(false, order._id));
+};
 
 
 

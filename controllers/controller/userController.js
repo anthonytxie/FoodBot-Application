@@ -1,6 +1,6 @@
 const userController = {};
-const userDAO = require('./../db/dao/userDAO');
-const promiseHelper = require('./helper-functions');
+const userDAO = require('./../../db/dao/userDAO');
+const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 userController.initializeUser = (req, res) => {
   let { phoneNumber } = req.body;

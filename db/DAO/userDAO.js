@@ -1,8 +1,4 @@
-// create a new user with email/password. initializes all other fields as blank
-
-const User = require('./../Schemas/User');
-
-
+const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
 const UserDAO = {}
 
 
