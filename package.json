@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./app/**/index.test.js",
     "test-watch": "nodemon --exec 'npm test'",
-    "start": "nodemon ./server/index.js",
+    "start": "node ./server/index.js",
     "clean": "rm -rf dist",
     "build": "npm run clean && mkdir dist && babel server -s -d dist",
     "production": "npm run build && nodemon bin/production"
@@ -15,10 +15,6 @@
     "node": "6.2.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-stage-2": "^6.22.0",
-    "babel-register": "^6.22.0",
     "dotenv": "^4.0.0",
     "expect": "^1.20.2",
     "mocha": "^3.4.1",
@@ -26,10 +22,6 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.24.1",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-session": "^1.15.3",
