@@ -10,6 +10,12 @@ const {
 
 const routes = express();
 
+//homepage 
+
+routes.get('/', (req, res) => {
+  res.send('hello welcome to the foodbot API')
+})
+
 // //User
 
 //post with phoneNumber.. this will retreive an existing user and initialize a session for them or this will create a new user and initalize a session for them. should always be called at the beginning of a convo.
