@@ -1,3 +1,5 @@
+const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
+
 const populateOrder = function(operation) {
   return operation
     .populate("_drinks")
@@ -5,5 +7,8 @@ const populateOrder = function(operation) {
     .populate("_milkshakes")
     .populate("_fries")
 };
+
+
+
 
 module.exports = populateOrder;

@@ -1,7 +1,7 @@
 const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
 const mongoose = require('mongoose');
 const orderDAO = {};
-const populateOrder = require('./helperFunctions');
+const populateOrder  = require('./helperFunctions');
 
 
 orderDAO.findAllOrders = function() {
@@ -81,11 +81,39 @@ orderDAO.isTherePreviousOrderFromUser = function(UserID, isConfirmed=false) {
 };
 
 orderDAO.deleteMostRecentItemAdded = function(orderID) {
-	return new Promise((resolve, reject) => {
-
+	return new Promise ((resolve,reject) => {
+		populateOrder(Order.findOne({_id: orderID}))
+			.then((order) => {
+				if (order.itemArray.length <= 0) {
+					return resolve(order);
+				}
+				else {
+					let mostRecentOrder = order.itemArray[0];
+					return mostRecentOrder;
+				}
+			}).catch((err) => reject(err))
+			.then((mostRecentOrder) => {
+				let id = mongoose.Types.ObjectId(mostRecentOrder[0])
+				if (mostRecentOrder[2] ==='burger') {
+					return Burger.findOneAndRemove({_id: id})
+				}
+				else if (mostRecentOrder[2] ==='milkshake') {
+					return Milkshake.findOneAndRemove({_id: id})
+				}
+				else if (mostRecentOrder[2] ==='drink') {
+					return Drink.findOneAndRemove({_id: id})
+				}
+				else if (mostRecentOrder[2] ==='fry') {
+					return Fry.findOneAndRemove({_id: id})
+				}
+			})
+			.then(() => {
+				return populateOrder(Order.findOne({_id: orderID}))
+			})
+			.then((order) => {
+				resolve(order);
+			})
 	});
 };
-
-
 
 module.exports = orderDAO; 
