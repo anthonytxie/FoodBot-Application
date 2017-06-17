@@ -12,7 +12,13 @@ const drinkSchema = new Schema ({
   size: {
     type: String,
     enum: ['small', 'medium', 'large']
+  },
+  
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
+
 });
 
 const Drink = mongoose.model('Drink', drinkSchema);

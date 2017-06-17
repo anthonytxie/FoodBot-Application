@@ -12,6 +12,10 @@ const milkshakeSchema = new Schema ({
   size: {
     type: String,
     enum: ['small', 'medium', 'large']
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

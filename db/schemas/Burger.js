@@ -87,6 +87,11 @@ const burgerSchema = new Schema({
   egg: {
     type: Boolean,
     default: false,
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 }, schemaOptions);
 

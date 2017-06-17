@@ -1,15 +1,7 @@
 const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
 const mongoose = require('mongoose');
 const orderDAO = {};
-
-
-const populateOrder = function(operation) {
-	return operation
-		.populate("_drinks")
-		.populate("_burgers")
-		.populate("_milkshakes")
-		.populate("_fries")
-};
+const populateOrder = require('./helperFunctions');
 
 
 orderDAO.findAllOrders = function() {
@@ -87,5 +79,13 @@ orderDAO.isTherePreviousOrderFromUser = function(UserID, isConfirmed=false) {
 			});
 	});
 };
+
+orderDAO.deleteMostRecentItemAdded = function(orderID) {
+	return new Promise((resolve, reject) => {
+
+	});
+};
+
+
 
 module.exports = orderDAO; 

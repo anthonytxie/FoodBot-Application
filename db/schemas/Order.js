@@ -35,7 +35,7 @@ const orderSchema = new Schema({
     default: Date.now
   },
 
-  completed: {
+  isCompleted: {
     type: Boolean,
     default: false
   },
@@ -66,6 +66,26 @@ orderSchema.virtual('orderPrice').get(function() {
     price = price + item.price
   }
   return price
+});
+
+orderSchema.virtual('itemArray').get(function() {
+  let orderArray = []
+  let appendItems = function(items,description) {
+    for (let item of items ) {
+      let list = [item._id, item.createdAt, description ];
+      orderArray.push(list)
+    };
+  };
+  appendItems(this._burgers, 'burger')
+  appendItems(this._drinks, 'drink')
+  appendItems(this._milkshakes, 'milkshake')
+  appendItems(this._fries, 'fry')
+
+  let orderedArray = orderArray.sort((a,b)=> {
+    return a[0] < b[0];
+  });
+  return orderedArray;
+ 
 });
 
 

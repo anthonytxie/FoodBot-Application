@@ -1,6 +1,6 @@
 const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
-
 const burgerDAO = {};
+const populateOrder = require('./helperFunctions');
 
 
 burgerDAO.post = function(orderID, burgerObject) {
@@ -47,7 +47,7 @@ burgerDAO.post = function(orderID, burgerObject) {
           return burger
         }).catch((err) => reject(err))
         .then((burger) => {
-          return (Order.findByIdAndUpdate(orderID, { $push: {'_burgers': burger._id}}, {new: true}))
+          return populateOrder(Order.findByIdAndUpdate(orderID, { $push: {'_burgers': burger._id}}, {new: true}));
         }).catch((err) => reject(err))
         .then((order)=> {
           resolve(order);
