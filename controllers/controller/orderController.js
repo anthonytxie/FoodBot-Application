@@ -57,10 +57,17 @@ orderController.unconfirmOrder = (req, res) => {
 	orderPromiseHelper(req, res, orderDAO.confirmOrder(false, order._id));
 };
 
+orderController.deleteItem = (req, res) => {
+	const order = req.session.order;
+	const body = req.body;
+	const type = req.body.type;
+	orderPromiseHelper(req, res, orderDAO.deleteMostRecentItemAdded(order._id, req.body.type, req.body));
+};
+
 orderController.deleteMostRecentItem = (req, res) => {
 	const order = req.session.order;
 	orderPromiseHelper(req, res, orderDAO.deleteMostRecentItemAdded(order._id));
-}
+};
 
 
 

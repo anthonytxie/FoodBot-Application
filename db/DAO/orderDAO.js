@@ -80,6 +80,31 @@ orderDAO.isTherePreviousOrderFromUser = function(UserID, isConfirmed=false) {
 	});
 };
 
+
+orderDAO.deleteItem = function(orderID,itemType,itemObject) {
+	return new Promise((resolve, reject) => {
+		populateOrder(Order.findOne({_id: orderID}))
+			.then((order) => {
+				if (itemType ==='burger') {
+					Burger.findOneAndRemove({itemObject});
+				}
+				else if (itemType ==='milkshake') {
+					Milkshake.findOneAndRemove({itemObject});
+				}
+				else if (itemType ==='drink') {
+					Drink.findOneAndRemove({itemObject});
+				}
+				else if (itemType ==='fry') {
+					Fry.findOneAndRemove({itemObject});
+				}
+			})
+		.then((deletedItem) => {
+			resolve(deletedItem);
+		});
+	});
+};
+
+
 orderDAO.deleteMostRecentItemAdded = function(orderID) {
 	return new Promise ((resolve,reject) => {
 		populateOrder(Order.findOne({_id: orderID}))
