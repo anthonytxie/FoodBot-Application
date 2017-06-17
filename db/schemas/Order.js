@@ -58,7 +58,17 @@ const orderSchema = new Schema({
     type: Boolean,
     default: false
   }
-})
+}, schemaOptions)
+
+orderSchema.virtual('orderPrice').get(function() {
+  let price = 0
+  for (let item of this._burgers) {
+    price = price + item.price
+  }
+  return price
+});
+
+
 
 const Order = mongoose.model('Order', orderSchema);
 
