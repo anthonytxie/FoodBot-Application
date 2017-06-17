@@ -1,5 +1,5 @@
 const drinkController = {};
-const drinkDAO = require('./../../db/dao/drinkDAO');
+const drinkDAO = require('./../../db/DAO/drinkDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 

@@ -1,5 +1,5 @@
 const burgerController = {};
-const burgerDAO = require('./../../db/dao/burgerDAO');
+const burgerDAO = require('./../../db/DAO/burgerDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 

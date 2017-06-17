@@ -1,5 +1,5 @@
 const userController = {};
-const userDAO = require('./../../db/dao/userDAO');
+const userDAO = require('./../../db/DAO/userDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 userController.initializeUser = (req, res) => {

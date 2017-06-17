@@ -1,5 +1,5 @@
 const orderController = {};
-const orderDAO = require('./../../db/dao/orderDAO');
+const orderDAO = require('./../../db/DAO/orderDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 

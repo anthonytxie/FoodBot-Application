@@ -1,5 +1,5 @@
 const milkshakeController = {};
-const milkshakeDAO = require('./../../db/dao/milkshakeDAO');
+const milkshakeDAO = require('./../../db/DAO/milkshakeDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 

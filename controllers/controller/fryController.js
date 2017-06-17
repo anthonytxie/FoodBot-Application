@@ -1,5 +1,5 @@
 const fryController = {};
-const fryDAO = require('./../../db/dao/fryDAO');
+const fryDAO = require('./../../db/DAO/fryDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 
