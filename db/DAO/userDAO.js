@@ -2,6 +2,16 @@ const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
 const UserDAO = {}
 
 
+UserDao.findUserBySessionID = function
+
+
+
+
+
+
+
+
+
 UserDAO.findUserByPhoneNumber = function(phoneNumber) {
     return new Promise((resolve, reject) => {
         User.findOne({phoneNumber})
@@ -29,13 +39,20 @@ UserDAO.findAllUsers = function() {
 };
 
 
-UserDAO.createUser = function(phoneNumber) {
+UserDAO.createUser = function(sessionId) {
     return new Promise ((resolve, reject) => {
-        const newUser = new User ({phoneNumber});
+        const newUser = new User ();
         newUser.save()
-            .then((user) => resolve(user)).catch((err) => reject(err));
-    });
+            .then((user) => {
+                return user
+            }).catch((err) => reject(err))
+            .then((milkshake) => {
+
+            })
+    });-
 };
+
+
 
 
 module.exports = UserDAO;

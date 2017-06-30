@@ -24,7 +24,7 @@ userController.initializeUser = (req, res) => {
 };
 
 
-userController.getCurrentSession = (req, res) => {
+userController.getUserCurrentSession = (req, res) => {
 	if (!req.session.user) {
 		return res.send('no user session currently');
 	}
@@ -33,11 +33,11 @@ userController.getCurrentSession = (req, res) => {
 	}
 };
 
-userController.getAll = (req, res) => {
+userController.getAllUsers = (req, res) => {
   promiseHelper(req, res, userDAO.findAllUsers());
 };
 
-userController.getByPhoneNumber = (req, res) => {
+userController.getUserByPhoneNumber = (req, res) => {
   let { phoneNumber } = req.params;
   phoneNumber = phoneNumber.trim();
   promiseHelper(req,res,userDAO.findUserByPhoneNumber(phoneNumber));

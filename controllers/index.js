@@ -5,6 +5,50 @@ const milkshakeController = require('./controller/milkshakeController');
 const orderController = require('./controller/orderController');
 const userController = require('./controller/userController');
 
+const controller = {};
 
 
-module.exports = { burgerController, drinkController, fryController, milkshakeController, orderController, userController} 
+
+const actionMap = new Map();
+actionMap.set('initializeUser', userController.initializeUser);
+actionMap.set('getUserCurrentSession', userController.getUserCurrentSession);
+actionMap.set('getAllUsers', userController.getAllUsers);
+actionMap.set('getUserByPhoneNumber', userController.getUserByPhoneNumber);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+// actionMap.set('initializeUser', userController.initializeUser);
+
+
+
+
+
+
+
+
+
+
+
+controller.Post = (req, res) => {
+  if (req.body && req.body.result) {
+    const result = req.body.result;
+    const session = req.body.sessionId;
+  }
+
+
+
+
+  else {
+    res.status(400).send('400! There was no post body sent!')
+  }
+};

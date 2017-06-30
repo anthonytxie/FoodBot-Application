@@ -22,7 +22,12 @@ const userSchema = new Schema ({
   isDeleted: {
     type: Boolean,
     default: false
-  }
+  },
+
+  _sessions: [{
+    type: Schema.ObjectId,
+    ref: "Session"
+  }],
 });
 
 
