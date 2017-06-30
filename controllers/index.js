@@ -3,17 +3,18 @@ const drinkController = require('./controller/drinkController');
 const fryController = require('./controller/fryController');
 const milkshakeController = require('./controller/milkshakeController');
 const orderController = require('./controller/orderController');
-const userController = require('./controller/userController');
+const sessionController = require('./controller/sessionController');
 
 const controller = {};
 
 
 
+
+
 const actionMap = new Map();
-actionMap.set('initializeUser', userController.initializeUser);
-actionMap.set('getUserCurrentSession', userController.getUserCurrentSession);
-actionMap.set('getAllUsers', userController.getAllUsers);
-actionMap.set('getUserByPhoneNumber', userController.getUserByPhoneNumber);
+actionMap.set('initializeSession', sessionController.initializeSession);
+actionMap.set('getAllSessions', sessionController.getAllSessions);
+actionMap.set('getSessionById', sessionController.getSessionById);
 
 
 

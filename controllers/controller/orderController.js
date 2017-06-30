@@ -3,10 +3,9 @@ const orderDAO = require('./../../db/DAO/orderDAO');
 const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
 
 
-orderController.userPreviousOrder = (req, res) => {
-	const user = req.session.user;
-	const { isConfirmed } = req.body;
-	orderDAO.findMostRecentUserOrder(user._id, isConfirmed)
+orderController.sessionPreviousOrder = (req, res, result, session) => {
+	const { isConfirmed } = result;
+	orderDAO.findMostRecentSessionOrder(session, isConfirmed)
 		.then((order) => {
 			if(!order) {
 				return res.send('no previous orders');
@@ -20,15 +19,13 @@ orderController.userPreviousOrder = (req, res) => {
 
 
 
-orderController.postNewOrder = (req, res) => {
-  const user = req.session.user;
-  orderPromiseHelper(req, res, orderDAO.postNewOrder(user._id));
+orderController.postNewOrder = (req, res, result, session) => {
+  promiseHelper(req, res, orderDAO.postNewOrder(session));
 };
 
 
-orderController.getAllOrdersFromUser = (req, res) => {
-	const user = req.session.user;
-	promiseHelper(req, res, orderDAO.findAllOrdersFromUser(user._id));
+orderController.findAllOrdersFromSession = (req, res, result, session) => {
+	promiseHelper(req, res, orderDAO.findAllOrdersFromUser(session));
 };
 
 orderController.getAllOrders = (req, res) => {
@@ -36,16 +33,10 @@ orderController.getAllOrders = (req, res) => {
 };
 
 
-orderController.getOrderByID = (req, res) => {
-	const order = req.session.order;
-	promiseHelper(req, res, orderDAO.findByID(order._id));
+orderController.getOrderByID = (req, res, orderId) => {
+	promiseHelper(req, res, orderDAO.findByID(orderId));
 };
 
-
-orderController.getCurrentOrder = (req ,res) => {
-	const order = req.session.order;
-	res.send(order);
-};
 
 orderController.confirmOrder = (req, res) => {
 	const order = req.session.order;

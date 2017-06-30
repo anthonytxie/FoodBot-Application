@@ -13,7 +13,7 @@ orderDAO.findAllOrders = function() {
 	});
 };
 
-orderDAO.findAllOrdersFromUser = function(sessionId) {
+orderDAO.findAllOrdersFromSession = function(sessionId) {
 	return new Promise ((resolve, reject) => {
 		populateOrder(Order.find({_session: sessionId}).sort({createdAt: -1}))
 			.then((orders) => {
@@ -23,7 +23,7 @@ orderDAO.findAllOrdersFromUser = function(sessionId) {
 };
 
 
-orderDAO.findMostRecentUserOrder = function(sessionId, isConfirmed=false) {
+orderDAO.findMostRecentSessionOrder = function(sessionId, isConfirmed=false) {
 	return new Promise ((resolve, reject) => {
 		populateOrder(Order.findOne({_session: sessionId, isConfirmed: isConfirmed }).sort({createdAt: -1}))
 			.then((order) => {
@@ -66,7 +66,7 @@ orderDAO.postNewOrder = function(sessionId) {
 };
 
 
-orderDAO.isTherePreviousOrderFromUser = function(sessionId, isConfirmed=false) {
+orderDAO.isTherePreviousOrderFromSession = function(sessionId, isConfirmed=false) {
 	return new Promise((resolve, reject) => {
 		Order.find({_session: sessionId})
 			.then((orders) => {
