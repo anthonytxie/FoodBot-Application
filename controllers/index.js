@@ -14,6 +14,10 @@ actionMap.set('initializeUser', userController.initializeUser);
 actionMap.set('getUserCurrentSession', userController.getUserCurrentSession);
 actionMap.set('getAllUsers', userController.getAllUsers);
 actionMap.set('getUserByPhoneNumber', userController.getUserByPhoneNumber);
+
+
+
+
 // actionMap.set('initializeUser', userController.initializeUser);
 // actionMap.set('initializeUser', userController.initializeUser);
 // actionMap.set('initializeUser', userController.initializeUser);

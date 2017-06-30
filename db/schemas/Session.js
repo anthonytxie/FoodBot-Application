@@ -4,18 +4,29 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const sessionSchema = new Schema ({
-  _user: {
-    type: Schema.ObjectId,
-    ref: 'User'
+  name: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  phoneNumber: {
+    type: String,
+    required: false,
+    trim: true
   },
 
   createdAt: {
     type: Date,
-    default: Date.now 
-  }
+    default: Date.now
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
+  },
+
 });
 
 
-const User = mongoose.model('Session', sessionSchema);
+const Session = mongoose.model('Session', sessionSchema);
 
-module.exports = sessionSchema;
+module.exports = Session;

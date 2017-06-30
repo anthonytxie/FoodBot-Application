@@ -4,9 +4,9 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const orderSchema = new Schema({
-  _user: {
+  _session: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'Session'
   },
 
   _burgers: [{

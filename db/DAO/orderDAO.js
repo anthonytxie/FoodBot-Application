@@ -1,4 +1,4 @@
-const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
+const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const mongoose = require('mongoose');
 const orderDAO = {};
 const populateOrder  = require('./helperFunctions');
@@ -13,9 +13,9 @@ orderDAO.findAllOrders = function() {
 	});
 };
 
-orderDAO.findAllOrdersFromUser = function(UserID) {
+orderDAO.findAllOrdersFromUser = function(sessionId) {
 	return new Promise ((resolve, reject) => {
-		populateOrder(Order.find({_user: UserID}).sort({createdAt: -1}))
+		populateOrder(Order.find({_session: sessionId}).sort({createdAt: -1}))
 			.then((orders) => {
 				resolve(orders);
 			}).catch((err) => reject(err));
@@ -23,9 +23,9 @@ orderDAO.findAllOrdersFromUser = function(UserID) {
 };
 
 
-orderDAO.findMostRecentUserOrder = function(userID, isConfirmed=false) {
+orderDAO.findMostRecentUserOrder = function(sessionId, isConfirmed=false) {
 	return new Promise ((resolve, reject) => {
-		populateOrder(Order.findOne({_user: userID, isConfirmed: isConfirmed }).sort({createdAt: -1}))
+		populateOrder(Order.findOne({_session: sessionId, isConfirmed: isConfirmed }).sort({createdAt: -1}))
 			.then((order) => {
 				resolve(order);
 			}).catch((err) => reject(err));
@@ -52,10 +52,10 @@ orderDAO.confirmOrder = function(isConfirmed, orderID) {
 };
 
 
-orderDAO.postNewOrder = function(userID) {
+orderDAO.postNewOrder = function(sessionId) {
 	return new Promise ((resolve, reject) => {
 		const newOrder = new Order({
-			_user: userID
+			_session: sessionId
 		});
 
 		newOrder.save()
@@ -66,9 +66,9 @@ orderDAO.postNewOrder = function(userID) {
 };
 
 
-orderDAO.isTherePreviousOrderFromUser = function(UserID, isConfirmed=false) {
+orderDAO.isTherePreviousOrderFromUser = function(sessionId, isConfirmed=false) {
 	return new Promise((resolve, reject) => {
-		Order.find({_user: UserID})
+		Order.find({_session: sessionId})
 			.then((orders) => {
 				if (!orders.length) {
 					reject(false);

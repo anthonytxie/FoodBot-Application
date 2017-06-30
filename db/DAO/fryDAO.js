@@ -1,4 +1,4 @@
-const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
+const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const fryDAO = {};
 const populateOrder = require('./helperFunctions');
 
