@@ -1,14 +1,12 @@
 const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const burgerDAO = {};
-const { populateOrder, findMostRecentOrder } = require('./helperFunctions');
+const { populateOrder } = require('./helperFunctions');
 
 
 
 
 burgerDAO.post = function(result, session) {
     // const ObjectID = mongoose.Types.ObjectId(orderID)
-    const orderID = findMostRecentOrder(session).then((order) => order)
-
     return new Promise ((resolve, reject) => {
       
 
@@ -48,26 +46,15 @@ burgerDAO.post = function(result, session) {
         egg
       });
 
-      burger.save()
-        .then((burger) => {
-          return burger
-        }).catch((err) => reject(err))
-        .then((burger) => {
-          return populateOrder(Order.findByIdAndUpdate(orderID, { $push: {'_burgers': burger._id}}, {new: true}));
-        }).catch((err) => reject(err))
-        .then((order)=> {
-          resolve(order);
-        });
-  });
-};
-
-burgerDAO.get = function () {
-    return new Promise((resolve,reject) => {
-        Burger.findOne()
+      Session.findOne({session: session})
+        .then((session) => (Order.findOne({_session: session._id})).sort({createdAt: -1}).catch((err) => reject(err)))
+        .then((order) => burger.save()
             .then((burger) => {
-                resolve([burger])
-            }).catch((err) => res.send(err));
+                resolve(populateOrder(Order.findOneAndUpdate({_id: order._id}, { $push: {'_burgers': burger._id}}, {new: true})));
+            }).catch((err) => reject(err))
+        ).catch((err) => reject(err))
     });
 };
+
 
 module.exports = burgerDAO;

@@ -7,10 +7,6 @@ const sessionController = require('./controller/sessionController');
 
 const controller = {};
 
-
-
-
-
 const actionMap = new Map();
 
 actionMap.set('init', orderController.initializeOrder);

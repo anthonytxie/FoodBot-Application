@@ -3,10 +3,8 @@ const milkshakeDAO = require('./../../db/DAO/milkshakeDAO');
 const {promiseHelper} = require('./..//helpers/helper-functions');
 
 
-milkshakeController.post =  (req, res) => {
-  const order = req.session.order;
-  const milkshakeObject = req.body
-  promiseHelper(req, res, milkshakeDAO.post(order._id, milkshakeObject));
+milkshakeController.post =  (req, res, result, session) => {
+  promiseHelper(req, res, milkshakeDAO.post(result, session));
 };
 
 module.exports = milkshakeController;
