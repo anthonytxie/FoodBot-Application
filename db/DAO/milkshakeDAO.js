@@ -1,6 +1,6 @@
 const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const milkshakeDAO = {};
-const populateOrder = require('./helperFunctions');
+const {populateOrder} = require('./helperFunctions');
 
 milkshakeDAO.post = function(orderID, milkshakeObject) {
     // const ObjectID = mongoose.Types.ObjectId(orderID)

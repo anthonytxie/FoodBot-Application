@@ -1,6 +1,6 @@
 const sessionController = {};
 const sessionDAO = require('./../../db/DAO/sessionDAO');
-const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
+const {promiseHelper} = require('./..//helpers/helper-functions');
 
 
 sessionController.getAllSessions = (req, res, result, session) => {

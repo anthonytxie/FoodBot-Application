@@ -10,6 +10,25 @@ const populateOrder = function(operation) {
 };
 
 
+const findMostRecentOrder = function(sessionId) {
+    return new Promise((resolve,reject) => {
+        Session.find({session: sessionId})
+            .then((session) => {
+                return Order.findOne({_session: session._id}).sort({createdAt: -1});
+            })
+            .then((order) => {
+                resolve(order)
+            });
+    });
+};
 
 
-module.exports = populateOrder;
+findMostRecentOrder('5fd65fcc-56b8-420b-91aa-234c212434a8')
+    .then((order) => {
+        console.log(order)
+    })
+
+
+
+
+module.exports = {populateOrder, findMostRecentOrder };

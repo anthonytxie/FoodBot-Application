@@ -1,12 +1,10 @@
 const burgerController = {};
 const burgerDAO = require('./../../db/DAO/burgerDAO');
-const {promiseHelper, userPromiseHelper, orderPromiseHelper } = require('./..//helpers/helper-functions');
+const {promiseHelper} = require('./..//helpers/helper-functions');
 
 
-burgerController.postNewBurger =  (req, res) => {
-	const order = req.session.order;
-  const burgerObject = req.body
-	orderPromiseHelper(req, res, burgerDAO.post(order._id, burgerObject));
+burgerController.post =  (req, res, result, session) => {
+	promiseHelper(req, res, burgerDAO.post(result, session));
 };
 
 

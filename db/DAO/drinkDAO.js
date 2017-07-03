@@ -1,6 +1,6 @@
 const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const drinkDAO = {};
-const populateOrder = require('./helperFunctions');
+const {populateOrder} = require('./helperFunctions');
 
 
 drinkDAO.post = function(orderID, drinkObject) {

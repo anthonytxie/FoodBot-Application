@@ -13,19 +13,11 @@ const controller = {};
 
 const actionMap = new Map();
 
-//Session
 actionMap.set('init', orderController.initializeOrder);
-
-
-
-// //Order
-// actionMap.set('sessionPreviousOrder', sessionController.sessionPreviousOrder);
-// actionMap.set('postNewOrder', sessionController.postNewOrder);
-// actionMap.set('findAllOrdersFromSession', sessionController.findAllOrdersFromSession);
-// actionMap.set('getAllOrders', sessionController.getAllOrders);
-// actionMap.set('getOrderByID', sessionController.getOrderByID);
-
-
+actionMap.set('burger', burgerController.post)
+actionMap.set('milkshake', milkshakeController.post)
+actionMap.set('fry', fryController.post)
+actionMap.set('drink', drinkController.post)
 
 
 

@@ -1,11 +1,17 @@
 const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const burgerDAO = {};
-const populateOrder = require('./helperFunctions');
+const { populateOrder, findMostRecentOrder } = require('./helperFunctions');
 
 
-burgerDAO.post = function(orderID, burgerObject) {
+
+
+burgerDAO.post = function(result, session) {
     // const ObjectID = mongoose.Types.ObjectId(orderID)
+    const orderID = findMostRecentOrder(session).then((order) => order)
+
     return new Promise ((resolve, reject) => {
+      
+
       const {
         bunType,
         meatType,
@@ -22,7 +28,7 @@ burgerDAO.post = function(orderID, burgerObject) {
         fried,
         pankoCrumbs,
         egg
-      } = burgerObject
+      } = result.parameters
 
       const burger = new Burger({
         bunType,

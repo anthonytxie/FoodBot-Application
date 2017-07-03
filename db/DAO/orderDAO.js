@@ -1,8 +1,7 @@
 const {Burger, Fry, Drink, Milkshake, Order, Session } = require('./../index');
 const mongoose = require('mongoose');
 const orderDAO = {};
-const populateOrder  = require('./helperFunctions');
-
+const {populateOrder}  = require('./helperFunctions');
 
 orderDAO.initializeOrder = function(sessionId) {
     return new Promise((resolve, reject) => {
