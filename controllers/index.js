@@ -12,33 +12,18 @@ const controller = {};
 
 
 const actionMap = new Map();
-actionMap.set('initializeSession', sessionController.initializeSession);
-actionMap.set('getAllSessions', sessionController.getAllSessions);
-actionMap.set('getSessionById', sessionController.getSessionById);
+
+//Session
+actionMap.set('init', orderController.initializeOrder);
 
 
 
-
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-// actionMap.set('initializeUser', userController.initializeUser);
-
-
-
-
-
-
+// //Order
+// actionMap.set('sessionPreviousOrder', sessionController.sessionPreviousOrder);
+// actionMap.set('postNewOrder', sessionController.postNewOrder);
+// actionMap.set('findAllOrdersFromSession', sessionController.findAllOrdersFromSession);
+// actionMap.set('getAllOrders', sessionController.getAllOrders);
+// actionMap.set('getOrderByID', sessionController.getOrderByID);
 
 
 
@@ -48,12 +33,13 @@ controller.Post = (req, res) => {
   if (req.body && req.body.result) {
     const result = req.body.result;
     const session = req.body.sessionId;
+
+    actionMap.get(result.action)(req,res,result,session)
   }
-
-
-
 
   else {
     res.status(400).send('400! There was no post body sent!')
   }
 };
+
+module.exports = controller;

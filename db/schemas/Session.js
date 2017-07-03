@@ -4,16 +4,8 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const sessionSchema = new Schema ({
-  name: {
-    type: String,
-    required: false,
-    trim: true
-  },
-  phoneNumber: {
-    type: String,
-    required: false,
-    trim: true
-  },
+
+  session: String,
 
   createdAt: {
     type: Date,

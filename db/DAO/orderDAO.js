@@ -4,81 +4,71 @@ const orderDAO = {};
 const populateOrder  = require('./helperFunctions');
 
 
-orderDAO.findAllOrders = function() {
-	return new Promise ((resolve, reject) => {
-		populateOrder(Order.find().sort({createdAt: -1}))
-			.then((orders) => {
-				resolve(orders);
-			}).catch((err) => reject(err));
-	});
+orderDAO.initializeOrder = function(sessionId) {
+    return new Promise((resolve, reject) => {
+        Session.findOne({session: sessionId})
+            .then((session) => {
+                if (!session) {
+                    return false ;
+                }
+                else {
+                    return session;
+                }
+            }).catch((err) => reject(err))
+
+         		.then((session) => {
+         			if (!session) {
+         				let newSession = new Session({session: sessionId});
+         				newSession.save() 
+         				.then((session) => {
+         					return session
+         				}).catch((err) => reject(err))
+         				.then((sessionId) => {
+         					const newOrder = new Order({_session: sessionId._id});
+         					newOrder.save()
+         					.then((order) => {
+         						return populateOrder(Order.findOne({_id: order._id}))
+         					}).catch((err)=> reject(err))
+                  .then((order)=> {
+                    resolve(order);
+                  });
+         				});
+         			}
+
+         			else {
+         				const newOrder = new Order({_session: session._id});
+         				newOrder.save()
+         				.then((order) => {
+         					return populateOrder(Order.findOne({_id: order._id}))
+         				}).catch((err) => reject(err))
+                .then((order)=> {
+                  resolve(order);
+                });
+         			}
+         		});
+    });
 };
 
-orderDAO.findAllOrdersFromSession = function(sessionId) {
+
+
+orderDAO.confirmOrder = function(sessionID) {
 	return new Promise ((resolve, reject) => {
-		populateOrder(Order.find({_session: sessionId}).sort({createdAt: -1}))
-			.then((orders) => {
-				resolve(orders);
-			}).catch((err) => reject(err));
-	});
-};
-
-
-orderDAO.findMostRecentSessionOrder = function(sessionId, isConfirmed=false) {
-	return new Promise ((resolve, reject) => {
-		populateOrder(Order.findOne({_session: sessionId, isConfirmed: isConfirmed }).sort({createdAt: -1}))
-			.then((order) => {
-				resolve(order);
-			}).catch((err) => reject(err));
-	});
-};
-
-
-orderDAO.findByID = function(orderID) {
-	// const ObjectID = mongoose.Types.ObjectId(orderID)
-	return new Promise ((resolve, reject) => {
-		populateOrder(Order.findOne({_id: orderID}))
-		.then((order)=> resolve(order)).catch((err) => reject(err));
-	});
-};
-
-
-orderDAO.confirmOrder = function(isConfirmed, orderID) {
-	return new Promise ((resolve, reject) => {
-		populateOrder(Order.findOneAndUpdate({_id: orderID}, {isConfirmed: isConfirmed}, {new: true}))
+		populateOrder(Order.findOneAndUpdate({_session: sessionID}, {isConfirmed: true}, {new: true})).sort({createdAt: -1})
 			.then((order) => {
 				resolve(order);
 			}).catch((err) => res.send(err));
 	});
 };
 
-
-orderDAO.postNewOrder = function(sessionId) {
+orderDAO.unconfirmOrder = function(sessionID) {
 	return new Promise ((resolve, reject) => {
-		const newOrder = new Order({
-			_session: sessionId
-		});
-
-		newOrder.save()
+		populateOrder(Order.findOneAndUpdate({_session: sessionID}, {isConfirmed: true}, {new: false})).sort({createdAt: -1})
 			.then((order) => {
 				resolve(order);
-			}).catch((err) => reject(err));
+			}).catch((err) => res.send(err));
 	});
 };
 
-
-orderDAO.isTherePreviousOrderFromSession = function(sessionId, isConfirmed=false) {
-	return new Promise((resolve, reject) => {
-		Order.find({_session: sessionId})
-			.then((orders) => {
-				if (!orders.length) {
-					reject(false);
-				}
-				else {
-					resolve(true);
-				}
-			});
-	});
-};
 
 
 orderDAO.deleteItem = function(orderID,itemType,itemObject) {

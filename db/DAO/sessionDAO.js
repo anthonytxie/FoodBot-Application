@@ -4,7 +4,7 @@ const sessionDAO = {}
 
 sessionDAO.findSessionById = function(sessionId) {
     return new Promise((resolve, reject) => {
-        Session.findOne({sessionId})
+        Session.findOne({session : sessionId})
             .then((session) => {
                 if (!session) {
                     return resolve(false);
@@ -31,7 +31,7 @@ sessionDAO.findAllSessions = function() {
 
 sessionDAO.createSession = function(sessionId) {
     return new Promise ((resolve, reject) => {
-        const newSession = new Session ({_id: sessionId});
+        const newSession = new Session ({session: sessionId});
         newSession.save()
             .then((session) => {
                 return session
