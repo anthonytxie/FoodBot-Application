@@ -3,7 +3,6 @@ const drinkController = require('./controller/drinkController');
 const fryController = require('./controller/fryController');
 const milkshakeController = require('./controller/milkshakeController');
 const orderController = require('./controller/orderController');
-const sessionController = require('./controller/sessionController');
 
 const controller = {};
 
