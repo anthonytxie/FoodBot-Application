@@ -3,6 +3,13 @@ const mongoose = require('mongoose');
 const orderDAO = {};
 const {populateOrder}  = require('./helperFunctions');
 
+const itemMap = new Map()
+
+itemMap.set('burger', Burger)
+itemMap.set('milkshake', Milkshake)
+itemMap.set('drink', Drink)
+itemMap.set('fry', Fry)
+
 orderDAO.initializeOrder = function(sessionId) {
     return new Promise((resolve, reject) => {
         Session.findOne({session: sessionId})
@@ -92,40 +99,29 @@ orderDAO.deleteItem = function(orderID,itemType,itemObject) {
 };
 
 
-orderDAO.deleteMostRecentItemAdded = function(orderID) {
+orderDAO.deleteMostRecentItemAdded = function(session) {
 	return new Promise ((resolve,reject) => {
-		populateOrder(Order.findOne({_id: orderID}))
+    Session.findOne({session: session})
+      .then((session) => populateOrder(Order.findOne({_session:session._id}).sort({createdAt: -1})))
 			.then((order) => {
 				if (order.itemArray.length <= 0) {
 					return resolve(order);
 				}
 				else {
 					let mostRecentOrder = order.itemArray[0];
-					return mostRecentOrder;
-				}
-			}).catch((err) => reject(err))
-			.then((mostRecentOrder) => {
-				let id = mongoose.Types.ObjectId(mostRecentOrder[0])
-				if (mostRecentOrder[2] ==='burger') {
-					return Burger.findOneAndRemove({_id: id})
-				}
-				else if (mostRecentOrder[2] ==='milkshake') {
-					return Milkshake.findOneAndRemove({_id: id})
-				}
-				else if (mostRecentOrder[2] ==='drink') {
-					return Drink.findOneAndRemove({_id: id})
-				}
-				else if (mostRecentOrder[2] ==='fry') {
-					return Fry.findOneAndRemove({_id: id})
+					return order;
 				}
 			})
-			.then(() => {
-				return populateOrder(Order.findOne({_id: orderID}))
-			})
-			.then((order) => {
-				resolve(order);
-			})
-	});
-};
+      .then((order) => {
+        let mostRecentOrder = order.itemArray[0];
+        let id = mongoose.Types.ObjectId(mostRecentOrder[0])
+        return itemMap.get(mostRecentOrder[2]).findOneAndRemove({_id: id})        
+      })
+      .then((item) => {
+        resolve(item)
+      })
+  })
+}
+
 
 module.exports = orderDAO; 

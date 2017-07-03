@@ -16,6 +16,7 @@ actionMap.set('fry', fryController.post)
 actionMap.set('drink', drinkController.post)
 actionMap.set('confirm', orderController.confirmOrder)
 actionMap.set('unconfirm', orderController.unconfirmOrder)
+actionMap.set('delete', orderController.deleteMostRecentItem)
 
 
 controller.Post = (req, res) => {
