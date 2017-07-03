@@ -47,7 +47,7 @@ burgerDAO.post = function(result, session) {
       });
 
       Session.findOne({session: session})
-        .then((session) => (Order.findOne({_session: session._id})).sort({createdAt: -1}).catch((err) => reject(err)))
+        .then((session) => (Order.findOne({_session: session._id})).sort({createdAt: -1}).catch((err) => reject(err))).catch((err) => reject(err))
         .then((order) => burger.save()
             .then((burger) => {
                 resolve(populateOrder(Order.findOneAndUpdate({_id: order._id}, { $push: {'_burgers': burger._id}}, {new: true})));

@@ -50,22 +50,20 @@ orderDAO.initializeOrder = function(sessionId) {
 
 
 
-orderDAO.confirmOrder = function(sessionID) {
+orderDAO.confirmOrder = function(session) {
 	return new Promise ((resolve, reject) => {
-		populateOrder(Order.findOneAndUpdate({_session: sessionID}, {isConfirmed: true}, {new: true})).sort({createdAt: -1})
-			.then((order) => {
-				resolve(order);
-			}).catch((err) => res.send(err));
+    Session.findOne({session: session})
+    .then((session) => populateOrder(Order.findOneAndUpdate({_session: session._id}, {isConfirmed: true}, {new: true})).sort({createdAt: -1})).catch((err) => reject(err))
+    .then((order) => resolve(order)).catch((err) => reject(err))
 	});
 };
 
-orderDAO.unconfirmOrder = function(sessionID) {
-	return new Promise ((resolve, reject) => {
-		populateOrder(Order.findOneAndUpdate({_session: sessionID}, {isConfirmed: true}, {new: false})).sort({createdAt: -1})
-			.then((order) => {
-				resolve(order);
-			}).catch((err) => res.send(err));
-	});
+orderDAO.unconfirmOrder = function(session) {
+  return new Promise ((resolve, reject) => {
+    Session.findOne({session: session})
+    .then((session) => populateOrder(Order.findOneAndUpdate({_session: session._id}, {isConfirmed: false}, {new: true})).sort({createdAt: -1})).catch((err) => reject(err))
+    .then((order) => resolve(order)).catch((err) => reject(err))
+  });
 };
 
 

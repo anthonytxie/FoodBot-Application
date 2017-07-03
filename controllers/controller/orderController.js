@@ -12,7 +12,7 @@ orderController.confirmOrder = (req, res, result, session) => {
 	promiseHelper(req, res, orderDAO.confirmOrder(session));
 };
 
-orderController.unconfirmOrder = (req, res) => {
+orderController.unconfirmOrder = (req, res, result, session) => {
 	promiseHelper(req, res, orderDAO.unconfirmOrder(session));
 };
 
