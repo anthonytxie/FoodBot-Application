@@ -7,7 +7,7 @@ orderController.initializeOrder = (req, res, result, session) => {
   orderDAO.initializeOrder(session)
    .then((order) => {
       res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-        res.send(JSON.stringify({ "speech": response, "displayText": response 
+        res.send(JSON.stringify({ "speech": 'hello', "displayText": 'hello' 
         //"speech" is the spoken version of the response, "displayText" is the visual version
         }));
       });
