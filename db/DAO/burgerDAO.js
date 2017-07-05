@@ -11,39 +11,11 @@ burgerDAO.post = function(result, session) {
       
 
       const {
-        bunType,
-        meatType,
-        patties,
-        cheddar,
-        blueCheese,
-        swiss,
-        bacon,
-        sauce,
-        pickles,
-        lettuce,
-        tomatoes,
-        onions,
-        fried,
-        pankoCrumbs,
-        egg
+        patties
       } = result.parameters
 
       const burger = new Burger({
-        bunType,
-        meatType,
-        patties,
-        cheddar,
-        blueCheese,
-        swiss,
-        bacon,
-        sauce,
-        pickles,
-        lettuce,
-        tomatoes,
-        onions,
-        fried,
-        pankoCrumbs,
-        egg
+        patties
       });
 
       Session.findOne({session: session})
