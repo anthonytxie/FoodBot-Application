@@ -4,7 +4,18 @@ const {promiseHelper} = require('./..//helpers/helper-functions');
 
 
 orderController.initializeOrder = (req, res, result, session) => {
-	promiseHelper(req,res, orderDAO.initializeOrder(session));
+  orderDAO.initializeOrder(session)
+   .then((order) => {
+      res.setHeader('Content-Type', 'application/json'); 
+      let body = {
+        "speech": "you just added a burger",
+        "displayText": "you just added a burger",
+        "data": {},
+        "contextOut" : {},
+        "source": "foodbot"
+      }
+      res.send(body);
+    });
 };
 
 
