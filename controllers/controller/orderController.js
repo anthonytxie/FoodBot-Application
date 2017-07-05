@@ -6,12 +6,22 @@ const {promiseHelper} = require('./..//helpers/helper-functions');
 orderController.initializeOrder = (req, res, result, session) => {
   orderDAO.initializeOrder(session)
    .then((order) => {
-      res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-        res.send(JSON.stringify({ "speech": 'hello', "displayText": 'hello' 
-        //"speech" is the spoken version of the response, "displayText" is the visual version
-        }));
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Authorization', 'Bearer ' + 'a92a16035b1b441897e1654f7e17478a' )
+      let body =  {
+        speech: 'Get your pepes at Burger Burger!',
+        displayText: 'Get your pepes at Burger Burger! Get your pepes!!!',
+        data: {},
+        contextOut: [],
+        source: "Pepe",
+        followupEvent: {}
+      };
+      return res.send(body);    
       });
 };
+
+
+
 
 
 orderController.confirmOrder = (req, res, result, session) => {
