@@ -5,6 +5,11 @@ const schemaOptions =  require('./settings/schemaSettings');
 const burgerSchema = new Schema({
   
 //normal shit
+  itemType: {
+    type: String,
+    default: 'burger'
+  },
+
 
   bunType: {
     type: String,

@@ -4,6 +4,10 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const milkshakeSchema = new Schema ({
+  itemType: {
+    type: String,
+    default: 'milkshake'
+  },
   type: {
     type: String,
     enum: ['vanilla', 'strawberry', 'chocolate']

@@ -4,6 +4,11 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const drinkSchema = new Schema ({
+
+  itemType: {
+    type: String,
+    default: 'drink'
+  },
   type: {
     type: String,
     enum: ['Dr. Pepper', 'Rootbeer', 'Coke', 'Pepsi', 'Mountain Dew', 'Orange Juice', 'Milk']

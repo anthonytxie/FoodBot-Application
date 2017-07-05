@@ -4,6 +4,10 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const frySchema = new Schema ({
+  itemType: {
+    type: String,
+    default: 'fry'
+  },
   size: {
     type: String,
     enum: ['small', 'medium', 'large']

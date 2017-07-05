@@ -74,6 +74,17 @@ orderDAO.unconfirmOrder = function(session) {
 };
 
 
+orderDAO.showOrderDetails = function(session) {
+    return new Promise((resolve, reject) => {
+        Session.findOne({session: session})
+        .then((session) => populateOrder(Order.findOne({_session:session})).sort({createdAt: -1})).catch((err) => reject(err))
+        .then((order) => {
+            resolve(order);
+        }).catch((err) => reject(err));
+    });
+};
+
+
 
 // orderDAO.deleteItem = function(orderID,itemType,itemObject) {
 // 	return new Promise((resolve, reject) => {
