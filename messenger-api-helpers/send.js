@@ -82,7 +82,7 @@ const sendReadReceipt = (recipientId) => {
     sender_action: 'mark_seen', // eslint-disable-line camelcase
   };
 
-  api.callMessagesAPI(messageData);
+  sendApi.callMessagesAPI(messageData);
 };
 
 
