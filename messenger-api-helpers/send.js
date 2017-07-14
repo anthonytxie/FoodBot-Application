@@ -19,7 +19,7 @@ const sendOrderMessage = (recipientId, runnerDelivery) => {
 
 
 const sendEchoMessage = (recipientId, message) => {
-  sendMessage(recipientId, messaages.messageTemplate(message));
+  sendMessage(recipientId, messages.messageTemplate(message));
 };
 
 
