@@ -30,7 +30,10 @@ const handleReceivePostback = (messagingEvent) => {
 // runner does stuff with API.ai and webhook
   switch (type) {
     case 'initialize':
-      send.sendMessage(recipientId, {text: 'hello'});
+      runner.initialize()
+        .then((success) => {
+          send.sendMessage(senderId, {text: 'hello'})
+        })
       break;
     case 'create_new_order':
       runner.createNewOrder()
