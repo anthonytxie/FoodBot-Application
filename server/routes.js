@@ -2,6 +2,8 @@ const express = require('express');
 const controller = require('./../controllers/index');
 
 const routes = express();
+const receiveApi = require('../messenger-api-helpers/receive');
+
 
 //homepage 
 
@@ -15,44 +17,57 @@ routes.get('/', (req, res) => {
 routes.post('/', controller.Post);
 
 
+// Verify Token 
+//need to put secret in process.env
+
+routes.get('/', (req, res) => {
+  if (req.query['hub.verify_token'] === 'catfish' ) {
+    res.send(req.query['hub.challenge']);
+  } else {
+    res.send('Error, wrong token');
+  }
+});
 
 
+routes.post('/', (req, res) => {
+  /*
+    You must send back a status of 200(success) within 20 seconds
+    to let us know you've successfully received the callback.
+    Otherwise, the request will time out.
 
-// // //Order
-// // grabs the user from req.session.user and creates a new order. Adds it to req.session.order. should be called when creating a new order.
-// routes.post('/order', orderController.postNewOrder);
-// //Takes user from req.session.user and looks up the most recent order. post to specifiy most recent unconfirmed or confirmed order. 
-// routes.post('/mostrecentorder', orderController.userPreviousOrder);
-// // confirms the current order on req.session.order
-// routes.post('/confirmorder', orderController.confirmOrder);
-// //unconfirms the current order on req.session.order
-// routes.post('/unconfirmorder', orderController.unconfirmOrder);
+    When a request times out from Facebook the service attempts
+    to resend the message.
 
+    This is why it is good to send a response immediately so you
+    don't get duplicate messages in the event that a request takes
+    awhile to process.
+  */
+  res.sendStatus(200);
 
-// // get all the orders
-// routes.get('/orders', orderController.getAllOrders);
-// // get the current order on req.session.order
-// routes.get('/currentorder', orderController.getCurrentOrder);
-// // gets all orders from the user on req.session.user
-// routes.get('/allordersfromuser', orderController.getAllOrdersFromUser);
-// // deletes the most recent item added on req.session.order
-// routes.delete('/mostrecentitem', orderController.deleteMostRecentItem);
+  const data = req.body;
 
-// // //Post Foods pretty self-explanatory... look up the fooditem DAOs to see what kind of stuff you need to send in the post body.
-
-// // Drink
-// routes.post('/drink', drinkController.postNewDrink);
-
-// // //Burger
-// routes.post('/burger', burgerController.postNewBurger);
-// routes.get('/burger', burgerController.getBurger)
-
-// //Fry
-// routes.post('/fry', fryController.postNewFry);
-
-// //Milkshake
-// routes.post('/milkshake', milkshakeController.postNewMilkshake);
-
+  // Make sure this is a page subscription
+  if (data.object === 'page') {
+    // Iterate over each entry
+    // There may be multiple if batched
+    data.entry.forEach((pageEntry) => {
+      // Iterate over each messaging event and handle accordingly
+      pageEntry.messaging.forEach((messagingEvent) => {
+        console.log({messagingEvent});
+        if (messagingEvent.message) {
+          receiveApi.handleReceiveMessage(messagingEvent);
+        } if (messagingEvent.postback) {
+          receiveApi.handleReceivePostback(messagingEvent);
+        } else {
+          console.log(
+            'Webhook received unknown messagingEvent: ',
+            messagingEvent
+          );
+        }
+      });
+    });
+  }
+});
 
 
 module.exports = routes;

@@ -25,6 +25,8 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-session": "^1.15.3",
-    "mongoose": "^4.9.9"
+    "lodash": "^4.17.4",
+    "mongoose": "^4.9.9",
+    "request": "^2.81.0"
   }
 }

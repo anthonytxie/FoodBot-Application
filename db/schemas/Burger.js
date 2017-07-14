@@ -29,29 +29,25 @@ const burgerSchema = new Schema({
 
 //cheeses
   cheddar: {
-    type: Number,
-    default: 0,
-    trim: true
+    type: Boolean,
+    default: false,
   },
 
 
   blueCheese: {
-    type: Number,
-    default: 0,
-    trim: true
+    type: Boolean,
+    default: false,
   },
 
   swiss: {
-    type: Number,
-    default: 0,
-    trim: true
+    type: Boolean,
+    default: false,
   },
 
 //toppings
   bacon: {
-    type: Number,
-    default: 0 ,
-    trim: true
+    type: Boolean,
+    default: false ,
   },
 
   sauce: {
@@ -59,23 +55,23 @@ const burgerSchema = new Schema({
   },
 
   pickles: {
-    type: Number,
-    trim: true
+    type: Boolean,
+    default: true,
   },
 
   lettuce: {
-    type: Number,
-    trim: true
+    type: Boolean,
+    default: true
   },
 
   tomatoes: {
-    type: Number,
-    trim: true
+    type: Boolean,
+    default: true
   },
 
   onions: {
-    type: Number,
-    trim: true
+    type: Boolean,
+    default: true
   },
 
 //special toppings
