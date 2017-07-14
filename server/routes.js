@@ -21,7 +21,7 @@ routes.post('/', controller.Post);
 //need to put secret in process.env
 
 routes.get('/webhook', (req, res) => {
-  if (req.query['hub.verify_token'] === 'catfish' ) {
+  if (req.query['hub.verify_token'] === process.env.secret ) {
     res.send(req.query['hub.challenge']);
   } else {
     res.send('Error, wrong token');
