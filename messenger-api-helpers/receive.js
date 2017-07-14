@@ -33,7 +33,7 @@ const handleReceivePostback = (messagingEvent) => {
       runner.initialize()
         .then((success) => {
           send.sendMessage(recipientId, {text: 'hello'})
-        }).catch((err) => console.log('initialize function failed'));
+        })
       break;
     case 'create_new_order':
       runner.createNewOrder()
