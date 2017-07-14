@@ -86,7 +86,7 @@ const sendReadReceipt = (recipientId) => {
 };
 
 
-module.exports = { sendMessage, sendReadReceipt, sendInitializeMessage }
+module.exports = { sendMessage, sendReadReceipt, sendInitializeMessage, sendCreateNewOrderMessage, sendOrderMessage }
 
 
 

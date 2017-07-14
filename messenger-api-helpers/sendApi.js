@@ -6,7 +6,7 @@ const isEmpty = require('lodash/isEmpty');
 const request =  require('request');
 
 
-const PAGE_ACCESS_TOKEN = 'EAACH5pouINQBAOfFqwMwbGZCVs1bpiII58Uj0GkDWIrFQqPk6sZBCJ3KEQZA0uBjSyHYLAZCJR9atxb0JZAjKqLVRUpB6TnMjZBp5TZAK7ID56Bf7KxukehHpuw5EZBLxqeGuLJzWq7DGExZARkZASGovCinHmJZCY8SSjhhwuGo1G7agZDZD';
+const PAGE_ACCESS_TOKEN = 'EAACH5pouINQBAMKZCZCirZB5GV7Nr994spAXAdr1kT3QWh06r8ce87ZBdHE9Qheg8al0A3OsipkBMdSx4q5uTBrwWvyuZBayluqQArbXoleGRgHyxqQZBUk8pHCQoC3S1FtQAmD8Ndkcb9Qzm61hbUWpIUKLOpPWbID537InGb0QZDZD';
 
 const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 5) => {
   // Error if developer forgot to specify an endpoint to send our request to
