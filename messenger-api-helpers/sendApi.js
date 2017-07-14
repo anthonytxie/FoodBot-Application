@@ -78,4 +78,4 @@ const callThreadAPI = (messageDataArray, queryParams = {}) => {
 
 
 
-module.exports = { }
+module.exports = { callAPI, callMessagesAPI, callThreadAPI };
