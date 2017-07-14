@@ -29,7 +29,7 @@ routes.get('/webhook', (req, res) => {
 });
 
 
-routes.post('/', (req, res) => {
+routes.post('/webhook', (req, res) => {
   /*
     You must send back a status of 200(success) within 20 seconds
     to let us know you've successfully received the callback.
