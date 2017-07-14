@@ -5,7 +5,7 @@ const initialize = (senderId) => {
     userDAO.createUser(senderId)
       .then((user) => {
          console.log(user);
-         resolve(`this ${user.PSID} has been initialized`);
+         resolve('this user has been initialized';
       }).catch((err) => reject(err));
   });
 };
