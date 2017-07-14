@@ -4,7 +4,8 @@ const initialize = (senderId) => {
   return new Promise((resolve, reject) => {
     userDAO.createUser(senderId)
       .then((user) => {
-         resolve(`created new order for ${user.PSID}`);
+         console.log(user);
+         resolve(`this ${user.PSID} has been initialized`);
       }).catch((err) => reject(err));
   });
 };

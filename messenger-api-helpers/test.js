@@ -45,5 +45,9 @@ sendInitializeMessage(1234)
 
 
 
+const person = {
+  height: '1234'
+}
 
+console.log(`this guy is ${person.height}`)
 
