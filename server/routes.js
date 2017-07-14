@@ -56,18 +56,33 @@ routes.post('/webhook', (req, res) => {
         console.log({messagingEvent});
         if (messagingEvent.message) {
           receiveApi.handleReceiveMessage(messagingEvent);
-        } if (messagingEvent.postback) {
+        } else if (messagingEvent.postback) {
           receiveApi.handleReceivePostback(messagingEvent);
-        } else {
-          console.log(
-            'Webhook received unknown messagingEvent: ',
-            messagingEvent
-          );
+        } else if (messagingEvent.delivery) {
+            console.log('delivery')
         }
+          else if (messagingEvent.read) {
+            console.log('read')
+        }
+          else if (messagingEvent.optin) {
+            console.log('auth log in')
+          }
+          else if (messagingEvent.account_linking) {
+            console.log('account link')
+          }
+          else {
+            console.log(
+              'Webhook received unknown messagingEvent: ',
+              messagingEvent
+            );
+          }
       });
     });
   }
 });
+
+
+
 
 
 module.exports = routes;
