@@ -3,7 +3,7 @@ const userDAO = require('./../db/DAO/userDAO');
 const initialize = (senderId) => {
   return userDAO.createUser(senderId)
       .then((user) => {
-         return 'initialize called'
+         return user.PSID
       }).catch((err) => reject(err));
 };
 

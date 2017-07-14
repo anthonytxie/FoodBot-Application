@@ -51,3 +51,30 @@ const person = {
 
 console.log(`this guy is ${person.height}`)
 
+
+
+
+const promise = () => {
+  return new Promise((resolve,reject) => {
+    resolve('hello')
+  });
+};
+
+
+const resolvePromise = () => {
+  return promise()
+    .then((success) => {
+      return success
+    })
+}
+
+resolvePromise()
+  .then((success) => console.log(success))
+
+
+
+
+
+
+
+
