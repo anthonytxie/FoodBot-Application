@@ -19,11 +19,13 @@ const sendMessage = (recipientId, messagePayloads) => {
   const messagePayloadArray = castArray(messagePayloads)
     .map((messagePayload) => messageToJSON(recipientId, messagePayload));
 
+  console.log(messagePayloadArray)
   sendApi.callMessagesAPI([
     typingOn(recipientId),
     ...messagePayloadArray,
     typingOff(recipientId),
   ]);
+
 };
 
 
