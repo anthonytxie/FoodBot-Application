@@ -24,8 +24,8 @@ const handleReceiveMessage = (messagingEvent) => {
 
 const handleReceivePostback = (messagingEvent) => {
   //assuming payload is an object that has type and data
-  const {type, data} = JSON.parse(event.postback.payload); 
-  const senderId = event.sender.id;
+  const {type, data} = JSON.parse(messagingEvent.postback.payload); 
+  const senderId = messagingEvent.sender.id;
 
 // runner does stuff with API.ai and webhook
   switch (type) {
