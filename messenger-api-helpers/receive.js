@@ -32,20 +32,20 @@ const handleReceivePostback = (messagingEvent) => {
     case 'initialize':
       runner.initialize()
         .then((success) => {
-          send.sendMessage(senderId, {text: 'hello'})
-        })
+          send.sendInitializeMessage(senderId, success)
+        }).catch((err) => console.log(err))
       break;
     case 'create_new_order':
       runner.createNewOrder()
         .then((success) => {
           send.sendCreateNewOrderMessage(senderId, success)
-        }).catch((err) => console.log('create new order function failed'));
+        }).catch((err) => console.log(err));
       break;
     case 'order':
       runner.order()
         .then((success) => {
           send.sendOrderMessage(senderId, success)
-        }).catch((err) => console.log('order function failed'));
+        }).catch((err) => console.log(err));
       break;
     default:
       console.log(`unknown postback called ${type}`)
