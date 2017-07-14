@@ -9,6 +9,16 @@ const sendInitializeMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
 };
 
+const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
+  sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
+};
+
+const sendOrderMessage = (recipientId, runnerDelivery) => {
+  sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
+};
+
+
+
 
 // MAIN SENDER MESSAGE FUNCTION
 

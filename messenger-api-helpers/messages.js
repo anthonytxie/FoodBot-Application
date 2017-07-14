@@ -7,7 +7,7 @@ const newOrderButton = {
     type: 'postback',
     title: 'New Order',
     payload: JSON.stringify({
-      type: 'initialize',
+      type: 'create_new_order',
     })
   };
 
@@ -15,7 +15,7 @@ const orderButton = {
     type: 'postback',
     title: 'Order',
     payload: JSON.stringify({
-      type: 'initialize',
+      type: 'order',
     })
   };
 
