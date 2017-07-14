@@ -29,6 +29,7 @@ const sendMessage = (recipientId, messagePayloads) => {
 };
 
 
+
 // SENDER HELPER FUNCTIONS
 
 // Wraps a message JSON object with recipient information.
@@ -75,7 +76,7 @@ const sendReadReceipt = (recipientId) => {
 };
 
 
-
+module.exports = { sendMessage, sendReadReceipt, sendInitializeMessage }
 
 
 
