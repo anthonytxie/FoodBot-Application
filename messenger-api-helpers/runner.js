@@ -1,6 +1,5 @@
 userDAO = require('./../db/dao/userDAO');
 
-
 const initialize = (senderId) => {
   return new Promise((resolve, reject) => {
     userDAO.createUser(senderId)
