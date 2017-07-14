@@ -17,6 +17,6 @@ const setGetStarted = () => {
 
 
 setPersistentMenu()
-
+setGetStarted()
 module.exports = { setPersistentMenu, setGetStarted };
 

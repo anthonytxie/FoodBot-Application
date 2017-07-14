@@ -1,5 +1,5 @@
 const messageTemplate = (runnerPackage) => {
-  return 'this is the template message. ' + runnerPackage;
+  return {text: 'this is the template message. ' + runnerPackage};
 };
 
 
@@ -7,7 +7,7 @@ const newOrderButton = {
     type: 'postback',
     title: 'New Order',
     payload: JSON.stringify({
-      type: 'create_new_order',
+      type: 'initialize',
     })
   };
 
@@ -15,7 +15,7 @@ const orderButton = {
     type: 'postback',
     title: 'Order',
     payload: JSON.stringify({
-      type: 'order',
+      type: 'initialize',
     })
   };
 
