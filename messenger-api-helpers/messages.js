@@ -19,13 +19,20 @@ const orderButton = {
     })
   };
 
-
+const initializeButton = { 
+    type: 'postback',
+    title: 'Initialize',
+    payload: JSON.stringify({
+      type: 'initialize',
+    })
+  };
 const persistentMenu = {
   setting_type: 'call_to_actions',
   thread_state: 'existing_thread',
   call_to_actions: [
     newOrderButton,
-    orderButton
+    orderButton,
+    initializeButton
   ],
 };
 

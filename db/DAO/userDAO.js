@@ -2,9 +2,9 @@ const {Burger, Fry, Drink, Milkshake, Order, Session, User } = require('./../ind
 const userDAO = {};
 
 
-userDAO.createUser = function(firstName, lastName) {
+userDAO.createUser = function(PSID) {
     return new Promise ((resolve, reject) => {
-        const newUser = new User ({firstName, lastName});
+        const newUser = new User ({PSID});
         newUser.save()
             .then((user) => {
                 return user
