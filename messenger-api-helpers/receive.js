@@ -5,7 +5,8 @@ const runner = require('./runner');
 
 const handleReceiveMessage = (messagingEvent) => {
   const message = messagingEvent.message;
-  const senderId = messagingEvent.sender.id;
+  //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string 
+  const senderId = messagingEvent.sender.id.toString();
 
   // good practice to send a read receipt so if user is waiting for a response 
   //they know the bot has seen the message
@@ -25,7 +26,8 @@ const handleReceiveMessage = (messagingEvent) => {
 const handleReceivePostback = (messagingEvent) => {
   //assuming payload is an object that has type and data
   const {type, data} = JSON.parse(messagingEvent.postback.payload); 
-  const senderId = messagingEvent.sender.id;
+  //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string 
+  const senderId = messagingEvent.sender.id.toString();
 
 // runner does stuff with API.ai and webhook
   switch (type) {
