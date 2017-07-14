@@ -1,13 +1,10 @@
 const userDAO = require('./../db/DAO/userDAO');
 
 const initialize = (senderId) => {
-  return new Promise((resolve, reject) => {
-    userDAO.createUser(senderId)
+  return userDAO.createUser(senderId)
       .then((user) => {
-         console.log(user);
-         resolve(`user has been initialized`);
+         return 'initialize called'
       }).catch((err) => reject(err));
-  });
 };
 
 const createNewOrder = () => {
