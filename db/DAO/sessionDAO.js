@@ -29,17 +29,19 @@ sessionDAO.findAllSessions = function() {
 };
 
 
-sessionDAO.createSession = function(sessionId) {
+sessionDAO.createSession = function(sessionId, PSID) {
     return new Promise ((resolve, reject) => {
         const newSession = new Session ({session: sessionId});
         newSession.save()
             .then((session) => {
-                return session
-            }).catch((err) => reject(err))
+                User.findOneAndUpdate({PSID}, { $push: {'_sessions' : session._id}}, {new: true})
+            }).catch((err) => console.log(err))
+            .then((user) => {
+                resolve(user)
+            }).catch((err) => console.log(err))
     });
 };
-
-
+        
 
 module.exports = sessionDAO;
 
