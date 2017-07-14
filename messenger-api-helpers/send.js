@@ -6,17 +6,21 @@ const sendApi = require('./sendApi');
 // DIFFERENT SENDER FUNCTIONS
 
 const sendInitializeMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
+  sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
 
 const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
+  sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
 
 const sendOrderMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
+  sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
 
+
+const sendEchoMessage = (recipientId, message) => {
+  sendMessage(recipientId, messaages.messageTemplate(message));
+};
 
 
 

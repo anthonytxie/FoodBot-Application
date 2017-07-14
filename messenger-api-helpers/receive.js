@@ -16,7 +16,8 @@ const handleReceiveMessage = (messagingEvent) => {
   // for now this will echo the text being received
 
   if (message.text) {
-    send.echoMessage(senderId);
+    send.echoMessage(senderId, message.text);
+    console.log(message.text)
   }
 };
 
