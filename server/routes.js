@@ -20,7 +20,7 @@ routes.post('/', controller.Post);
 // Verify Token 
 //need to put secret in process.env
 
-routes.get('/', (req, res) => {
+routes.get('/webhook', (req, res) => {
   if (req.query['hub.verify_token'] === 'catfish' ) {
     res.send(req.query['hub.challenge']);
   } else {
