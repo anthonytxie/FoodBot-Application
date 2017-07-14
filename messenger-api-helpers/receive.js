@@ -35,7 +35,7 @@ const handleReceivePostback = (messagingEvent) => {
     case 'initialize':
       runner.initialize(senderId)
         .then((success) => {
-          send.sendInitializeMessage(senderId, success)
+          send.sendInitializeMessage(senderId, 'this user has been initialized')
         }).catch((err) => console.log(err))
       break;
     case 'create_new_order':
