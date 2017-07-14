@@ -6,7 +6,7 @@ const sendApi = require('./sendApi');
 // DIFFERENT SENDER FUNCTIONS
 
 const sendInitializeMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientID, messages.messageTemplate(runnerDelivery))
+  sendMessage(recipientId, messages.messageTemplate(runnerDelivery))
 };
 
 
