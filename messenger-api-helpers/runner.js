@@ -8,6 +8,13 @@ const createNewOrder = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
 };
 
+userDAO.createUser(1086113204824237)
+
+sessionDAO.sessionRenewal(1086113204824237)
+
+
+
+
 
 const order = () => {
   return new Promise((resolve, reject) => {

@@ -11,7 +11,8 @@ const userSchema = new Schema ({
 
   PSID: {
     type: String,
-    unique: true
+    unique: true,
+    dropDups: true
   },
   
   createdAt: {
