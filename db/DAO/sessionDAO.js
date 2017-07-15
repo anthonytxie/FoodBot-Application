@@ -42,13 +42,15 @@ sessionDAO.createSession = function(PSID) {
             })
             .catch(err => reject(err))
             .then(session => {
-                User.findOneAndUpdate(
+                return User.findOneAndUpdate(
                     { PSID },
                     { $push: { _sessions: session._id } },
                     { new: true }
                 );
             })
-            .catch(err => reject(err));
+            .catch(err => reject(err))
+            .then((user) => resolve(`added a new session to user ${user.PSID}`))
+            .catch((err) => reject(err))
     });
 };
 
@@ -67,7 +69,7 @@ sessionDAO.sessionRenewal = function(PSID) {
                         .createSession(PSID)
                         .then(session => resolve(session));
                 } else {
-                    Session.findOneAndUpdate(
+                    return Session.findOneAndUpdate(
                         { _id: session._id },
                         { lastActiveDate: Date.now },
                         { new: true }
