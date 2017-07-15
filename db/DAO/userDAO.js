@@ -7,7 +7,7 @@ userDAO.createUser = function(PSID) {
         const newUser = new User ({PSID});
         newUser.save()
             .then((user) => {
-                return user
+                resolve(user)
             }).catch((err) => reject(err))
     });
 };
