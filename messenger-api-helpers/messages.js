@@ -5,7 +5,7 @@ const messageTemplate = (runnerPackage) => {
 
 const newOrderButton = { 
     type: 'postback',
-    title: 'Littttt',
+    title: 'New Order',
     payload: JSON.stringify({
       type: 'create_new_order',
     })
@@ -13,7 +13,7 @@ const newOrderButton = {
 
 const orderButton = { 
     type: 'postback',
-    title: 'Tits',
+    title: 'Order',
     payload: JSON.stringify({
       type: 'order',
     })
@@ -21,7 +21,7 @@ const orderButton = {
 
 const initializeButton = { 
     type: 'postback',
-    title: 'FatBoi',
+    title: 'Initialize',
     payload: JSON.stringify({
       type: 'initialize',
     })
