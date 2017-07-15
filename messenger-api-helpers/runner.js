@@ -1,5 +1,5 @@
 const userDAO = require('./../db/DAO/userDAO');
-
+const sessionDAO = require('./../db/DAO/sessionDAO')
 const initialize = (senderId) => {
   return userDAO.createUser(senderId)
 };
