@@ -49,8 +49,8 @@ sessionDAO.createSession = function(PSID) {
                 );
             })
             .catch(err => reject(err))
-            .then((user) => resolve(`added a new session to user ${user.PSID}`))
-            .catch((err) => reject(err))
+            .then(user => resolve(`added a new session to user ${user.PSID}`))
+            .catch(err => reject(err));
     });
 };
 
@@ -65,19 +65,16 @@ sessionDAO.sessionRenewal = function(PSID) {
             .catch(err => reject(err))
             .then(session => {
                 if (Date.now - session.lastActiveDate > 1800000) {
-                    sessionDAO
-                        .createSession(PSID)
-                        .then(session => resolve(session));
+                    return sessionDAO.createSession(PSID);
                 } else {
                     return Session.findOneAndUpdate(
                         { _id: session._id },
                         { lastActiveDate: Date.now },
                         { new: true }
-                    )
-                        .then(session => resolve(session))
-                        .catch(err => reject(err));
+                    );
                 }
             })
+            .then(session => resolve(session))
             .catch(err => reject(err));
     });
 };
