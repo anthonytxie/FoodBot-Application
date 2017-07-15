@@ -20,7 +20,7 @@ userDAO.createUser = function(PSID) {
       })
       .catch(err => reject(err))
       .then(session => {
-        User.findOneAndUpdate(
+        return User.findOneAndUpdate(
           { PSID },
           { $push: { _sessions: session._id } },
           { new: true }
