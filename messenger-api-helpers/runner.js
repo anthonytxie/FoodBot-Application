@@ -2,16 +2,10 @@ const userDAO = require('./../db/DAO/userDAO');
 
 const initialize = (senderId) => {
   return userDAO.createUser(senderId)
-
-  // create the user
-  //set new session on the user
-  
 };
 
-const createNewOrder = () => {
-  return new Promise((resolve, reject) => {
-    resolve('created new order')
-  });
+const createNewOrder = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
 };
 
 
