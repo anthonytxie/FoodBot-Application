@@ -43,7 +43,7 @@ const handleReceivePostback = (messagingEvent) => {
         .then((session)=> {
           send.sendInitializeMessage(senderId, session.lastActiveDate)
         })
-      break;
+      break;  
     case 'order':
       runner.order()
         .then((success) => {

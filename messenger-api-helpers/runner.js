@@ -10,7 +10,6 @@ const createNewOrder = (senderId) => {
 
 userDAO.createUser(1086113204824237)
 
-sessionDAO.sessionRenewal(1086113204824237)
 
 
 
