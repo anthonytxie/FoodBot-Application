@@ -2,6 +2,10 @@ const userDAO = require('./../db/DAO/userDAO');
 
 const initialize = (senderId) => {
   return userDAO.createUser(senderId)
+
+  // create the user
+  //set new session on the user
+  
 };
 
 const createNewOrder = () => {

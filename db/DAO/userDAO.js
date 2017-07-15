@@ -7,10 +7,16 @@ userDAO.createUser = function(PSID) {
         const newUser = new User ({PSID});
         newUser.save()
             .then((user) => {
-                resolve(user)
+              const newSession = new Session({_user: user._id})
+              return newSession.save()
             }).catch((err) => reject(err))
+            .then((session) => {
+              resolve(session)
+            })
     });
 };
+
+
 
 
 module.exports = userDAO;

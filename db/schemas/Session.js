@@ -7,14 +7,20 @@ const sessionSchema = new Schema ({
 
   session: String,
 
+  _user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+
   createdAt: {
     type: Date,
     default: Date.now
   },
-  isDeleted: {
-    type: Boolean,
-    default: false
-  },
+
+  lastActiveDate: {
+    type: Date,
+    default: Date.now
+  }
 
 });
 

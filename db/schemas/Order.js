@@ -4,6 +4,11 @@ mongoose.Promise = global.Promise;
 const schemaOptions =  require('./settings/schemaSettings');
 
 const orderSchema = new Schema({
+  _user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+
   _session: {
     type: Schema.ObjectId,
     ref: 'Session'
@@ -54,10 +59,6 @@ const orderSchema = new Schema({
     default: false 
   },
 
-  isDeleted: {
-    type: Boolean,
-    default: false
-  }
 }, schemaOptions)
 
 orderSchema.virtual('orderPrice').get(function() {

@@ -13,45 +13,45 @@ itemMap.set('fry', Fry)
 orderDAO.initializeOrder = function(sessionId) {
     return new Promise((resolve, reject) => {
         Session.findOne({session: sessionId})
-            .then((session) => {
-                if (!session) {
-                    return false ;
-                }
-                else {
-                    return session;
-                }
-            }).catch((err) => reject(err))
+        .then((session) => {
+            if (!session) {
+                return false ;
+            }
+            else {
+                return session;
+            }
+        }).catch((err) => reject(err))
 
-         		.then((session) => {
-         			if (!session) {
-         				let newSession = new Session({session: sessionId});
-         				newSession.save() 
-         				.then((session) => {
-         					return session
-         				}).catch((err) => reject(err))
-         				.then((sessionId) => {
-         					const newOrder = new Order({_session: sessionId._id});
-         					newOrder.save()
-         					.then((order) => {
-         						return populateOrder(Order.findOne({_id: order._id}))
-         					}).catch((err)=> reject(err))
+        .then((session) => {
+            if (!session) {
+               let newSession = new Session({session: sessionId});
+               newSession.save() 
+               .then((session) => {
+                  return session
+              }).catch((err) => reject(err))
+               .then((sessionId) => {
+                  const newOrder = new Order({_session: sessionId._id});
+                  newOrder.save()
+                  .then((order) => {
+                     return populateOrder(Order.findOne({_id: order._id}))
+                 }).catch((err)=> reject(err))
                   .then((order)=> {
                     resolve(order);
-                  });
-         				});
-         			}
-
-         			else {
-         				const newOrder = new Order({_session: session._id});
-         				newOrder.save()
-         				.then((order) => {
-         					return populateOrder(Order.findOne({_id: order._id}))
-         				}).catch((err) => reject(err))
-                .then((order)=> {
-                  resolve(order);
                 });
-         			}
-         		});
+              });
+           }
+
+           else {
+               const newOrder = new Order({_session: session._id});
+               newOrder.save()
+               .then((order) => {
+                  return populateOrder(Order.findOne({_id: order._id}))
+              }).catch((err) => reject(err))
+               .then((order)=> {
+                  resolve(order);
+              });
+           }
+       });
     });
 };
 
@@ -59,10 +59,10 @@ orderDAO.initializeOrder = function(sessionId) {
 
 orderDAO.confirmOrder = function(session) {
 	return new Promise ((resolve, reject) => {
-    Session.findOne({session: session})
-    .then((session) => populateOrder(Order.findOneAndUpdate({_session: session._id}, {isConfirmed: true}, {new: true})).sort({createdAt: -1})).catch((err) => reject(err))
-    .then((order) => resolve(order)).catch((err) => reject(err))
-	});
+        Session.findOne({session: session})
+        .then((session) => populateOrder(Order.findOneAndUpdate({_session: session._id}, {isConfirmed: true}, {new: true})).sort({createdAt: -1})).catch((err) => reject(err))
+        .then((order) => resolve(order)).catch((err) => reject(err))
+    });
 };
 
 orderDAO.unconfirmOrder = function(session) {
@@ -70,7 +70,7 @@ orderDAO.unconfirmOrder = function(session) {
     Session.findOne({session: session})
     .then((session) => populateOrder(Order.findOneAndUpdate({_session: session._id}, {isConfirmed: false}, {new: true})).sort({createdAt: -1})).catch((err) => reject(err))
     .then((order) => resolve(order)).catch((err) => reject(err))
-  });
+});
 };
 
 
@@ -112,26 +112,26 @@ orderDAO.showOrderDetails = function(session) {
 
 orderDAO.deleteMostRecentItemAdded = function(session) {
 	return new Promise ((resolve,reject) => {
-    Session.findOne({session: session})
-      .then((session) => populateOrder(Order.findOne({_session:session._id}).sort({createdAt: -1})))
-			.then((order) => {
-				if (order.itemArray.length <= 0) {
-					return resolve(order);
-				}
-				else {
-					let mostRecentOrder = order.itemArray[0];
-					return order;
-				}
-			})
-      .then((order) => {
-        let mostRecentOrder = order.itemArray[0];
-        let id = mongoose.Types.ObjectId(mostRecentOrder[0])
-        return itemMap.get(mostRecentOrder[2]).findOneAndRemove({_id: id})        
-      })
-      .then((item) => {
-        resolve(item)
-      })
-  })
+        Session.findOne({session: session})
+        .then((session) => populateOrder(Order.findOne({_session:session._id}).sort({createdAt: -1})))
+        .then((order) => {
+            if (order.itemArray.length <= 0) {
+               return resolve(order);
+           }
+           else {
+               let mostRecentOrder = order.itemArray[0];
+               return order;
+           }
+       })
+        .then((order) => {
+            let mostRecentOrder = order.itemArray[0];
+            let id = mongoose.Types.ObjectId(mostRecentOrder[0])
+            return itemMap.get(mostRecentOrder[2]).findOneAndRemove({_id: id})        
+        })
+        .then((item) => {
+            resolve(item)
+        })
+    })
 }
 
 

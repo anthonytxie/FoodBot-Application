@@ -9,18 +9,16 @@ const userSchema = new Schema ({
 
   lastName: String,
 
-  PSID: String,
-
+  PSID: {
+    type: String,
+    unique: true
+  },
+  
   createdAt: {
     type: Date,
     default: Date.now
   },
   
-  isDeleted: {
-    type: Boolean,
-    default: false
-  },
-
   _sessions: [{
     type: Schema.ObjectId,
     ref: "Session"
