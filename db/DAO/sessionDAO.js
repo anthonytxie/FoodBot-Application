@@ -69,7 +69,7 @@ sessionDAO.sessionRenewal = function(PSID) {
                 } else {
                     return Session.findOneAndUpdate(
                         { _id: session._id },
-                        {$set: {lastActiveDate: Date.now }},
+                        { $set: {lastActiveDate: Date.now() }},
                         { new: true }
                     );
                 }
@@ -80,3 +80,5 @@ sessionDAO.sessionRenewal = function(PSID) {
 };
 
 module.exports = sessionDAO;
+
+
