@@ -13,18 +13,20 @@ burgerDAO.post = function(payload, sessionId) {
     Order.findOne({ _session: sessionId })
       .sort({ createdAt: -1 })
       .then(order => {
-        return burger.save();
-      })
-      .then(burger => {
-        resolve(
-          populateOrder(
-            Order.findOneAndUpdate(
-              { _id: order._id },
-              { $push: { _burgers: burger._id } },
-              { new: true }
-            )
-          )
-        );
+        burger
+          .save()
+          .then(burger => {
+            return resolve(
+              populateOrder(
+                Order.findOneAndUpdate(
+                  { _id: order._id },
+                  { $push: { _burgers: burger._id } },
+                  { new: true }
+                )
+              )
+            );
+          })
+          .catch(err => reject(err));
       });
   });
 };
