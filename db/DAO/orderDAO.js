@@ -19,7 +19,7 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
           _user: user._id,
           _session: sessionObjectId
         });
-        return populateOrder(newOrder.save());
+        return (newOrder.save().populate('_session'));
       })
       .catch(err => reject(err))
       .then(order => resolve(order)
