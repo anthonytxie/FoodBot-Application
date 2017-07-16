@@ -66,7 +66,7 @@ sessionDAO.sessionRenewal = function(PSID) {
             })
             .catch(err => reject(err))
             .then(session => {
-                if (Date.now() - session.lastActiveDate > 1) {
+                if (Date.now() - session.lastActiveDate > 180000) {
                     return sessionDAO.createSession(PSID);
                 } else {
                     return Session.findOneAndUpdate(
