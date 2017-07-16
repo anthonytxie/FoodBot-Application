@@ -5,23 +5,21 @@ const { populateOrder } = require("./helperFunctions");
 burgerDAO.post = function(payload, sessionId) {
   // const ObjectID = mongoose.Types.ObjectId(orderID)
   return new Promise((resolve, reject) => {
-    // destructure payload here 
+    // destructure payload here
     const burger = new Burger({
       patties: 1
     });
 
     Session.findOne({ _id: sessionId })
       .then(session => {
-         return Order.findOne({ _session: session._id })
-          .sort({ createdAt: -1 })
-          .catch(err => reject(err))
+        return Order.findOne({ _session: session._id }).sort({ createdAt: -1 });
       })
       .catch(err => reject(err))
-      .then(order =>
+      .then(order => {
         burger
           .save()
           .then(burger => {
-            resolve(
+            return resolve(
               populateOrder(
                 Order.findOneAndUpdate(
                   { _id: order._id },
@@ -31,8 +29,8 @@ burgerDAO.post = function(payload, sessionId) {
               )
             );
           })
-          .catch(err => reject(err))
-      )
+          .catch(err => reject(err));
+      })
       .catch(err => reject(err));
   });
 };
