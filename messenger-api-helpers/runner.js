@@ -14,7 +14,6 @@ const createNewOrder = (senderId) => {
 };
 
 
-
 const order = () => {
   return new Promise((resolve, reject) => {
     resolve('added to order')

@@ -9,6 +9,10 @@ const promise = () => {
 
 const resolvePromise = () => {
   return promise()
+    .then((message) => {
+      return message +' tom'
+    })
+
 
 }
 

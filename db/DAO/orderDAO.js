@@ -1,4 +1,4 @@
-const { Burger, Fry, Drink, Milkshake, Order, Session } = require("./../index");
+const { Burger, Fry, Drink, Milkshake, Order, Session, User } = require("./../index");
 const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");

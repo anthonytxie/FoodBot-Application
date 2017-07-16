@@ -40,8 +40,8 @@ const handleReceivePostback = (messagingEvent) => {
       break;
     case 'create_new_order':
       runner.createNewOrder(senderId)
-        .then((session)=> {
-          send.sendInitializeMessage(senderId, session.lastActiveDate)
+        .then((order)=> {
+          send.sendInitializeMessage(senderId, order.createdAt)
         })
       break;  
     case 'order':
