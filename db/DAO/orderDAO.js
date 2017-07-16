@@ -22,7 +22,7 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
         return newOrder.save();
       })
       .catch(err => reject(err))
-      .then(order => resolve(order))
+      .then(order => resolve(populateOrder(order))
       .catch(err => reject(err));
   });
 };
