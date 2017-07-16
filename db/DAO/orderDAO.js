@@ -11,13 +11,12 @@ itemMap.set("drink", Drink);
 itemMap.set("fry", Fry);
 
 orderDAO.initializeOrder = function(PSID, sessionId) {
-  let sessionObjectId = mongoose.Types.ObjectId(sessionId);
   return new Promise((resolve, reject) => {
     User.findOne({ PSID })
       .then(user => {
         const newOrder = new Order({
           _user: user._id,
-          _session: sessionObjectId
+          _session: sessionId
         });
         return populateOrder(newOrder.save())
       })
