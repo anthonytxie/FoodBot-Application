@@ -10,7 +10,7 @@ burgerDAO.post = function(payload, sessionId) {
       patties: 1
     });
 
-    Order.findOne({ _session: session._id }).sort({ createdAt: -1 })
+    Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
       .then((order) => resolve(order))
     });
 };
