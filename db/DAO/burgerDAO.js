@@ -14,25 +14,8 @@ burgerDAO.post = function(payload, sessionId) {
       .then(session => {
         return Order.findOne({ _session: session._id }).sort({ createdAt: -1 });
       })
-      .catch(err => reject(err))
-      .then(order => {
-        burger
-          .save()
-          .then(burger => {
-            return resolve(
-              populateOrder(
-                Order.findOneAndUpdate(
-                  { _id: order._id },
-                  { $push: { _burgers: burger._id } },
-                  { new: true }
-                )
-              )
-            );
-          })
-          .catch(err => reject(err));
-      })
-      .catch(err => reject(err));
-  });
+     .then((order) => resolve(order))
+    });
 };
 
 module.exports = burgerDAO;
