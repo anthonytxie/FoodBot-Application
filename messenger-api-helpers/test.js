@@ -22,7 +22,11 @@ resolvePromise()
 
 
 
+console.log(typeof('hello'))
 
 
+if (typeof('2134')==='string') {
+  console.log('yes')
+}
 
 
