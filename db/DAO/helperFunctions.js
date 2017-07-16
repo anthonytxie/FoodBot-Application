@@ -7,6 +7,7 @@ const populateOrder = function(operation) {
     .populate("_milkshakes")
     .populate("_fries")
     .populate('_session')
+    .populate("_user")
 };
 
 
