@@ -23,5 +23,12 @@ const addBurgertoOrder = (senderId) => {
     }).catch((err) => console.log(err))
 };
 
+const addDrinktoOrder = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
+    .then((session) => {
+      return drinkDAO.post({size:'medium'}, session._id)
+    }).catch((err) => console.log(err))
+};
+
 
 module.exports = { initialize, createNewOrder, addBurgertoOrder };
