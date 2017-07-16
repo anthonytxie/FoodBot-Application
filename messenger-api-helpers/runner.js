@@ -19,7 +19,7 @@ const createNewOrder = (senderId) => {
 const addBurgertoOrder = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
     .then((session) => {
-      return burgerDAO.post({patties: 1}, session._id)
+      return session
     }).catch((err) => console.log(err))
 };
 
