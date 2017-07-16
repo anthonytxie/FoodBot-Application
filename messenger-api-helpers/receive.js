@@ -44,10 +44,28 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendInitializeMessage(senderId, order._session)
         })
       break;  
-    case 'order':
-      runner.order()
-        .then((success) => {
-          send.sendOrderMessage(senderId, success)
+    case 'order-burger':
+      runner.addBurgertoOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+    case 'order-drink':
+      runner.addBurgertoOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+    case 'order-milkshake':
+      runner.addBurgertoOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+    case 'order-fries':
+      runner.addBurgertoOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
         }).catch((err) => console.log(err));
       break;
     default:

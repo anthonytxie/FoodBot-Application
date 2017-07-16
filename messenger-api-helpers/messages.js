@@ -11,11 +11,11 @@ const newOrderButton = {
     })
   };
 
-const orderButton = { 
+const orderBurgerButton = { 
     type: 'postback',
-    title: 'Order',
+    title: 'Order Burger',
     payload: JSON.stringify({
-      type: 'order',
+      type: 'order-burger',
     })
   };
 
@@ -31,7 +31,7 @@ const persistentMenu = {
   thread_state: 'existing_thread',
   call_to_actions: [
     newOrderButton,
-    orderButton,
+    orderBurgerButton,
     initializeButton
   ],
 };
