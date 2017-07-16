@@ -27,6 +27,15 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
   });
 };
 
+orderDAO.getAllOrders = () => {
+  return new Promise((resolve, reject) => {
+    populateOrder(Order.find())
+      .then((orders) => resolve(orders)).catch((err) => reject(err));
+  });
+};
+
+
+
 orderDAO.confirmOrder = function(session) {
   return new Promise((resolve, reject) => {
     Session.findOne({ session: session })

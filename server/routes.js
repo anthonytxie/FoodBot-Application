@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('./../controllers/index');
+const orderController = require('./../controllers/controller/orderController');
 
 const routes = express();
 const receiveApi = require('../messenger-api-helpers/receive');
@@ -80,6 +81,8 @@ routes.post('/webhook', (req, res) => {
     });
   }
 });
+
+routes.get('/orders', orderController.showAllOrders);
 
 
 

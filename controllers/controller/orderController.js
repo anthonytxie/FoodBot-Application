@@ -21,6 +21,14 @@ orderController.initializeOrder = (req, res, result, session) => {
 };
 
 
+orderController.showAllOrders = (req, res) => {
+  orderDAO.getAllOrders()
+    .then((orders) => res.send(orders))
+}
+
+
+
+
 orderController.showOrderDetails = (req, res, result, session) => {
   orderDAO.showOrderDetails(session)
   .then((order) => {
