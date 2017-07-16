@@ -3,7 +3,7 @@ const sessionDAO = require('./../db/DAO/sessionDAO')
 const orderDAO = require('./../db/DAO/orderDAO');
 
 const initialize = (senderId) => {
-  return UserDAO.createUser(senderId)
+  return userDAO.createUser(senderId)
 };
 
 const createNewOrder = (senderId) => {
