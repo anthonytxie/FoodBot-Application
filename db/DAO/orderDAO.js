@@ -1,4 +1,12 @@
-const { Burger, Fry, Drink, Milkshake, Order, Session, User } = require("./../index");
+const {
+  Burger,
+  Fry,
+  Drink,
+  Milkshake,
+  Order,
+  Session,
+  User
+} = require("./../index");
 const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");
@@ -18,7 +26,7 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
           _user: user._id,
           _session: sessionId
         });
-        return populateOrder(newOrder.save())
+        return populateOrder(newOrder.save());
       })
       .catch(err => reject(err))
       .then(order => resolve(order))
@@ -29,61 +37,59 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
 orderDAO.getAllOrders = () => {
   return new Promise((resolve, reject) => {
     populateOrder(Order.find())
-      .then((orders) => resolve(orders)).catch((err) => reject(err));
+      .then(orders => resolve(orders))
+      .catch(err => reject(err));
   });
 };
 
-
-
-orderDAO.confirmOrder = function(session) {
+orderDAO.confirmOrder = function(sessionId, confirmStatus) {
   return new Promise((resolve, reject) => {
-    Session.findOne({ session: session })
-      .then(session =>
-        populateOrder(
-          Order.findOneAndUpdate(
-            { _session: session._id },
-            { isConfirmed: true },
-            { new: true }
-          )
-        ).sort({ createdAt: -1 })
-      )
-      .catch(err => reject(err))
+    populateOrder(
+      Order.findOneAndUpdate(
+        { _session: sessionId },
+        { isConfirmed: confirmStatus },
+        { new: true }
+      ).sort({ createdAt: -1 })
+    )
       .then(order => resolve(order))
       .catch(err => reject(err));
   });
 };
 
-orderDAO.unconfirmOrder = function(session) {
+orderDAO.showOrderDetails = function(sessionId) {
   return new Promise((resolve, reject) => {
-    Session.findOne({ session: session })
-      .then(session =>
-        populateOrder(
-          Order.findOneAndUpdate(
-            { _session: session._id },
-            { isConfirmed: false },
-            { new: true }
-          )
-        ).sort({ createdAt: -1 })
-      )
-      .catch(err => reject(err))
-      .then(order => resolve(order))
-      .catch(err => reject(err));
-  });
-};
-
-orderDAO.showOrderDetails = function(session) {
-  return new Promise((resolve, reject) => {
-    Session.findOne({ session: session })
-      .then(session =>
-        populateOrder(Order.findOne({ _session: session })).sort({
-          createdAt: -1
-        })
-      )
-      .catch(err => reject(err))
+    populateOrder(Order.findOne({ _session: sessionId }))
+      .sort({
+        createdAt: -1
+      })
       .then(order => {
         resolve(order);
       })
       .catch(err => reject(err));
+  });
+};
+
+orderDAO.deleteMostRecentItemAdded = function(sessionId) {
+  return new Promise((resolve, reject) => {
+    populateOrder(
+      Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
+    )
+      .then(order => {
+        if (order.itemArray.length <= 0) {
+          return resolve(order);
+        } else {
+          let mostRecentOrder = order.itemArray[0];
+          return order;
+        }
+      })
+      .then(order => {
+        let mostRecentOrder = order.itemArray[0];
+        let id = mongoose.Types.ObjectId(mostRecentOrder[0]);
+        return itemMap.get(mostRecentOrder[2]).findOneAndRemove({ _id: id });
+      })
+      .then(item => {
+        resolve(item);
+      });
   });
 };
 
@@ -109,32 +115,5 @@ orderDAO.showOrderDetails = function(session) {
 //    });
 //  });
 // };
-
-orderDAO.deleteMostRecentItemAdded = function(session) {
-  return new Promise((resolve, reject) => {
-    Session.findOne({ session: session })
-      .then(session =>
-        populateOrder(
-          Order.findOne({ _session: session._id }).sort({ createdAt: -1 })
-        )
-      )
-      .then(order => {
-        if (order.itemArray.length <= 0) {
-          return resolve(order);
-        } else {
-          let mostRecentOrder = order.itemArray[0];
-          return order;
-        }
-      })
-      .then(order => {
-        let mostRecentOrder = order.itemArray[0];
-        let id = mongoose.Types.ObjectId(mostRecentOrder[0]);
-        return itemMap.get(mostRecentOrder[2]).findOneAndRemove({ _id: id });
-      })
-      .then(item => {
-        resolve(item);
-      });
-  });
-};
 
 module.exports = orderDAO;
