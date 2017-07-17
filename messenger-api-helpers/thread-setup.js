@@ -5,13 +5,13 @@ const sendApi = require( './sendApi');
 //Sets the persistent menu for the application
 
 const setPersistentMenu = () => {
-  sendApi.callThreadAPI(messages.persistentMenu);
+  sendApi.callThreadAPI('messenger_profile', messages.persistentMenu);
 };
 
 //Sets the Get Started button for the application
 
 const setGetStarted = () => {
-  sendApi.callThreadAPI(messages.getStarted);
+  sendApi.callThreadAPI('messenger_profile', messages.getStarted);
 };
 
 

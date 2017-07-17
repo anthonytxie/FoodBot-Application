@@ -71,8 +71,8 @@ const callMessagesAPI = (messageDataArray, queryParams = {}) => {
   return callAPI('messages', messageDataArray, queryParams);
 };
 
-const callThreadAPI = (messageDataArray, queryParams = {}) => {
-  return callAPI('thread_settings', messageDataArray, queryParams);
+const callThreadAPI = (endpoint, messageDataArray, queryParams = {}) => {
+  return callAPI(endpoint, messageDataArray, queryParams);
 };
 
 

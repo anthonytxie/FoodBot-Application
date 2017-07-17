@@ -50,12 +50,12 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendOrderMessage(senderId, order._id)
         }).catch((err) => console.log(err));
       break;
-    // case 'order-drink':
-    //   runner.addBurgertoOrder(senderId)
-    //     .then((order) => {
-    //       send.sendOrderMessage(senderId, order._id)
-    //     }).catch((err) => console.log(err));
-    //   break;
+    case 'order-drink':
+      runner.addDrinktoOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
     // case 'order-milkshake':
     //   runner.addBurgertoOrder(senderId)
     //     .then((order) => {
