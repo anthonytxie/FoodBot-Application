@@ -3,53 +3,38 @@ const messageTemplate = runnerPackage => {
 };
 
 const genericTemplate = {
-  attachment: {
-    type: "template",
-    payload: {
-      template_type: "generic",
-      elements: [
-        {
-          title: "confirm commands",
-          buttons: [
-            {
-              type: "postback",
-              title: "Confirm Order",
-              payload: {
-                type: 'confirm-order'
-              }
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements":[
+           {
+            "title":"Welcome to Peter\'s Hats",
+            "image_url":"https://petersfancybrownhats.com/company_image.png",
+            "subtitle":"We\'ve got the right hat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
             },
-            {
-              type: "postback",
-              title: "Unconfirm Order",
-              payload: {
-                type: 'unconfirm-order'
-              }
-            }
-          ]
-        },
-        {
-          title: "Order Commands",
-          buttons: [
-            {
-              type: "postback",
-              title: "Delete Most Recent Item Added",
-              payload: {
-                type: 'delete-last-item'
-              }
-            },
-            {
-              type: "postback",
-              title: "Show Current Order",
-              payload: {
-                type: 'show-current-order'
-              }
-            }
-          ]
-        }
-      ]
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://petersfancybrownhats.com",
+                "title":"View Website"
+              },{
+                "type":"postback",
+                "title":"Start Chatting",
+                "payload":"DEVELOPER_DEFINED_PAYLOAD"
+              }              
+            ]      
+          }
+        ]
+      }
     }
   }
-};
 
 const newOrderButton = {
   type: "postback",
