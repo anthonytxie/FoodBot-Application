@@ -57,17 +57,43 @@ const handleReceivePostback = (messagingEvent) => {
         }).catch((err) => console.log(err));
       break;
     case 'order-milkshake':
-      runner.addBurgertoOrder(senderId)
+      runner.addMilkshaketoOrder(senderId)
         .then((order) => {
           send.sendOrderMessage(senderId, order._id)
         }).catch((err) => console.log(err));
       break;
     case 'order-fries':
-      runner.addBurgertoOrder(senderId)
+      runner.addFriestoOrder(senderId)
         .then((order) => {
           send.sendOrderMessage(senderId, order._id)
         }).catch((err) => console.log(err));
       break;
+
+    case 'delete-last-item':
+      runner.deleteMostRecentItemAdded(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+    case 'confirm-order':
+      runner.confirmOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+    case 'unconfirm-order':
+      runner.unconfirmOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+    case 'show-current-order':
+      runner.showCurrentOrder(senderId)
+        .then((order) => {
+          send.sendOrderMessage(senderId, order._id)
+        }).catch((err) => console.log(err));
+      break;
+
     default:
       console.log(`unknown postback called ${type}`)
       break;
