@@ -69,7 +69,7 @@ orderDAO.showOrderDetails = function(sessionId) {
   });
 };
 
-orderDAO.deleteMostRecentItem = function(sessionId) {
+orderDAO.deleteMostRecentItemAdded = function(sessionId) {
   return new Promise((resolve, reject) => {
     populateOrder(
       Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
