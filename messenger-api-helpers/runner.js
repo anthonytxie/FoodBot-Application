@@ -83,7 +83,7 @@ const addFriestoOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
-      return friesDAO.post({ size: "medium" }, session._id);
+      return fryDAO.post({ size: "medium" }, session._id);
     })
     .catch(err => console.log(err));
 };

@@ -15,9 +15,13 @@ const handleReceiveMessage = (messagingEvent) => {
   // this part needs to call API.AI with the message text
   // for now this will echo the text being received
 
-  if (message.text) {
+  if (message.text === 'generic') {
+    send.sendGenericTemplate(senderId)
+  }
+  else if (message.text) {
     send.sendEchoMessage(senderId, message.text);
     console.log(message.text)
+    
   }
 };
 
