@@ -27,7 +27,7 @@ const deleteMostRecentItemAdded = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
-      return orderDAO.deleteMostRecentItem(session._id);
+      return orderDAO.deleteMostRecentItemAdded(session._id);
     })
     .catch(err => console.log(err));
 };
