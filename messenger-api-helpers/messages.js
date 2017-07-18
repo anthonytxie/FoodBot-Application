@@ -2,44 +2,42 @@ const messageTemplate = runnerPackage => {
   return { text: "this is the template message. " + runnerPackage };
 };
 
-const genericTemplate = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "rift",
-            subtitle: "Next-generation virtual reality",
-            item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/rift/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for first bubble",
-            }],
-          }, {
-            title: "touch",
-            subtitle: "Your Hands, Now in VR",
-            item_url: "https://www.oculus.com/en-us/touch/",               
-            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/touch/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for second bubble",
-            }]
-          }]
-        }
-      }
-    }
 
+
+
+
+
+const confirmOrderButton = {
+  type: "postback",
+  title: "Confirm Order",
+  payload: JSON.stringify({
+    type: "confirm-order"
+  })
+};
+
+const unconfirmOrderButton = {
+  type: "postback",
+  title: "Unconfirm Order",
+  payload: JSON.stringify({
+    type: "unconfirm-order"
+  })
+};
+
+const deleteLastItemButton = {
+  type: "postback",
+  title: "Delete Last Item",
+  payload: JSON.stringify({
+    type: "delete-last-item"
+  })
+};
+
+const showOrderDetailsButton = {
+  type: "postback",
+  title: "Show Order Details",
+  payload: JSON.stringify({
+    type: "show-current-order"
+  })
+};
 const newOrderButton = {
   type: "postback",
   title: "New Order",
@@ -134,4 +132,29 @@ const getStarted = {
   ]
 };
 
-module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate };
+
+
+const genericTemplate = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Confirm Commands",
+            subtitle: "Next-generation virtual reality",
+            item_url: "https://www.oculus.com/en-us/rift/",               
+            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
+            buttons: [confirmOrderButton, unconfirmOrderButton],
+          }, {
+            title: "Order Commands",
+            subtitle: "Your Hands, Now in VR",
+            item_url: "https://www.oculus.com/en-us/touch/",               
+            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
+            buttons: [deleteLastItemButton, showOrderDetailsButton]
+          }]
+        }
+      }
+    };
+
+
+module.exports = { messageTemplate, persistentMenu, getStarted,  };
