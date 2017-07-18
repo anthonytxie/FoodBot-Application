@@ -2,6 +2,55 @@ const messageTemplate = runnerPackage => {
   return { text: "this is the template message. " + runnerPackage };
 };
 
+const genericTemplate = {
+  attachment: {
+    type: "template",
+    payload: {
+      template_type: "generic",
+      elements: [
+        {
+          title: "confirm commands",
+          buttons: [
+            {
+              type: "postback",
+              title: "Confirm Order",
+              payload: {
+                type: 'confirm-order'
+              }
+            },
+            {
+              type: "postback",
+              title: "Unconfirm Order",
+              payload: {
+                type: 'unconfirm-order'
+              }
+            }
+          ]
+        },
+        {
+          title: "Order Commands",
+          buttons: [
+            {
+              type: "postback",
+              title: "Delete Most Recent Item Added",
+              payload: {
+                type: 'delete-last-item'
+              }
+            },
+            {
+              type: "postback",
+              title: "Show Current Order",
+              payload: {
+                type: 'show-current-order'
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+};
+
 const newOrderButton = {
   type: "postback",
   title: "New Order",

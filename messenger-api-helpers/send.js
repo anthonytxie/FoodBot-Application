@@ -17,6 +17,10 @@ const sendOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
 
+const sendGenericTemplate = (recipientId) => {
+  sendMessage(recipientId, messages.genericTemplate)
+}
+
 
 const sendEchoMessage = (recipientId, message) => {
   sendMessage(recipientId, messages.messageTemplate(message));
