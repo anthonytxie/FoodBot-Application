@@ -103,7 +103,11 @@ module.exports = {
   addBurgertoOrder,
   addDrinktoOrder,
   addFriestoOrder,
-  addMilkshaketoOrder
+  addMilkshaketoOrder,
+  confirmOrder,
+  unconfirmOrder,
+  deleteMostRecentItemAdded,
+  showCurrentOrder
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.
