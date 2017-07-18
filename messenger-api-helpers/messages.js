@@ -157,4 +157,4 @@ const genericTemplate = {
     };
 
 
-module.exports = { messageTemplate, persistentMenu, getStarted,  };
+module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate  };
