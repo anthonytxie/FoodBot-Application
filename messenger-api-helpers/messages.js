@@ -145,4 +145,4 @@ const getStarted = {
   ]
 };
 
-module.exports = { messageTemplate, persistentMenu, getStarted };
+module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate };
