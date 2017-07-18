@@ -7,13 +7,13 @@ const milkshakeDAO = require("./../db/DAO/milkshakeDAO");
 const fryDAO = require("./../db/DAO/fryDAO");
 
 // ===== USERS ===============================================================
-const initialize = senderId => {
+const initialize = (senderId) => {
   return userDAO.createUser(senderId);
 };
 
 // ===== ORDERS ===============================================================
 
-const createNewOrder = senderId => {
+const createNewOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -22,7 +22,7 @@ const createNewOrder = senderId => {
     .catch(err => console.log(err));
 };
 
-const deleteMostRecentItemAdded = senderId => {
+const deleteMostRecentItemAdded = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -31,7 +31,7 @@ const deleteMostRecentItemAdded = senderId => {
     .catch(err => console.log(err));
 };
 
-const confirmOrder = senderId => {
+const confirmOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -40,7 +40,7 @@ const confirmOrder = senderId => {
     .catch(err => console.log(err));
 };
 
-const unconfirmOrder = senderId => {
+const unconfirmOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -49,7 +49,7 @@ const unconfirmOrder = senderId => {
     .catch(err => console.log(err));
 };
 
-const showCurrentOrder = senderId => {
+const showCurrentOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -60,7 +60,7 @@ const showCurrentOrder = senderId => {
 
 // ===== Items ===============================================================
 
-const addBurgertoOrder = senderId => {
+const addBurgertoOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -69,7 +69,7 @@ const addBurgertoOrder = senderId => {
     .catch(err => console.log(err));
 };
 
-const addDrinktoOrder = senderId => {
+const addDrinktoOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -78,7 +78,7 @@ const addDrinktoOrder = senderId => {
     .catch(err => console.log(err));
 };
 
-const addFriestoOrder = senderId => {
+const addFriestoOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
@@ -87,7 +87,7 @@ const addFriestoOrder = senderId => {
     .catch(err => console.log(err));
 };
 
-const addMilkshaketoOrder = senderId => {
+const addMilkshaketoOrder = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
