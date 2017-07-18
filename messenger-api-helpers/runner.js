@@ -5,6 +5,7 @@ const orderDAO = require("./../db/DAO/orderDAO");
 const burgerDAO = require("./../db/DAO/burgerDAO");
 const milkshakeDAO = require("./../db/DAO/milkshakeDAO");
 const fryDAO = require("./../db/DAO/fryDAO");
+const drinkDAO = require("./../db/DAO/drinkDAO");
 
 // ===== USERS ===============================================================
 const initialize = (senderId) => {
