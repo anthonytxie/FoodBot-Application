@@ -16,7 +16,7 @@ milkshakeDAO.post = function(payload, sessionId) {
         milkshake
           .save()
           .then(milkshake => {
-            return resolve(
+            resolve(
               populateOrder(
                 Order.findOneAndUpdate(
                   { _id: order._id },

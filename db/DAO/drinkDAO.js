@@ -16,7 +16,7 @@ drinkDAO.post = function(payload, sessionId) {
         drink
           .save()
           .then(drink => {
-            return resolve(
+            resolve(
               populateOrder(
                 Order.findOneAndUpdate(
                   { _id: order._id },

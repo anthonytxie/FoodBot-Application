@@ -16,7 +16,7 @@ fryDAO.post = function(payload, sessionId) {
         fry
           .save()
           .then(fry => {
-            return resolve(
+            resolve(
               populateOrder(
                 Order.findOneAndUpdate(
                   { _id: order._id },
