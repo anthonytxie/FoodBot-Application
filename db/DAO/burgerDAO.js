@@ -16,7 +16,7 @@ burgerDAO.post = function(payload, sessionId) {
         burger
           .save()
           .then(burger => {
-            return resolve(
+            resolve(
               populateOrder(
                 Order.findOneAndUpdate(
                   { _id: order._id },
