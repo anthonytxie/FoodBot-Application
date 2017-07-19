@@ -14,6 +14,11 @@ const orderSchema = new Schema({
     ref: 'Session'
   },
 
+  _items: [{
+    type: Schema.ObjectId,
+    ref: "Item"
+  }],
+
   _burgers: [{
     type: Schema.ObjectId,
     ref: "Burger"
