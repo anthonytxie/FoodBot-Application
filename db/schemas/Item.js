@@ -11,8 +11,15 @@ var Item = mongoose.model('Item', itemSchema);
 
 // ClickedLinkEvent is a special type of Event that has
 // a URL.
-var Sandwich = Item.discriminator('Sandwich',
+var Burger = Item.discriminator('Burger',
+  new mongoose.Schema({type: String}, options));
+
+var Drink = Item.discriminator('Drink',
   new mongoose.Schema({type: String}, options));
 
 
-module.exports = {Item, Sandwich}
+var Side = Item.discriminator('Sides',
+  new mongoose.Schema({type: String}, options));
+
+
+module.exports = {Item, Burger, Drink, Side}

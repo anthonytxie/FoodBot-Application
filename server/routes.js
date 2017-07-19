@@ -4,11 +4,11 @@ const orderController = require('./../controllers/controller/orderController');
 
 const routes = express();
 const receiveApi = require('../messenger-api-helpers/receive');
-const itemController = require('./../controllers/controller/itemController');
+const {itemController} = require('./../controllers/controller/itemController');
 
 
 
-
+routes.post('/item', itemController.post)
 
 // //homepage 
 

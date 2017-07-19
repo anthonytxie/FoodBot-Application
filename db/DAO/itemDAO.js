@@ -1,11 +1,11 @@
-const { Item, Sandwich } = require("../../db/schemas/item");
+const { Item, Burger, Drink, Side } = require("../../db/schemas/item");
 var itemDAO = {};
 
 itemDAO.post = function(sessionId, foodObject) {
 	return new Promise((resolve, sessionId) => {
 		// itemMap.get(foodObject.type)
 
-		const burger = new burgerItem({
+		const burger = new Burger({
 			patties: 1
 		});
 		Order.findOne({ _session: sessionId })
