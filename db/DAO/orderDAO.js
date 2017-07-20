@@ -1,22 +1,9 @@
-const {
-  Burger,
-  Fry,
-  Drink,
-  Milkshake,
-  Order,
-  Session,
-  User
-} = require("./../index");
+const { Order, Session, Burger, Drink, Side } = require('./../index');
+
+
 const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");
-
-const itemMap = new Map();
-
-itemMap.set("burger", Burger);
-itemMap.set("milkshake", Milkshake);
-itemMap.set("drink", Drink);
-itemMap.set("fry", Fry);
 
 
 orderDAO.post = () => {

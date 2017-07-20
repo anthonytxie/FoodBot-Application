@@ -1,12 +1,4 @@
-const {
-  Burger,
-  Fry,
-  Drink,
-  Milkshake,
-  Order,
-  Session,
-  User
-} = require("./../index");
+const { Order, Session, Burger, Drink, Side } = require('./../index');
 const userDAO = {};
 
 userDAO.createUser = function(PSID) {

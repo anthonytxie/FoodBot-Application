@@ -1,12 +1,6 @@
-const {
-    Burger,
-    Fry,
-    Drink,
-    Milkshake,
-    Order,
-    Session,
-    User
-} = require("./../index");
+const { Order, Session, Burger, Drink, Side } = require('./../index');
+
+
 const sessionDAO = {};
 
 sessionDAO.findSessionById = function(sessionId) {

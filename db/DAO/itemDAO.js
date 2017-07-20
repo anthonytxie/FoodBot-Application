@@ -1,36 +1,30 @@
-const { Order } = require("./../index");
-const { Item, Burger, Drink, Side } = require("../../db/schemas/item");
+const { Order, Session, Burger, Drink, Side } = require('./../index');
+
 var itemDAO = {};
 const { populateOrder } = require("./helperFunctions");
 
+// const itemMap = new Map();
 
-const itemMap = new Map();
+// itemMap.set("burger", Burger);
+// itemMap.set("drink", Drink);
+// itemMap.set("side", Side);
 
-itemMap.set("burger", Burger);
-itemMap.set("drink", Drink);
-itemMap.set("side", Side);
-
-
-itemDAO.post = function(sessionId, foodObject) {
-	return new Promise((resolve, sessionId) => {
-		// itemMap.get(foodObject.type)
-
-		const item = new itemMap.get(foodObject.itemType)
-
-
-		Order.findOne().then((order) => {
-			item.save().then((item) => {
-				resolve(
-					populateOrder(
-						Order.findOneAndUpdate(
-							{ _id: order._id },
-							{ $push: { _items: item._id } },
-							{ new: true }
-						)
-					)
-				);
-			});
-		});
-	});
+itemDAO.post = function() {
+  return new Promise((resolve, sessionId) => {
+    const item = new Drink();
+    Order.findOne().then(order => {
+      item.save().then(item => {
+        resolve(
+          populateOrder(
+            Order.findOneAndUpdate(
+              { _id: order._id },
+              { $push: { _items: item._id } },
+              { new: true }
+            )
+          )
+        );
+      });
+    });
+  });
 };
 module.exports = itemDAO;
