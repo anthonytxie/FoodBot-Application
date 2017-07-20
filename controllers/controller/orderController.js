@@ -3,6 +3,15 @@ const orderDAO = require('./../../db/DAO/orderDAO');
 const {promiseHelper} = require('./..//helpers/helper-functions');
 
 
+orderController.post = (req, res) => {
+  orderDAO.post()
+    .then((order) => {
+      res.send(order)
+    }).catch((err) => res.send(err))
+}
+
+
+
 orderController.initializeOrder = (req, res, result, session) => {
   orderDAO.initializeOrder(session)
    .then((order) => {

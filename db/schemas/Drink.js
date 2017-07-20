@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
-const schemaOptions =  require('./settings/schemaSettings');
+const {schemaOptions} =  require('./settings/schemaSettings');
 
 const drinkSchema = new Schema ({
 
@@ -24,7 +24,7 @@ const drinkSchema = new Schema ({
     default: Date.now
   }
 
-});
+}, schemaOptions);
 
 const Drink = mongoose.model('Drink', drinkSchema);
 

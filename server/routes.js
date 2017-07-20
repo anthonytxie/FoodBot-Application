@@ -9,6 +9,8 @@ const {itemController} = require('./../controllers/controller/itemController');
 
 
 routes.post('/item', itemController.post)
+routes.post('/order', orderController.post)
+
 
 // //homepage 
 

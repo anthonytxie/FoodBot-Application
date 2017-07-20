@@ -18,6 +18,19 @@ itemMap.set("milkshake", Milkshake);
 itemMap.set("drink", Drink);
 itemMap.set("fry", Fry);
 
+
+orderDAO.post = () => {
+  return new Promise((resolve, reject) => {
+    const order = new Order({})
+    order.save()
+      .then((order) => {
+        resolve(order)
+      })
+  })
+}
+
+
+
 orderDAO.initializeOrder = function(PSID, sessionId) {
   return new Promise((resolve, reject) => {
     User.findOne({ PSID })

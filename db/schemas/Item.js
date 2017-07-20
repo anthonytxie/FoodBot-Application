@@ -1,25 +1,24 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
-const schemaOptions =  require('./settings/schemaSettings');
+const { burgerSchema } = require('./burgerSchema');
+const { drinkSchema } = require('./drinkSchema');
+const { sideSchema } = require('./sideSchema')
+const { disciminatorOptions } = require('./settings/schemaSettings');
 
-
-var options = {discriminatorKey: 'kind'};
-
-var itemSchema = new mongoose.Schema({time: Date}, options);
+var itemSchema = new mongoose.Schema({time: Date}, disciminatorOptions);
 var Item = mongoose.model('Item', itemSchema);
 
 // ClickedLinkEvent is a special type of Event that has
 // a URL.
 var Burger = Item.discriminator('Burger',
-  new mongoose.Schema({type: String}, options));
+  burgerSchema, disciminatorOptions);
 
 var Drink = Item.discriminator('Drink',
-  new mongoose.Schema({type: String}, options));
-
+  drinkSchema, disciminatorOptions);
 
 var Side = Item.discriminator('Sides',
-  new mongoose.Schema({type: String}, options));
+  sideSchema, disciminatorOptions);
 
 
 module.exports = {Item, Burger, Drink, Side}

@@ -1,8 +1,11 @@
 const itemDAO = require('../../db/dao/itemDAO')
 const itemController = {};
 
-itemController.post = () => {
-	return itemDAO.post()
+itemController.post = (req, res) => {
+	itemDAO.post()
+    .then((item) => {
+      res.send(item)
+    }).catch((err) => res.send(err))
 }
 
 
