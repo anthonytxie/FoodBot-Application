@@ -45,7 +45,7 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendInitializeMessage(senderId, order._session)
         })
       break;  
-    case 'order-burger':
+    case 'order-item':
       runner.addItemtoOrder(senderId, data)
         .then((order) => {
           send.sendOrderMessage(senderId, order._id)

@@ -18,11 +18,11 @@ itemMap.set("side", (id) => {
 });
 
 
-itemDAO.post = function(body, sessionId) {
+itemDAO.post = function(data, sessionId) {
   return new Promise((resolve, reject) => {
     Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
     .then((order) => {
-      const item = itemMap.get(body.foodObject.type)(order._id)
+      const item = itemMap.get(data.type)(order._id)
         item.save().then((item) => {
           resolve(
             populateOrder(
@@ -40,7 +40,7 @@ itemDAO.post = function(body, sessionId) {
 
 
 
-itemDAO.deleteMostRecentItem = function() {
+itemDAO.deleteMostRecentItem = function(sessionId) {
   return new Promise ((resolve, reject) => {
     Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
       .then((order) => {

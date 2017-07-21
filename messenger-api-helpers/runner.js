@@ -51,11 +51,11 @@ const showCurrentOrder = (senderId) => {
 // ===== Items ===============================================================
 
 
-const addItemtoOrder = (senderId, payload) => {
+const addItemtoOrder = (senderId, data) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
-      return itemDAO.post(payload, session._id);
+      return itemDAO.post(data, session._id);
     })
     .catch(err => console.log(err));
 };
@@ -64,7 +64,7 @@ const deleteMostRecentItemAdded = (senderId) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
-      return orderDAO.deleteMostRecentItemAdded(session._id);
+      return itemDAO.deleteMostRecentItem(session._id);
     })
     .catch(err => console.log(err));
 };
@@ -74,6 +74,7 @@ module.exports = {
   createNewOrder,
   confirmOrder,
   unconfirmOrder,
+  addItemtoOrder,
   deleteMostRecentItemAdded,
   showCurrentOrder
 };
