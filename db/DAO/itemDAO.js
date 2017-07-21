@@ -3,28 +3,38 @@ const mongoose = require('mongoose')
 var itemDAO = {};
 const { populateOrder } = require("./helperFunctions");
 
-// const itemMap = new Map();
+const itemMap = new Map();
 
-// itemMap.set("burger", Burger);
-// itemMap.set("drink", Drink);
-// itemMap.set("side", Side);
+itemMap.set("burger", (id) => {
+  return new Burger({_order: id })
+});
 
-itemDAO.post = function() {
+itemMap.set("drink", (id) => {
+  return new Drink({_order: id })
+});
+
+itemMap.set("side", (id) => {
+  return new Side({_order: id })
+});
+
+
+itemDAO.post = function(body, sessionId) {
   return new Promise((resolve, reject) => {
-    Order.findOne().then((order) => {
-      const item = new Drink({_order: order._id });
-      item.save().then((item) => {
-        resolve(
-          populateOrder(
-            Order.findOneAndUpdate(
-              { _id: order._id },
-              { $push: { _items: item._id } },
-              { new: true }
+    Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
+    .then((order) => {
+      const item = itemMap.get(body.foodObject.type)(order._id)
+        item.save().then((item) => {
+          resolve(
+            populateOrder(
+              Order.findOneAndUpdate(
+                { _id: order._id },
+                { $push: { _items: item._id } },
+                { new: true }
+              )
             )
-          )
-        );
+          );
+        }).catch((err) => reject(err))
       }).catch((err) => reject(err))
-    }).catch((err) => reject(err))
   });
 };
 
@@ -32,7 +42,7 @@ itemDAO.post = function() {
 
 itemDAO.deleteMostRecentItem = function() {
   return new Promise ((resolve, reject) => {
-    Order.findOne()
+    Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
       .then((order) => {
         const itemId =  mongoose.Types.ObjectId(order._items[0])
         return(itemId)

@@ -26,14 +26,11 @@ const handleReceiveMessage = (messagingEvent) => {
 };
 
 
-
-
 const handleReceivePostback = (messagingEvent) => {
   //assuming payload is an object that has type and data
   const {type, data} = JSON.parse(messagingEvent.postback.payload); 
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string 
   const senderId = messagingEvent.sender.id.toString();
-
 // runner does stuff with API.ai and webhook
   switch (type) {
     case 'initialize':
@@ -49,30 +46,11 @@ const handleReceivePostback = (messagingEvent) => {
         })
       break;  
     case 'order-burger':
-      runner.addBurgertoOrder(senderId)
+      runner.addItemtoOrder(senderId, data)
         .then((order) => {
           send.sendOrderMessage(senderId, order._id)
         }).catch((err) => console.log(err));
       break;
-    case 'order-drink':
-      runner.addDrinktoOrder(senderId)
-        .then((order) => {
-          send.sendOrderMessage(senderId, order._id)
-        }).catch((err) => console.log(err));
-      break;
-    case 'order-milkshake':
-      runner.addMilkshaketoOrder(senderId)
-        .then((order) => {
-          send.sendOrderMessage(senderId, order._id)
-        }).catch((err) => console.log(err));
-      break;
-    case 'order-fries':
-      runner.addFriestoOrder(senderId)
-        .then((order) => {
-          send.sendOrderMessage(senderId, order._id)
-        }).catch((err) => console.log(err));
-      break;
-
     case 'delete-last-item':
       runner.deleteMostRecentItemAdded(senderId)
         .then((order) => {

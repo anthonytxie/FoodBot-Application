@@ -2,11 +2,6 @@ const messageTemplate = runnerPackage => {
   return { text: "this is the template message. " + runnerPackage };
 };
 
-
-
-
-
-
 const confirmOrderButton = {
   type: "postback",
   title: "Confirm Order",
@@ -50,7 +45,10 @@ const orderBurgerButton = {
   type: "postback",
   title: "Order Burger",
   payload: JSON.stringify({
-    type: "order-burger"
+    type: "order-item",
+    data: {
+      type: 'burger'
+    }
   })
 };
 
@@ -58,23 +56,21 @@ const orderDrinkButton = {
   type: "postback",
   title: "Order Drink",
   payload: JSON.stringify({
-    type: "order-drink"
+    type: "order-item",
+    data: {
+      type: 'drink'
+    }
   })
 };
 
-const orderMilkshakeButton = {
+const orderSideButton = {
   type: "postback",
-  title: "Order Milkshake",
+  title: "Order Side",
   payload: JSON.stringify({
-    type: "order-milkshake"
-  })
-};
-
-const orderFriesButton = {
-  type: "postback",
-  title: "Order Fries",
-  payload: JSON.stringify({
-    type: "order-fries"
+    type: "order-item",
+    data: {
+      type: 'side'
+    }
   })
 };
 
@@ -84,17 +80,6 @@ const initializeButton = {
   payload: JSON.stringify({
     type: "initialize"
   })
-};
-
-const nestedOrderButtons = {
-  type: "nested",
-  title: "Order Food",
-  call_to_actions: [
-    orderBurgerButton,
-    orderFriesButton,
-    orderDrinkButton,
-    orderMilkshakeButton
-  ]
 };
 
 const persistentMenu = {
@@ -108,8 +93,7 @@ const persistentMenu = {
           type: "nested",
           call_to_actions: [
             orderBurgerButton,
-            orderFriesButton,
-            orderMilkshakeButton,
+            orderSideButton,
             orderDrinkButton
           ]
         },
