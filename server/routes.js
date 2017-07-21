@@ -9,6 +9,11 @@ const receiveApi = require('../messenger-api-helpers/receive');
 // Verify Token 
 //need to put secret in process.env
 
+routes.get('/', (req, res) => {
+  res.send('hello welcome to foodbot api')
+})
+
+
 routes.get('/webhook', (req, res) => {
   if (req.query['hub.verify_token'] === process.env.secret ) {
     res.send(req.query['hub.challenge']);
