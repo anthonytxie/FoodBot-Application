@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
-const { burgerSchema } = require('./burgerSchema');
-const { drinkSchema } = require('./drinkSchema');
-const { sideSchema } = require('./sideSchema');
-const { itemSchema } = require('./itemSchema');
-const { disciminatorOptions } = require('./settings/schemaSettings');
+const { burgerSchema } = require('./../schemas/burgerSchema');
+const { drinkSchema } = require('./../schemas/drinkSchema');
+const { sideSchema } = require('./../schemas/sideSchema');
+const { itemSchema } = require('./../schemas/itemSchema');
+const { disciminatorOptions } =  require('../schemas/settings/schemaSettings');
 const Order = require('./Order');
 
 

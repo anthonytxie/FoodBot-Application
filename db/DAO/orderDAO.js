@@ -1,4 +1,4 @@
-const { Order, Session, Burger, Drink, Side } = require('./../index');
+const { Order, Session, Burger, Drink, Side } = require('./../models/index');
 
 
 const mongoose = require("mongoose");
