@@ -1,4 +1,5 @@
-const { Order, Session, Burger, Drink, Side } = require('./../models/index');
+const Session = require('../models/Session');
+const User = require('../models/User');
 const userDAO = {};
 
 userDAO.createUser = function(PSID) {
