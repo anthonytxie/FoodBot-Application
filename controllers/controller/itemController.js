@@ -9,6 +9,16 @@ itemController.post = (req, res) => {
 }
 
 
+itemController.deleteMostRecentItem = (req, res) => {
+	itemDAO.deleteMostRecentItem()
+		.then((item) => {
+			res.send(item)
+		}).catch((err) => {
+			res.send(err)
+		})
+}
+
+
 module.exports = { itemController };
 
 
