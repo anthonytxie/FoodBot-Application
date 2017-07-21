@@ -13,13 +13,6 @@ const itemSchema = new mongoose.Schema({
   },
 },disciminatorOptions);
 
-itemSchema.pre('remove', function(next){
-    this.model('Order').update(
-        {_id: this._order}, 
-        {$pull: {_items: this._id}}, 
-        next
-    );
-}); 
 
 
 

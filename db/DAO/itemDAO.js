@@ -41,7 +41,10 @@ itemDAO.deleteMostRecentItem = function() {
         return Item.findOneAndRemove({_id: itemId})
       }).catch((err) => reject(err))
       .then((item) => {
-        resolve(item)
+        Order.findOneAndUpdate({_id: item._order}, {$pull: {_items: item._id}}, {new:true})
+          .then((order) => {
+            resolve(item)
+          })
       }).catch((err) => reject(err))
   })
 }
