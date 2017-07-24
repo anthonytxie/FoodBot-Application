@@ -69,51 +69,5 @@ orderDAO.showOrderDetails = function(sessionId) {
   });
 };
 
-orderDAO.deleteMostRecentItemAdded = function(sessionId) {
-  return new Promise((resolve, reject) => {
-    populateOrder(
-      Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
-    )
-      .then(order => {
-        if (order.itemArray.length <= 0) {
-          return resolve(order);
-        } else {
-          let mostRecentOrder = order.itemArray[0];
-          return order;
-        }
-      })
-      .then(order => {
-        let mostRecentOrder = order.itemArray[0];
-        let id = mongoose.Types.ObjectId(mostRecentOrder[0]);
-        return itemMap.get(mostRecentOrder[2]).findOneAndRemove({ _id: id });
-      })
-      .then(item => {
-        resolve(item);
-      });
-  });
-};
-
-// orderDAO.deleteItem = function(orderID,itemType,itemObject) {
-//  return new Promise((resolve, reject) => {
-//    populateOrder(Order.findOne({_id: orderID}))
-//      .then((order) => {
-//        if (itemType ==='burger') {
-//          Burger.findOneAndRemove({itemObject});
-//        }
-//        else if (itemType ==='milkshake') {
-//          Milkshake.findOneAndRemove({itemObject});
-//        }
-//        else if (itemType ==='drink') {
-//          Drink.findOneAndRemove({itemObject});
-//        }
-//        else if (itemType ==='fry') {
-//          Fry.findOneAndRemove({itemObject});
-//        }
-//      })
-//    .then((deletedItem) => {
-//      resolve(deletedItem);
-//    });
-//  });
-// };
 
 module.exports = orderDAO;
