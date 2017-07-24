@@ -1,6 +1,4 @@
-const { Order, User, Session, Burger, Drink, Side } = require('./../models/index');
-
-
+const { Order, User } = require('./../models/index');
 const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");

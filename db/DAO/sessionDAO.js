@@ -1,4 +1,4 @@
-const { Order, User, Session, Burger, Drink, Side } = require('./../models/index');
+const { Session, User } = require('./../models/index');
 
 
 const sessionDAO = {};
@@ -74,5 +74,7 @@ sessionDAO.sessionRenewal = function(PSID) {
             .catch(err => reject(err));
     });
 };
+
+
 
 module.exports = sessionDAO;
