@@ -1,7 +1,4 @@
 const express = require('express');
-// const controller = require('./../controllers/index');
-const {controller} = require('./../controllers/index');
-
 const routes = express();
 const receiveApi = require('../messenger-api-helpers/receive');
 
