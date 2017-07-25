@@ -1,4 +1,4 @@
-const { User } = require('./../models/index');
+const { User, Session } = require('./../models/index');
 const userDAO = {};
 
 userDAO.createUser = function(PSID) {

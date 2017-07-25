@@ -3,19 +3,6 @@ const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");
 
-
-orderDAO.post = () => {
-  return new Promise((resolve, reject) => {
-    const order = new Order({})
-    order.save()
-      .then((order) => {
-        resolve(order)
-      })
-  })
-}
-
-
-
 orderDAO.initializeOrder = function(PSID, sessionId) {
   return new Promise((resolve, reject) => {
     User.findOne({ PSID })
