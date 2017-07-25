@@ -19,6 +19,11 @@ const sessionSchema = new Schema({
   lastActiveDate: {
     type: Date,
     default: Date.now
+  },
+
+  isActive: {
+    type: Boolean,
+    default: true
   }
 });
 
