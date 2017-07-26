@@ -48,10 +48,6 @@ routes.post('/webhook', (req, res) => {
         if (messagingEvent.postback) {
           receiveApi.handleReceivePostback(messagingEvent);
         } 
-        else if (messagingEvent.quick_reply) {
-          receiveApi.handleQuickReply(messagingEvent);
-        } 
-
         else if (messagingEvent.message) {
           receiveApi.handleReceiveMessage(messagingEvent);
         }
