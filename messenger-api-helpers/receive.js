@@ -52,7 +52,7 @@ const handleReceiveMessage = (messagingEvent) => {
     send.sendGenericTemplate(senderId)
     }
     else if (message.text) {
-      send.sendEchoMessage(senderId, message.text);
+      send.sendBurgerMenuMessage(senderId, order._session)
       console.log(message.text)
       
     }

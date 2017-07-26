@@ -20,7 +20,6 @@ const sendBurgerMenuMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.burgerMenuMessage);
 };
 
-
 const sendDrinkMenuMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.drinkMenuMessage);
 };
