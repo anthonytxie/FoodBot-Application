@@ -2,6 +2,25 @@ const messageTemplate = runnerPackage => {
   return { text: "this is the template message. " + runnerPackage };
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const confirmOrderButton = {
   type: "postback",
   title: "Confirm Order",
@@ -118,6 +137,36 @@ const getStarted = {
 
 
 
+
+
+const welcomeMessage = {
+  attachment: {
+    type: "template",
+    payload: {
+      template_type: "button",
+      text: `Hey :) \n\n Welcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
+      buttons: [
+        {
+          type: "postback",
+          title: "See Menu",
+          payload: JSON.stringify({
+            type: "see-menu",
+          })
+        },
+        {
+          type: "postback",
+          title: "Order",
+          payload: JSON.stringify({
+            type: "create_new_order"
+          })
+        }
+      ]
+    }
+  }
+};
+
+
+
 const genericTemplate = {
       attachment: {
         type: "template",
@@ -139,6 +188,13 @@ const genericTemplate = {
         }
       }
     };
+
+
+
+
+
+
+
 
 
 module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate };

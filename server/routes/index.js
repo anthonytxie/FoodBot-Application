@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = express();
-const receiveApi = require('../messenger-api-helpers/receive');
+const receiveApi = require('../../messenger-api-helpers/receive');
 
 
 // Verify Token 
