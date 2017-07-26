@@ -39,10 +39,11 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendInitializeMessage(senderId, user.PSID)
         })
       break;
-    case 'create_new_order':
-      runner.createNewOrder(senderId)
+
+    case 'see-menu':
+      runner.showMenu(senderId)
         .then((order)=> {
-          send.sendInitializeMessage(senderId, order._session)
+          send.sendMenuMessage(senderId, order._session)
         })
       break;  
     case 'order-item':

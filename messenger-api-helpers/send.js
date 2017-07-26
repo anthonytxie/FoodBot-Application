@@ -9,6 +9,10 @@ const sendInitializeMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.welcomeMessage);
 };
 
+const sendMenuMessage = (recipientId, runnerDelivery) => {
+  sendMessage(recipientId, messages.menuMessage);
+};
+
 const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
@@ -94,7 +98,7 @@ const sendReadReceipt = (recipientId) => {
 };
 
 
-module.exports = { sendMessage, sendReadReceipt, sendInitializeMessage, sendCreateNewOrderMessage, sendOrderMessage, sendEchoMessage, sendGenericTemplate }
+module.exports = { sendMessage, sendMenuMessage, sendReadReceipt, sendInitializeMessage, sendCreateNewOrderMessage, sendOrderMessage, sendEchoMessage, sendGenericTemplate }
 
 
 

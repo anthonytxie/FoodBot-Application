@@ -9,6 +9,13 @@ const initialize = (senderId) => {
   return userDAO.createUser(senderId);
 };
 
+// ===== MENU ===============================================================
+const showMenu = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
+};
+
+
+
 // ===== ORDERS ===============================================================
 
 const createNewOrder = (senderId) => {
@@ -76,7 +83,8 @@ module.exports = {
   unconfirmOrder,
   addItemtoOrder,
   deleteMostRecentItemAdded,
-  showCurrentOrder
+  showCurrentOrder,
+  showMenu
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.

@@ -2,25 +2,6 @@ const messageTemplate = runnerPackage => {
   return { text: "this is the template message. " + runnerPackage };
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const confirmOrderButton = {
   type: "postback",
   title: "Confirm Order",
@@ -66,7 +47,7 @@ const orderBurgerButton = {
   payload: JSON.stringify({
     type: "order-item",
     data: {
-      type: 'burger'
+      type: "burger"
     }
   })
 };
@@ -77,7 +58,7 @@ const orderDrinkButton = {
   payload: JSON.stringify({
     type: "order-item",
     data: {
-      type: 'drink'
+      type: "drink"
     }
   })
 };
@@ -88,7 +69,7 @@ const orderSideButton = {
   payload: JSON.stringify({
     type: "order-item",
     data: {
-      type: 'side'
+      type: "side"
     }
   })
 };
@@ -135,10 +116,6 @@ const getStarted = {
   ]
 };
 
-
-
-
-
 const welcomeMessage = {
   attachment: {
     type: "template",
@@ -150,7 +127,7 @@ const welcomeMessage = {
           type: "postback",
           title: "See Menu",
           payload: JSON.stringify({
-            type: "see-menu",
+            type: "see-menu"
           })
         },
         {
@@ -165,36 +142,63 @@ const welcomeMessage = {
   }
 };
 
-
+const menuMessage = {
+  text: "We have Burgers, Sides, and Drinks. What would you like to see?",
+  quick_replies: [
+    {
+      content_type: "text",
+      title: "Burgers",
+      payload: JSON.stringify({
+        type: "see-burgers"
+      })
+    },
+    {
+      content_type: "text",
+      title: "Fries",
+      payload: JSON.stringify({
+        type: "see-fries"
+      })
+    },
+    {
+      content_type: "text",
+      title: "Drinks",
+      payload: JSON.stringify({
+        type: "see-drinks"
+      })
+    }
+  ]
+};
 
 const genericTemplate = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "Confirm Commands",
-            subtitle: "Next-generation virtual reality",
-            item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-            buttons: [confirmOrderButton, unconfirmOrderButton],
-          }, {
-            title: "Order Commands",
-            subtitle: "Your Hands, Now in VR",
-            item_url: "https://www.oculus.com/en-us/touch/",               
-            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
-            buttons: [deleteLastItemButton, showOrderDetailsButton]
-          }]
+  attachment: {
+    type: "template",
+    payload: {
+      template_type: "generic",
+      elements: [
+        {
+          title: "Confirm Commands",
+          subtitle: "Next-generation virtual reality",
+          item_url: "https://www.oculus.com/en-us/rift/",
+          image_url: "http://messengerdemo.parseapp.com/img/rift.png",
+          buttons: [confirmOrderButton, unconfirmOrderButton]
+        },
+        {
+          title: "Order Commands",
+          subtitle: "Your Hands, Now in VR",
+          item_url: "https://www.oculus.com/en-us/touch/",
+          image_url: "http://messengerdemo.parseapp.com/img/touch.png",
+          buttons: [deleteLastItemButton, showOrderDetailsButton]
         }
-      }
-    };
+      ]
+    }
+  }
+};
 
-
-
-
-
-
-
-
-
-module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate, welcomeMessage };
+module.exports = {
+  messageTemplate,
+  persistentMenu,
+  getStarted,
+  genericTemplate,
+  welcomeMessage,
+  menuMessage
+};
