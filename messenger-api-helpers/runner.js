@@ -14,6 +14,17 @@ const showMenu = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
 };
 
+const showBurgerMenu = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
+};
+
+const showDrinkMenu = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
+};
+
+const showFriesMenu = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
+};
 
 
 // ===== ORDERS ===============================================================
@@ -84,7 +95,10 @@ module.exports = {
   addItemtoOrder,
   deleteMostRecentItemAdded,
   showCurrentOrder,
-  showMenu
+  showMenu,
+  showBurgerMenu,
+  showDrinkMenu,
+  showFriesMenu
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.

@@ -1,3 +1,6 @@
+const {menuMessage, burgerMenuMessage } = require('./menu')
+
+
 const messageTemplate = runnerPackage => {
   return { text: "this is the template message. " + runnerPackage };
 };
@@ -47,7 +50,7 @@ const orderBurgerButton = {
   payload: JSON.stringify({
     type: "order-item",
     data: {
-      type: "burger"
+      foodType: "burger"
     }
   })
 };
@@ -58,7 +61,7 @@ const orderDrinkButton = {
   payload: JSON.stringify({
     type: "order-item",
     data: {
-      type: "drink"
+      foodType: "drink"
     }
   })
 };
@@ -69,7 +72,7 @@ const orderSideButton = {
   payload: JSON.stringify({
     type: "order-item",
     data: {
-      type: "side"
+      foodType: "side"
     }
   })
 };
@@ -142,32 +145,6 @@ const welcomeMessage = {
   }
 };
 
-const menuMessage = {
-  text: "We have Burgers, Sides, and Drinks. What would you like to see?",
-  quick_replies: [
-    {
-      content_type: "text",
-      title: "Burgers",
-      payload: JSON.stringify({
-        type: "see-burgers"
-      })
-    },
-    {
-      content_type: "text",
-      title: "Fries",
-      payload: JSON.stringify({
-        type: "see-fries"
-      })
-    },
-    {
-      content_type: "text",
-      title: "Drinks",
-      payload: JSON.stringify({
-        type: "see-drinks"
-      })
-    }
-  ]
-};
 
 const genericTemplate = {
   attachment: {

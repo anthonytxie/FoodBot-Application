@@ -46,6 +46,26 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendMenuMessage(senderId, order._session)
         })
       break;  
+    case 'see-burgers':
+      runner.showBurgerMenu(senderId)
+        .then((order)=> {
+          send.sendBurgerMenuMessage(senderId, order._session)
+        })
+      break;  
+
+    case 'see-drinks':
+      runner.showDrinkMenu(senderId)
+        .then((order)=> {
+          send.sendDrinkMenuMessage(senderId, order._session)
+        })
+      break;  
+
+    case 'see-fries':
+      runner.showFriesMenu(senderId)
+        .then((order)=> {
+          send.sendFriesMenuMessage(senderId, order._session)
+        })
+      break;  
     case 'order-item':
       runner.addItemtoOrder(senderId, data)
         .then((order) => {

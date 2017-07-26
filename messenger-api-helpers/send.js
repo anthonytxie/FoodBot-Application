@@ -1,4 +1,4 @@
-const messages = require('./messages');
+const messages = require('././messages/index');
 const castArray = require('lodash/castArray');
 const sendApi = require('./sendApi');
 
@@ -9,9 +9,28 @@ const sendInitializeMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.welcomeMessage);
 };
 
+
+// ===== MENU ===============================================================
+
 const sendMenuMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.menuMessage);
 };
+
+const sendBurgerMenuMessage = (recipientId, runnerDelivery) => {
+  sendMessage(recipientId, messages.burgerMenuMessage);
+};
+
+
+const sendDrinkMenuMessage = (recipientId, runnerDelivery) => {
+  sendMessage(recipientId, messages.drinkMenuMessage);
+};
+
+
+const sendFriesMenuMessage = (recipientId, runnerDelivery) => {
+  sendMessage(recipientId, messages.FriesMenuMessage);
+};
+
+
 
 const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
@@ -21,6 +40,20 @@ const sendOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const sendGenericTemplate = (recipientId) => {
   sendMessage(recipientId, messages.genericTemplate)
 }
@@ -29,6 +62,14 @@ const sendGenericTemplate = (recipientId) => {
 const sendEchoMessage = (recipientId, message) => {
   sendMessage(recipientId, messages.messageTemplate(message));
 };
+
+
+
+
+
+
+
+
 
 
 
@@ -98,8 +139,19 @@ const sendReadReceipt = (recipientId) => {
 };
 
 
-module.exports = { sendMessage, sendMenuMessage, sendReadReceipt, sendInitializeMessage, sendCreateNewOrderMessage, sendOrderMessage, sendEchoMessage, sendGenericTemplate }
-
+module.exports = {
+  sendMessage,
+  sendMenuMessage,
+  sendReadReceipt,
+  sendInitializeMessage,
+  sendCreateNewOrderMessage,
+  sendOrderMessage,
+  sendEchoMessage,
+  sendGenericTemplate,
+  sendBurgerMenuMessage,
+  sendDrinkMenuMessage,
+  sendFriesMenuMessage
+};
 
 
 
