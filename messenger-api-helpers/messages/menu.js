@@ -157,9 +157,9 @@ const burgerMenuMessageTwo = {
                 {
                     title: "View More",
                     type: "postback",
-                    payload: {
+                    payload: JSON.stringify({
                         type: 'see-menu'
-                    }
+                    })
                 }
             ]
         }
