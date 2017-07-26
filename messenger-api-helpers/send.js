@@ -17,7 +17,9 @@ const sendMenuMessage = (recipientId, runnerDelivery) => {
 };
 
 const sendBurgerMenuMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientId, messages.burgerMenuMessage);
+  sendMessage(recipientId, messages.burgerMenuMessageOne);
+  sendMessage(recipientId, messages.burgerMenuMessageTwo);
+
 };
 
 const sendDrinkMenuMessage = (recipientId, runnerDelivery) => {
