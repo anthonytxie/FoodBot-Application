@@ -25,7 +25,7 @@ const menuMessage = {
     ]
 };
 
-const burgerMenuMessage = {
+const burgerMenuMessageOne = {
     attachment: {
         type: "template",
         payload: {
@@ -115,4 +115,60 @@ const burgerMenuMessage = {
     }
 };
 
-module.exports = { menuMessage, burgerMenuMessage };
+
+const burgerMenuMessageTwo = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                {
+                    title: "Say Cheese",
+                    image_url: "http://i.imgur.com/Jq4kO7S.jpg",
+                    subtitle:
+                        "Double cheeseburger, stuffed between two grilled cheese buns.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                },
+                {
+                    title: "The Portobello",
+                    image_url: "http://i.imgur.com/m4IQMAD.jpg",
+                    subtitle:
+                        "A Portobello stuffed with herbed cheese, rolled in panko crumbs & fried.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                }
+            ],
+            buttons: [
+                {
+                    title: "View Other Items",
+                    type: "postback",
+                    payload: "payload"
+                }
+            ]
+        }
+    }
+};
+
+module.exports = { menuMessage, burgerMenuMessageOne, burgerMenuMessageTwo };
