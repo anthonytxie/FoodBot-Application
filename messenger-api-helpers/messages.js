@@ -197,4 +197,4 @@ const genericTemplate = {
 
 
 
-module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate };
+module.exports = { messageTemplate, persistentMenu, getStarted, genericTemplate, welcomeMessage };
