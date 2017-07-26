@@ -104,13 +104,6 @@ const burgerMenuMessageOne = {
                     ]
                 }
             ],
-            buttons: [
-                {
-                    title: "View More",
-                    type: "postback",
-                    payload: "payload"
-                }
-            ]
         }
     }
 };
@@ -162,9 +155,11 @@ const burgerMenuMessageTwo = {
             ],
             buttons: [
                 {
-                    title: "View Other Items",
+                    title: "View More",
                     type: "postback",
-                    payload: "payload"
+                    payload: {
+                        type: 'see-menu'
+                    }
                 }
             ]
         }
