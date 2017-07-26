@@ -53,7 +53,6 @@ const sendOrderMessage = (recipientId, runnerDelivery) => {
 
 
 
-
 const sendGenericTemplate = (recipientId) => {
   sendMessage(recipientId, messages.genericTemplate)
 }
