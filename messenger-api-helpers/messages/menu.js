@@ -34,7 +34,7 @@ const burgerMenuMessage = {
             elements: [
                 {
                     title: "Top Bun",
-                    image_url: "./images/burgers/top-bun.jpg",
+                    image_url: "http://i.imgur.com/6PnW8EE.jpg",
                     subtitle:
                         "Two beef patties, fancy sauce, cheese, pickles, chopped lettuce, diced onion, served on a three part bun.",
                     buttons: [
@@ -52,7 +52,7 @@ const burgerMenuMessage = {
                 },
                 {
                     title: "The Richmond",
-                    image_url: "./images/burgers/the-richmond.jpg",
+                    image_url: "http://i.imgur.com/z7ANC0C.jpg",
                     subtitle:
                         "Double cheese burger with bacon & caramelized onions.",
                     buttons: [
@@ -70,7 +70,7 @@ const burgerMenuMessage = {
                 },
                 {
                     title: "Breakfast At Tiffany's",
-                    image_url: "./images/burgers/breakfast-at-tiffanys.jpg",
+                    image_url: "http://i.imgur.com/aUB3Mrd.jpg",
                     subtitle:
                         "Double cheese burger with bacon, caramelized onions & a friend egg.",
                     buttons: [
@@ -88,7 +88,7 @@ const burgerMenuMessage = {
                 },
                 {
                     title: "Varsity Blues",
-                    image_url: "./images/burgers/varsity-blues.jpg",
+                    image_url: "http://i.imgur.com/wySPVNs.jpg",
                     subtitle: "Two beef patties, bacon, & blue cheese.",
                     buttons: [
                         {
