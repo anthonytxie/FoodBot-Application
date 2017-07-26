@@ -45,23 +45,29 @@ routes.post('/webhook', (req, res) => {
       // Iterate over each messaging event and handle accordingly
       pageEntry.messaging.forEach((messagingEvent) => {
         console.log({messagingEvent});
-        if (messagingEvent.message) {
-          receiveApi.handleReceiveMessage(messagingEvent);
-        } else if (messagingEvent.postback) {
+        if (messagingEvent.postback) {
           receiveApi.handleReceivePostback(messagingEvent);
-        } else if (messagingEvent.delivery) {
+        } 
+        else if (messagingEvent.quick_reply) {
+          receiveApi.handleQuickReply(messagingEvent);
+        } 
+
+        else if (messagingEvent.message) {
+          receiveApi.handleReceiveMessage(messagingEvent);
+        }
+        else if (messagingEvent.delivery) {
             console.log('delivery')
         }
-          else if (messagingEvent.read) {
+        else if (messagingEvent.read) {
             console.log('read')
         }
-          else if (messagingEvent.optin) {
+        else if (messagingEvent.optin) {
             console.log('auth log in')
           }
-          else if (messagingEvent.account_linking) {
+        else if (messagingEvent.account_linking) {
             console.log('account link')
           }
-          else {
+        else {
             console.log(
               'Webhook received unknown messagingEvent: ',
               messagingEvent

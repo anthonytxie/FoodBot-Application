@@ -26,6 +26,41 @@ const handleReceiveMessage = (messagingEvent) => {
 };
 
 
+
+const handleQuickReply = (messagingEvent) => {
+  //assuming payload is an object that has type and data
+  const {type, data} = JSON.parse(messagingEvent.quick_reply.payload); 
+  //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string 
+  const senderId = messagingEvent.sender.id.toString();
+// runner does stuff with API.ai and webhook
+  switch (type) {
+    case 'see-burgers':
+      runner.showBurgerMenu(senderId)
+        .then((order)=> {
+          send.sendBurgerMenuMessage(senderId, order._session)
+        })
+      break;  
+
+    case 'see-drinks':
+      runner.showDrinkMenu(senderId)
+        .then((order)=> {
+          send.sendDrinkMenuMessage(senderId, order._session)
+        })
+      break;  
+
+    case 'see-fries':
+      runner.showFriesMenu(senderId)
+        .then((order)=> {
+          send.sendFriesMenuMessage(senderId, order._session)
+        })
+      break;  
+    default:
+      console.log(`unknown postback called ${type}`)
+      break;
+  }
+};
+
+
 const handleReceivePostback = (messagingEvent) => {
   //assuming payload is an object that has type and data
   const {type, data} = JSON.parse(messagingEvent.postback.payload); 
@@ -106,7 +141,7 @@ const handleReceivePostback = (messagingEvent) => {
 
 
 
-module.exports = { handleReceiveMessage, handleReceivePostback};
+module.exports = { handleReceiveMessage, handleReceivePostback, handleQuickReply };
 
 
 

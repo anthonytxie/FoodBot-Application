@@ -4,7 +4,6 @@ const menuMessage = {
         {
             content_type: "text",
             title: "Burgers",
-            type: "postback",
             payload: JSON.stringify({
                 type: "see-burgers"
             })
@@ -20,7 +19,6 @@ const menuMessage = {
         {
             content_type: "text",
             title: "Drinks",
-            type: "postback",
             payload: JSON.stringify({
                 type: "see-drinks"
             })
