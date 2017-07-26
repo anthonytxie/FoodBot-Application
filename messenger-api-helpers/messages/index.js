@@ -177,5 +177,6 @@ module.exports = {
   getStarted,
   genericTemplate,
   welcomeMessage,
-  menuMessage
+  menuMessage,
+  burgerMenuMessage
 };
