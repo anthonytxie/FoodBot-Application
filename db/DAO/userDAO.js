@@ -1,62 +1,28 @@
-const {Burger, Fry, Drink, Milkshake, Order, User } = require('./../index');
-const UserDAO = {}
+const { User, Session } = require('./../models/index');
+const userDAO = {};
 
-
-UserDao.findUserBySessionID = function
-
-
-
-
-
-
-
-
-
-UserDAO.findUserByPhoneNumber = function(phoneNumber) {
-    return new Promise((resolve, reject) => {
-        User.findOne({phoneNumber})
-            .then((user) => {
-                if (!user) {
-                    return resolve(false);
-                }
-                else {
-                    return resolve(user);
-                }
-            }).catch((err) => reject(err));
-    });
+userDAO.createUser = function(PSID) {
+  return new Promise((resolve, reject) => {
+    const newUser = new User({ PSID });
+    newUser
+      .save()
+      .then(user => {
+        const newSession = new Session({ _user: user._id });
+        return newSession.save();
+      })
+      .catch(err => reject(err))
+      .then(session => {
+        return User.findOneAndUpdate(
+          { PSID },
+          { $push: { _sessions: session._id } },
+          { new: true }
+        );
+      })
+      .catch(err => reject(err))
+      .then(user => {
+        resolve(user);
+      });
+  });
 };
 
-
-
-
-UserDAO.findAllUsers = function() {
-    return new Promise((resolve, reject) => {
-        User.find()
-            .then((users) => {
-                return resolve(users);
-            }).catch((err) => reject(err));
-    });
-};
-
-
-UserDAO.createUser = function(sessionId) {
-    return new Promise ((resolve, reject) => {
-        const newUser = new User ();
-        newUser.save()
-            .then((user) => {
-                return user
-            }).catch((err) => reject(err))
-            .then((milkshake) => {
-
-            })
-    });-
-};
-
-
-
-
-module.exports = UserDAO;
-
-
-
-
+module.exports = userDAO;
