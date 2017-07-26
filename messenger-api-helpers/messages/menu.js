@@ -11,7 +11,6 @@ const menuMessage = {
         {
             content_type: "text",
             title: "Fries",
-            type: "postback",
             payload: JSON.stringify({
                 type: "see-fries"
             })
