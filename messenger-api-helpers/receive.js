@@ -113,7 +113,6 @@ const handleReceivePostback = (messagingEvent) => {
         })
       break;  
     case 'order-burger':
-      console.log(data)
       runner.addItemtoOrder(senderId, data)
         .then((order) => {
           send.sendBurgerOrderPrompt(senderId, data)
