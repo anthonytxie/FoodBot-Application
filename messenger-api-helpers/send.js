@@ -39,8 +39,8 @@ const sendFriesMenuMessage = (recipientId, runnerDelivery) => {
 
 
 
-const senderBurgerOrderPrompt = (recipientId, data) => {
-  snedMessage(recipientId, messages.burgerTemplate(data));
+const sendBurgerOrderPrompt = (recipientId, data) => {
+  sendMessage(recipientId, messages.burgerTemplate(data));
 }
 
 
@@ -162,7 +162,7 @@ module.exports = {
   sendNormalBurgerMenu,
   sendDrinkMenuMessage,
   sendFriesMenuMessage,
-  senderBurgerOrderPrompt
+  sendBurgerOrderPrompt
 };
 
 
