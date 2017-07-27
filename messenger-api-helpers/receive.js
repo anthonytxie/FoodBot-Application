@@ -23,13 +23,18 @@ const handleReceiveMessage = (messagingEvent) => {
     const senderId = messagingEvent.sender.id.toString();
   // runner does stuff with API.ai and webhook
     switch (type) {
-      case 'see-burgers':
-        runner.showBurgerMenu(senderId)
+      case 'see-special-burgers':
+        runner.showSpecialBurgerMenu(senderId)
           .then((order)=> {
-            send.sendBurgerMenuMessage(senderId, order._session)
+            send.sendSpecialBurgerMenu(senderId, order._session)
           })
         break;  
-
+      case 'see-normal-burgers':
+        runner.showNormalBurgerMenu(senderId)
+          .then((order)=> {
+            send.sendNormalBurgerMenu(senderId, order._session)
+          })
+        break;  
       case 'see-drinks':
         runner.showDrinkMenu(senderId)
           .then((order)=> {
@@ -99,6 +104,12 @@ const handleReceivePostback = (messagingEvent) => {
       runner.showFriesMenu(senderId)
         .then((order)=> {
           send.sendFriesMenuMessage(senderId, order._session)
+        })
+      break;  
+    case 'create_new_order':
+      runner.createNewOrder(senderId)
+        .then((order)=> {
+          send.sendOrderMessage(senderId, order._id)
         })
       break;  
     case 'order-item':

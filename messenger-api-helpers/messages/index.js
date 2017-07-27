@@ -1,4 +1,10 @@
-const {menuMessage, burgerMenuMessageOne, burgerMenuMessageTwo } = require('./menu')
+const {
+    menuMessage,
+    specialBurgerMenuMessageOne,
+    specialBurgerMenuMessageTwo,
+    normalBurgerMenuMessageOne,
+    normalBurgerMenuMessageTwo
+} = require("./menu");
 
 
 const messageTemplate = runnerPackage => {
@@ -178,6 +184,8 @@ module.exports = {
   genericTemplate,
   welcomeMessage,
   menuMessage,
-  burgerMenuMessageOne,
-  burgerMenuMessageTwo
+  specialBurgerMenuMessageOne,
+  specialBurgerMenuMessageTwo,
+  normalBurgerMenuMessageTwo,
+  normalBurgerMenuMessageTwo
 };

@@ -14,7 +14,11 @@ const showMenu = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
 };
 
-const showBurgerMenu = (senderId) => {
+const showSpecialBurgerMenu = (senderId) => {
+  return sessionDAO.sessionRenewal(senderId)
+};
+
+const showNormalBurgerMenu = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
 };
 
@@ -96,7 +100,8 @@ module.exports = {
   deleteMostRecentItemAdded,
   showCurrentOrder,
   showMenu,
-  showBurgerMenu,
+  showSpecialBurgerMenu,
+  showNormalBurgerMenu,
   showDrinkMenu,
   showFriesMenu
 };

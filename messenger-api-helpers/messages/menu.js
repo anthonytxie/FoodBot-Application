@@ -1,31 +1,160 @@
 const menuMessage = {
-    text: "We have Burgers, Sides, and Drinks. What would you like to see?",
+    text: "Would you like to see our Special Burgers or Normal Burgers?",
     quick_replies: [
+        {
+            content_type: "text",
+            title: "Specials",
+            payload: JSON.stringify({
+                type: "see-special-burgers"
+            })
+        },
         {
             content_type: "text",
             title: "Burgers",
             payload: JSON.stringify({
-                type: "see-burgers"
+                type: "see-normal-burgers"
             })
         },
-        {
-            content_type: "text",
-            title: "Fries",
-            payload: JSON.stringify({
-                type: "see-fries"
-            })
-        },
-        {
-            content_type: "text",
-            title: "Drinks",
-            payload: JSON.stringify({
-                type: "see-drinks"
-            })
-        }
     ]
 };
 
-const burgerMenuMessageOne = {
+
+
+
+const normalBurgerMenuMessageOne = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                {
+                    title: "Double Hamburger (No Cheese)",
+                    image_url: "http://i.imgur.com/6PnW8EE.jpg",
+                    subtitle:
+                        "Two beef patties, on a sesame bun.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                },
+                {
+                    title: "Double Cheeseburger",
+                    image_url: "http://i.imgur.com/z7ANC0C.jpg",
+                    subtitle:
+                        "Double cheese burger with caramelized onions.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                },
+                {
+                    title: "Double Baconburger (No Cheese)",
+                    image_url: "http://i.imgur.com/aUB3Mrd.jpg",
+                    subtitle:
+                        "Two patties with bacon on a burger.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                },
+                {
+                    title: "Double Bacon Cheeseburger",
+                    image_url: "http://i.imgur.com/wySPVNs.jpg",
+                    subtitle: "Two patties with bacon & cheese.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                }
+            ],
+        }
+    }
+};
+
+
+const normalBurgerMenuMessageTwo = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                {
+                    title: "Chicken Burger",
+                    image_url: "http://i.imgur.com/6PnW8EE.jpg",
+                    subtitle:
+                        "Chicken burger with mayo.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                },
+                {
+                    title: "Veggie Burger",
+                    image_url: "http://i.imgur.com/z7ANC0C.jpg",
+                    subtitle:
+                        "Veggie burger with soy pattie.",
+                    buttons: [
+                        {
+                            type: "postback",
+                            title: "Order Burger",
+                            payload: JSON.stringify({
+                                type: "order-item",
+                                data: {
+                                    foodType: "burger"
+                                }
+                            })
+                        }
+                    ]
+                },
+            ],
+        }
+    }
+};
+
+
+const specialBurgerMenuMessageOne = {
     attachment: {
         type: "template",
         payload: {
@@ -109,7 +238,7 @@ const burgerMenuMessageOne = {
 };
 
 
-const burgerMenuMessageTwo = {
+const specialBurgerMenuMessageTwo = {
     attachment: {
         type: "template",
         payload: {
@@ -166,4 +295,10 @@ const burgerMenuMessageTwo = {
     }
 };
 
-module.exports = { menuMessage, burgerMenuMessageOne, burgerMenuMessageTwo };
+module.exports = {
+    menuMessage,
+    specialBurgerMenuMessageOne,
+    specialBurgerMenuMessageTwo,
+    normalBurgerMenuMessageOne,
+    normalBurgerMenuMessageTwo
+};
