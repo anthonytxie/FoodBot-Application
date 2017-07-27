@@ -22,7 +22,8 @@ itemDAO.post = function(payload, sessionId) {
   return new Promise((resolve, reject) => {
     Order.findOne({ _session: sessionId }).sort({ createdAt: -1 })
     .then((order) => {
-      resolve(payload)
+      console.log(payload)
+      const item = itemMap.get(payload.data.foodType)(order._id)
         item.save().then((item) => {
           resolve(
             populateOrder(
