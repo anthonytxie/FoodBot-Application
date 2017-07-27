@@ -186,6 +186,6 @@ module.exports = {
   menuMessage,
   specialBurgerMenuMessageOne,
   specialBurgerMenuMessageTwo,
-  normalBurgerMenuMessageTwo,
+  normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo
 };
