@@ -1,3 +1,26 @@
+const { normalBurgers, specialBurgers } = require('./burgers')
+
+const burgerMenuTemplate = (burgerObject) => {
+    return {
+        title: burgerObject.title,
+        image_url: burgerObject.image_url,
+        subtitle: burgerObject.subtitle,
+        buttons: [
+            {
+                type: "postback",
+                title: "Order Burger",
+                payload: JSON.stringify({
+                    type: "order-item",
+                    data: {
+                        foodType: "burger"
+                    }
+                })
+            }
+        ]
+    };
+};
+
+
 const menuMessage = {
     text: "Would you like to see our Special Burgers or Normal Burgers?",
     quick_replies: [
@@ -14,12 +37,9 @@ const menuMessage = {
             payload: JSON.stringify({
                 type: "see-normal-burgers"
             })
-        },
+        }
     ]
 };
-
-
-
 
 const normalBurgerMenuMessageOne = {
     attachment: {
@@ -31,8 +51,7 @@ const normalBurgerMenuMessageOne = {
                 {
                     title: "Double Hamburger (No Cheese)",
                     image_url: "http://i.imgur.com/6PnW8EE.jpg",
-                    subtitle:
-                        "Two beef patties, on a sesame bun.",
+                    subtitle: "Two beef patties, on a sesame bun.",
                     buttons: [
                         {
                             type: "postback",
@@ -41,6 +60,7 @@ const normalBurgerMenuMessageOne = {
                                 type: "order-item",
                                 data: {
                                     foodType: "burger"
+
                                 }
                             })
                         }
@@ -49,8 +69,7 @@ const normalBurgerMenuMessageOne = {
                 {
                     title: "Double Cheeseburger",
                     image_url: "http://i.imgur.com/z7ANC0C.jpg",
-                    subtitle:
-                        "Double cheese burger with caramelized onions.",
+                    subtitle: "Double cheese burger with caramelized onions.",
                     buttons: [
                         {
                             type: "postback",
@@ -67,8 +86,7 @@ const normalBurgerMenuMessageOne = {
                 {
                     title: "Double Baconburger (No Cheese)",
                     image_url: "http://i.imgur.com/aUB3Mrd.jpg",
-                    subtitle:
-                        "Two patties with bacon on a burger.",
+                    subtitle: "Two patties with bacon on a burger.",
                     buttons: [
                         {
                             type: "postback",
@@ -99,11 +117,10 @@ const normalBurgerMenuMessageOne = {
                         }
                     ]
                 }
-            ],
+            ]
         }
     }
 };
-
 
 const normalBurgerMenuMessageTwo = {
     attachment: {
@@ -112,47 +129,21 @@ const normalBurgerMenuMessageTwo = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                {
-                    title: "Chicken Burger",
-                    image_url: "http://i.imgur.com/6PnW8EE.jpg",
-                    subtitle:
-                        "Chicken burger with mayo.",
-                    buttons: [
-                        {
-                            type: "postback",
-                            title: "Order Burger",
-                            payload: JSON.stringify({
-                                type: "order-item",
-                                data: {
-                                    foodType: "burger"
-                                }
-                            })
-                        }
-                    ]
-                },
-                {
-                    title: "Veggie Burger",
-                    image_url: "http://i.imgur.com/z7ANC0C.jpg",
-                    subtitle:
-                        "Veggie burger with soy pattie.",
-                    buttons: [
-                        {
-                            type: "postback",
-                            title: "Order Burger",
-                            payload: JSON.stringify({
-                                type: "order-item",
-                                data: {
-                                    foodType: "burger"
-                                }
-                            })
-                        }
-                    ]
-                },
+                burgerMenuTemplate(normalBurgers[4]),
+                burgerMenuTemplate(normalBurgers[5]),
             ],
+            buttons: [
+                {
+                    title: "View More",
+                    type: "postback",
+                    payload: JSON.stringify({
+                        type: "see-menu"
+                    })
+                }
+            ]
         }
     }
 };
-
 
 const specialBurgerMenuMessageOne = {
     attachment: {
@@ -232,11 +223,10 @@ const specialBurgerMenuMessageOne = {
                         }
                     ]
                 }
-            ],
+            ]
         }
     }
 };
-
 
 const specialBurgerMenuMessageTwo = {
     attachment: {
@@ -287,7 +277,7 @@ const specialBurgerMenuMessageTwo = {
                     title: "View More",
                     type: "postback",
                     payload: JSON.stringify({
-                        type: 'see-menu'
+                        type: "see-menu"
                     })
                 }
             ]
