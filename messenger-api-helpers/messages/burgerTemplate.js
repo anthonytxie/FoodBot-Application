@@ -19,7 +19,6 @@ const burgerTemplate = function(payloadData) {
 					{
 						title: `Okay so, ${burger.title}, would you like the usual way or do you want to customize it?`,
 						image_url: burger.image_url,
-						subtitle: burger.subtitle,
 						buttons: [
 							{
 								type: "postback",
