@@ -1,8 +1,8 @@
 const { normalBurgers, specialBurgers } = require("./burgers");
 
 const findBurger = function(payloadData) {
-	[normalBurgers,...specialBurgers].filter((x) => {
-		return x.title === payloadData.title;
+	return [...normalBurgers,...specialBurgers].filter((x) => {
+		return x.title === payloadData.data.title;
 	});
 };
 
@@ -33,6 +33,7 @@ const burgerTemplate = function(payloadData) {
 	};
 	return attachment
 };
+
 
 
 module.exports = {burgerTemplate};
