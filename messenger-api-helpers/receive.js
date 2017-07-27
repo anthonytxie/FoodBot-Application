@@ -115,7 +115,7 @@ const handleReceivePostback = (messagingEvent) => {
     case 'order-burger':
       runner.addItemtoOrder(senderId, data)
         .then((order) => {
-          send.sendBurgerOrderPrompt(senderId, data)
+          send.sendOrderMessage(senderId, order)
         }).catch((err) => console.log(err));
       break;
     case 'delete-last-item':
