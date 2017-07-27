@@ -15,7 +15,6 @@ const burgerTemplate = function(payloadData) {
 				template_type: "button",
 				text:
 					`Okay so, ${burger.title}, would you like the usual way or do you want to customize it?`,
-				image_url: burger.image_url,
 				buttons: [
 					{
 						type: "postback",
