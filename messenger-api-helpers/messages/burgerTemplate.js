@@ -3,7 +3,7 @@ const { normalBurgers, specialBurgers } = require("./burgers");
 const findBurger = function(payloadData) {
 	return [...normalBurgers,...specialBurgers].filter((x) => {
 		return x.title === payloadData.title;
-	});
+	}).pop();
 };
 
 const burgerTemplate = function(payloadData) {
