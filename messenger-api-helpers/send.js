@@ -39,6 +39,12 @@ const sendFriesMenuMessage = (recipientId, runnerDelivery) => {
 
 
 
+const senderBurgerOrderPrompt = (recipientId, data) => {
+  snedMessage(recipientId, messages.burgerTemplate(data));
+}
+
+
+
 const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };

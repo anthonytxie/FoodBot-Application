@@ -10,9 +10,10 @@ const burgerMenuTemplate = (burgerObject) => {
                 type: "postback",
                 title: "Order Burger",
                 payload: JSON.stringify({
-                    type: "order-item",
+                    type: "order-burger",
                     data: {
-                        foodType: "burger"
+                        foodType: "burger",
+                        title: burgerObject.title
                     }
                 })
             }
