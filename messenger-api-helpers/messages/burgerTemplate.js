@@ -1,9 +1,8 @@
 const { normalBurgers, specialBurgers } = require("./burgers");
 
 const findBurger = function(payloadData) {
-	const {data} = JSON.parse(payloadData); 
 	return [...normalBurgers,...specialBurgers].filter((x) => {
-		return x.title === data.title;
+		return x.title === payloadData.data.title;
 	});
 };
 
