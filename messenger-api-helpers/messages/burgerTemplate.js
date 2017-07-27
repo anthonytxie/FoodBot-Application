@@ -35,4 +35,4 @@ const burgerTemplate = function(payloadData) {
 };
 
 
-module.exports = burgerTemplate;
+module.exports = {burgerTemplate};
