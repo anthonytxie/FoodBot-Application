@@ -161,7 +161,8 @@ module.exports = {
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
   sendDrinkMenuMessage,
-  sendFriesMenuMessage
+  sendFriesMenuMessage,
+  senderBurgerOrderPrompt
 };
 
 
