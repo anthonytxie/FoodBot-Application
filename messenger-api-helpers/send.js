@@ -43,6 +43,11 @@ const sendBurgerOrderPrompt = (recipientId, data) => {
   sendMessage(recipientId, messages.burgerTemplate(data));
 }
 
+const sendOrderedBurgerUpsizeMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.upsizeOrderMessage);
+}
+
+
 
 
 const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {

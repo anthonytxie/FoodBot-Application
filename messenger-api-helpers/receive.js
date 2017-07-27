@@ -112,11 +112,21 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendOrderMessage(senderId, order._id)
         })
       break;  
+    case 'show-burger':
+      runner.renewSession(senderId, data)
+      .then((order) => {
+        send.sendBurgerOrderPrompt(senderId, data)
+      }).catch((err) => console.log(err));
+      break;
     case 'order-burger':
-      runner.addItemtoOrder(senderId, data)
-        .then((order) => {
-          send.sendBurgerOrderPrompt(senderId, data)
-        }).catch((err) => console.log(err));
+      if (data.customize === false) {      
+          runner.addItemtoOrder(senderId, data)
+          .then((order) => {
+            send.sendOrderedBurgerUpsizeMessage(senderId, data)
+          }).catch((err) => console.log(err));
+        }
+      else {
+      }
       break;
     case 'delete-last-item':
       runner.deleteMostRecentItemAdded(senderId)

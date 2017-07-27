@@ -10,7 +10,7 @@ const burgerMenuTemplate = (burgerObject) => {
                 type: "postback",
                 title: "Order Burger",
                 payload: JSON.stringify({
-                    type: "order-burger",
+                    type: "show-burger",
                     data: {
                         foodType: "burger",
                         title: burgerObject.title

@@ -23,12 +23,24 @@ const burgerTemplate = function(payloadData) {
 							{
 								type: "postback",
 								title: "The Usual",
-								payload: "USER_DEFINED_PAYLOAD"
+                payload: JSON.stringify({
+                    type: "order-burger",
+                    data: {
+                        foodType: "burger",
+                        customize: false
+                    }
+                })
 							},
 							{
 								type: "postback",
 								title: "Customize",
-								payload: "USER_DEFINED_PAYLOAD"
+                payload: JSON.stringify({
+                    type: "order-burger",
+                    data: {
+                        foodType: "burger",
+                        customize: true
+                    }
+                })
 							}
 						]
 					}
