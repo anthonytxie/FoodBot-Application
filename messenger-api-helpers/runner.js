@@ -73,11 +73,11 @@ const showCurrentOrder = (senderId) => {
 // ===== Items ===============================================================
 
 
-const addItemtoOrder = (senderId, data) => {
+const addItemtoOrder = (senderId, payload) => {
   return sessionDAO
     .sessionRenewal(senderId)
     .then(session => {
-      return itemDAO.post(data, session._id);
+      return itemDAO.post(payload, session._id);
     })
     .catch(err => console.log(err));
 };
