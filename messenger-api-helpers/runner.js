@@ -18,9 +18,6 @@ const initialize = (senderId) => {
 };
 
 // ===== MENU ===============================================================
-const showMenu = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
-};
 
 const showSpecialBurgerMenu = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
@@ -124,7 +121,6 @@ module.exports = {
   addItemtoOrder,
   deleteMostRecentItemAdded,
   showCurrentOrder,
-  showMenu,
   showSpecialBurgerMenu,
   showNormalBurgerMenu,
   showDrinkMenu,

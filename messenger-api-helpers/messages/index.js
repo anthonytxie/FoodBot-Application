@@ -145,7 +145,7 @@ const welcomeMessage = {
           type: "postback",
           title: "Order",
           payload: JSON.stringify({
-            type: "create_new_order"
+            type: "see-menu"
           })
         }
       ]
