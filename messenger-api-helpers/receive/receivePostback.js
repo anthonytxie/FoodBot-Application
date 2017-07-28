@@ -43,12 +43,6 @@ const handleReceivePostback = (messagingEvent) => {
       else {
       }
       break;
-    case 'upgrade-combo':
-      runner.upgradeCombo(senderId)
-        .then(() => {
-          send.sendComboOrderedMessage(senderId)
-        }).catch((err) => console.log(err));
-      break;
     case 'delete-last-item':
       runner.deleteMostRecentItemAdded(senderId)
         .then((order) => {
