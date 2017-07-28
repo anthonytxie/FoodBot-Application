@@ -75,8 +75,8 @@ const handleReceivePostback = (messagingEvent) => {
   switch (type) {
     case 'initialize':
       runner.initialize(senderId)
-        .then((user)=> {
-          send.sendInitializeMessage(senderId, user.PSID)
+        .then(()=> {
+          send.sendInitializeMessage(senderId)
         })
       break;
 
