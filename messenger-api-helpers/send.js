@@ -28,6 +28,9 @@ const sendNormalBurgerMenu = (recipientId, runnerDelivery) => {
 
 };
 
+
+
+
 const sendDrinkMenuMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.drinkMenuMessage);
 };
@@ -164,7 +167,8 @@ module.exports = {
   sendNormalBurgerMenu,
   sendDrinkMenuMessage,
   sendFriesMenuMessage,
-  sendBurgerOrderPrompt
+  sendBurgerOrderPrompt,
+  sendOrderedBurgerUpsizeMessage
 };
 
 
