@@ -159,7 +159,8 @@ module.exports = {
   sendDrinkMenuMessage,
   sendFriesMenuMessage,
   sendBurgerOrderPrompt,
-  sendOrderedBurgerUpsizeMessage
+  sendOrderedBurgerUpsizeMessage,
+  sendComboOrderedMessage
 };
 
 
