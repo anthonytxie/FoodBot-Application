@@ -239,5 +239,6 @@ module.exports = {
   normalBurgerMenuMessageTwo,
   burgerTemplate,
   upsizeOrderMessage,
-  confirmedOrder
+  confirmedOrder,
+  orderAskContinue
 };
