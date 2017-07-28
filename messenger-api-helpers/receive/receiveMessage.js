@@ -60,7 +60,7 @@ const handleReceiveMessage = messagingEvent => {
 
       case "confirm-order":
         runner.confirmOrder(senderId).then(() => {
-          send.sendInitializeMessage(senderId);
+          send.sendConfirmOrderMessage(senderId);
         });
         break;
       default:
