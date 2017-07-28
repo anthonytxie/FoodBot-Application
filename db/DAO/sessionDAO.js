@@ -59,7 +59,7 @@ sessionDAO.sessionRenewal = function(PSID) {
             })
             .catch(err => reject(err))
             .then(session => {
-                if (Date.now() - session.lastActiveDate > 180000) {
+                if ((Date.now() - session.lastActiveDate > 180000) || (!session.isActive)) {
                     return Session.findOneAndUpdate(
                         { _id: session._id },
                         { $set: { isActive: false } },
@@ -92,7 +92,7 @@ sessionDAO.closeSession = function(PSID) {
             .then(session => {
                 return Session.findOneAndUpdate(
                     { _id: session._id },
-                    { $set: { isActive: true } },
+                    { $set: { isActive: false } },
                     { new: true }
                 );
             })
