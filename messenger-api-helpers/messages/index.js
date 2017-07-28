@@ -223,8 +223,8 @@ const orderAskContinue = {
 
 
 const confirmedOrder = {
-  text: "Order is confirmed. Come pick it up in 15!"
-}
+    text: "Alright! Order confirmed!",
+};
 
 module.exports = {
   messageTemplate,
