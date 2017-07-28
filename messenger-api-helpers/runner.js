@@ -6,7 +6,15 @@ const itemDAO = require('./../db/DAO/itemDAO');
 
 // ===== USERS ===============================================================
 const initialize = (senderId) => {
-  return userDAO.createUser(senderId);
+  userDAO.isUserCreated(senderId)
+    .then((isCreated) => {
+      if (isCreated) {
+        return sessionDAO.sessionRenewal(senderId)
+      }
+      else {
+        return userDAO.createUser(senderId);
+      }
+    }).catch((err) => console.log(err));
 };
 
 // ===== MENU ===============================================================

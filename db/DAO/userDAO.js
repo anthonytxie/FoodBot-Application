@@ -25,4 +25,20 @@ userDAO.createUser = function(PSID) {
   });
 };
 
+
+
+userDAO.isUserCreated = function(PSID) {
+  return new Promise((resolve, reject) => {
+    User.findOne({PSID})
+      .then((user) => {
+        if (user) {
+          resolve(true);
+        }
+        else resolve(false);
+      }).catch((err) => reject(err));
+  });
+};
+
+
+
 module.exports = userDAO;
