@@ -59,10 +59,10 @@ const handleReceiveMessage = messagingEvent => {
         break;
 
       case "order-confirm":
-        runner.confirmOrder(senderId)
-          .then(() => {
-            send.sendConfirmOrderMessage(senderId)
-          });
+        runner.confirmOrder(senderId).then(() => {
+          send.sendConfirmOrderMessage(senderId);
+        });
+        break;
       default:
         console.log(`unknown postback called ${type}`);
         break;
