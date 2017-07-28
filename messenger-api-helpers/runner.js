@@ -39,22 +39,6 @@ const initialize = (senderId) => {
 
 // ===== MENU ===============================================================
 
-const showSpecialBurgerMenu = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
-};
-
-const showNormalBurgerMenu = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
-};
-
-const showDrinkMenu = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
-};
-
-const showFriesMenu = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
-};
-
 const renewSession = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
 };
@@ -130,9 +114,6 @@ const upgradeCombo = (senderId, data) => {
 }
 
 
-
-
-
 module.exports = {
   initialize,
   createNewOrder,
@@ -141,10 +122,6 @@ module.exports = {
   addItemtoOrder,
   deleteMostRecentItemAdded,
   showCurrentOrder,
-  showSpecialBurgerMenu,
-  showNormalBurgerMenu,
-  showDrinkMenu,
-  showFriesMenu,
   renewSession,
   upgradeCombo
 };

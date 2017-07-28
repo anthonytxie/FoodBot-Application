@@ -23,23 +23,23 @@ const handleReceiveMessage = messagingEvent => {
     // runner does stuff with API.ai and webhook
     switch (type) {
       case "see-special-burgers":
-        runner.showSpecialBurgerMenu(senderId).then(order => {
+        runner.renewSession(senderId).then(order => {
           send.sendSpecialBurgerMenu(senderId);
         });
         break;
       case "see-normal-burgers":
-        runner.showNormalBurgerMenu(senderId).then(order => {
+        runner.renewSession(senderId).then(order => {
           send.sendNormalBurgerMenu(senderId);
         });
         break;
       case "see-drinks":
-        runner.showDrinkMenu(senderId).then(order => {
+        runner.renewSession(senderId).then(order => {
           send.sendDrinkMenuMessage(senderId);
         });
         break;
 
       case "see-fries":
-        runner.showFriesMenu(senderId).then(order => {
+        runner.renewSession(senderId).then(order => {
           send.sendFriesMenuMessage(senderId);
         });
         break;
@@ -51,13 +51,6 @@ const handleReceiveMessage = messagingEvent => {
           })
           .catch(err => console.log(err));
         break;
-
-      case "see-menu":
-        runner.renewSession(senderId).then(order => {
-          send.sendMenuMessage(senderId);
-        });
-        break;
-
       case "confirm-order":
         runner.confirmOrder(senderId).then(() => {
           send.sendInitializeMessage(senderId);
@@ -75,4 +68,6 @@ const handleReceiveMessage = messagingEvent => {
   }
 };
 
-module.exports = { handleReceiveMessage };
+module.exports = {
+  handleReceiveMessage
+};
