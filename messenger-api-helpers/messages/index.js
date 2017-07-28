@@ -222,8 +222,8 @@ const orderAskContinue = {
 };
 
 
-const confirmedOrder = {
-    text: "Alright! Order confirmed!",
+const confirmedMessageTemplate = () => {
+  return { text: "Ok we've confirmed the order" };
 };
 
 module.exports = {
@@ -239,6 +239,6 @@ module.exports = {
   normalBurgerMenuMessageTwo,
   burgerTemplate,
   upsizeOrderMessage,
-  confirmedOrder,
+  confirmedMessageTemplate,
   orderAskContinue
 };
