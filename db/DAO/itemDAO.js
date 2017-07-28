@@ -58,7 +58,7 @@ itemDAO.postCombo = function(sessionId) {
         });
       })
       .then(order => {
-        const drink = new Side({});
+        const drink = new Drink({});
         return drink.save().then(item => {
           resolve(
             populateOrder(

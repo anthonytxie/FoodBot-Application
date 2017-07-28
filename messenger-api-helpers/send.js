@@ -5,42 +5,43 @@ const sendApi = require('./sendApi');
 
 // DIFFERENT SENDER FUNCTIONS
 
-const sendInitializeMessage = (recipientId, runnerDelivery) => {
+const sendInitializeMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.welcomeMessage);
 };
 
 
 // ===== MENU ===============================================================
 
-const sendMenuMessage = (recipientId, runnerDelivery) => {
+const sendMenuMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.menuMessage);
 };
 
-const sendSpecialBurgerMenu = (recipientId, runnerDelivery) => {
+const sendSpecialBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
   sendMessage(recipientId, messages.specialBurgerMenuMessageTwo);
 
 };
 
-const sendNormalBurgerMenu = (recipientId, runnerDelivery) => {
+const sendNormalBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.normalBurgerMenuMessageOne);
   sendMessage(recipientId, messages.normalBurgerMenuMessageTwo);
 
 };
 
-
-
-
-const sendDrinkMenuMessage = (recipientId, runnerDelivery) => {
+const sendDrinkMenuMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.drinkMenuMessage);
 };
 
 
-const sendFriesMenuMessage = (recipientId, runnerDelivery) => {
+const sendFriesMenuMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.FriesMenuMessage);
 };
 
 
+// ===== ORDER ===============================================================
+const sendComboOrderedMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.orderAskContinue)
+}
 
 const sendBurgerOrderPrompt = (recipientId, data) => {
   sendMessage(recipientId, messages.burgerTemplate(data));
@@ -50,24 +51,22 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.upsizeOrderMessage);
 }
 
-
-
-
-const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
+const sendCreateNewOrderMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.messageTemplate(data));
 };
 
-const sendOrderMessage = (recipientId, runnerDelivery) => {
-  sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
+const sendOrderMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.messageTemplate(data));
 };
 
 
+const sendConfirmOrderMessage = (recipientId) => {
+  sendMessage(recipientId, messages.confirmedOrder);
+};
 
 
 
-
-
-
+// ===== ECHO & GENERIC ===============================================================
 
 const sendGenericTemplate = (recipientId) => {
   sendMessage(recipientId, messages.genericTemplate)
@@ -77,14 +76,6 @@ const sendGenericTemplate = (recipientId) => {
 const sendEchoMessage = (recipientId, message) => {
   sendMessage(recipientId, messages.messageTemplate(message));
 };
-
-
-
-
-
-
-
-
 
 
 

@@ -201,6 +201,31 @@ const upsizeOrderMessage = {
 };
 
 
+const orderAskContinue = {
+    text: "Alright! We added that to your order. Are you done or would you like to order more?",
+    quick_replies: [
+        {
+            content_type: "text",
+            title: "Order More",
+            payload: JSON.stringify({
+                type: "see-menu"
+            })
+        },
+        {
+            content_type: "text",
+            title: "Done",
+            payload: JSON.stringify({
+                type: "order-confirm"
+            })
+        }
+    ]
+};
+
+
+const confirmedOrder = {
+  text: "Order is confirmed. Come pick it up in 15!"
+}
+
 module.exports = {
   messageTemplate,
   persistentMenu,
@@ -213,5 +238,6 @@ module.exports = {
   normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo,
   burgerTemplate,
-  upsizeOrderMessage
+  upsizeOrderMessage,
+  confirmedOrder
 };

@@ -24,23 +24,23 @@ const handleReceiveMessage = messagingEvent => {
     switch (type) {
       case "see-special-burgers":
         runner.showSpecialBurgerMenu(senderId).then(order => {
-          send.sendSpecialBurgerMenu(senderId, order._session);
+          send.sendSpecialBurgerMenu(senderId);
         });
         break;
       case "see-normal-burgers":
         runner.showNormalBurgerMenu(senderId).then(order => {
-          send.sendNormalBurgerMenu(senderId, order._session);
+          send.sendNormalBurgerMenu(senderId);
         });
         break;
       case "see-drinks":
         runner.showDrinkMenu(senderId).then(order => {
-          send.sendDrinkMenuMessage(senderId, order._session);
+          send.sendDrinkMenuMessage(senderId);
         });
         break;
 
       case "see-fries":
         runner.showFriesMenu(senderId).then(order => {
-          send.sendFriesMenuMessage(senderId, order._session);
+          send.sendFriesMenuMessage(senderId);
         });
         break;
       case "upgrade-combo":
@@ -51,6 +51,18 @@ const handleReceiveMessage = messagingEvent => {
           })
           .catch(err => console.log(err));
         break;
+
+      case "see-menu":
+        runner.createNewOrder(senderId).then(order => {
+          send.sendMenuMessage(senderId);
+        });
+        break;
+
+      case "order-confirm":
+        runner.confirmOrder(senderId)
+          .then(() => {
+            send.sendConfirmOrderMessage(senderId)
+          });
       default:
         console.log(`unknown postback called ${type}`);
         break;
