@@ -74,7 +74,7 @@ const sendGenericTemplate = (recipientId) => {
 
 
 const sendEchoMessage = (recipientId, message) => {
-  sendMessage(recipientId, messages.messageTemplate(message));
+  sendMessage(recipientId, messages.menuMessage);
 };
 
 
