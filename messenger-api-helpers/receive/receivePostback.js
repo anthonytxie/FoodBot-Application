@@ -16,7 +16,7 @@ const handleReceivePostback = (messagingEvent) => {
         })
       break;
     case 'see-menu':
-      runner.createNewOrder(senderId)
+      runner.renewSession(senderId)
         .then((order)=> {
           send.sendMenuMessage(senderId, order._session)
         })
