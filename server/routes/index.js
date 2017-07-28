@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express();
-const receiveApi = require('../../messenger-api-helpers/receive');
+const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
+const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
 
 
 // Verify Token 
@@ -46,10 +47,10 @@ routes.post('/webhook', (req, res) => {
       pageEntry.messaging.forEach((messagingEvent) => {
         console.log({messagingEvent});
         if (messagingEvent.postback) {
-          receiveApi.handleReceivePostback(messagingEvent);
+          handleReceivePostback(messagingEvent);
         } 
         else if (messagingEvent.message) {
-          receiveApi.handleReceiveMessage(messagingEvent);
+          handleReceiveMessage(messagingEvent);
         }
         else if (messagingEvent.delivery) {
             console.log('delivery')

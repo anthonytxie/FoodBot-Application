@@ -102,6 +102,20 @@ const deleteMostRecentItemAdded = (senderId) => {
     .catch(err => console.log(err));
 };
 
+
+const upgradeCombo = (senderId, data) => {
+  return sessionDAO
+    .sessionRenewal(senderId)
+    .then(session => {
+      return itemDAO.postCombo(session._id)
+    })
+    .catch(err => console.log(err))
+}
+
+
+
+
+
 module.exports = {
   initialize,
   createNewOrder,
@@ -115,7 +129,8 @@ module.exports = {
   showNormalBurgerMenu,
   showDrinkMenu,
   showFriesMenu,
-  renewSession
+  renewSession,
+  upgradeCombo
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.

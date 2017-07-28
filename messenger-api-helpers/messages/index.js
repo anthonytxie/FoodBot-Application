@@ -187,7 +187,7 @@ const upsizeOrderMessage = {
             content_type: "text",
             title: "Yes",
             payload: JSON.stringify({
-                type: "order-combo"
+                type: "upgrade-combo"
             })
         },
         {

@@ -10,7 +10,8 @@ const sideSchema = new Schema ({
   },
   size: {
     type: String,
-    enum: ['small', 'medium', 'large']
+    enum: ['small', 'medium', 'large'],
+    default: 'medium'
   },
 
 }, disciminatorOptions);
