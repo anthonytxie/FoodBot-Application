@@ -61,7 +61,7 @@ const sendOrderMessage = (recipientId, data) => {
 
 
 const sendConfirmOrderMessage = (recipientId) => {
-  sendMessage(recipientId, messages.confirmedMessageTemplate);
+  sendMessage(recipientId, messages.confirmedMessageTemplate());
 };
 
 
