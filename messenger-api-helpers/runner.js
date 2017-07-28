@@ -6,7 +6,7 @@ const itemDAO = require('./../db/DAO/itemDAO');
 
 // ===== USERS ===============================================================
 const initialize = (senderId) => {
-  userDAO.isUserCreated(senderId)
+  return userDAO.isUserCreated(senderId)
     .then((isCreated) => {
       if (isCreated) {
         return sessionDAO.sessionRenewal(senderId)
