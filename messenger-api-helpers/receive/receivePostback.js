@@ -15,31 +15,10 @@ const handleReceivePostback = (messagingEvent) => {
           send.sendInitializeMessage(senderId)
         })
       break;
-
     case 'see-menu':
       runner.createNewOrder(senderId)
         .then((order)=> {
           send.sendMenuMessage(senderId, order._session)
-        })
-      break;  
-    case 'see-burgers':
-      runner.showBurgerMenu(senderId)
-        .then((order)=> {
-          send.sendBurgerMenuMessage(senderId, order._session)
-        })
-      break;  
-
-    case 'see-drinks':
-      runner.showDrinkMenu(senderId)
-        .then((order)=> {
-          send.sendDrinkMenuMessage(senderId, order._session)
-        })
-      break;  
-
-    case 'see-fries':
-      runner.showFriesMenu(senderId)
-        .then((order)=> {
-          send.sendFriesMenuMessage(senderId, order._session)
         })
       break;  
     case 'create_new_order':
