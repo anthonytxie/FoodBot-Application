@@ -1,5 +1,4 @@
-const { Session, User } = require('./../models/index');
-
+const { Session, User } = require("./../models/index");
 
 const sessionDAO = {};
 
@@ -65,9 +64,8 @@ sessionDAO.sessionRenewal = function(PSID) {
                         { _id: session._id },
                         { $set: { isActive: false } },
                         { new: true }
-                    )
-                    .then(() => {
-                        return sessionDAO.createSession(PSID)
+                    ).then(() => {
+                        return sessionDAO.createSession(PSID);
                     });
                 } else {
                     return Session.findOneAndUpdate(
@@ -82,6 +80,27 @@ sessionDAO.sessionRenewal = function(PSID) {
     });
 };
 
-
+sessionDAO.closeSession = function(PSID) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ PSID })
+            .then(user => {
+                return Session.findOne({ _user: user._id }).sort({
+                    createdAt: -1
+                });
+            })
+            .catch(err => reject(err))
+            .then(session => {
+                return Session.findOneAndUpdate(
+                    { _id: session._id },
+                    { $set: { isActive: true } },
+                    { new: true }
+                );
+            })
+            .then(session => {
+                resolve(session);
+            })
+            .catch(err => reject(err));
+    });
+};
 
 module.exports = sessionDAO;

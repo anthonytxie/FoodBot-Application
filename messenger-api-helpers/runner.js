@@ -73,7 +73,7 @@ const createNewOrder = (senderId) => {
 
 const confirmOrder = (senderId) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .closeSession(senderId)
     .then(session => {
       return orderDAO.confirmOrder(session._id, true);
     })
