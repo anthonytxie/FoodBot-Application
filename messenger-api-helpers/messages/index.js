@@ -215,7 +215,7 @@ const orderAskContinue = {
             content_type: "text",
             title: "Done",
             payload: JSON.stringify({
-                type: "order-confirm"
+                type: "confirm-order"
             })
         }
     ]
