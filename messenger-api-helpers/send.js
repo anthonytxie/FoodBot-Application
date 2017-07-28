@@ -39,6 +39,12 @@ const sendFriesMenuMessage = (recipientId, runnerDelivery) => {
 
 
 
+const sendBurgerOrderPrompt = (recipientId, data) => {
+  sendMessage(recipientId, messages.burgerTemplate(data));
+}
+
+
+
 const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
@@ -46,9 +52,6 @@ const sendCreateNewOrderMessage = (recipientId, runnerDelivery) => {
 const sendOrderMessage = (recipientId, runnerDelivery) => {
   sendMessage(recipientId, messages.messageTemplate(runnerDelivery));
 };
-
-
-
 
 
 
@@ -155,7 +158,8 @@ module.exports = {
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
   sendDrinkMenuMessage,
-  sendFriesMenuMessage
+  sendFriesMenuMessage,
+  sendBurgerOrderPrompt
 };
 
 
