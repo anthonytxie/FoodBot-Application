@@ -53,7 +53,7 @@ const handleReceiveMessage = messagingEvent => {
         break;
 
       case "see-menu":
-        runner.renewSession(senderId).then(order => {
+        runner.createNewOrder(senderId).then(order => {
           send.sendMenuMessage(senderId);
         });
         break;

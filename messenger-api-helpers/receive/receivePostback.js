@@ -16,13 +16,13 @@ const handleReceivePostback = (messagingEvent) => {
         })
       break;
     case 'see-menu':
-      runner.renewSession(senderId)
+      runner.createNewOrder(senderId)
         .then((order)=> {
           send.sendMenuMessage(senderId, order._session)
         })
       break;  
     case 'create_new_order':
-      runner.renewSession(senderId)
+      runner.createNewOrder(senderId)
         .then((order)=> {
           send.sendOrderMessage(senderId, order._id)
         })
