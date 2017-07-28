@@ -22,7 +22,7 @@ const handleReceivePostback = (messagingEvent) => {
         })
       break;  
     case 'create_new_order':
-      runner.createNewOrder(senderId)
+      runner.renewSession(senderId)
         .then((order)=> {
           send.sendOrderMessage(senderId, order._id)
         })

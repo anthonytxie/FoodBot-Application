@@ -10,9 +10,15 @@ const initialize = (senderId) => {
     .then((isCreated) => {
       if (isCreated) {
         return sessionDAO.sessionRenewal(senderId)
+          .then((session) => {
+            return orderDAO.initializeOrder(senderId, user._session)
+          })
       }
       else {
-        return userDAO.createUser(senderId);
+        return userDAO.createUser(senderId)
+          .then((user) => {
+            return orderDAO.initializeOrder(senderId, user._session)
+          })
       }
     }).catch((err) => console.log(err));
 };
