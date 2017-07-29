@@ -155,10 +155,17 @@ const welcomeMessage = {
 
 
 
-const webviewButton = {
+const burgerCustomizeWebview = {
   type: "web_url",
-  url: "https://foodbotapi.herokuapp.com",
-  title: "Open Webview",
+  url: "https://foodbotapi.herokuapp.com/burgercustomize",
+  title: "Open Burger Customize Webview",
+  webview_height_ratio: "full"
+};
+
+const comboCustomizeWebview = {
+  type: "web_url",
+  url: "https://foodbotapi.herokuapp.com/burgercustomize",
+  title: "Open Burger Customize Webview",
   webview_height_ratio: "full"
 };
 
@@ -173,7 +180,7 @@ const genericTemplate = {
           subtitle: "Webview test",
           item_url: "https://www.oculus.com/en-us/rift/",
           image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-          buttons: [webviewButton]
+          buttons: [burgerCustomizeWebview, comboCustomizeWebview ]
         },
         {
           title: "Order Commands",

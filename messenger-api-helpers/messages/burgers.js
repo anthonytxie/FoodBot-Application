@@ -3,21 +3,12 @@ const normalBurgers = [
 		title: "Double Hamburger (No Cheese)",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Two beef patties, on a sesame bun.",
-		burgerObject: {
-				bunType: "three-part",
-				patties: 2,
-				fancySauce: true,
-				standardCheese: true,
-				pickles: true,
-				lettuce: true,
-				onions: true,
-			}
 	},
 
 	{
 		title: "Double Cheeseburger",
 		image_url: "http://i.imgur.com/z7ANC0C.jpg",
-		subtitle: "Double cheese burger with caramelized onions."
+		subtitle: "Double cheese burger with caramelized onions.",
 	},
 
 	{
@@ -52,19 +43,44 @@ const specialBurgers = [
 		title: "Top Bun",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle:
-			"Two beef patties, fancy sauce, cheese, pickles, chopped lettuce, diced onion, served on a three part bun."
+			"Two beef patties, fancy sauce, cheese, pickles, chopped lettuce, diced onion, served on a three part bun.",
+		burgerObject: {
+				bunType: "three-part",
+				patties: 2,
+				fancySauce: true,
+				standardCheese: true,
+				pickles: true,
+				lettuce: true,
+				onions: true,
+			}
 	},
 	{
 		title: "The Richmond",
 		image_url: "http://i.imgur.com/z7ANC0C.jpg",
-		subtitle: "Double cheese burger with bacon & caramelized onions."
+		subtitle: "Double cheese burger with bacon & caramelized onions.",
+		burgerObject: {
+				bunType: "standard",
+				patties: 2,
+				fancySauce: true,
+				standardCheese: true,
+				caramelizedOnion: true,
+				bacon: true,
+			}
 	},
 
 	{
 		title: "Breakfast At Tiffany's",
 		image_url: "http://i.imgur.com/aUB3Mrd.jpg",
 		subtitle:
-			"Double cheese burger with bacon, caramelized onions & a friend egg."
+			"Double cheese burger with bacon, caramelized onions & a friend egg.",
+		burgerObject: {
+				bunType: "standard",
+				patties: 2,
+				fancySauce: true,
+				standardCheese: true,
+				caramelizedOnion: true,
+				bacon: true,
+			}
 	},
 
 	{
