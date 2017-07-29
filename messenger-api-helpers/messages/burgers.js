@@ -133,7 +133,6 @@ const specialBurgers = [
 		subtitle: "Double cheeseburger, stuffed between two grilled cheese buns.",
 		burgerObject: {
 			title: "Say Cheese",
-
 			patties: 2,
 			premiumToppings: ["grilledCheeseBun", "standardCheese"]
 		}
@@ -158,7 +157,6 @@ const specialBurgers = [
 		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
 		burgerObject: {
 			title: "Chicken Chicken",
-
 			premiumToppings: ["chickenPatty"],
 			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"]
 		}
