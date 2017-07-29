@@ -89,7 +89,7 @@ itemDAO.postCombo = function(sessionId) {
         });
       })
       .then(order => {
-        const drink = new Drink({});
+        const drink = new Drink({drinkName: "Pepsi"});
         return drink.save().then(item => {
           resolve(
             populateOrder(

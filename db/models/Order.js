@@ -45,13 +45,13 @@ const orderSchema = new Schema({
 
 }, schemaOptions)
 
-// orderSchema.virtual('orderPrice').get(function() {
-//   let price = 0
-//   for (let item of this._burgers) {
-//     price = price + item.price
-//   }
-//   return price
-// });
+orderSchema.virtual('orderPrice').get(function() {
+  let price = 0
+  for (let item of this._items) {
+    price = price + item.price
+  }
+  return price
+});
 
 
 
