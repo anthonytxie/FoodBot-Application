@@ -13,8 +13,7 @@ const burgerMenuTemplate = (burgerObject) => {
                     type: "show-burger",
                     data: {
                         foodType: "burger",
-                        title: burgerObject.title,
-                    }
+                        title: burgerObject.title                    }
                 })
             }
         ]
