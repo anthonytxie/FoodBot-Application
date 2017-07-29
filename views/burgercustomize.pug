@@ -2,6 +2,146 @@ doctype html
 html(lang="en")
 	head
 		title Burger Builder
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
 		link(rel ='stylesheet', href="burgercustomize.css", type='text/css')
-	body 
-		h1 WEBVIEW GOES HERE
+		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+	body
+		// div(data-role="page")
+		form
+			h4 Patties
+			section
+				input(type="range", name="points", min="1", max="3", value="1")
+
+			br
+			h4 Type
+			section
+				.toggle
+					label(for="bacon") Bacon
+					input(id="bacon", name="bacon", type="checkbox", value="yes")
+				.toggle
+					label(for="cheese") Cheese
+					input(id="cheese", name="cheese", type="checkbox", value="yes")
+
+			br
+			div(id="sauce_toggle" class="tab")
+				h4 Sauce
+			div(id="bun_toggle" class="tab")
+				h4 Bun
+			div(id="toppings_toggle" class="tab")
+				h4 Toppings
+			section
+				div(class="contents", id="sauce")
+
+					.square.selected 
+						input(type="hidden", name="ketchup", value="")
+						.square_content 
+							img(src="sample_logo.png")
+							p Ketchup
+					.square 
+						input(type="hidden", name="mustard", value="")
+						.square_content 
+							img(src="sample_logo.png")
+							p Mustard
+					.square 
+						input(type="hidden", name="mayo", value="")
+						.square_content Mayo
+					.square 
+						input(type="hidden", name="relish", value="")
+						.square_content Relish
+					.square 
+						input(type="hidden", name="fancy", value="")
+						.square_content Fancy Sauce
+					.square 
+						input(type="hidden", name="hot", value="")
+						.square_content Hot Sauce
+				div(class="contents", id="bun" style="display:none")
+					.square 
+						input(type="hidden", name="lettuce_bun", value="")
+						.square_content Lettuce Bun
+					.square
+						input(type="hidden", name="gluten", value="")
+						.square_content Gluten Free Bun
+					.square 
+						input(type="hidden", name="grilled_cheese", value="")
+						.square_content Grilled Cheese Bun
+				div(class="contents", id="toppings" style="display:none")
+					.square 
+						input(type="hidden", name="lettuce", value="")
+						.square_content Lettuce
+					.square
+						input(type="hidden", name="tomato", value="")
+						.square_content Tomato
+					.square 
+						input(type="hidden", name="pickle", value="")
+						.square_content Pickle
+					.square 
+						input(type="hidden", name="onions", value="")
+						.square_content Onions
+					.square
+						input(type="hidden", name="peppers", value="")
+						.square_content Hot Peppers
+					.square
+						input(type="hidden", name="portobello", value="")
+						.square_content Stuffed Portobello
+					.square
+						input(type="hidden", name="chicken", value="")
+						.square_content Chicken Patty
+					.square
+						input(type="hidden", name="caramelized", value="")
+						.square_content Caramelized Onions
+					.square
+						input(type="hidden", name="american", value="")
+						.square_content American Style Cheese
+					.square
+						input(type="hidden", name="blue", value="")
+						.square_content Blue Cheese
+					.square 
+						input(type="hidden", name="side_cheese", value="")
+						.square_content Side Cheese Sauce
+					.square
+						input(type="hidden", name="side_gravy", value="")
+						.square_content Side of Gravy
+					.square
+						input(type="hidden", name="sauteed", value="")
+						.square_content Sauteed Mushroom
+		script.
+			// changing tab
+			$("body").on("click", ".tab", function(){
+				// find corresponding div to show
+				let name = $(this).attr("id");
+				name = "#" + name.substr(0, name.length - 7);
+
+				// show the correct div
+				$(".contents").css("display", "none");
+				$(name).css("display", "flex");
+
+				// update the tab navbar
+				$(".active").removeClass("active");
+				$(this).addClass("active");
+			});
+
+			// selecting and deselecting
+			$("body").on("click", ".square", function() {
+				if ($(this).hasClass("selected")) {
+					$(this).children("input").attr("value", "");
+					$(this).removeClass("selected");
+				} else {
+					$(this).children("input").attr("value", "yes");
+					$(this).addClass("selected");
+				}
+			})
+
+
+
+
+
+
+
+
+
+
+
+
+
