@@ -45,10 +45,10 @@ const orderSchema = new Schema({
 
 }, schemaOptions)
 
-orderSchema.virtual('orderPrice').get(function() {
-  return 3
-});
 
+orderSchema.virtual("price").get(function() {
+  return 5;
+});
 
 
 const Order = mongoose.model('Order', orderSchema);
