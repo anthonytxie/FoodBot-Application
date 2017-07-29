@@ -1,12 +1,63 @@
 const normalBurgers = [
 	{
+		title: "Single Hamburger (No Cheese)",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "One beef patty, on a sesame bun.",
+		burgerObject: {
+			title: "Single Hamburger (No Cheese)",
+			patties: 1,
+			standardToppings: ["standardBun"],
+			basePrice:  5.99
+		}
+	},
+	{
+		title: "Single Cheeseburger",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "One beef patty with cheese, on a sesame bun.",
+		burgerObject: {
+			title: "Single Cheeseburger",
+			patties: 1,
+			standardToppings: ["standardBun"],
+			premiumToppings: ['standardCheese'],
+			basePrice:  6.99
+		}
+	},
+
+	{
+		title: "Single Baconburger",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "One beef patty with bacon, on a sesame bun.",
+		burgerObject: {
+			title: "Single Baconburger",
+			patties: 1,
+			standardToppings: ["standardBun"],
+			premiumToppings: ['bacon'],
+			basePrice:  7.49
+		}
+	},
+
+	{
+		title: "Single Bacon Cheeseburger",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "One beef patty with cheese and bacon, on a sesame bun.",
+		burgerObject: {
+			title: "Single Cheese Baconburger",
+			patties: 1,
+			standardToppings: ["standardBun"],
+			premiumToppings: ['standardCheese', 'bacon'],
+			basePrice:  8.49
+		}
+	},
+
+	{
 		title: "Double Hamburger (No Cheese)",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Two beef patties, on a sesame bun.",
 		burgerObject: {
 			title: "Double Hamburger (No Cheese)",
 			patties: 2,
-			standardToppings: ["standardBun"]
+			standardToppings: ["standardBun"],
+			basePrice:  7.99
 		}
 	},
 
@@ -19,7 +70,8 @@ const normalBurgers = [
 
 			patties: 2,
 			standardToppings: ["standardBun"],
-			premiumToppings: ["standardCheese"]
+			premiumToppings: ["standardCheese"],
+			basePrice: 8.99
 		}
 	},
 
@@ -32,7 +84,8 @@ const normalBurgers = [
 
 			patties: 2,
 			standardToppings: ["standardBun"],
-			premiumToppings: ["bacon"]
+			premiumToppings: ["bacon"],
+			basePrice: 9.49
 		}
 	},
 
@@ -45,7 +98,8 @@ const normalBurgers = [
 
 			patties: 2,
 			standardToppings: ["standardBun"],
-			premiumToppings: ["bacon", "standardCheese"]
+			premiumToppings: ["bacon", "standardCheese"],
+			basePrice: 9.49
 		}
 	},
 
@@ -57,7 +111,8 @@ const normalBurgers = [
 			title: "Chicken Burger",
 
 			premiumToppings: ["chickenPatty"],
-			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"]
+			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
+			basePrice: 9.99
 		}
 	},
 
@@ -84,7 +139,8 @@ const specialBurgers = [
 			title: "Top Bun",
 
 			premiumToppings: ["threePartBun", "standardCheese"],
-			standardToppings: ["fancySauce", "pickles", "lettuce", "onions"]
+			standardToppings: ["fancySauce", "pickles", "lettuce", "onions"],
+			basePrice: 9.99
 		}
 	},
 	{
@@ -96,7 +152,8 @@ const specialBurgers = [
 
 			patties: 2,
 			standardToppings: ["standardBun", "fancySauce"],
-			premiumToppings: ["standardCheese", "caramelizedOnions", "bacon"]
+			premiumToppings: ["standardCheese", "caramelizedOnions", "bacon"],
+			basePrice: 9.99
 		}
 	},
 
@@ -110,7 +167,8 @@ const specialBurgers = [
 
 			patties: 2,
 			premiumToppings: ["friedEgg", "bacon", "standardCheese"],
-			standardToppings: ["onions", "standardBun"]
+			standardToppings: ["onions", "standardBun"],
+			basePrice: 10.99
 		}
 	},
 
@@ -123,7 +181,8 @@ const specialBurgers = [
 
 			patties: 2,
 			premiumToppings: ["blueCheese", "caramelizedOnions", "bacon"],
-			standardToppings: ["standardBun"]
+			standardToppings: ["standardBun"],
+			basePrice: 9.99
 		}
 	},
 
@@ -134,7 +193,8 @@ const specialBurgers = [
 		burgerObject: {
 			title: "Say Cheese",
 			patties: 2,
-			premiumToppings: ["grilledCheeseBun", "standardCheese"]
+			premiumToppings: ["grilledCheeseBun", "standardCheese"],
+			basePrice: 10.99
 		}
 	},
 
@@ -147,7 +207,8 @@ const specialBurgers = [
 			title: "The Portobello",
 
 			premiumToppings: ["stuffedPortobello"],
-			standardToppings: ["standardBun"]
+			standardToppings: ["standardBun"],
+			basePrice: 7.99
 		}
 	},
 
@@ -158,7 +219,8 @@ const specialBurgers = [
 		burgerObject: {
 			title: "Chicken Chicken",
 			premiumToppings: ["chickenPatty"],
-			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"]
+			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
+			basePrice: 9.99
 		}
 	},
 	{
@@ -170,7 +232,8 @@ const specialBurgers = [
 
 			patties: 2,
 			premiumToppings: ["swissCheese", "sauteedMushrooms"],
-			standardToppings: ["standardBun"]
+			standardToppings: ["standardBun"],
+			basePrice: 9.99
 		}
 	}
 ];
