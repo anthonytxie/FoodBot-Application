@@ -9,7 +9,7 @@ const itemMap = new Map();
 itemMap.set("burger", (id, foodObject, resolve, reject) => {
   return new Burger({
     _order: id,
-    patties: foodObject.patties,
+    patties: 2,
     // premiumToppings: [...foodObject.premiumToppings],
     // standardToppings: [...foodObject.standardToppings]
   })
