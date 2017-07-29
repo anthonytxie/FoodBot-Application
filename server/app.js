@@ -1,6 +1,8 @@
 const express = require('express');
 const index = require('./routes/index');
 const item = require('./routes/item');
+const pug = require('pug');
+
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -9,7 +11,7 @@ const session = require('express-session');
 const app = express();
 
 // webview view engine
-app.use("view engine", "pug");
+app.set('view engine', 'pug')
 
 // middleware
 app.use(bodyParser.json())
