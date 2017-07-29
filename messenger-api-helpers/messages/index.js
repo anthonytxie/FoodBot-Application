@@ -154,6 +154,14 @@ const welcomeMessage = {
 };
 
 
+
+const webviewButton = {
+  type: "web_url",
+  url: "https://foodbotapi.herokuapp.com",
+  title: "Open Webview",
+  webview_height_ratio: "compact"
+};
+
 const genericTemplate = {
   attachment: {
     type: "template",
@@ -161,11 +169,11 @@ const genericTemplate = {
       template_type: "generic",
       elements: [
         {
-          title: "Confirm Commands",
-          subtitle: "Next-generation virtual reality",
+          title: "Webview",
+          subtitle: "Webview test",
           item_url: "https://www.oculus.com/en-us/rift/",
           image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-          buttons: [confirmOrderButton, unconfirmOrderButton]
+          buttons: [webviewButton]
         },
         {
           title: "Order Commands",
