@@ -21,10 +21,10 @@ const burgerObject = function(burgerObject) {
   const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
     return x.title == burgerObject.title;
   });
-  const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings;
-  const customizedBurgerPremiumToppings = burgerObject.burgerObject.premiumToppings;
-  const additionalPremiumToppings = standardBurgerPremiumToppings.filter((x) => {
-    return customizedBurgerPremiumToppings.indexOf(x.id) === -1
+  const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
+  const customizedBurgerPremiumToppings = burgerObject.burgerObject.premiumToppings.sort();
+  const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
+    return standardBurgerPremiumToppings.indexOf(x) === -1
   })
   return additionalPremiumToppings
 

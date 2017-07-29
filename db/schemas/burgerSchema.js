@@ -45,15 +45,14 @@ const burgerSchema = new Schema(
 
 
 
-burgerSchema.virtual("price").get(function() {
-  const burgerObject = [...normalBurgers,...specialBurgers].filter( function(x) {
-    return x.title == this.itemName
-  })
+// burgerSchema.virtual("price").get(function() {
+//   const burgerObject = [...normalBurgers,...specialBurgers].filter( function(x) {
+//     return x.title == this.itemName
+//   })
 
-  const 
-  
 
-});
+
+// });
 
 
 
