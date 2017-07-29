@@ -3,9 +3,9 @@ const normalBurgers = [
 		title: "Double Hamburger (No Cheese)",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Two beef patties, on a sesame bun.",
-		burgerObject : {
-			standardBun: true,
-			patties: 2
+		burgerObject: {
+			patties: 2,
+			standardToppings: ["standardBun"]
 		}
 	},
 
@@ -13,10 +13,10 @@ const normalBurgers = [
 		title: "Double Cheeseburger",
 		image_url: "http://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Double cheese burger with caramelized onions.",
-		burgerObject : {
-			standardBun: true,
+		burgerObject: {
 			patties: 2,
-			standardCheese: true
+			standardToppings: ["standardBun"],
+			premiumToppings: ["standardCheese"]
 		}
 	},
 
@@ -24,10 +24,10 @@ const normalBurgers = [
 		title: "Double Baconburger (No Cheese)",
 		image_url: "http://i.imgur.com/aUB3Mrd.jpg",
 		subtitle: "Two patties with bacon on a burger.",
-		burgerObject : {
-			standardBun: true,
+		burgerObject: {
 			patties: 2,
-			bacon: true
+			standardToppings: ["standardBun"],
+			premiumToppings: ["bacon"]
 		}
 	},
 
@@ -35,10 +35,10 @@ const normalBurgers = [
 		title: "Double Bacon Cheeseburger",
 		image_url: "http://i.imgur.com/wySPVNs.jpg",
 		subtitle: "Two patties with bacon & cheese.",
-		burgerObject : {
-			standardBun: true,
+		burgerObject: {
 			patties: 2,
-			bacon: true,
+			standardToppings: ["standardBun"],
+			premiumToppings: ["bacon", "standardCheese"]
 		}
 	},
 
@@ -46,11 +46,9 @@ const normalBurgers = [
 		title: "Chicken Burger",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Chicken burger with mayo.",
-		burgerObject : {
-			standardBun: true,
-			chickenPatty: true,
-			lettuce: true,
-			mayo: true
+		burgerObject: {
+			premiumToppings: ["chickenPatty"],
+			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"]
 		}
 	},
 
@@ -58,15 +56,12 @@ const normalBurgers = [
 		title: "Veggie Burger",
 		image_url: "http://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Veggie burger with soy pattie.",
-		burgerObject : {
-			standardBun: true,
-			patties: 2,
-			soyPatty: true
+		burgerObject: {
+			premiumToppings: ["soyPatty"],
+			standardToppings: ["standardBun"]
 		}
 	}
 ];
-
-
 
 const specialBurgers = [
 	{
@@ -75,27 +70,19 @@ const specialBurgers = [
 		subtitle:
 			"Two beef patties, fancy sauce, cheese, pickles, chopped lettuce, diced onion, served on a three part bun.",
 		burgerObject: {
-				threePartBun: true,
-				patties: 2,
-				fancySauce: true,
-				standardCheese: true,
-				pickles: true,
-				lettuce: true,
-				onions: true,
-			}
+			premiumToppings: ["threePartBun", "standardCheese"],
+			standardToppings: ["fancySauce", "pickles", "lettuce", "onions"]
+		}
 	},
 	{
 		title: "The Richmond",
 		image_url: "http://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Double cheese burger with bacon & caramelized onions.",
 		burgerObject: {
-				bunType: "standard",
-				patties: 2,
-				fancySauce: true,
-				standardCheese: true,
-				caramelizedOnions: true,
-				bacon: true,
-			}
+			patties: 2,
+			standardToppings: ["standardBun", "fancySauce"],
+			premiumToppings: ["standardCheese", "caramelizedOnions", "bacon"]
+		}
 	},
 
 	{
@@ -104,13 +91,10 @@ const specialBurgers = [
 		subtitle:
 			"Double cheese burger with bacon, caramelized onions & a friend egg.",
 		burgerObject: {
-				bunType: "standard",
-				patties: 2,
-				standardCheese: true,
-				onions: true,
-				bacon: true,
-				friedEgg: true,
-			}
+			patties: 2,
+			premiumToppings: ["friedEgg", "bacon", "standardCheese"],
+			standardToppings: ["onions", "standardBun"]
+		}
 	},
 
 	{
@@ -118,23 +102,20 @@ const specialBurgers = [
 		image_url: "http://i.imgur.com/wySPVNs.jpg",
 		subtitle: "Two beef patties, bacon, & blue cheese.",
 		burgerObject: {
-				bunType: "standard",
-				patties: 2,
-				blueCheese: true,
-				caramelizedOnion: true,
-				bacon: true,
-			}
+			patties: 2,
+			premiumToppings: ["blueCheese", "caramelizedOnions", "bacon"],
+			standardToppings: ["standardBun"]
+		}
 	},
 
 	{
 		title: "Say Cheese",
 		image_url: "http://i.imgur.com/Jq4kO7S.jpg",
-		subtitle:
-			"Double cheeseburger, stuffed between two grilled cheese buns.",
+		subtitle: "Double cheeseburger, stuffed between two grilled cheese buns.",
 		burgerObject: {
-				bunType: "grilled-cheese",
-				patties: 2,
-			}
+			patties: 2,
+			premiumToppings: ["grilledCheeseBun", "standardCheese"]
+		}
 	},
 
 	{
@@ -143,40 +124,30 @@ const specialBurgers = [
 		subtitle:
 			"A Portobello stuffed with herbed cheese, rolled in panko crumbs & fried.",
 		burgerObject: {
-				bunType: "standard",
-				stuffedPortobello: true,
-				pankoCrumbs: true,
-				fried: true
-			}
+			premiumToppings: ["stuffedPortobello"],
+			standardToppings: ["standardBun"]
+		}
 	},
 
 	{
 		title: "Chicken Chicken",
 		image_url: "http://i.imgur.com/m4IQMAD.jpg",
-		subtitle:
-			"Breaded chicken breast mayo, chopped lettuce and pickles.",
+		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
 		burgerObject: {
-				bunType: "standard",
-				chickPatty: true,
-				lettuce: true,
-				pickles: true
-			}
+			premiumToppings: ["chickenPatty"],
+			standardToppings: ["lettuce", "pickles", "standardBun", "mayo"]
+		}
 	},
 	{
 		title: "Swiss Bank Account",
 		image_url: "http://i.imgur.com/m4IQMAD.jpg",
-		subtitle:
-			"Two beef patties, grilled mushrooms and swiss cheese.",
+		subtitle: "Two beef patties, grilled mushrooms and swiss cheese.",
 		burgerObject: {
-				bunType: "standard",
-				patties: 2,
-				sauteedMushrooms: true,
-				swissCheese: true
-			}
-	},
+			patties: 2,
+			premiumToppings: ["swissCheese", "sauteedMushrooms"],
+			standardToppings: ["standardBun"]
+		}
+	}
 ];
-
-
-
 
 module.exports = { normalBurgers, specialBurgers };
