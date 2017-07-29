@@ -49,18 +49,16 @@ burgerSchema.virtual("price").get(function() {
   const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
     return x.title === this.itemName;
   });
-  const price = 2
+  const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
+  const customizedBurgerPremiumToppings = this.premiumToppings.sort();
+  const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
+    return standardBurgerPremiumToppings.indexOf(x) === -1
+  })
+  let price = burgerList[0].burgerObject.basePrice
+  additionalPremiumToppings.forEach((x) => {
+    price += premiumToppings[x]
+  })
   return price
-  // const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
-  // const customizedBurgerPremiumToppings = this.premiumToppings.sort();
-  // const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
-  //   return standardBurgerPremiumToppings.indexOf(x) === -1
-  // })
-  // let price = burgerList[0].burgerObject.basePrice
-  // additionalPremiumToppings.forEach((x) => {
-  //   price += premiumToppings[x]
-  // })
-  // return price
 });
 
 
