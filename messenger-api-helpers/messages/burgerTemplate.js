@@ -27,7 +27,8 @@ const burgerTemplate = function(payloadData) {
                     type: "order-burger",
                     data: {
                         foodType: "burger",
-                        customize: false
+                        customize: false,
+                        foodObject: burger.burgerObject
                     }
                 })
 							},

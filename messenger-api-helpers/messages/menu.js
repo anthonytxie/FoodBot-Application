@@ -1,6 +1,6 @@
-const { normalBurgers, specialBurgers } = require('./burgers')
+const { normalBurgers, specialBurgers } = require("./burgers");
 
-const burgerMenuTemplate = (burgerObject) => {
+const burgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
         image_url: burgerObject.image_url,
@@ -20,8 +20,7 @@ const burgerMenuTemplate = (burgerObject) => {
         ]
     };
 };
-
-
+console.log(...normalBurgers[0].burgerObject.standardToppings);
 const menuMessage = {
     text: "Would you like to see our Special Burgers or Normal Burgers?",
     quick_replies: [
@@ -50,9 +49,9 @@ const normalBurgerMenuMessageOne = {
             top_element_style: "compact",
             elements: [
                 burgerMenuTemplate(normalBurgers[0]),
-                burgerMenuTemplate(normalBurgers[1]),         
-                burgerMenuTemplate(normalBurgers[2]),         
-                burgerMenuTemplate(normalBurgers[3])       
+                burgerMenuTemplate(normalBurgers[1]),
+                burgerMenuTemplate(normalBurgers[2]),
+                burgerMenuTemplate(normalBurgers[3])
             ]
         }
     }
@@ -66,7 +65,7 @@ const normalBurgerMenuMessageTwo = {
             top_element_style: "compact",
             elements: [
                 burgerMenuTemplate(normalBurgers[4]),
-                burgerMenuTemplate(normalBurgers[5]),
+                burgerMenuTemplate(normalBurgers[5])
             ],
             buttons: [
                 {

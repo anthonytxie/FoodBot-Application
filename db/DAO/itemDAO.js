@@ -6,16 +6,61 @@ const { populateOrder } = require("./helperFunctions");
 
 const itemMap = new Map();
 
-itemMap.set("burger", id => {
-  return new Burger({ _order: id });
+itemMap.set("burger", (id, foodObject, resolve, reject) => {
+  return new Burger({
+    _order: id,
+    patties: foodObject.patties,
+    itemName: foodObject.title,
+    premiumToppings: [...foodObject.premiumToppings],
+    standardToppings: [...foodObject.standardToppings]
+  })
+    .save()
+    .then(item => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: order._id },
+            { $push: { _items: item._id } },
+            { new: true }
+          )
+        )
+      );
+    })
+    .catch(err => reject(err));
 });
 
-itemMap.set("drink", id => {
-  return new Drink({ _order: id });
+itemMap.set("drink", (id, foodObject, resolve, reject) => {
+  return new Drink({ _order: id })
+    .save()
+    .then(item => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: order._id },
+            { $push: { _items: item._id } },
+            { new: true }
+          )
+        )
+      );
+    })
+    .catch(err => reject(err));
 });
 
-itemMap.set("side", id => {
-  return new Side({ _order: id });
+itemMap.set("side", (id, foodObject, resolve, reject) => {
+  return new Side({ _order: id })
+    .save()
+    .then(item => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: order._id },
+            { $push: { _items: item._id } },
+            { new: true }
+          )
+        )
+      );
+    })
+    .catch(err => reject(err));
 });
 
 itemDAO.post = function(data, sessionId) {
@@ -23,21 +68,7 @@ itemDAO.post = function(data, sessionId) {
     Order.findOne({ _session: sessionId })
       .sort({ createdAt: -1 })
       .then(order => {
-        const item = itemMap.get(data.foodType)(order._id);
-        item
-          .save()
-          .then(item => {
-            resolve(
-              populateOrder(
-                Order.findOneAndUpdate(
-                  { _id: order._id },
-                  { $push: { _items: item._id } },
-                  { new: true }
-                )
-              )
-            );
-          })
-          .catch(err => reject(err));
+        itemMap.get(data.foodType)(order._id, data.foodObject, resolve, reject);
       })
       .catch(err => reject(err));
   });
