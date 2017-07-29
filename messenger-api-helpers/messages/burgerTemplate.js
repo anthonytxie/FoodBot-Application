@@ -28,7 +28,8 @@ const burgerTemplate = function(payloadData) {
                     data: {
                         foodType: "burger",
                         customize: false,
-                        foodObject: burgerObject.burgerObject
+                        foodObject: burger.burgerObject
+
                     }
                 })
 							},
