@@ -17,36 +17,34 @@ const premiumToppings = {
   standardCheese: 0
 };
 
-const burgerObject = function(burgerObject) {
-  const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
-    return x.title == burgerObject.title;
-  });
-  const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
-  const customizedBurgerPremiumToppings = burgerObject.burgerObject.premiumToppings.sort();
-  const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
-    return standardBurgerPremiumToppings.indexOf(x) === -1
-  })
-  return additionalPremiumToppings
+// const burgerObject = function(burgerObject) {
+//   const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
+//     return x.title == burgerObject.title;
+//   });
+//   const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
+//   const customizedBurgerPremiumToppings = burgerObject.burgerObject.premiumToppings.sort();
+//   const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
+//     return standardBurgerPremiumToppings.indexOf(x) === -1
+//   })
 
 
-  // let price = burgerList[0].burgerObject.basePrice
-  // standardBurgerPremiumToppings.forEach((x) => {
-  //   console.log(x)
-  //   price += premiumToppings[x]
-  // })
-  // return price
-};
+//   let price = burgerList[0].burgerObject.basePrice
+//   additionalPremiumToppings.forEach((x) => {
+//     price += premiumToppings[x]
+//   })
+//   return price
+// };
 
-var finalPrice = burgerObject({ title: 'The Richmond',
-  image_url: 'http://i.imgur.com/z7ANC0C.jpg',
-  subtitle: 'Double cheese burger with bacon & caramelized onions.',
-  burgerObject: 
-   { title: 'The Richmond',
-     patties: 2,
-     standardToppings: [ 'standardBun', 'fancySauce' ],
-     premiumToppings: [ 'standardCheese', 'caramelizedOnions', 'bacon', 'gravySide', 'cheeseSauce' ],
-     basePrice: 9.99 } })
+// var finalPrice = burgerObject({ title: 'The Richmond',
+//   image_url: 'http://i.imgur.com/z7ANC0C.jpg',
+//   subtitle: 'Double cheese burger with bacon & caramelized onions.',
+//   burgerObject: 
+//    { title: 'The Richmond',
+//      patties: 2,
+//      standardToppings: [ 'standardBun', 'fancySauce' ],
+//      premiumToppings: [ 'standardCheese', 'caramelizedOnions', 'bacon', 'blueCheese', 'cheeseSauce'],
+//      basePrice: 9.99 } })
 
-console.log(finalPrice)
+// console.log(finalPrice)
 
 module.exports = { premiumToppings };

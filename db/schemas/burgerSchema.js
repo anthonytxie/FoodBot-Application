@@ -45,14 +45,21 @@ const burgerSchema = new Schema(
 
 
 
-// burgerSchema.virtual("price").get(function() {
-//   const burgerObject = [...normalBurgers,...specialBurgers].filter( function(x) {
-//     return x.title == this.itemName
-//   })
-
-
-
-// });
+burgerSchema.virtual("price").get(function() {
+  const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
+    return x.title == this.title;
+  });
+  const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
+  const customizedBurgerPremiumToppings = this.premiumToppings.sort();
+  const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
+    return standardBurgerPremiumToppings.indexOf(x) === -1
+  })
+  let price = burgerList[0].burgerObject.basePrice
+  additionalPremiumToppings.forEach((x) => {
+    price += premiumToppings[x]
+  })
+  return price
+});
 
 
 
