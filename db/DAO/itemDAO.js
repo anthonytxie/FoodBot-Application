@@ -6,9 +6,9 @@ const { populateOrder } = require("./helperFunctions");
 
 const itemMap = new Map();
 
-itemMap.set("burger", (id, foodObject, resolve, reject) => {
+itemMap.set("burger", (orderId, foodObject, resolve, reject) => {
   return new Burger({
-    _order: id,
+    _order: orderId,
     patties: foodObject.patties,
     itemName: foodObject.title,
     premiumToppings: [...foodObject.premiumToppings],
@@ -19,7 +19,7 @@ itemMap.set("burger", (id, foodObject, resolve, reject) => {
       resolve(
         populateOrder(
           Order.findOneAndUpdate(
-            { _id: order._id },
+            { _id: orderId },
             { $push: { _items: item._id } },
             { new: true }
           )
@@ -29,14 +29,14 @@ itemMap.set("burger", (id, foodObject, resolve, reject) => {
     .catch(err => reject(err));
 });
 
-itemMap.set("drink", (id, foodObject, resolve, reject) => {
-  return new Drink({ _order: id })
+itemMap.set("drink", (orderId, foodObject, resolve, reject) => {
+  return new Drink({ _order: orderId })
     .save()
     .then(item => {
       resolve(
         populateOrder(
           Order.findOneAndUpdate(
-            { _id: order._id },
+            { _id: orderId },
             { $push: { _items: item._id } },
             { new: true }
           )
