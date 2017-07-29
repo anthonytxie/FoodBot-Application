@@ -8,8 +8,10 @@ const session = require('express-session');
 
 const app = express();
 
+// webview view engine
+app.use("view engine", "pug");
 
-//Middleware
+// middleware
 app.use(bodyParser.json())
 app.use(session({secret: 'cats', resave:false}))
 app.use(index)

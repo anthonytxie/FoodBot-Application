@@ -3,6 +3,7 @@ const routes = express();
 const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
 
+// 
 
 // Verify Token 
 //need to put secret in process.env
@@ -12,13 +13,13 @@ routes.get('/', (req, res) => {
 });
 
 
-routes.get('/burgercombo', (req,res) => {
-  res.send('burger combo page'); //send back pug file
-});
+// routes.get('/burgercombo', (req,res) => {
+//   res.render('burgercombopage'); //send back pug file
+// });
 
 
 routes.get('/burgercustomize', (req,res) => {
-  res.send('burger customize page'); //send back pug file
+  res.render('burgercustomize');
 });
 
 
@@ -84,9 +85,6 @@ routes.post('/webhook', (req, res) => {
     });
   }
 });
-
-
-
 
 
 module.exports = routes;
