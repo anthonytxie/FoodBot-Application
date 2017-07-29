@@ -32,7 +32,7 @@ routes.get('/webhook', (req, res) => {
 });
 
 routes.get('/orders', (req, res) => {
-  orderDAO.getAllOrders
+  orderDAO.getAllOrders()
     .then((orders) => {
       res.send(orders)
     })
