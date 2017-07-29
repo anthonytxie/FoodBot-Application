@@ -23,13 +23,14 @@ const sideSchema = new Schema ({
 
 }, disciminatorOptions);
 
-
 sideSchema.virtual("price").get(function() {
   if (this.itemCombo) {
     if (this.itemName === "Poutine") {
       return 6.0;
     } else if (this.itemName === "Cheesy Fires") {
       return 4.5;
+    } else if (this.itemName === "Small Fries") {
+      return 2.0;
     } else {
       switch (this.itemName) {
         case "Medium Fries":

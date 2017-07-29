@@ -79,7 +79,7 @@ itemDAO.postCombo = function(sessionId) {
     Order.findOne({ _session: sessionId })
       .sort({ createdAt: -1 })
       .then(order => {
-        const fries = new Side({itemName: "Medium Fries"});
+        const fries = new Side({itemName: "Small Fries", itemCombo: true});
         return fries.save().then(item => {
           return Order.findOneAndUpdate(
             { _id: order._id },
@@ -89,7 +89,7 @@ itemDAO.postCombo = function(sessionId) {
         });
       })
       .then(order => {
-        const drink = new Drink({itemName: "Pepsi"});
+        const drink = new Drink({itemName: "Pepsi", itemCombo: true});
         return drink.save().then(item => {
           resolve(
             populateOrder(
