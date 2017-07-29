@@ -10,6 +10,7 @@ itemMap.set("burger", (id, foodObject, resolve, reject) => {
   return new Burger({
     _order: id,
     patties: foodObject.patties,
+    itemName: foodObject.title,
     premiumToppings: [...foodObject.premiumToppings],
     standardToppings: [...foodObject.standardToppings]
   })
