@@ -26,32 +26,44 @@ const drinkSchema = new Schema(
         "Chocolate Milkshake",
         "Strawberry Milkshake"
       ]
+    },
+    itemCombo: {
+      type: Boolean
     }
   },
   disciminatorOptions
 );
 
 drinkSchema.virtual("price").get(function() {
-  let price;
-  switch (this.itemName) {
-    case "Vanilla Milkshake":
-      return 3.99;
-      break;
-    case "Chocolate Milkshake":
-      return 3.99;
-      break;
-    case "Strawberry Milkshake":
-      return 3.99;
-      break;
-    case "Mountain Dew":
-      return 2.47
-      break;
-    case "Water Bottle":
-      return 2.47;
-      break;
-    default:
-      return 1.37;
-      break;
+  if (this.itemCombo) {
+    if (this.itemName.includes('Milkshake')) {
+      return 2.99
+    }
+    else {
+      return 1.29
+    }
+  } else {
+    let price;
+    switch (this.itemName) {
+      case "Vanilla Milkshake":
+        return 3.99;
+        break;
+      case "Chocolate Milkshake":
+        return 3.99;
+        break;
+      case "Strawberry Milkshake":
+        return 3.99;
+        break;
+      case "Mountain Dew":
+        return 2.47;
+        break;
+      case "Water Bottle":
+        return 2.47;
+        break;
+      default:
+        return 1.37;
+        break;
+    }
   }
 });
 
