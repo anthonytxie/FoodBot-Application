@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
-const {schemaOptions} =  require('../schemas/settings/schemaSettings');
+const { schemaOptions } =  require('../schemas/settings/schemaSettings');
 
 const orderSchema = new Schema({
   _user: {
@@ -45,10 +45,14 @@ const orderSchema = new Schema({
 
 }, schemaOptions)
 
-
-orderSchema.virtual("price").get(function() {
-  return 5;
+orderSchema.virtual('orderPrice').get(function() {
+  let price = 0
+  for (let item of this._items) {
+    price = price + item.price
+  }
+  return price
 });
+
 
 
 const Order = mongoose.model('Order', orderSchema);
