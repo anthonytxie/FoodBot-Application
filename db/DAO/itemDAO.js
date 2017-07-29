@@ -46,14 +46,14 @@ itemMap.set("drink", (id, foodObject, resolve, reject) => {
     .catch(err => reject(err));
 });
 
-itemMap.set("side", (id, foodObject, resolve, reject) => {
-  return new Side({ _order: id })
+itemMap.set("side", (orderId, foodObject, resolve, reject) => {
+  return new Side({ _order: orderId })
     .save()
     .then(item => {
       resolve(
         populateOrder(
           Order.findOneAndUpdate(
-            { _id: order._id },
+            { _id: orderId },
             { $push: { _items: item._id } },
             { new: true }
           )
