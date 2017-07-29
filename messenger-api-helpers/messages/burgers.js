@@ -2,16 +2,16 @@ const normalBurgers = [
 	{
 		title: "Double Hamburger (No Cheese)",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Two beef patties, on a sesame bun."
+		subtitle: "Two beef patties, on a sesame bun.",
 		burgerObject: {
-			bunType: {
+				bunType: "three-part",
 				patties: 2,
 				fancySauce: true,
-				
-
+				standardCheese: true,
+				pickles: true,
+				lettuce: true,
+				onions: true,
 			}
-
-		}
 	},
 
 	{
@@ -46,84 +46,6 @@ const normalBurgers = [
 ];
 
 
-
-bunType: {
-    type: String,
-    enum: ['white', 'rye', 'whole-wheat']
-  },
-
-  meatType: {
-    type: String,
-  },
-
-  patties: {
-    type: Number,
-    default: 1,
-    trim: true
-  },
-
-//cheeses
-  cheddar: {
-    type: Boolean,
-    default: false,
-  },
-
-
-  blueCheese: {
-    type: Boolean,
-    default: false,
-  },
-
-  swiss: {
-    type: Boolean,
-    default: false,
-  },
-
-//toppings
-  bacon: {
-    type: Boolean,
-    default: false ,
-  },
-
-  sauce: {
-    type: String,
-  },
-
-  pickles: {
-    type: Boolean,
-    default: true,
-  },
-
-  lettuce: {
-    type: Boolean,
-    default: true
-  },
-
-  tomatoes: {
-    type: Boolean,
-    default: true
-  },
-
-  onions: {
-    type: Boolean,
-    default: true
-  },
-
-//special toppings
-  fried: {
-    type: Boolean,
-    default: false
-  },
-
-  pankoCrumbs: {
-    type: Boolean,
-    default: false
-  },
-
-  egg: {
-    type: Boolean,
-    default: false,
-  }
 
 const specialBurgers = [
 	{

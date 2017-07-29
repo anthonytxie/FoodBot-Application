@@ -4,15 +4,25 @@ mongoose.Promise = global.Promise;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 const burgerSchema = new Schema(
   {
-    //normal shit
+
+
+// ===== Type ===============================================================
+    itemName: {
+      type: String
+    },
+
+
     itemType: {
       type: String,
       default: "burger"
     },
 
+// ===== Premium Items ===============================================================
+
+
     bunType: {
       type: String,
-      enum: ["lettuce", "gluten-free", "grilled-cheese"]
+      enum: ["lettuce", "gluten-free", "grilled-cheese", "standard", "three-part"]
     },
 
     patties: {
@@ -71,15 +81,13 @@ const burgerSchema = new Schema(
       default: false
     },
 
-    swiss: {
+    swissCheese: {
       type: Boolean,
       default: false
     },
 
-    fancySauce: {
-      type: Boolean,
-      default: false
-    },
+// ===== Standard Items ===============================================================
+
 
     pickles: {
       type: Boolean,
@@ -104,7 +112,63 @@ const burgerSchema = new Schema(
     egg: {
       type: Boolean,
       default: false
+    },
+
+    ketchup: {
+      type: Boolean,
+      default: false
+    },
+
+    mustard: {
+      type: Boolean,
+      default: false
+    },
+
+    mayo: {
+      type: Boolean,
+      default: false
+    },
+
+    relish: {
+      type: Boolean,
+      default: false
+    },
+
+    fancySauce: {
+      type: Boolean,
+      default: false
+    },
+
+    hotSauce: {
+      type: Boolean,
+      default: false
+    },
+
+    lettuce: {
+      type: Boolean,
+      default: false
+    },
+
+    tomato: {
+      type: Boolean,
+      default: false
+    },
+
+    pickle: {
+      type: Boolean,
+      default: false
+    },
+
+    onion: {
+      type: Boolean,
+      default: false
+    },
+
+    hotPepper: {
+      type: Boolean,
+      default: false
     }
+
   },
   disciminatorOptions
 );
