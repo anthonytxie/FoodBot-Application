@@ -35,7 +35,7 @@ routes.get('/orders', (req, res) => {
   orderDAO.getAllOrders()
     .then((orders) => {
       res.send(orders)
-    })
+    }).catch((err) => res.send(err))
 })
 
 
