@@ -21,8 +21,7 @@ const burgerMenuTemplate = (burgerObject) => {
         ]
     };
 };
-
-
+console.log(...normalBurgers[0].burgerObject.standardToppings)
 const menuMessage = {
     text: "Would you like to see our Special Burgers or Normal Burgers?",
     quick_replies: [
