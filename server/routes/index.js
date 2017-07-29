@@ -19,7 +19,7 @@ routes.get('/', (req, res) => {
 
 
 routes.get('/burgercustomize', (req,res) => {
-  res.render('burgercustomize');
+  res.render('./burgercustomize');
 });
 
 

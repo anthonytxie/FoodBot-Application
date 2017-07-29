@@ -165,7 +165,7 @@ const burgerCustomizeWebview = {
 const comboCustomizeWebview = {
   type: "web_url",
   url: "https://foodbotapi.herokuapp.com/burgercustomize",
-  title: "Open Burger Customize Webview",
+  title: "Open Combo Customize Webview",
   webview_height_ratio: "full"
 };
 
