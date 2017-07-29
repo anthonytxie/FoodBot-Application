@@ -58,7 +58,7 @@ burgerSchema.virtual("price").get(function() {
   additionalPremiumToppings.forEach((x) => {
     price += premiumToppings[x]
   })
-  return price
+  return price.toFixed(2)
 });
 
 

@@ -50,7 +50,7 @@ orderSchema.virtual('orderPrice').get(function() {
   for (let item of this._items) {
     price = price + item.price
   }
-  return price
+  return price.toFixed(2)
 });
 
 
