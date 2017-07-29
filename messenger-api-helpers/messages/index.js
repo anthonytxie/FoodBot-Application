@@ -159,7 +159,7 @@ const webviewButton = {
   type: "web_url",
   url: "https://foodbotapi.herokuapp.com",
   title: "Open Webview",
-  webview_height_ratio: "compact"
+  webview_height_ratio: "full"
 };
 
 const genericTemplate = {
