@@ -14,7 +14,6 @@ const burgerMenuTemplate = (burgerObject) => {
                     data: {
                         foodType: "burger",
                         title: burgerObject.title,
-                        foodObject: burgerObject.burgerObject
                     }
                 })
             }
