@@ -8,8 +8,18 @@ const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/re
 //need to put secret in process.env
 
 routes.get('/', (req, res) => {
-  res.send('hello welcome to foodbot api')
-})
+  res.send('hello welcome to foodbot api');
+});
+
+
+routes.get('/burgercombo', (req,res) => {
+  res.send('burger combo page'); //send back pug file
+});
+
+
+routes.get('/burgercustomize', (req,res) => {
+  res.send('burger customize page'); //send back pug file
+});
 
 
 routes.get('/webhook', (req, res) => {
