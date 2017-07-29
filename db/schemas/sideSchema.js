@@ -10,7 +10,7 @@ const sideSchema = new Schema ({
   },
   itemName: {
     type: String,
-    enum: ['Medium Fries', 'Large Fries', 'Poutine', 'Cheesy Fries'],
+    enum: ['Medium Fries', 'Large Fries', 'Poutine', 'Cheesy Fries', 'Small Fries'],
     default: 'medium'
   },
 
