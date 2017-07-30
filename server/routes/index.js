@@ -29,11 +29,11 @@ routes.get('/receipt', (req, res) => {
 });
 
 routes.get('/burgercustomize', (req,res) => {
-  let id = req.query.order
-  orderDAO.getOrderById(id)
-    .then((order) => {
+  // let id = req.query.order
+  // orderDAO.getOrderById(id)
+  //   .then((order) => {
       res.render('burgercustomize');
-    })
+    // })
 });
 
 routes.get('/isActiveSession', (req, res) => {
