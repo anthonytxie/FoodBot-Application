@@ -20,11 +20,11 @@ routes.get('/burgercombo', (req,res) => {
 });
 
 routes.get('/receipt', (req, res) => {
-  let orderId = req.query.order;
-  orderDAO.getOrderById(orderId)
+  let id = req.query.order
+  orderDAO.getOrderById(id)
     .then((order) => {
       res.send(order);
-    });
+    }).catch((err) => res.send(err))
 });
 
 
