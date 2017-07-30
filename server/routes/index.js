@@ -24,7 +24,7 @@ routes.get('/burgercustomize', (req,res) => {
 });
 
 routes.get('/initialize', (req, res) => {
-  runner.initialize('112773586026604')
+  runner.isSessionActive('1086113204824237')
     .then((success) => {
       res.send(success);
     });

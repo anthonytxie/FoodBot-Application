@@ -24,11 +24,15 @@ const initialize = (senderId) => {
     }).catch((err) => console.log(err));
 };
 
-// ===== MENU ===============================================================
+// ===== SESSION ===============================================================
 
 const renewSession = (senderId) => {
   return sessionDAO.sessionRenewal(senderId)
 };
+
+const isSessionActive = (senderId) => {
+  return sessionDAO.isSessionActive(senderId)
+}
 
 // ===== ORDERS ===============================================================
 
@@ -111,6 +115,7 @@ module.exports = {
   showCurrentOrder,
   renewSession,
   upgradeCombo,
+  isSessionActive
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.
