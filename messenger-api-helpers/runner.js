@@ -24,6 +24,10 @@ const initialize = (senderId) => {
     }).catch((err) => console.log(err));
 };
 
+const isUserCreated = (senderId) => {
+  return userDAO.isUserCreated(senderId)
+}
+
 // ===== SESSION ===============================================================
 
 const renewSession = (senderId) => {
