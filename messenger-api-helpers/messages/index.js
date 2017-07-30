@@ -6,6 +6,8 @@ const {
   normalBurgerMenuMessageTwo
 } = require("./menu");
 
+const {receiptMessageTemplate} = require('./receiptTemplate');
+
 const { burgerTemplate } = require("./burgerTemplate");
 
 const messageTemplate = message => {
