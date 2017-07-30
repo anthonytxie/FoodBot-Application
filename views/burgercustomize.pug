@@ -21,27 +21,27 @@ html(lang="en")
 			h4 Type
 			section
 				.wide_checkbox
-					.custom_check
+					.custom_check_off
 					.toggle
 						h3 Bacon
 						p Was once a part of a pig
 					img(class="image_top", src="sample_bacon.png")
 
 				.wide_checkbox
-					.custom_check
+					.custom_check_on
 					.toggle
 						h3 Cheese
 						p Expensive rotten milk
 					img(class="image_top", src="sample_cheese.png")
 
 			br
-			div(id="sauce_toggle" class="tab")
+			div(id="sauce_toggle" class="tab active")
 				h4 Sauce
 			div(id="bun_toggle" class="tab")
 				h4 Bun
 			div(id="toppings_toggle" class="tab")
 				h4 Toppings
-			section
+			section(id="section3")
 				div(class="contents", id="sauce")
 
 					.square.selected 
@@ -117,6 +117,28 @@ html(lang="en")
 						input(type="hidden", name="sauteed", value="")
 						.square_content Sauteed Mushroom
 		script.
+			// section 1
+			$("body").on("click", ".quantity", function() {
+				if ($(this).hasClass(".patty_selected")) {
+				} else {
+					$(".patty_selected").removeClass("patty_selected");
+					$(this).addClass("patty_selected");
+				}
+			})
+
+			// section 2
+			$("body").on("click", ".wide_checkbox", function() {
+				let checkbox = $(this).children("div:first-child");
+				if (checkbox.hasClass("custom_check_on")) {
+					checkbox.removeClass("custom_check_on");
+					checkbox.addClass("custom_check_off");
+				} else {
+					checkbox.removeClass("custom_check_off");
+					checkbox.addClass("custom_check_on");
+				}
+			})
+
+			// section 3
 			// changing tab
 			$("body").on("click", ".tab", function(){
 				// find corresponding div to show
