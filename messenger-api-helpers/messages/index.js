@@ -1,18 +1,16 @@
 const {
-    menuMessage,
-    specialBurgerMenuMessageOne,
-    specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo
+  menuMessage,
+  specialBurgerMenuMessageOne,
+  specialBurgerMenuMessageTwo,
+  normalBurgerMenuMessageOne,
+  normalBurgerMenuMessageTwo
 } = require("./menu");
 
-const { burgerTemplate } = require('./burgerTemplate');
+const { burgerTemplate } = require("./burgerTemplate");
 
-
-const messageTemplate =  (message) => {
+const messageTemplate = message => {
   return { text: message };
 };
-
 
 const confirmOrderButton = {
   type: "postback",
@@ -153,8 +151,6 @@ const welcomeMessage = {
   }
 };
 
-
-
 const burgerCustomizeWebview = {
   type: "web_url",
   url: "https://foodbotapi.herokuapp.com/burgercustomize",
@@ -180,7 +176,7 @@ const genericTemplate = {
           subtitle: "Webview test",
           item_url: "https://www.oculus.com/en-us/rift/",
           image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-          buttons: [burgerCustomizeWebview, comboCustomizeWebview ]
+          buttons: [burgerCustomizeWebview, comboCustomizeWebview]
         },
         {
           title: "Order Commands",
@@ -194,55 +190,54 @@ const genericTemplate = {
   }
 };
 
-
 const upsizeOrderMessage = {
-    text: "Would you like to make that a combo? (Fries & Drink)",
-    quick_replies: [
-        {
-            content_type: "text",
-            title: "Yes",
-            payload: JSON.stringify({
-                type: "upgrade-combo"
-            })
-        },
-        {
-            content_type: "text",
-            title: "No",
-            payload: JSON.stringify({
-                type: "order-continue"
-            })
-        }
-    ]
-};
-
-
-const orderAskContinue = {
-  attachment: {
-    type: "template",
-    payload: {
-      template_type: "button",
-      text: "Alright! We added that to your order. Are you done or would you like to order more?",
-      buttons: [
-        {
-          type: "postback",
-          title: "Order More",
-          payload: JSON.stringify({
-            type: "see-menu"
-          })
-        },
-        {
-          type: "postback",
-          title: "Done",
-          payload: JSON.stringify({
-            type: "confirm-order"
-          })
-        }
-      ]
+  text: "Would you like to make that a combo? (Fries & Drink)",
+  quick_replies: [
+    {
+      content_type: "text",
+      title: "Yes",
+      payload: JSON.stringify({
+        type: "upgrade-combo"
+      })
+    },
+    {
+      content_type: "text",
+      title: "No",
+      payload: JSON.stringify({
+        type: "order-continue"
+      })
     }
-  }
+  ]
 };
 
-
+const orderAskContinue = function(order) {
+  const attachment = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "button",
+        text:
+          "Alright! We added that to your order. Are you done or would you like to order more?",
+        buttons: [
+          {
+            type: "postback",
+            title: "Order More",
+            payload: JSON.stringify({
+              type: "see-menu"
+            })
+          },
+          {
+            type: "web_url",
+            url: "https://foodbotapi.herokuapp.com/receipt?order=${order._id}",
+            title: "Done",
+            webview_height_ratio: "full"
+          }
+        ]
+      }
+    }
+  };
+  return attachment;
+};
 
 const confirmedMessageTemplate = () => {
   return { text: "Ok we've confirmed the order" };

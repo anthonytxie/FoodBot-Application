@@ -44,8 +44,8 @@ const sendFriesMenuMessage = (recipientId, data) => {
 
 
 // ===== ORDER ===============================================================
-const sendOrderedMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.orderAskContinue)
+const sendOrderedMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.orderAskContinue(order))
 }
 
 const sendBurgerOrderPrompt = (recipientId, data) => {
