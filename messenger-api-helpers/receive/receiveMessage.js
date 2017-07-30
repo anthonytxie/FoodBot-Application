@@ -81,12 +81,18 @@ const handleReceiveMessage = messagingEvent => {
       console.log(message.text);
     }
   };
+if (message) {
+  runner.initialize(senderId).then(isActive => {
+    if (isActive) {
+      send.sendInitializeMessage(senderId);
+    }
+    else {
+      sendInitializeMessage(senderId);
+    }
+  });
+}
 
-  if (message) {
-    send.sendInitializeMessage(senderId)
-  }
 
-  
 };
 module.exports = {
   handleReceiveMessage
