@@ -8,8 +8,7 @@ const itemDAO = require('./../db/DAO/itemDAO');
 
 const initialize = senderId => {
   return sessionDAO.isSessionActive(senderId)
-
-
+};
 
   // return sessionDAO.isSessionActive(senderId).then(isActive => {
   //   if (isActive) {
@@ -32,7 +31,7 @@ const initialize = senderId => {
   //       })
   //   }
   // });
-};
+
 
 
 // const initialize = (senderId) => {
