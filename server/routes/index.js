@@ -24,7 +24,7 @@ routes.get('/receipt', (req, res) => {
   let orderId = req.query.order;
   orderDAO.getOrderById(orderId)
     .then((order) => {
-      res.render('receipt', order);
+      res.render('receipt', order: order);
     });
 });
 
