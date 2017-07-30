@@ -21,7 +21,7 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
 
 orderDAO.getOrderById = (orderId) => {
   return new Promise((resolve, reject) => {
-    Order.findOne({_id: mongoose.Types.ObjectId(orderId)})
+    populateOrder(Order.findOne({_id: mongoose.Types.ObjectId(orderId)}))
       .then((order) => {
         resolve(order)
       })
