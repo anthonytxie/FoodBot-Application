@@ -83,11 +83,13 @@ const handleReceiveMessage = messagingEvent => {
   };
 
   if (message) {
-    if (runner.initialize(senderId)) {
-      receiveMessageAndSend(message, messagingEvent, senderId);
-    } else {
-      send.sendInitializeMessage(senderId);
-    }
+    runner.initialize(senderId)
+      .then((isActive) => {
+        if (isActive) {
+          send.sendInitializeMessage(senderId, isActive);
+        }
+        else sendInitializeMessage(senderId, isActive);
+      })
   }
 };
 module.exports = {

@@ -7,27 +7,31 @@ const itemDAO = require('./../db/DAO/itemDAO');
 // ===== USERS ===============================================================
 
 const initialize = senderId => {
-  return sessionDAO.isSessionActive(senderId).then(isActive => {
-    if (isActive) {
-      return sessionDAO.sessionRenewal(senderId)
-        .then(() => {
-          return true
-        })
-    } else {
-      return userDAO
-        .isUserCreated(senderId)
-        .then(isCreated => {
-          if (isCreated) {
-            return sessionDAO.sessionRenewal(senderId);
-          } else {
-            return userDAO.createUser(senderId);
-          }
-        }).catch(err => console.log(err))
-        .then(() => {
-          return false
-        })
-    }
-  });
+  return sessionDAO.isSessionActive(senderId)
+
+
+
+  // return sessionDAO.isSessionActive(senderId).then(isActive => {
+  //   if (isActive) {
+  //     return sessionDAO.sessionRenewal(senderId)
+  //       .then(() => {
+  //         return true
+  //       })
+  //   } else {
+  //     return userDAO
+  //       .isUserCreated(senderId)
+  //       .then(isCreated => {
+  //         if (isCreated) {
+  //           return sessionDAO.sessionRenewal(senderId);
+  //         } else {
+  //           return userDAO.createUser(senderId);
+  //         }
+  //       }).catch(err => console.log(err))
+  //       .then(() => {
+  //         return false
+  //       })
+  //   }
+  // });
 };
 
 

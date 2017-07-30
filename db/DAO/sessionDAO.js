@@ -12,11 +12,8 @@ sessionDAO.isSessionActive = function(senderId) {
                 });
             }).catch((err) => reject(err))
             .then((session) => {
-                if(!session) {
-                    resolve(false);
-                }
-                else if (session.isActive === true) {
-                    resolve(true)
+                if(session.isActive === true) {
+                    resolve(true);
                 }
                 else resolve(false);
             }).catch((err) => reject(err))
