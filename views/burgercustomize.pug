@@ -3,6 +3,7 @@ html(lang="en")
 	head
 		title Burger Builder
 		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet")
 		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
 		link(rel ='stylesheet', href="burgercustomize.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
@@ -11,18 +12,27 @@ html(lang="en")
 		// div(data-role="page")
 		form
 			h4 Patties
-			section
-				input(type="range", name="points", min="1", max="3", value="1")
+			section(id="section1")
+				.quantity.patty_selected 1
+				.quantity 2
+				.quantity 3
 
 			br
 			h4 Type
 			section
-				.toggle
-					label(for="bacon") Bacon
-					input(id="bacon", name="bacon", type="checkbox", value="yes")
-				.toggle
-					label(for="cheese") Cheese
-					input(id="cheese", name="cheese", type="checkbox", value="yes")
+				.wide_checkbox
+					.custom_check
+					.toggle
+						h3 Bacon
+						p Was once a part of a pig
+					img(class="image_top", src="sample_bacon.png")
+
+				.wide_checkbox
+					.custom_check
+					.toggle
+						h3 Cheese
+						p Expensive rotten milk
+					img(class="image_top", src="sample_cheese.png")
 
 			br
 			div(id="sauce_toggle" class="tab")
