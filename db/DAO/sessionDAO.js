@@ -87,13 +87,17 @@ sessionDAO.sessionRenewal = function(PSID) {
                         { new: true }
                     ).then(() => {
                         return sessionDAO.createSession(PSID);
-                    });
+                    }).then(() => {
+                        return false
+                    })
                 } else {
                     return Session.findOneAndUpdate(
                         { _id: session._id },
                         { $set: { lastActiveDate: Date.now() } },
                         { new: true }
-                    );
+                    ).then(() => {
+                        return true
+                    })
                 }
             })
             .then(session => resolve(session))

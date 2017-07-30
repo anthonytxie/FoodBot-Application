@@ -6,14 +6,6 @@ const itemDAO = require('./../db/DAO/itemDAO');
 
 // ===== USERS ===============================================================
 
-
-const isActive = (senderId) => {
-  return sessionDAO.isSessionActive(senderId);
-}
-
-
-
-
 const initialize = (senderId) => {
   return userDAO.isUserCreated(senderId)
     .then((isCreated) => {
@@ -119,7 +111,6 @@ module.exports = {
   showCurrentOrder,
   renewSession,
   upgradeCombo,
-  isActive
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.
