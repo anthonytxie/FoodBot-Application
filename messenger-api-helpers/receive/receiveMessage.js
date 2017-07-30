@@ -4,7 +4,6 @@ const runner = require("./../runner");
 const handleReceiveMessage = messagingEvent => {
   const message = messagingEvent.message;
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
-  const { type, data } = JSON.parse(messagingEvent.message.quick_reply.payload);
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
   const senderId = messagingEvent.sender.id.toString();
   // runner does stuff with API.ai and webhook
@@ -15,8 +14,9 @@ const handleReceiveMessage = messagingEvent => {
   // this part needs to call API.AI with the message text
   // for now this will echo the text being received
   runner.isSessionActive(senderId).then(isSessionActive => {
-    if (isUserCreated) {
+    if (isSessionActive) {
         if (message.quick_reply) {
+          const { type, data } = JSON.parse(messagingEvent.message.quick_reply.payload);
           //assuming payload is an object that has type and data
           switch (type) {
             case "see-menu":
