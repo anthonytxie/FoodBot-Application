@@ -5,8 +5,8 @@ const sendApi = require('./sendApi');
 
 // DIFFERENT SENDER FUNCTIONS
 
-const sendInitializeMessage = (recipientId) => {
-  sendMessage(recipientId, messages.messageTemplate());
+const sendInitializeMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.welcomeMessage);
 };
 
 
@@ -55,8 +55,8 @@ const sendCreateNewOrderMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.messageTemplate(data));
 };
 
-const sendOrderMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.messageTemplate(data));
+const sendOrderMessage = (recipientId) => {
+  sendMessage(recipientId, messages.messageTemplate());
 };
 
 

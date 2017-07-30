@@ -7,6 +7,13 @@ const itemDAO = require('./../db/DAO/itemDAO');
 // ===== USERS ===============================================================
 
 
+const isActive = (senderId) => {
+  return sessionDAO.isSessionActive(senderId);
+}
+
+
+
+
 const initialize = (senderId) => {
   return userDAO.isUserCreated(senderId)
     .then((isCreated) => {
