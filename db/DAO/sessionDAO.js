@@ -10,13 +10,13 @@ sessionDAO.isSessionActive = function(PSID) {
                     resolve(false);
                 } else
                     return Session.findOne({ _user: user.id }).sort({
-                        createdAt: 1
+                        createdAt: -1
                     });
             })
             .then(session => {
                 if (
-                    session.isActive &&
-                    Date.now() - session.lastActiveDate > 180000
+                    (session.isActive) &&
+                    (Date.now() - session.lastActiveDate) < 180000
                 ) {
                     resolve(true);
                 } else {
@@ -79,7 +79,7 @@ sessionDAO.sessionRenewal = function(PSID) {
         User.findOne({ PSID })
             .then(user => {
                 return Session.findOne({ _user: user._id }).sort({
-                    createdAt: 1
+                    createdAt: -1
                 });
             })
             .catch(err => reject(err))
