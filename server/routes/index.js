@@ -28,7 +28,6 @@ routes.get('/receipt', (req, res) => {
     });
 });
 
-
 routes.get('/burgercustomize', (req,res) => {
   let id = req.query.order
   let burgerName = req.query.name

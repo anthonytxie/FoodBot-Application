@@ -12,7 +12,7 @@ html(lang="en")
 	body
 		form
 			h4 Fries
-			section.radio
+			section.section1.radio.required
 				.wide_checkbox
 					.custom_check_off
 					.toggle
@@ -36,22 +36,22 @@ html(lang="en")
 
 			br
 			h4 Drinks
-			section.radio
-				.wide_checkbox#milkshake_toggle
+			section.section2.radio.required
+				.wide_checkbox#milkshake_toggle.milkshake
 					.custom_check_off
 					.toggle
 						h3 Milkshakes
 						p Dairy for days
 					p.price $4.00
 
-				.wide_checkbox#soda_toggle
+				.wide_checkbox#soda_toggle.soda
 					.custom_check_off
 					.toggle
 						h3 Soda
 						p So many options
 					p.price $1.40
 
-				.wide_checkbox#water_toggle
+				.wide_checkbox#water_toggle.water
 					.custom_check_off
 					.toggle
 						h3 Water
@@ -61,7 +61,7 @@ html(lang="en")
 			span.milkshake_container
 				br
 				h4 Milkshake Flavors
-				section.radio
+				section.section3.radio.required
 					// vanilla
 					.wide_checkbox
 						.custom_check_off
@@ -86,7 +86,7 @@ html(lang="en")
 			span.soda_container
 				br
 				h4 Soda Flavors
-				section.radio
+				section.section4.radio.required
 					.wide_checkbox
 						.custom_check_off
 						.toggle
@@ -142,7 +142,7 @@ html(lang="en")
 							p I pity the fool
 
 			br
-			button DONE
+			button(disabled = 'true') DONE
 			br
 
 		script.
@@ -167,6 +167,19 @@ html(lang="en")
 						$(".milkshake_container").css("display", "none");
 						$(".soda_container").css("display", "none");
 					}
+				}
+			})
+
+
+			$(".required").on("click", ".wide_checkbox", function() {
+				if ($(".section1").find(".custom_check_on").length >= 1 &&
+							(($(".water").find(".custom_check_on").length >= 1) ||
+							($(".milkshake").find(".custom_check_on").length >= 1 && $(".section3").find(".custom_check_on").length >= 1) ||
+							($(".soda").find(".custom_check_on").length >= 1 && $(".section4").find(".custom_check_on").length >= 1))) {
+
+					$("button").prop('disabled', false);
+				} else {
+					$("button").prop('disabled', true);
 				}
 			})
 

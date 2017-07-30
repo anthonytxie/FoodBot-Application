@@ -17,9 +17,12 @@ html(lang="en")
 				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
+
+		p #{order._id}
+
 		form
 			h4 Patties
-			section.radio
+			section.radio.section1.required
 				.quantity.patty_selected 1
 				.quantity 2
 				.quantity 3
@@ -39,7 +42,7 @@ html(lang="en")
 				
 			br
 			h4 Bun
-			section.radio
+			section.radio.section2.required
 				.wide_checkbox
 					.custom_check_off
 					.toggle
@@ -199,7 +202,7 @@ html(lang="en")
 					p.price $1.50
 
 			br
-			button DONE
+			button(disabled = 'true') DONE
 			br
 		
 		script.
@@ -246,6 +249,12 @@ html(lang="en")
 						checkbox.removeClass("custom_check_off");
 						checkbox.addClass("custom_check_on");
 					}
+				}
+			})
+
+			$(".required").on("click", ".wide_checkbox", function() {
+				if($(".section1").find(".custom_check_on").length >= 1 && $(".section2").find(".custom_check_on").length >= 1) {
+					$("button").prop('disabled', false);
 				}
 			})
 
