@@ -6,7 +6,7 @@ sessionDAO.isSessionActive = function(PSID) {
     return new Promise((resolve, reject) => {
         User.findOne({ PSID })
             .then(user => {
-                if (user) {
+                if (!user) {
                     resolve(false);
                 } else
                     return Session.findOne({ _user: user.id }).sort({
