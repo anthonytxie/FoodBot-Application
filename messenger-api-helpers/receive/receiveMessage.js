@@ -45,16 +45,16 @@ const handleReceiveMessage = messagingEvent => {
           case "upgrade-combo":
             runner
               .upgradeCombo(senderId)
-              .then(() => {
-                send.sendOrderedMessage(senderId);
+              .then((order) => {
+                send.sendOrderedMessage(senderId,order);
               })
               .catch(err => console.log(err));
             break;
           case "order-continue":
             runner
-              .renewSession(senderId)
-              .then(() => {
-                send.sendOrderedMessage(senderId);
+              .renewSessionAndReturnOrder(senderId)
+              .then((order) => {
+                send.sendOrderedMessage(senderId, order);
               })
               .catch(err => console.log(err));
             break;
