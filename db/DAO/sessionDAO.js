@@ -3,26 +3,6 @@ const { Session, User } = require("./../models/index");
 const sessionDAO = {};
 
 
-sessionDAO.isSessionActive = function(senderId) {
-    return new Promise((resolve, reject) => {
-        User.findOne({ PSID })
-            .then(user => {
-                return Session.findOne({ _user: user._id }).sort({
-                    createdAt: -1
-                });
-            }).catch((err) => reject(err))
-            .then((session) => {
-                if(session.isActive) {
-                    resolve(true)
-                }
-                else {
-                    resolve(false)
-                }
-            }).catch((err) => reject(err))
-    });
-};
-
-
 sessionDAO.findSessionById = function(sessionId) {
     return new Promise((resolve, reject) => {
         Session.findOne({ session: sessionId })
@@ -87,17 +67,13 @@ sessionDAO.sessionRenewal = function(PSID) {
                         { new: true }
                     ).then(() => {
                         return sessionDAO.createSession(PSID);
-                    }).then(() => {
-                        return false
-                    })
+                    });
                 } else {
                     return Session.findOneAndUpdate(
                         { _id: session._id },
                         { $set: { lastActiveDate: Date.now() } },
                         { new: true }
-                    ).then(() => {
-                        return true
-                    })
+                    );
                 }
             })
             .then(session => resolve(session))
