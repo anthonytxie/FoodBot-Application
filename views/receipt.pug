@@ -1,0 +1,185 @@
+doctype html
+html(lang="en")
+  head
+    title Combo (ACTUALLY RECEIPT)
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    script(src="https://use.fontawesome.com/3efb1c9419.js")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet")
+    link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+    link(rel ='stylesheet', href="combocustomize.css", type='text/css')
+    script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+    script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+  body
+    form
+      h4 Fries
+      section.radio
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Regular
+            p Basic fries
+          p.price $4.00
+
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Cheesy
+            p Add cheese
+          p.price $6.50
+
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Poutine
+            p Add gravy and cheese
+          p.price $8.00
+
+      br
+      h4 Drinks
+      section.radio
+        .wide_checkbox#milkshake_toggle
+          .custom_check_off
+          .toggle
+            h3 Milkshakes
+            p Dairy for days
+          p.price $4.00
+
+        .wide_checkbox#soda_toggle
+          .custom_check_off
+          .toggle
+            h3 Soda
+            p So many options
+          p.price $1.40
+
+        .wide_checkbox#water_toggle
+          .custom_check_off
+          .toggle
+            h3 Water
+            p Texture is everything
+          p.price $2.50
+
+      span.milkshake_container
+        br
+        h4 Milkshake Flavors
+        section.radio
+          // vanilla
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Vanilla
+              p Back to the basics
+
+          // chocolate
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Chocolate
+              p Made from cocoa
+
+          // strawberry
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Strawberry
+              p Traditionally red
+
+      span.soda_container
+        br
+        h4 Soda Flavors
+        section.radio
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Pepsi
+              p Brown bubbles
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Diet Pepsi
+              p Healthier brown bubbles
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Root Beer
+              p (Root Beer)^2 = Beer
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Dr Pepper
+              p That's Mr Pepper to you
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 7-Up
+              p Heads down thumbs up
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Mountain Dew
+              p Fresh from the mountain
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Ginger Ale
+              p Good for the tummy
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Orange Crush
+              p Orange you glad you picked this one
+
+          .wide_checkbox
+            .custom_check_off
+            .toggle
+              h3 Iced Tea
+              p I pity the fool
+
+      br
+      button DONE
+      br
+
+    script.
+
+      // first 2 sections (radio)
+      $(".radio").on("click", ".wide_checkbox", function() {
+        let checkbox = $(this).children("div:first-child");
+        if (checkbox.hasClass("custom_check_on")) {
+        } else {
+          
+          $(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+          checkbox.removeClass("custom_check_off").addClass("custom_check_on");
+          if ($(this).attr("id") === "milkshake_toggle") {
+            $(".milkshake_container").css("display", "initial");
+            $(".soda_container").css("display", "none");
+          }
+          if ($(this).attr("id") === "soda_toggle") {
+            $(".milkshake_container").css("display", "none");
+            $(".soda_container").css("display", "initial");
+          }
+          if ($(this).attr("id") === "water_toggle") {
+            $(".milkshake_container").css("display", "none");
+            $(".soda_container").css("display", "none");
+          }
+        }
+      })
+
+
+
+      //- // section 2
+      //- $("body").on("click", ".wide_checkbox", function() {
+      //-   let checkbox = $(this).children("div:first-child");
+      //-   if (checkbox.hasClass("custom_check_on")) {
+      //-     checkbox.removeClass("custom_check_on");
+      //-     checkbox.addClass("custom_check_off");
+      //-   } else {
+      //-     checkbox.removeClass("custom_check_off");
+      //-     checkbox.addClass("custom_check_on");
+      //-   }
+      //- })
