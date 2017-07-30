@@ -109,7 +109,6 @@ const persistentMenu = {
             orderDrinkButton
           ]
         },
-        initializeButton,
         newOrderButton
       ]
     }

@@ -64,7 +64,7 @@ const handleReceiveMessage = messagingEvent => {
               break;
             case "confirm-order":
               runner.confirmOrder(senderId).then(() => {
-                send.sendInitializeMessage(senderId);
+                send.sendFarewellMessage(senderId);
               });
               break;
             default:
