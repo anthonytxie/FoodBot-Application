@@ -18,7 +18,7 @@ const handleReceivePostback = messagingEvent => {
           break;
         case "see-menu":
           //creates New Order
-          runner.createNewOrder(senderId).then(order => {
+          runner.renewSession(senderId).then(order => {
             send.sendMenuMessage(senderId, order._session);
           });
           break;
@@ -61,6 +61,11 @@ const handleReceivePostback = messagingEvent => {
               send.sendOrderMessage(senderId, order._id);
             })
             .catch(err => console.log(err));
+          break;
+        case "confirm-order":
+          runner.confirmOrder(senderId).then(() => {
+            send.sendFarewellMessage(senderId);
+          });
           break;
         default:
           console.log(`unknown postback called ${type}`);

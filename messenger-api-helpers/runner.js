@@ -12,13 +12,13 @@ const initialize = (senderId) => {
       if (isCreated) {
         return sessionDAO.sessionRenewal(senderId)
           .then((session) => {
-            return orderDAO.initializeOrder(senderId, user._session)
+            return orderDAO.initializeOrder(senderId, session._id)
           })
       }
       else {
         return userDAO.createUser(senderId)
           .then((user) => {
-            return orderDAO.initializeOrder(senderId, user._session)
+            return orderDAO.initializeOrder(senderId, user._sessions[0])
           })
       }
     }).catch((err) => console.log(err));

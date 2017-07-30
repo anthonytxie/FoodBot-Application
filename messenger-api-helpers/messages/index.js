@@ -217,24 +217,31 @@ const upsizeOrderMessage = {
 
 
 const orderAskContinue = {
-    text: "Alright! We added that to your order. Are you done or would you like to order more?",
-    quick_replies: [
+  attachment: {
+    type: "template",
+    payload: {
+      template_type: "button",
+      text: "Alright! We added that to your order. Are you done or would you like to order more?",
+      buttons: [
         {
-            content_type: "text",
-            title: "Order More",
-            payload: JSON.stringify({
-                type: "see-menu"
-            })
+          type: "postback",
+          title: "Order More",
+          payload: JSON.stringify({
+            type: "see-menu"
+          })
         },
         {
-            content_type: "text",
-            title: "Done",
-            payload: JSON.stringify({
-                type: "confirm-order"
-            })
+          type: "postback",
+          title: "Done",
+          payload: JSON.stringify({
+            type: "confirm-order"
+          })
         }
-    ]
+      ]
+    }
+  }
 };
+
 
 
 const confirmedMessageTemplate = () => {
