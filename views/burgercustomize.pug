@@ -1,267 +1,262 @@
 doctype html
 html(lang="en")
-	head
-		title Burger
-		meta(name="viewport", content="width=device-width, initial-scale=1")
-		link(href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet")
-		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
-		link(rel ='stylesheet', href="burgercustomize.css", type='text/css')
-		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
-		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
-	body
-		script.
-			(function(d, s, id){
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'Messenger'));
 
-		p #{order._id}
+  head
+    title Burger
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet")
+    link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+    link(rel ='stylesheet', href="burgercustomize.css", type='text/css')
+    script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+    script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+  body
+    script.
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'Messenger'));
+    p #{order._id}
+    form
+      h4 Patties
+      section.section1.radio.required
+        .quantity.patty_selected 1
+        .quantity 2
+        .quantity 3
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Beef
+            p Moo
+          p.price $2.00
 
-		form
-			h4 Patties
-			section.radio
-				.quantity.patty_selected 1
-				.quantity 2
-				.quantity 3
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Beef
-						p Moo
-					p.price $2.00
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Chicken
+            p Not Moo
+          p.price $5.00
+        
+      br
+      h4 Bun
+      section.section2.radio.required
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 White Bun
+            p Solid choice
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Lettuce Bun
+            p Lettuce eat this bun
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Gluten Free Bun
+            p Mo' gluten mo' problems
+          p.price $1.50
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Grilled Cheese Bun
+            p Fun in the bun
+          p.price $3.00
 
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Chicken
-						p Not Moo
-					p.price $5.00
-				
-			br
-			h4 Bun
-			section.radio
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 White Bun
-						p Solid choice
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Lettuce Bun
-						p Lettuce eat this bun
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Gluten Free Bun
-						p Mo' gluten mo' problems
-					p.price $1.50
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Grilled Cheese Bun
-						p Fun in the bun
-					p.price $3.00
 
-			br
-			h4 Sauces
-			section
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Ketchup
-						p Tomato inspired
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Mustard
-						p BRB I mustard
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Mayo
-						p Mayo wishes come true
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Relish
-						p I relish the idea of this burger
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Fancy Sauce
-						p Comes with a monocle
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Hot Sauce
-						p Feelin' hot hot hot
-					p.price FREE
+      br
+      h4 Sauces
+      section
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Ketchup
+            p Tomato inspired
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Mustard
+            p BRB I mustard
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Mayo
+            p Mayo wishes come true
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Relish
+            p I relish the idea of this burger
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Fancy Sauce
+            p Comes with a monocle
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Hot Sauce
+            p Feelin' hot hot hot
+          p.price FREE
 
-			br
-			h4 Toppings
-			section
-				// FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Lettuce
-						p Now it's a salad
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Tomato
-						p Solid ketchup
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Pickle
-						p Salty cucumber
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Onions
-						p Like ogres but with slightly more layers
-					p.price FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Hot Peppers
-						p Hotter than my mixtape
-					p.price FREE
+      br
+      h4 Toppings
+      section
+        // FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Lettuce
+            p Now it's a salad
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Tomato
+            p Solid ketchup
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Pickle
+            p Salty cucumber
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Onions
+            p Like ogres but with slightly more layers
+          p.price FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Hot Peppers
+            p Hotter than my mixtape
+          p.price FREE
 
-				// NOT FREE
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Bacon
-						p Was once a part of a pig 
-					p.price $1.50
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Regular Cheese
-						p Expensive rotten milk
-					p.price $1.00
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 American Style Cheese
-						p American expensive rotten milk
-					p.price $1.00
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Blue Cheese
-						p Milk that is even more rotten
-					p.price $1.50
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Caramelized Onions
-						p Like onions but caramelized
-					p.price $1.00
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Stuffed Portobello
-						p Stuffed with...?
-					p.price $6.00
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Sauteed Mushrooms
-						p These mushrooms are ballers yo
-					p.price $1.50
+        // NOT FREE
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Bacon
+            p Was once a part of a pig 
+          p.price $1.50
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Regular Cheese
+            p Expensive rotten milk
+          p.price $1.00
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 American Style Cheese
+            p American expensive rotten milk
+          p.price $1.00
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Blue Cheese
+            p Milk that is even more rotten
+          p.price $1.50
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Caramelized Onions
+            p Like onions but caramelized
+          p.price $1.00
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Stuffed Portobello
+            p Stuffed with...?
+          p.price $6.00
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Sauteed Mushrooms
+            p These mushrooms are ballers yo
+          p.price $1.50
 
-				// SIDES
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Side of Cheese Sauce
-						p Technically not a topping
-					p.price $2.50
-				.wide_checkbox
-					.custom_check_off
-					.toggle
-						h3 Side of Gravy
-						p Also not a topping
-					p.price $1.50
+        // SIDES
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Side of Cheese Sauce
+            p Technically not a topping
+          p.price $2.50
+        .wide_checkbox
+          .custom_check_off
+          .toggle
+            h3 Side of Gravy
+            p Also not a topping
+          p.price $1.50
 
-			br
-			button DONE
-			br
-		
-		script.
-			// called when MessengerExtensions is done loading
-			window.extAsyncInit = function() {
-				$("button").click(function(){
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-						alert(err);
-					});
-				})
-			}
-
-			// section idk
-			$(".radio").on("click", ".wide_checkbox", function() {
-				let checkbox = $(this).children("div:first-child");
-				if (checkbox.hasClass("custom_check_on")) {
-				} else {
-					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
-					checkbox.addClass("custom_check_on");
-				}
-			})
-
-			// section 1
-			$("body").on("click", ".quantity", function() {
-				if ($(this).hasClass(".patty_selected")) {
-				} else {
-					$(".patty_selected").removeClass("patty_selected");
-					$(this).addClass("patty_selected");
-				}
-			})
-
-			// section 2
-			$("body").on("click", ".wide_checkbox", function() {
-				if ($(this).parent().hasClass("radio")) {
-					// lmao
-				} else {
-					let checkbox = $(this).children("div:first-child");
-					if (checkbox.hasClass("custom_check_on")) {
-						checkbox.removeClass("custom_check_on");
-						checkbox.addClass("custom_check_off");
-					} else {
-						checkbox.removeClass("custom_check_off");
-						checkbox.addClass("custom_check_on");
-					}
-				}
-			})
-
-	
+      br
+      button(disabled = 'true') DONE
+      br
+    
+    script.
+      // called when MessengerExtensions is done loading
+      window.extAsyncInit = function() {
+        $("button").click(function(){
+          MessengerExtensions.requestCloseBrowser(function success() {
+            console.log("success");
+          }, function error(err) {
+            console.log(err);
+          });
+        })
+      }
 
 
 
+      // section idk
+      $(".radio").on("click", ".wide_checkbox", function() {
+        let checkbox = $(this).children("div:first-child");
+        if (checkbox.hasClass("custom_check_on")) {
+        } else {
+          $(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+          checkbox.addClass("custom_check_on");
+        }
+      })
 
+      // section 1
+      $("body").on("click", ".quantity", function() {
+        if ($(this).hasClass(".patty_selected")) {
+        } else {
+          $(".patty_selected").removeClass("patty_selected");
+          $(this).addClass("patty_selected");
+        }
+      })
 
+      // section 2
+      $("body").on("click", ".wide_checkbox", function() {
+        if ($(this).parent().hasClass("radio")) {
+          // lmao
+        } else {
+          let checkbox = $(this).children("div:first-child");
+          if (checkbox.hasClass("custom_check_on")) {
+            checkbox.removeClass("custom_check_on");
+            checkbox.addClass("custom_check_off");
+          } else {
+            checkbox.removeClass("custom_check_off");
+            checkbox.addClass("custom_check_on");
+          }
+        }
+      })
 
-
-
-
-
+      $(".required").on("click", ".wide_checkbox", function() {
+        if($(".section1").find(".custom_check_on").length >= 1 && $(".section2").find(".custom_check_on").length >= 1) {
+        	$("button").prop('disabled', false);
+        }
+      })
 
