@@ -9,8 +9,8 @@ const {
 const { burgerTemplate } = require('./burgerTemplate');
 
 
-const messageTemplate =  () => {
-  return { text: "Hello! :) "};
+const messageTemplate =  (message) => {
+  return { text: message };
 };
 
 

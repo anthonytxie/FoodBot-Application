@@ -4,7 +4,7 @@ const { handleReceivePostback } = require('../../messenger-api-helpers/receive/r
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
 const sessionDAO = require('./../../db/DAO/sessionDAO')
 const runner = require('../../messenger-api-helpers/runner')
-const orderDAO = require('./../../db/DAO/sessionDAO')
+const orderDAO = require('./../../db/DAO/orderDAO')
 
 // Verify Token 
 //need to put secret in process.env

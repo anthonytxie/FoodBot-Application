@@ -3,14 +3,18 @@ const castArray = require('lodash/castArray');
 const sendApi = require('./sendApi');
 
 
-// DIFFERENT SENDER FUNCTIONS
+// SIMPLE SENDER FUNCTIONS
 
 const sendInitializeMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.welcomeMessage);
 };
 
-const sendGenericMessage = (recipientId) => {
-  sendMessage(recipientId, messages.messageTemplate());
+const sendInitializeMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.welcomeMessage);
+};
+
+const sendFarewellMessage = (recipientId) => {
+  sendMessage(recipientId, messages.messageTemplate('Farewell!'));
 };
 
 
@@ -164,9 +168,8 @@ module.exports = {
   sendFriesMenuMessage,
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
-  sendOrderedMessage
+  sendOrderedMessage,
+  sendFarewellMessage
 };
-
-
 
 
