@@ -155,14 +155,16 @@ const burgerCustomizeWebview = {
   type: "web_url",
   url: "https://foodbotapi.herokuapp.com/burgercustomize",
   title: "Open Burger Customize Webview",
-  webview_height_ratio: "full"
+  webview_height_ratio: "full",
+  messenger_extensions: true
 };
 
 const comboCustomizeWebview = {
   type: "web_url",
   url: "https://foodbotapi.herokuapp.com/burgercustomize",
   title: "Open Combo Customize Webview",
-  webview_height_ratio: "full"
+  webview_height_ratio: "full",
+  messenger_extensions: true
 };
 
 const genericTemplate = {
@@ -230,7 +232,8 @@ const orderAskContinue = function(order) {
             type: "web_url",
             url: `https://foodbotapi.herokuapp.com/receipt?order=${order._id}`,
             title: "Done",
-            webview_height_ratio: "full"
+            webview_height_ratio: "full",
+            messenger_extensions: true
           }
         ]
       }

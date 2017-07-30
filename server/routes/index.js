@@ -19,21 +19,22 @@ routes.get('/burgercombo', (req,res) => {
   res.render('burgercombopage'); //send back pug file
 });
 
-routes.get('/receipt', (req,res) => {
-  res.render('receipt');
-});
 
-// routes.get('/receipt', (req, res) => {
-//   let orderId = req.query.order;
-//   orderDAO.getOrderById(orderId)
-//     .then((order) => {
-//       res.send(order);
-//     });
-// });
+routes.get('/receipt', (req, res) => {
+  let orderId = req.query.order;
+  orderDAO.getOrderById(orderId)
+    .then((order) => {
+      res.render('receipt', order);
+    });
+});
 
 
 routes.get('/burgercustomize', (req,res) => {
-  res.render('./burgercustomize');
+  let id = req.query.order
+  orderDAO.getOrderById(id)
+    .then((order) => {
+      res.render('./burgercustomize', order);
+    })
 });
 
 routes.get('/isActiveSession', (req, res) => {

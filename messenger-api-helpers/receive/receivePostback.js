@@ -29,9 +29,9 @@ const handleReceivePostback = messagingEvent => {
           break;
         case "show-burger":
           runner
-            .renewSession(senderId, data)
+            .renewSessionAndReturnOrder(senderId, data)
             .then(order => {
-              send.sendBurgerOrderPrompt(senderId, data);
+              send.sendBurgerOrderPrompt(senderId, data, order);
             })
             .catch(err => console.log(err));
           break;
