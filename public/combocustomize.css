@@ -285,6 +285,23 @@ p.price {
 	bottom: 6px;
 }
 
+button {
+	font-family: Roboto!important;
+	background-color: #26a69a !important;
+	color: white !important;
+	text-decoration: none!important;
+	text-shadow: 0 0 0 #f3f3f3!important;
+	font-weight: 400!important;
+	letter-spacing: .1em;
+	border-radius: 0 !important;
+	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+	border: 0px solid white!important;
+}
+
+button:active {
+	background-color: #1E847B!important;
+}
+
 /*.quantity:nth-of-type(1) {
 	border-radius: 20px 0 0 20px;
 }
