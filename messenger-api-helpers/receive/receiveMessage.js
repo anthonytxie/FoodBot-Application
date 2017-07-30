@@ -83,8 +83,10 @@ const handleReceiveMessage = messagingEvent => {
   };
 
   if (message) {
-    send.sendInitializeMessage(senderId, isActive)
+    send.sendInitializeMessage(senderId)
   }
+
+  
 };
 module.exports = {
   handleReceiveMessage

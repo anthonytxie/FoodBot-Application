@@ -5,7 +5,7 @@ const sendApi = require('./sendApi');
 
 // DIFFERENT SENDER FUNCTIONS
 
-const sendInitializeMessage = (recipientId, data) => {
+const sendInitializeMessage = (recipientId) => {
   sendMessage(recipientId, messages.messageTemplate());
 };
 
