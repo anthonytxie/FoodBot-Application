@@ -12,7 +12,18 @@ const handleReceiveMessage = messagingEvent => {
   send.sendReadReceipt(senderId);
   // this part needs to call API.AI with the message text
   // for now this will echo the text being received
+  if (message) {
+    if (runner.initialize(senderId)) {
+      receiveMessageAndSend(message, messagingEvent, senderId);
+    }
+    else {
+      send.sendInitializeMessage(senderId);
+    }
+  }
 
+
+
+  const receiveMessageAndSend = (message, messagingEvent, senderId) => {
   if (message.quick_reply) {
     //assuming payload is an object that has type and data
     const { type, data } = JSON.parse(
@@ -82,7 +93,7 @@ const handleReceiveMessage = messagingEvent => {
     console.log(message.text);
   }
 };
-
+}
 module.exports = {
   handleReceiveMessage
 };

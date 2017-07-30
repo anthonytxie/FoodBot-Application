@@ -2,6 +2,25 @@ const { Session, User } = require("./../models/index");
 
 const sessionDAO = {};
 
+
+sessionDAO.isSessionActive = function(senderId) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ PSID })
+            .then(user => {
+                return Session.findOne({ _user: user._id }).sort({
+                    createdAt: -1
+                });
+            }).catch((err) => reject(err))
+            .then((session) => {
+                if(session.isActive === true) {
+                    resolve(true);
+                }
+                else resolve(false);
+            }).catch((err) => reject(err))
+    });
+};
+
+
 sessionDAO.findSessionById = function(sessionId) {
     return new Promise((resolve, reject) => {
         Session.findOne({ session: sessionId })
