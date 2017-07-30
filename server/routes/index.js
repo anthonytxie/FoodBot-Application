@@ -23,7 +23,7 @@ routes.get('/receipt', (req, res) => {
   orderDAO.getOrderById("597e4a3dcf89330011a635c0")
     .then((order) => {
       res.send(order);
-    });
+    }).catch((err) => res.send(err))
 });
 
 
