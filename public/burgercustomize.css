@@ -47,6 +47,8 @@ form {
 }
 
 .tab {
+	height: 40px;
+	line-height: 40px;
 	width: 33.33%;
 	background-color: #f6f6f6;
 	display: inline-block;
@@ -74,12 +76,26 @@ form {
 
 .square {
 	position: relative;
-	width: 25%;
-	height: 25%;
+	width: 23%;
+	height: 23%;
 	text-align: center;
 	cursor: pointer;
-	/*border: 2px solid #ddd;
-	border-radius: 10%;*/
+
+	border: 1px solid black;
+	/*border-radius: 10%;*/
+}
+
+/*left*/
+.square:nth-child(1)
+
+/*top*/
+.square:nth-child(1), .square:nth-child(2), .square:nth-child(3), .square:nth-child(4) {
+	border-top: 0px solid black;
+}
+
+/*right*/
+.square:nth-child(4n+4) {
+	border-right: 0px solid black;
 }
 
 .square:before {
@@ -110,7 +126,7 @@ img {
 	height: 50%;
 }
 
-.custom_check {
+.custom_check_off {
 	/*background-color: red;*/
 	margin-left: 20px;
 	width: 20px;
@@ -120,6 +136,20 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: white;
+	top: -2px;
+	right: 10px;
+}
+
+.custom_check_on {
+	/*background-color: red;*/
+	margin-left: 20px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px solid white;
+	display: inline-block;
+	position: relative;
+	background-color: #26a69a;
 	top: -2px;
 	right: 10px;
 }
@@ -146,8 +176,12 @@ img {
 	cursor: pointer;
 }
 
-.wide_checkbox:hover {
+.wide_checkbox:hover, .quantity:hover {
 	background-color: #f7f7f7;
+}
+
+.quantity.patty_selected:hover {
+	background-color: #26a69a;
 }
 
 .wide_checkbox:nth-of-type(1) {
@@ -183,6 +217,7 @@ h3 {
 	text-align: center;
 	background-color: white;
 	font-size: 1.3em;
+	cursor: pointer;
 }
 
 @media (max-width: 360px) {
@@ -212,6 +247,10 @@ h3 {
 .patty_selected {
 	background-color: #26a69a;
 	color: white;
+}
+
+#section3 {
+	border-top: 0px;
 }
 
 /*.quantity:nth-of-type(1) {
