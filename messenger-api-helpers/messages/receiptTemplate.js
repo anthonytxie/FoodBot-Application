@@ -1,15 +1,4 @@
-const { normalBurgers, specialBurgers } = require("./burgers");
-
-const findBurger = function(payloadData) {
-  return [...normalBurgers, ...specialBurgers]
-    .filter(x => {
-      return x.title === payloadData.title;
-    })
-    .pop();
-};
-
-const burgerTemplate = function(payloadData, order) {
-  const burger = findBurger(payloadData);
+const receiptTemplate = function(order) {
   const attachment = {
     attachment: {
       type: "template",
@@ -46,6 +35,6 @@ const burgerTemplate = function(payloadData, order) {
     }
   };
   return attachment;
-};
 
-module.exports = { burgerTemplate };
+  module.exports = {receiptTemplate}
+};

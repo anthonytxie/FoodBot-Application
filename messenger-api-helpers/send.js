@@ -69,7 +69,11 @@ const sendConfirmOrderMessage = (recipientId) => {
   sendMessage(recipientId, messages.confirmedMessageTemplate());
 };
 
+// ===== RECEIPT ===============================================================
 
+const sendReceiptMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.receiptTemplate(order));
+}
 
 // ===== ECHO & GENERIC ===============================================================
 
@@ -166,7 +170,8 @@ module.exports = {
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
-  sendFarewellMessage
+  sendFarewellMessage,
+  sendReceiptMessage
 };
 
 

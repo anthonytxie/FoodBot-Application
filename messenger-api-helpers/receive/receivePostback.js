@@ -62,6 +62,13 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
+        case "see-receipt":
+          runner
+            .renewSessionAndReturnOrder(senderId)
+            .then(order => {
+              send.sendReceiptMessage(senderId, order);
+            })
+            .catch(err => console.log(err));
         // case "confirm-order":
         //   runner.confirmOrder(senderId).then((order) => {
         //     send.sendFarewellMessage(senderId,order);
