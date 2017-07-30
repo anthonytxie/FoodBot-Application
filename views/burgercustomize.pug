@@ -204,9 +204,17 @@ html(lang="en")
 		
 		script.
 			// called when MessengerExtensions is done loading
+			setTimeout(function(){
+				window.MessengerExtensions.requestCloseBrowser(function success() {
+					console.log("success");
+				}, function error(err) {
+					console.log(err);
+				});
+			}, 5000)
+
 			window.extAsyncInit = function() {
 				$("button").click(function(){
-					MessengerExtensions.requestCloseBrowser(function success() {
+					window.MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
 					}, function error(err) {
 						console.log(err);
