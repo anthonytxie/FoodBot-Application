@@ -241,4 +241,11 @@ const specialBurgers = [
 	}
 ];
 
-module.exports = { normalBurgers, specialBurgers };
+const findBurger = function(name) {
+  return [...normalBurgers, ...specialBurgers]
+    .filter(x => {
+      return x.title === name;
+    })
+    .pop();
+};
+module.exports = { normalBurgers, specialBurgers, findBurger };
