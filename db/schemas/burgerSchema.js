@@ -47,7 +47,7 @@ const burgerSchema = new Schema(
 
 burgerSchema.virtual("price").get(function() {
   const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
-    return x.title == this.itemName;
+    return x.title === this.itemName;
   });
   const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
   const customizedBurgerPremiumToppings = this.premiumToppings.sort();
@@ -58,9 +58,8 @@ burgerSchema.virtual("price").get(function() {
   additionalPremiumToppings.forEach((x) => {
     price += premiumToppings[x]
   })
-  return price
+  return parseFloat(price.toFixed(2))
 });
-
 
 
 

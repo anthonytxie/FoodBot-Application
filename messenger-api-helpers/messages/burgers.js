@@ -7,6 +7,7 @@ const normalBurgers = [
 			title: "Single Hamburger (No Cheese)",
 			patties: 1,
 			standardToppings: ["standardBun"],
+			premiumToppings: [],
 			basePrice:  5.99
 		}
 	},
@@ -57,6 +58,7 @@ const normalBurgers = [
 			title: "Double Hamburger (No Cheese)",
 			patties: 2,
 			standardToppings: ["standardBun"],
+			premiumToppings: [],
 			basePrice:  7.99
 		}
 	},
@@ -193,6 +195,7 @@ const specialBurgers = [
 		burgerObject: {
 			title: "Say Cheese",
 			patties: 2,
+			standardToppings: [],
 			premiumToppings: ["grilledCheeseBun", "standardCheese"],
 			basePrice: 10.99
 		}

@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express();
 const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
-
+const orderDAO = require('./../../db/DAO/orderDAO')
 // 
 
 // Verify Token 
@@ -30,6 +30,13 @@ routes.get('/webhook', (req, res) => {
     res.send('Error, wrong token');
   }
 });
+
+routes.get('/orders', (req, res) => {
+  orderDAO.getAllOrders()
+    .then((orders) => {
+      res.send(orders)
+    }).catch((err) => res.send(err))
+})
 
 
 routes.post('/webhook', (req, res) => {

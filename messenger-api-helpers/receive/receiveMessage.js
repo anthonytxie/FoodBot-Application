@@ -22,6 +22,13 @@ const handleReceiveMessage = messagingEvent => {
     const senderId = messagingEvent.sender.id.toString();
     // runner does stuff with API.ai and webhook
     switch (type) {
+
+    case "see-menu":
+      //creates New Order
+      runner.renewSession(senderId).then(order => {
+        send.sendMenuMessage(senderId, order._session);
+      });
+      break;
       case "see-special-burgers":
         runner.renewSession(senderId).then(order => {
           send.sendSpecialBurgerMenu(senderId);
@@ -47,7 +54,15 @@ const handleReceiveMessage = messagingEvent => {
         runner
           .upgradeCombo(senderId)
           .then(() => {
-            send.sendComboOrderedMessage(senderId);
+            send.sendOrderedMessage(senderId);
+          })
+          .catch(err => console.log(err));
+        break;
+      case "order-continue":
+        runner
+          .renewSession(senderId)
+          .then(() => {
+            send.sendOrderedMessage(senderId);
           })
           .catch(err => console.log(err));
         break;
