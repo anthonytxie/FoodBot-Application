@@ -23,14 +23,6 @@ routes.get('/burgercustomize', (req,res) => {
   res.render('./burgercustomize');
 });
 
-routes.get('/initialize', (req, res) => {
-  runner.isSessionActive('1086113204824237')
-    .then((success) => {
-      res.send(success);
-    });
-});
-
-
 routes.get('/webhook', (req, res) => {
   if (req.query['hub.verify_token'] === process.env.secret ) {
     res.send(req.query['hub.challenge']);
