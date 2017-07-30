@@ -83,6 +83,7 @@ const handleReceiveMessage = messagingEvent => {
   };
 if (message) {
   runner.initialize(senderId).then(isActive => {
+    console.log(isActive)
     if (isActive) {
       send.sendInitializeMessage(senderId);
     }

@@ -6,51 +6,37 @@ const itemDAO = require('./../db/DAO/itemDAO');
 
 // ===== USERS ===============================================================
 
+
+
 const initialize = senderId => {
-  return sessionDAO.isSessionActive(senderId)
+  return userDAO
+    .isUserCreated(senderId)
+    .then(isCreated => {
+      if (isCreated) {
+        return sessionDAO.isSessionActive(senderId).then(isActive => {
+          if (isActive) {
+            return sessionDAO.renewSession(senderId).then(() => {
+              return true;
+            });
+          } else {
+            return sessionDAO.renewSession(senderId).then(() => {
+              return false;
+            });
+          }
+        });
+      } else {
+        return userDAO
+          .createUser(senderId)
+          .then(user => {
+            return orderDAO.initializeOrder(senderId, user._session);
+          })
+          .then(() => {
+            return false;
+          });
+      }
+    })
+    .catch(err => console.log(err));
 };
-
-  // return sessionDAO.isSessionActive(senderId).then(isActive => {
-  //   if (isActive) {
-  //     return sessionDAO.sessionRenewal(senderId)
-  //       .then(() => {
-  //         return true
-  //       })
-  //   } else {
-  //     return userDAO
-  //       .isUserCreated(senderId)
-  //       .then(isCreated => {
-  //         if (isCreated) {
-  //           return sessionDAO.sessionRenewal(senderId);
-  //         } else {
-  //           return userDAO.createUser(senderId);
-  //         }
-  //       }).catch(err => console.log(err))
-  //       .then(() => {
-  //         return false
-  //       })
-  //   }
-  // });
-
-
-
-// const initialize = (senderId) => {
-//   return userDAO.isUserCreated(senderId)
-//     .then((isCreated) => {
-//       if (isCreated) {
-//         return sessionDAO.sessionRenewal(senderId)
-//           .then((session) => {
-//             return orderDAO.initializeOrder(senderId, user._session)
-//           })
-//       }
-//       else {
-//         return userDAO.createUser(senderId)
-//           .then((user) => {
-//             return orderDAO.initializeOrder(senderId, user._session)
-//           })
-//       }
-//     }).catch((err) => console.log(err));
-// };
 
 // ===== MENU ===============================================================
 
