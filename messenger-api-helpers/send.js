@@ -39,7 +39,7 @@ const sendFriesMenuMessage = (recipientId, data) => {
 
 
 // ===== ORDER ===============================================================
-const sendComboOrderedMessage = (recipientId, data) => {
+const sendOrderedMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.orderAskContinue)
 }
 
@@ -160,7 +160,7 @@ module.exports = {
   sendFriesMenuMessage,
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
-  sendComboOrderedMessage
+  sendOrderedMessage
 };
 
 

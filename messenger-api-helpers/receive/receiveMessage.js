@@ -54,7 +54,15 @@ const handleReceiveMessage = messagingEvent => {
         runner
           .upgradeCombo(senderId)
           .then(() => {
-            send.sendComboOrderedMessage(senderId);
+            send.sendOrderedMessage(senderId);
+          })
+          .catch(err => console.log(err));
+        break;
+      case "order-continue":
+        runner
+          .renewSession(senderId)
+          .then(() => {
+            send.sendOrderedMessage(senderId);
           })
           .catch(err => console.log(err));
         break;
