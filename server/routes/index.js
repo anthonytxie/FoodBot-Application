@@ -36,7 +36,7 @@ routes.get('/burgercustomize', (req,res) => {
   let id = req.query.order
   orderDAO.getOrderById(id)
     .then((order) => {
-      res.render('./burgercustomize', order);
+      res.render('./burgercustomize', {order: order});
     })
 });
 

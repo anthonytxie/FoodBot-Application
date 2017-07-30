@@ -17,6 +17,9 @@ html(lang="en")
 				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
+
+		p #{order._id}
+
 		form
 			h4 Patties
 			section.radio
@@ -210,6 +213,7 @@ html(lang="en")
 						console.log("success");
 					}, function error(err) {
 						console.log(err);
+						alert(err);
 					});
 				})
 			}
