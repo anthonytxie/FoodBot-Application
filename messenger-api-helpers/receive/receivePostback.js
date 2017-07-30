@@ -62,11 +62,11 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
-        case "confirm-order":
-          runner.confirmOrder(senderId).then(() => {
-            send.sendFarewellMessage(senderId);
-          });
-          break;
+        // case "confirm-order":
+        //   runner.confirmOrder(senderId).then((order) => {
+        //     send.sendFarewellMessage(senderId,order);
+        //   });
+        //   break;
         default:
           console.log(`unknown postback called ${type}`);
           break;
