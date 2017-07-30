@@ -1,55 +1,50 @@
 const { normalBurgers, specialBurgers } = require("./burgers");
 
 const findBurger = function(payloadData) {
-	return [...normalBurgers, ...specialBurgers]
-		.filter(x => {
-			return x.title === payloadData.title;
-		})
-		.pop();
+  return [...normalBurgers, ...specialBurgers]
+    .filter(x => {
+      return x.title === payloadData.title;
+    })
+    .pop();
 };
 
-const burgerTemplate = function(payloadData) {
-	const burger = findBurger(payloadData);
-	const attachment = {
-		attachment: {
-			type: "template",
-			payload: {
-				template_type: "generic",
-				elements: [
-					{
-						title: `Okay so, ${burger.title}, would you like the usual way or do you want to customize it?`,
-						image_url: burger.image_url,
-						buttons: [
-							{
-								type: "postback",
-								title: "The Usual",
+const burgerTemplate = function(payloadData, order) {
+  const burger = findBurger(payloadData);
+  const attachment = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "generic",
+        elements: [
+          {
+            title: `Okay so, ${burger.title}, would you like the usual way or do you want to customize it?`,
+            image_url: burger.image_url,
+            buttons: [
+              {
+                type: "postback",
+                title: "The Usual",
                 payload: JSON.stringify({
-                    type: "order-burger",
-                    data: {
-                        foodType: "burger",
-                        customize: false,
-                        foodObject: burger.burgerObject
-                    }
+                  type: "order-burger",
+                  data: {
+                    foodType: "burger",
+                    customize: false,
+                    foodObject: burger.burgerObject
+                  }
                 })
-							},
-							{
-								type: "postback",
-								title: "Customize",
-                payload: JSON.stringify({
-                    type: "order-burger",
-                    data: {
-                        foodType: "burger",
-                        customize: true
-                    }
-                })
-							}
-						]
-					}
-				]
-			}
-		}
-	};
-	return attachment;
+              },
+              {
+                type: "web_url",
+                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}`,
+                title: "Open Combo Customize Webview",
+                webview_height_ratio: "full"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+  return attachment;
 };
 
 module.exports = { burgerTemplate };

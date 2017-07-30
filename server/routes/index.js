@@ -33,7 +33,11 @@ routes.get('/receipt', (req,res) => {
 
 
 routes.get('/burgercustomize', (req,res) => {
-  res.render('./burgercustomize');
+  let id = req.query.order
+  orderDAO.getOrderById(id)
+    .then((order) => {
+      res.render('./burgercustomize', order);
+    })
 });
 
 routes.get('/isActiveSession', (req, res) => {
