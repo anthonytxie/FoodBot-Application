@@ -15,9 +15,9 @@ routes.get('/', (req, res) => {
 });
 
 
-// routes.get('/burgercombo', (req,res) => {
-//   res.render('burgercombopage'); //send back pug file
-// });
+routes.get('/burgercombo', (req,res) => {
+  res.render('burgercombopage'); //send back pug file
+});
 
 
 routes.get('/burgercustomize', (req,res) => {
