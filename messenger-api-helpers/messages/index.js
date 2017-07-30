@@ -228,7 +228,7 @@ const orderAskContinue = function(order) {
           },
           {
             type: "web_url",
-            url: "https://foodbotapi.herokuapp.com/receipt?order=${order._id}",
+            url: `https://foodbotapi.herokuapp.com/receipt?order=${order._id}`,
             title: "Done",
             webview_height_ratio: "full"
           }
