@@ -13,8 +13,6 @@ const messageTemplate =  () => {
   return { text: "this is the template message. "};
 };
 
-console.log(messageTemplate())
-
 const confirmOrderButton = {
   type: "postback",
   title: "Confirm Order",
