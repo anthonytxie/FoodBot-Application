@@ -3,10 +3,11 @@ const routes = express();
 const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
 const orderDAO = require('./../../db/DAO/orderDAO')
-// 
+const runner = require('../../messenger-api-helpers/runner')
 
 // Verify Token 
 //need to put secret in process.env
+
 
 routes.get('/', (req, res) => {
   res.send('hello welcome to foodbot api');
@@ -20,6 +21,13 @@ routes.get('/', (req, res) => {
 
 routes.get('/burgercustomize', (req,res) => {
   res.render('./burgercustomize');
+});
+
+routes.get('/initialize', (req, res) => {
+  runner.initialize('112773586026604')
+    .then((success) => {
+      res.send(success);
+    });
 });
 
 
