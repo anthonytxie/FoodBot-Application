@@ -9,9 +9,11 @@ const {
 const { burgerTemplate } = require('./burgerTemplate');
 
 
-const messageTemplate = runnerPackage => {
-  return { text: "this is the template message. " + runnerPackage };
+const messageTemplate =  () => {
+  return { text: "this is the template message. "};
 };
+
+console.log(messageTemplate())
 
 const confirmOrderButton = {
   type: "postback",

@@ -88,7 +88,7 @@ const handleReceiveMessage = messagingEvent => {
         if (isActive) {
           send.sendInitializeMessage(senderId, isActive);
         }
-        else sendInitializeMessage(senderId, isActive);
+        else send.sendInitializeMessage(senderId, isActive);
       })
   }
 };
