@@ -4,7 +4,7 @@ const normalBurgers = [
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty, on a sesame bun.",
 		burgerObject: {
-			title: "Single Hamburger (No Cheese)",
+			title: "Single Hamburger",
 			patties: 1,
 			standardToppings: ["standardBun"],
 			basePrice:  5.99
