@@ -9,9 +9,6 @@ const sendInitializeMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.welcomeMessage);
 };
 
-const sendInitializeMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.welcomeMessage);
-};
 
 const sendFarewellMessage = (recipientId) => {
   sendMessage(recipientId, messages.messageTemplate('Farewell!'));
