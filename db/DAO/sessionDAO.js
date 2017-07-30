@@ -2,41 +2,27 @@ const { Session, User } = require("./../models/index");
 
 const sessionDAO = {};
 
-
-
 sessionDAO.isSessionActive = function(PSID) {
-  return new Promise((resolve, reject) => {
-    User.findOne({PSID})
-      .then((user) => {
-        if (user) {
-          resolve(true);
-        }
-        else resolve(false);
-      }).catch((err) => reject(err));
-  });
-};
-
-
-
-sessionDAO.isSessionActive = function(senderId) {
     return new Promise((resolve, reject) => {
-        User.findOne({ PSID: senderId })
+        User.findOne({ PSID })
             .then(user => {
-                return Session.findOne({ _user: user._id }).sort({
-                    createdAt: -1
-                });
-            }).catch((err) => reject(err))
-            .then((session) => {
-                if(session) {
-                    resolve(true)
-                }
-                else {
-                    resolve(false)
-                }
+                if (user) {
+                    resolve(false);
+                } else
+                    return Session.findOne({ _user: user.id }).sort({
+                        createdAt: -1
+                    });
             })
-            .then((session) => {
-
-            }).catch((err) => reject(err))
+            .then(session => {
+                if (
+                    session.isActive &&
+                    Date.now() - session.lastActiveDate > 180000
+                ) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            });
     });
 };
 
