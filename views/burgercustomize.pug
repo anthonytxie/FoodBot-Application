@@ -202,7 +202,7 @@ html(lang="en")
 					p.price $1.50
 
 			br
-			button DONE
+			button(disabled = 'true') DONE
 			br
 		
 		script.
@@ -213,7 +213,6 @@ html(lang="en")
 						console.log("success");
 					}, function error(err) {
 						console.log(err);
-						alert(err);
 					});
 				})
 			}
