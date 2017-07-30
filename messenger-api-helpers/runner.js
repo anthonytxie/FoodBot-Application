@@ -118,7 +118,8 @@ module.exports = {
   deleteMostRecentItemAdded,
   showCurrentOrder,
   renewSession,
-  upgradeCombo
+  upgradeCombo,
+  isActive
 };
 
 // my idea right now is to always send API.AI a message or context on every postback.
