@@ -80,13 +80,14 @@ const handleReceiveMessage = messagingEvent => {
           } else if (message.text === "generic") {
             send.sendGenericTemplate(senderId);
           } else if (message.text) {
-            send.sendEchoMessage(senderId);
-            console.log(message.text);
+            send.sendGenericMessage(senderId);
           } else {
-            send.sendInitializeMessage(senderId);
+            send.sendGenericMessage(senderId);
           }
         } else {
-          send.sendInitializeMessage(senderId);
+          runner.initialize(senderId).then(() => {
+            send.sendInitializeMessage(senderId);
+          });
         }
       });
     } else {

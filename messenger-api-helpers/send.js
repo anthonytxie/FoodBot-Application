@@ -9,6 +9,10 @@ const sendInitializeMessage = (recipientId, data) => {
   sendMessage(recipientId, messages.welcomeMessage);
 };
 
+const sendGenericMessage = (recipientId) => {
+  sendMessage(recipientId, messages.messageTemplate());
+};
+
 
 // ===== MENU ===============================================================
 

@@ -10,8 +10,9 @@ const { burgerTemplate } = require('./burgerTemplate');
 
 
 const messageTemplate =  () => {
-  return { text: "this is the template message. "};
+  return { text: "Hello! :) "};
 };
+
 
 const confirmOrderButton = {
   type: "postback",
