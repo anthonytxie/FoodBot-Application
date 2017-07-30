@@ -22,13 +22,12 @@ const handleReceiveMessage = messagingEvent => {
       const senderId = messagingEvent.sender.id.toString();
       // runner does stuff with API.ai and webhook
       switch (type) {
-
-      case "see-menu":
-        //creates New Order
-        runner.renewSession(senderId).then(order => {
-          send.sendMenuMessage(senderId, order._session);
-        });
-        break;
+        case "see-menu":
+          //creates New Order
+          runner.renewSession(senderId).then(order => {
+            send.sendMenuMessage(senderId, order._session);
+          });
+          break;
         case "see-special-burgers":
           runner.renewSession(senderId).then(order => {
             send.sendSpecialBurgerMenu(senderId);
@@ -82,17 +81,15 @@ const handleReceiveMessage = messagingEvent => {
       console.log(message.text);
     }
   };
+
+  if (message) {
+    if (runner.initialize(senderId)) {
+      receiveMessageAndSend(message, messagingEvent, senderId);
+    } else {
+      send.sendInitializeMessage(senderId);
+    }
+  }
 };
-
-if (message) {
-  if (runner.initialize(senderId)) {
-    receiveMessageAndSend(message, messagingEvent, senderId);
-  }
-  else {
-    send.sendInitializeMessage(senderId);
-  }
-}
-
 module.exports = {
   handleReceiveMessage
 };
