@@ -20,8 +20,8 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
 };
 
 orderDAO.getOrderById = (orderId) => {
+  let id = mongoose.Types.ObjectId(orderId);
   return new Promise((resolve ,reject) => {
-    let id = mongoose.Types.ObjectId(orderId)
     populateOrder(Order.findOne({_id:id})
         .then((order) => {
           resolve(order);
