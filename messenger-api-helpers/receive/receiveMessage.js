@@ -4,8 +4,10 @@ const runner = require("./../runner");
 const handleReceiveMessage = messagingEvent => {
   const message = messagingEvent.message;
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
+  const { type, data } = JSON.parse(messagingEvent.message.quick_reply.payload);
+  //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
   const senderId = messagingEvent.sender.id.toString();
-
+  // runner does stuff with API.ai and webhook
   // good practice to send a read receipt so if user is waiting for a response
   //they know the bot has seen the message
 
@@ -14,16 +16,9 @@ const handleReceiveMessage = messagingEvent => {
   // for now this will echo the text being received
   runner.isUserCreated(senderId).then(isUserCreated => {
     if (isUserCreated) {
-      runner.isSessionActive(senderId).then(isSessionActive => {
-        if (isSessionActive) {
-          if (message.quick_reply) {
+      runner.isSessionActive(senderId).then((isSessionActive) => {
+        if (message.quick_reply) {
             //assuming payload is an object that has type and data
-            const { type, data } = JSON.parse(
-              messagingEvent.message.quick_reply.payload
-            );
-            //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
-            const senderId = messagingEvent.sender.id.toString();
-            // runner does stuff with API.ai and webhook
             switch (type) {
               case "see-menu":
                 //creates New Order
@@ -84,13 +79,9 @@ const handleReceiveMessage = messagingEvent => {
           } else {
             send.sendGenericMessage(senderId);
           }
-        } else {
-          runner.initialize(senderId).then(() => {
-            send.sendInitializeMessage(senderId);
-          });
-        }
-      });
-    } else {
+        })
+
+     } else {
       runner.initialize(senderId).then(() => {
         send.sendInitializeMessage(senderId);
       });
