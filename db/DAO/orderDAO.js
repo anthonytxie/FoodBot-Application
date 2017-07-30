@@ -19,6 +19,16 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
   });
 };
 
+orderDAO.getOrderById = (orderId) => {
+  return new Promise((resolve ,reject) => {
+    let id = mongoose.Types.ObjectId(orderId)
+    populateOrder(Order.findOne({_id:id})
+        .then((order) => {
+          resolve(order);
+        }).catch((err) => reject(err))
+      )
+  })
+}
 orderDAO.getAllOrders = () => {
   return new Promise((resolve, reject) => {
     populateOrder(Order.find())
