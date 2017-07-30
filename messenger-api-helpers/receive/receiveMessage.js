@@ -90,7 +90,9 @@ const handleReceiveMessage = messagingEvent => {
         }
       });
     } else {
-      send.sendInitializeMessage(senderId);
+      runner.initialize(senderId).then(() => {
+        send.sendInitializeMessage(senderId);
+      });
     }
   });
 };
