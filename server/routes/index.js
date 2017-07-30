@@ -2,8 +2,9 @@ const express = require('express');
 const routes = express();
 const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
-const orderDAO = require('./../../db/DAO/orderDAO')
+const sessionDAO = require('./../../db/DAO/sessionDAO')
 const runner = require('../../messenger-api-helpers/runner')
+const orderDAO = require('./../../db/DAO/sessionDAO')
 
 // Verify Token 
 //need to put secret in process.env
@@ -23,6 +24,12 @@ routes.get('/burgercustomize', (req,res) => {
   res.render('./burgercustomize');
 });
 
+routes.get('/isActiveSession', (req, res) => {
+  sessionDAO.isSessionActive("1234676803307932")
+    .then((isSessionActive) => {
+      res.send(isSessionActive)
+    }).catch((err) => res.send(err))
+})
 
 routes.get('/webhook', (req, res) => {
   if (req.query['hub.verify_token'] === process.env.secret ) {

@@ -3,6 +3,21 @@ const { Session, User } = require("./../models/index");
 const sessionDAO = {};
 
 
+
+sessionDAO.isSessionActive = function(PSID) {
+  return new Promise((resolve, reject) => {
+    User.findOne({PSID})
+      .then((user) => {
+        if (user) {
+          resolve(true);
+        }
+        else resolve(false);
+      }).catch((err) => reject(err));
+  });
+};
+
+
+
 sessionDAO.isSessionActive = function(senderId) {
     return new Promise((resolve, reject) => {
         User.findOne({ PSID: senderId })
@@ -12,12 +27,15 @@ sessionDAO.isSessionActive = function(senderId) {
                 });
             }).catch((err) => reject(err))
             .then((session) => {
-                if((session.isActive) && (Date.now() - session.lastActiveDate > 180000) ) {
+                if(session) {
                     resolve(true)
                 }
                 else {
                     resolve(false)
                 }
+            })
+            .then((session) => {
+
             }).catch((err) => reject(err))
     });
 };
