@@ -23,7 +23,9 @@ section {
 }
 
 h4 {
-	color: rgba(0,0,0,0.6);
+	color: rgba(0,0,0,0.4);
+	margin-top: 60px;
+	margin-bottom: 20px;
 }
 
 h3, h4 {
