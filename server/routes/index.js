@@ -87,13 +87,13 @@ routes.post("/combo", (req, res) => {
         return body.soda_flavor
         break;
       case "milkshake":
-        if (body.milkshakeFlavor === 'strawberry'){
+        if (body.milkshake_flavor === 'strawberry'){
           return 'strawberryMilkshake';
         }
-        else if (body.milkshakeFlavor === 'vanilla') {
+        else if (body.milkshake_flavor === 'vanilla') {
           return 'vanillaMilkshake';
         }
-        else if (body.milkshakeFlavor === 'chocolate') {
+        else if (body.milkshake_flavor === 'chocolate') {
           return 'chocolateMilkshake';
         }
         break;
