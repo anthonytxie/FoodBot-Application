@@ -18,7 +18,7 @@ html(lang="en")
 				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
-		form
+		form(method="post" action="combo")
 			input(type="hidden" name="order_id", value=order_id)
 			input(type="hidden" name="sender_id", value=sender_id)
 			h4 Fries
@@ -49,21 +49,21 @@ html(lang="en")
 			h4 Drinks
 			section.section2.radio.required
 				input(type="hidden" name="drink_type", value="")
-				.wide_checkbox#milkshake_toggle.milkshake#milkshake
+				.wide_checkbox.milkshake#milkshake
 					.custom_check_off
 					.toggle
 						h3 Milkshakes
 						p Dairy for days
 					p.price $4.00
 
-				.wide_checkbox#soda_toggle.soda#soda
+				.wide_checkbox.soda#soda
 					.custom_check_off
 					.toggle
 						h3 Soda
 						p So many options
 					p.price $1.40
 
-				.wide_checkbox#water_toggle.water#water
+				.wide_checkbox.water#water
 					.custom_check_off
 					.toggle
 						h3 Water
@@ -186,15 +186,15 @@ html(lang="en")
 					
 					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
 					checkbox.removeClass("custom_check_off").addClass("custom_check_on");
-					if ($(this).attr("id") === "milkshake_toggle") {
+					if ($(this).attr("id") === "milkshake") {
 						$(".milkshake_container").css("display", "initial");
 						$(".soda_container").css("display", "none");
 					}
-					if ($(this).attr("id") === "soda_toggle") {
+					if ($(this).attr("id") === "soda") {
 						$(".milkshake_container").css("display", "none");
 						$(".soda_container").css("display", "initial");
 					}
-					if ($(this).attr("id") === "water_toggle") {
+					if ($(this).attr("id") === "water") {
 						$(".milkshake_container").css("display", "none");
 						$(".soda_container").css("display", "none");
 					}
