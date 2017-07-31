@@ -18,21 +18,8 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
-		p #{order_id}
-		p #{burgerObject.title}
-		p #{burgerObject.patties}
-		p #{typeof(burgerObject.patties)}
-
 		- var burger = burgerObject.burgerObject
 		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
-
-		if burger.title == "Varsity Blues"
-			p YES
-			p #{JSON.stringify(burgerObject)}
-		else
-			p NO
-			p #{JSON.stringify(burgerObject)}
-
 
 		form(id="only_form", method="post", action="burger.js")
 			input(type="hidden" name="order_id", value="#{order_id}")
