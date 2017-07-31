@@ -25,8 +25,8 @@ section {
 
 h4 {
 	color: rgba(0,0,0,0.3);
-	margin-top: 60px!important;
-	margin-bottom: 20px!important;
+	padding-top: 60px!important;
+	padding-bottom: 20px!important;
 }
 
 h3, h4 {
