@@ -39,15 +39,15 @@ routes.post("/burger", (req, res) => {
     let standardToppings = [];
     let premiumToppings = [];
     let patties = parseFloat(body.patties);
-    let itemName = body.title;
+    let itemName = body.title.toString();
     let _order = mongoose.Types.ObjectId(body.order_id);
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
         if (body[key] == "true") {
           if (premiumToppingsArray.includes(key)) {
-            premiumToppings.push(key);
+            premiumToppings.push(key.toString());
           } else {
-            if (key != "beef") standardToppings.push(key);
+            if (key != "beef") standardToppings.push(key.toString());
           }
         }
       }
