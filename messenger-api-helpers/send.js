@@ -49,11 +49,11 @@ const sendOrderedMessage = (recipientId, order) => {
 }
 
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
-  sendMessage(recipientId, messages.burgerTemplate(data, order));
+  sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
 }
 
 const sendOrderedBurgerUpsizeMessage = (recipientId, data,order) => {
-  sendMessage(recipientId, messages.upsizeOrderMessage(order));
+  sendMessage(recipientId, messages.upsizeOrderMessage(order, recipientId));
 }
 
 const sendCreateNewOrderMessage = (recipientId, data) => {
