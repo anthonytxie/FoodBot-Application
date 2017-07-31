@@ -18,20 +18,8 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
-		p #{order_id}
-		p #{burgerObject.title}
-		p #{burgerObject.patties}
-		p #{typeof(burgerObject.patties)}
-
 		- var burger = burgerObject.burgerObject
-
-		if burger.title == "Varsity Blues"
-			p YES
-			p #{JSON.stringify(burgerObject)}
-		else
-			p NO
-			p #{JSON.stringify(burgerObject)}
-
+		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
 
 		form(id="only_form", method="post", action="burger")
 			input(type="hidden" name="order_id", value=#{order_id})
@@ -39,31 +27,41 @@ html(lang="en")
 			input(type="hidden" name="sender_id" value=#{sender_id})
 			h4 Patties
 			section.radio.section1.required
-				input(type="hidden", name="patties", value="one")
 				if burger.patties == 3
-					.quantity 1
-					.quantity 2
-					.quantity.patty_selected 3
+					input(type="hidden", name="patties", value=3)
+					.quantity#one 1
+					.quantity#two 2
+					.quantity.patty_selected#three 3
 				else if burger.patties == 2
-					.quantity 1
-					.quantity.patty_selected 2
-					.quantity 3
+					input(type="hidden", name="patties", value=2)
+					.quantity#one 1
+					.quantity.patty_selected#two 2
+					.quantity#three 3
 				else
-					.quantity.patty_selected 1
-					.quantity 2
-					.quantity 3
+					input(type="hidden", name="patties", value=1)
+					.quantity.patty_selected#one 1
+					.quantity#two 2
+					.quantity#three 3
 				
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name="beef", value="")
+					if !(toppings.includes('chickenPatty'))
+						.custom_check_on
+						input(type="hidden", name="beef", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name="beef", value="")
 					.toggle
 						h3 Beef
 						p Moo
 					p.price $2.00
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name="chickenPatty", value="")
+					if toppings.includes('chickenPatty')
+						.custom_check_on
+						input(type="hidden", name="chickenPatty", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name="chickenPatty", value="")
 					.toggle
 						h3 Chicken
 						p Not Moo
@@ -74,32 +72,48 @@ html(lang="en")
 			section.radio.section2.required
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='standardBun', value="")
+					if toppings.includes('standardBun') || (!toppings.includes('lettuceBun') && !toppings.includes('glutenFreeBun') && !toppings.includes('grilledCheeseBun'))
+						.custom_check_on
+						input(type="hidden", name="standardBun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='standardBun', value="")
 					.toggle
 						h3 White Bun
 						p Solid choice
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='lettuceBun', value="")
+					if toppings.includes('lettuceBun')
+						.custom_check_on
+						input(type="hidden", name="lettuceBun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='lettuceBun', value="")
 					.toggle
 						h3 Lettuce Bun
 						p Lettuce eat this bun
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='glutenFreeBun', value="")
+					if toppings.includes('glutenFreeBun')
+						.custom_check_on
+						input(type="hidden", name="glutenFreeBun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='glutenFreeBun', value="")
 					.toggle
 						h3 Gluten Free Bun
 						p Mo' gluten mo' problems
 					p.price $1.50
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='grilledCheeseBun', value="")
+					if toppings.includes('grilledCheeseBun')
+						.custom_check_on
+						input(type="hidden", name="grilledCheeseBun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='grilledCheeseBun', value="")
 					.toggle
 						h3 Grilled Cheese Bun
 						p Fun in the bun
@@ -110,49 +124,72 @@ html(lang="en")
 			section
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='ketchup', value="")
+					if toppings.includes('ketchup')
+						.custom_check_on
+						input(type="hidden", name="ketchup", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='ketchup', value="")
 					.toggle
 						h3 Ketchup
 						p Tomato inspired
 					p.price FREE
 
-
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='mustard', value="")
+					if toppings.includes('mustard')
+						.custom_check_on
+						input(type="hidden", name="mustard", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='mustard', value="")
 					.toggle
 						h3 Mustard
 						p BRB I mustard
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='mayo', value="")
+					if toppings.includes('mayo')
+						.custom_check_on
+						input(type="hidden", name="mayo", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='mayo', value="")
 					.toggle
 						h3 Mayo
 						p Mayo wishes come true
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='relish', value="")
+					if toppings.includes('relish')
+						.custom_check_on
+						input(type="hidden", name="relish", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='relish', value="")
 					.toggle
 						h3 Relish
 						p I relish the idea of this burger
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='fancySauce', value="")
+					if toppings.includes('fancySauce')
+						.custom_check_on
+						input(type="hidden", name="fancySauce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='fancySauce', value="")
 					.toggle
 						h3 Fancy Sauce
 						p Comes with a monocle
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='hotSauce', value="")
+					if toppings.includes('hotSauce')
+						.custom_check_on
+						input(type="hidden", name="hotSauce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='hotSauce', value="")
 					.toggle
 						h3 Hot Sauce
 						p Feelin' hot hot hot
@@ -163,40 +200,60 @@ html(lang="en")
 			section
 				// FREE
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='lettuce', value="")
+					if toppings.includes('lettuce')
+						.custom_check_on
+						input(type="hidden", name="lettuce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='lettuce', value="")
 					.toggle
 						h3 Lettuce
 						p Now it's a salad
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='tomatoes', value="")
+					if toppings.includes('tomatoes')
+						.custom_check_on
+						input(type="hidden", name="tomatoes", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='tomatoes', value="")
 					.toggle
 						h3 Tomato
 						p Solid ketchup
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='pickles', value="")
+					if toppings.includes('pickles')
+						.custom_check_on
+						input(type="hidden", name="pickles", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='pickles', value="")
 					.toggle
 						h3 Pickle
 						p Salty cucumber
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='onions', value="")
+					if toppings.includes('onions')
+						.custom_check_on
+						input(type="hidden", name="onions", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='onions', value="")
 					.toggle
 						h3 Onions
 						p Like ogres but with slightly more layers
 					p.price FREE
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='hotPepper', value="")
+					if toppings.includes('hotPepper')
+						.custom_check_on
+						input(type="hidden", name="hotPepper", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='hotPepper', value="")
 					.toggle
 						h3 Hot Peppers
 						p Hotter than my mixtape
@@ -204,56 +261,84 @@ html(lang="en")
 
 				// NOT FREE
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='bacon', value="")
+					if toppings.includes('bacon')
+						.custom_check_on
+						input(type="hidden", name="bacon", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='bacon', value="")
 					.toggle
 						h3 Bacon
 						p Was once a part of a pig 
 					p.price $1.50
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='cheese', value="")
+					if toppings.includes('standardCheese')
+						.custom_check_on
+						input(type="hidden", name="standardCheese", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='standardCheese', value="")
 					.toggle
 						h3 Regular Cheese
 						p Expensive rotten milk
 					p.price $1.00
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='americanCheese', value="")
+					if toppings.includes('americanCheese')
+						.custom_check_on
+						input(type="hidden", name="americanCheese", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='americanCheese', value="")
 					.toggle
 						h3 American Style Cheese
 						p American expensive rotten milk
 					p.price $1.00
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='blueCheese', value="")
+					if toppings.includes('blueCheese')
+						.custom_check_on
+						input(type="hidden", name="blueCheese", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='blueCheese', value="")
 					.toggle
 						h3 Blue Cheese
 						p Milk that is even more rotten
 					p.price $1.50
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='caramelizedOnions', value="")
+					if toppings.includes('caramelizedOnions')
+						.custom_check_on
+						input(type="hidden", name="caramelizedOnions", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='caramelizedOnions', value="")
 					.toggle
 						h3 Caramelized Onions
 						p Like onions but caramelized
 					p.price $1.00
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='stuffedPortobello', value="")
+					if toppings.includes('stuffedPortobello')
+						.custom_check_on
+						input(type="hidden", name="stuffedPortobello", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='stuffedPortobello', value="")
 					.toggle
 						h3 Stuffed Portobello
 						p Stuffed with...?
 					p.price $6.00
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='sauteedMushrooms', value="")
+					if toppings.includes('sauteedMushrooms')
+						.custom_check_on
+						input(type="hidden", name="sauteedMushrooms", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='sauteedMushrooms', value="")
 					.toggle
 						h3 Sauteed Mushrooms
 						p These mushrooms are ballers yo
@@ -261,16 +346,24 @@ html(lang="en")
 
 				// SIDES
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='cheeseSauce', value="")
+					if toppings.includes('cheeseSauce')
+						.custom_check_on
+						input(type="hidden", name="cheeseSauce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='cheeseSauce', value="")
 					.toggle
 						h3 Side of Cheese Sauce
 						p Technically not a topping
 					p.price $2.50
 
 				.wide_checkbox
-					.custom_check_off
-					input(type="hidden", name='gravySide', value="")
+					if toppings.includes('gravySide')
+						.custom_check_on
+						input(type="hidden", name="gravySide", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='gravySide', value="")
 					.toggle
 						h3 Side of Gravy
 						p Also not a topping
@@ -300,11 +393,10 @@ html(lang="en")
 				let checkbox = $(this).children("div:first-child");
 				if (checkbox.hasClass("custom_check_on")) {
 				} else {
-					$(this).parent().find("input[value=true]").attr("value", "");
-					$(this).children("input").attr("value", "");
-
+					$(this).parent().find("input[value='true']").attr("value", "");
+					$(this).children("input").attr("value", "true");
 					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
-					checkbox.addClass("custom_check_on");
+					checkbox.removeClass("custom_check_off").addClass("custom_check_on");
 				}
 			})
 
@@ -315,11 +407,11 @@ html(lang="en")
 					$(".patty_selected").removeClass("patty_selected");
 					$(this).addClass("patty_selected");
 					if ($(this).attr("id") === "one") {
-						$("input[name='patties']").attr("val", 1);
+						$("input[name='patties']").attr("value", 1);
 					} else if ($(this).attr("id") === "two") {
-						$("input[name='patties']").attr("val", 2);
+						$("input[name='patties']").attr("value", 2);
 					} else if ($(this).attr("id") === "three") {
-						$("input[name='patties']").attr("val", 3);
+						$("input[name='patties']").attr("value", 3);
 					}
 				}
 			})
@@ -337,7 +429,7 @@ html(lang="en")
 					} else {
 						checkbox.removeClass("custom_check_off"); // turn on
 						checkbox.addClass("custom_check_on");
-						$(this).children("input").attr("value", true)
+						$(this).children("input").attr("value", "true")
 					}
 				}
 			})
@@ -348,15 +440,8 @@ html(lang="en")
 				}
 			})
 
-	
-
-
-
-
-
-
-
-
-
-
-
+			$(document).ready(function(){
+				if($(".section1").find(".custom_check_on").length >= 1 && $(".section2").find(".custom_check_on").length >= 1) {
+					$("button").prop('disabled', false);
+				}
+			})
