@@ -23,7 +23,9 @@ html(lang="en")
 		p #{burgerObject.patties}
 		p #{typeof(burgerObject.patties)}
 
-		if burgerObject.title == "Varsity Blues"
+		- var burger = burgerObject.burgerObject
+
+		if burger.title == "Varsity Blues"
 			p YES
 			p #{JSON.stringify(burgerObject)}
 		else
@@ -34,11 +36,11 @@ html(lang="en")
 		form
 			h4 Patties
 			section.radio.section1.required
-				if burgerObject.patties == 3
+				if burger.patties == 3
 					.quantity 1
 					.quantity 2
 					.quantity.patty_selected 3
-				else if burgerObject.patties == 2
+				else if burger.patties == 2
 					.quantity 1
 					.quantity.patty_selected 2
 					.quantity 3
