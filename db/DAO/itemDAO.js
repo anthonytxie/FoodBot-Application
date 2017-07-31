@@ -95,7 +95,7 @@ itemDAO.postBurger = function(data, orderId) {
 
 itemDAO.postDrink = function(data, orderId) {
   return new Promise((resolve, reject) => {
-    const burger = new Drink(data);
+    const drink = new Drink(data);
     drink.save().then(item => {
       resolve(
         populateOrder(
