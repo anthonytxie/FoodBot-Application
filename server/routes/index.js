@@ -74,33 +74,62 @@ routes.post("/burger", (req, res) => {
 
 routes.post("/combo", (req, res) => {
   console.log(req.body);
+  let orderId = mongoose.Types.objectId(req.body.order_id);
+  let senderId = req.body.sender_id;
+
+
   const drinkObject = function(body) {
-    switch (body.drinkType) {
+    switch(body.drink_type) {
       case "water":
-        return "waterBottle";
+        return 'waterBottle'
         break;
       case "soda":
-        return body.drinkName;
+        return body.soda_flavor
         break;
       case "milkshake":
-        if (body.milkshakeFlavor === "strawberry") {
-          return "strawberryMilkshake";
-        } else if (body.milkshakeFlavor === "vanilla") {
-          return "vanillaMilkshake";
-        } else if (body.milkshakeFlavor === "chocolate") {
-          return "chocolateMilkshake";
+        if (body.milkshakeFlavor === 'strawberry'){
+          return 'strawberryMilkshake';
+        }
+        else if (body.milkshakeFlavor === 'vanilla') {
+          return 'vanillaMilkshake';
+        }
+        else if (body.milkshakeFlavor === 'chocolate') {
+          return 'chocolateMilkshake';
         }
         break;
       default:
-        console.log("no idea");
+        console.log('no idea');
         break;
     }
-  };
+  }
 
   const sideObject = function(body) {
-    return body.fries;
+    return body.food_type
+  }
+
+  let side = {
+    _order: orderId,
+    itemName: sideObject(req.body),
+    itemCombo: true
   };
+
+  let drink = {
+    _order: orderId,
+    itemName: drinkObject(req.body),
+    itemCombo: true
+  };
+
+  itemDAO.postDrink(drink).then(() => {
+    itemDAO.postSide(side)
+  }).then((order) => {
+    send.sendOrderedMessage(senderId, order)
+  })
+  
 });
+
+
+
+
 routes.get("/testlog", (req, res) => {
   console.log({ type: "Fiat", model: "500", color: "white" });
 });
@@ -262,34 +291,20 @@ routes.post("/webhook", (req, res) => {
 
 // console.log(createBurger(postBody))
 
-// const milkshakeBody = {
-//   fries: "cheesyFries",
-//   drinkType: "milkshake",
-//   milkshakeFlavor: 'strawberry',
-//   drinkName: ""
-// };
-
-// const popBody = {
-//   fries: "cheesyFries",
-//   drinkType: "soda",
-//   milkshakeFlavor: '',
-//   drinkName: "dr.pepper"
-// };
-
-// const waterBody = {
-//   fries: "cheesyFries",
-//   drinkType: "water",
-//   milkshakeFlavor: '',
-//   drinkName: ""
-// };
+//   let body = { order_id: '597fb011b4c64300119a2dba',
+//   sender_id: '1086113204824237',
+//   food_type: 'smallFries',
+//   drink_type: 'soda',
+//   milkshake_flavor: '',
+//   soda_flavor: 'mountainDew' }
 
 // const drinkObject = function(body) {
-//   switch(body.drinkType) {
+//   switch(body.drink_type) {
 //     case "water":
 //       return 'waterBottle'
 //       break;
 //     case "soda":
-//       return body.drinkName
+//       return body.soda_flavor
 //       break;
 //     case "milkshake":
 //       if (body.milkshakeFlavor === 'strawberry'){
@@ -309,9 +324,9 @@ routes.post("/webhook", (req, res) => {
 // }
 
 // const sideObject = function(body) {
-//   return body.fries
+//   return body.food_type
 // }
 
-// console.log(drinkObject(popBody))
-// console.log(sideObject(popBody))
+// console.log(drinkObject(body))
+// console.log(sideObject(body))
 module.exports = routes;
