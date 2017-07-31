@@ -47,7 +47,9 @@ routes.post("/burger", (req, res) => {
           if (premiumToppingsArray.includes(key)) {
             premiumToppings.push(key.toString());
           } else {
-            if (key != "beef") standardToppings.push(key.toString());
+            if (key != "beef") {
+              standardToppings.push(key.toString());
+            }
           }
         }
       }
@@ -63,10 +65,11 @@ routes.post("/burger", (req, res) => {
   };
   const burgerObject = burgerFormat(req.body);
   console.log(burgerObject);
-  itemDAO.postBurger(burgerFormat(burgerObject), burgerObject._order)
-    .then((order) => {
+  itemDAO
+    .postBurger(burgerFormat(burgerObject), burgerObject._order)
+    .then(order => {
       send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
-    })
+    });
 });
 
 routes.post("/combo", (req, res) => {
