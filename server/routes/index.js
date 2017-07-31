@@ -68,7 +68,7 @@ routes.post("/burger", (req, res) => {
   itemDAO
     .postBurger((burgerObject), burgerObject._order)
     .then(order => {
-      return send.sendFarewellMessage(senderId);
+      return send.sendOrderedBurgerUpsizeMessage("112773586026604", burgerObject, order);
     });
 });
 
