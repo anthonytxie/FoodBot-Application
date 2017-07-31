@@ -21,6 +21,11 @@ html(lang="en")
 		p #{order_id}
 		p #{burgerObject.title}
 
+		if burgerObject
+			p #{JSON.stringify(burgerObject)}
+		else
+			p #{JSON.stringify(burgerObject)}
+
 		form
 			h4 Patties
 			section.radio.section1.required
