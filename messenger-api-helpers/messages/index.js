@@ -269,5 +269,6 @@ module.exports = {
   burgerTemplate,
   upsizeOrderMessage,
   confirmedMessageTemplate,
-  orderAskContinue
+  orderAskContinue,
+  receiptMessageTemplate
 };
