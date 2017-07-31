@@ -194,25 +194,37 @@ const genericTemplate = {
   }
 };
 
-const upsizeOrderMessage = {
-  text: "Would you like to make that a combo? (Fries & Drink)",
-  quick_replies: [
-    {
-      content_type: "text",
-      title: "Yes",
-      payload: JSON.stringify({
-        type: "upgrade-combo"
-      })
-    },
-    {
-      content_type: "text",
-      title: "No",
-      payload: JSON.stringify({
-        type: "order-continue"
-      })
+const upsizeOrderMessage = function(order) {
+  const attachment = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "button",
+        text: "Would you like to make that a combo? (Fries & Drink)",
+        buttons: [
+          {
+            type: "web_url",
+            url: `https://foodbotapi.herokuapp.com/burgercombo?order=${order._id}`,
+            title: "Yes",
+            webview_height_ratio: "full",
+            messenger_extensions: true
+          },
+          {
+            type: "postback",
+            title: "No",
+            payload: JSON.stringify({
+              type: "order-continue"
+            })
+          }
+
+        ]
+      }
     }
-  ]
+  };
+  return attachment;
 };
+
+
 
 const orderAskContinue = function(order) {
   const attachment = {

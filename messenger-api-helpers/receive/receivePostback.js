@@ -40,7 +40,7 @@ const handleReceivePostback = messagingEvent => {
             runner
               .addItemtoOrder(senderId, data)
               .then(order => {
-                send.sendOrderedBurgerUpsizeMessage(senderId, data);
+                send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
               })
               .catch(err => console.log(err));
           } else {
@@ -73,6 +73,14 @@ const handleReceivePostback = messagingEvent => {
           runner.confirmOrder(senderId).then(order => {
             send.sendReceiptTemplate(senderId, order);
           });
+          break;
+        case "order-continue":
+          runner
+            .renewSessionAndReturnOrder(senderId)
+            .then(order => {
+              send.sendOrderedMessage(senderId, order);
+            })
+            .catch(err => console.log(err));
           break;
         default:
           console.log(`unknown postback called ${type}`);

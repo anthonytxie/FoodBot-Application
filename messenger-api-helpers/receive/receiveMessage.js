@@ -50,15 +50,6 @@ const handleReceiveMessage = messagingEvent => {
               })
               .catch(err => console.log(err));
             break;
-          case "order-continue":
-            runner
-              .renewSessionAndReturnOrder(senderId)
-              .then((order) => {
-                send.sendOrderedMessage(senderId, order);
-              })
-              .catch(err => console.log(err));
-            break;
-
           default:
             console.log(`unknown postback called ${type}`);
             break;

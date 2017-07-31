@@ -1,11 +1,14 @@
 const express = require('express');
 const routes = express();
+const mongoose = require('mongoose');
 const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
 const sessionDAO = require('./../../db/DAO/sessionDAO');
 const runner = require('../../messenger-api-helpers/runner');
 const orderDAO = require('./../../db/DAO/orderDAO');
 const itemDAO = require('./../../db/DAO/itemDAO');
+const {premiumToppingsArray} = require('../../messenger-api-helpers/messages/toppings');
+
 
 const { normalBurgers, specialBurgers, findBurger } = require('../../messenger-api-helpers/messages/burgers')
 // Verify Token 
@@ -21,19 +24,45 @@ routes.get('/burgercombo', (req,res) => {
   res.render('burgercombopage'); //send back pug file
 });
 
-routes.post('/burger', (req, res) => {
-  const body = req.body
-  console.log(body)
-  res.send(body)
-})
+routes.post("/burger", (req, res) => {
+  const burgerFormat = function(body) {
+    let standardToppings = [];
+    let premiumToppings = [];
+    let patties = body.patties;
+    let itemName = body.title;
+    let _order = mongoose.Types.ObjectId(body.order_id);
+    for (var key in body) {
+      if (body.hasOwnProperty(key)) {
+        if (body[key] == true) {
+          if (premiumToppingsArray.includes(key)) {
+            premiumToppings.push(key);
+          } else {
+            standardToppings.push(key);
+          }
+        }
+      }
+    }
+
+    return {
+      _order: _order,
+      patties: patties,
+      itemName: itemName,
+      premiumToppings: [...standardToppings],
+      standardToppings: [...premiumToppings]
+    };
+  };
+  const burgerObject = burgerFormat(req.body);
+  console.log(burgerObject)
+  itemDAO.postBurger(burgerFormat(burgerObject), _order);
+});
+
 
 routes.post('/combo', (req, res) => {
-
 })
 
-
-
-
+routes.get('/testlog', (req, res) => {
+  console.log({type:"Fiat", model:"500", color:"white"});
+});
 
 routes.get('/receipt', (req, res) => {
   let orderId = req.query.order;
@@ -130,5 +159,66 @@ routes.post('/webhook', (req, res) => {
   }
 });
 
+
+
+// const postBody = {
+//     patties: 1,
+//     beef: "",
+//     chickenPatty: "",
+//     standardBun: "",
+//     lettuceBun: "",
+//     glutenFreeBun: "",
+//     grilledCheeseBun: "",
+//     ketchup: "",
+//     mustard: "true",
+//     mayo: "",
+//     relish: "",
+//     fancySauce: "",
+//     hotSauce: "",
+//     lettuce: "",
+//     tomatoes: "",
+//     pickles: "",
+//     onions: "",
+//     hotPepper: "",
+//     bacon: "",
+//     cheese: "",
+//     americanCheese: "",
+//     blueCheese: "true",
+//     caramelizedOnions: "",
+//     sauteedMushrooms: "",
+//     stuffedPortobello: "",
+//     cheeseSauce: "",
+//     gravySide: "",
+//     order_id: "1234",
+//     title: "burger name"
+//   };
+// const createBurger = function(body) {
+//   let standardToppings = [];
+//   let premiumToppings = [];
+//   let patties = body.patties;
+//   let itemName = body.title;
+//   let _order = body.order_id;
+//   for (var key in body) {
+//     if (body.hasOwnProperty(key)) {
+//       if (body[key] == "true") {
+//         if (premiumToppingsArray.includes(key)) {
+//           premiumToppings.push(key);
+//         } else {
+//           standardToppings.push(key);
+//         }
+//       }
+//     }
+//   }
+
+//   return {
+//     _order: _order,
+//     patties: patties,
+//     itemName: itemName,
+//     premiumToppings: [...standardToppings],
+//     standardToppings: [...premiumToppings]
+//   };
+// };
+
+// console.log(createBurger(postBody))
 
 module.exports = routes;
