@@ -45,7 +45,7 @@ html(lang="en")
 				.wide_checkbox
 					if !(toppings.includes('chickenPatty'))
 						.custom_check_on
-						input(type="hidden", name="beef", value=true)
+						input(type="hidden", name="beef", value="true")
 					else
 						.custom_check_off
 						input(type="hidden", name="beef", value="")
@@ -57,7 +57,7 @@ html(lang="en")
 				.wide_checkbox
 					if toppings.includes('chickenPatty')
 						.custom_check_on
-						input(type="hidden", name="chickenPatty", value=true)
+						input(type="hidden", name="chickenPatty", value="true")
 					else
 						.custom_check_off
 						input(type="hidden", name="chickenPatty", value="")
