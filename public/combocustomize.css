@@ -37,10 +37,12 @@ h3, h4 {
 }
 
 form {
+	letter-spacing: .08em;
 	border-left: 1px solid #ddd;
 	width: 100%;
 	max-width: 414px;
 	margin: 0 auto;
+	font-size: .8em;
 }
 
 .toggle label, .toggle input {
