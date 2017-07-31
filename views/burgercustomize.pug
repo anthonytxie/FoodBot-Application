@@ -24,6 +24,7 @@ html(lang="en")
 		p #{typeof(burgerObject.patties)}
 
 		- var burger = burgerObject.burgerObject
+		- var toppings = burger.standardToppings.concat(premiumToppings)
 
 		if burger.title == "Varsity Blues"
 			p YES
@@ -67,25 +68,37 @@ html(lang="en")
 			h4 Bun
 			section.radio.section2.required
 				.wide_checkbox
-					.custom_check_off
+					if burger.toppings.contains('standardBun') || (!burger.toppings.contains('lettuceBun') && !burger.toppings.contains('glutenFreeBun') && !burger.toppings.contains('grilledCheeseBun'))
+						.custom_check_on
+					else
+						.custom_check_off
 					.toggle
 						h3 White Bun
 						p Solid choice
 					p.price FREE
 				.wide_checkbox
-					.custom_check_off
+					if burger.toppings.contains('lettuceBun')
+						.custom_check_on
+					else
+						.custom_check_off
 					.toggle
 						h3 Lettuce Bun
 						p Lettuce eat this bun
 					p.price FREE
 				.wide_checkbox
-					.custom_check_off
+					if burger.toppings.contains('glutenFreeBun')
+						.custom_check_on
+					else
+						.custom_check_off
 					.toggle
 						h3 Gluten Free Bun
 						p Mo' gluten mo' problems
 					p.price $1.50
 				.wide_checkbox
-					.custom_check_off
+					if burger.toppings.contains('grilledCheeseBun')
+						.custom_check_on
+					else
+						.custom_check_off
 					.toggle
 						h3 Grilled Cheese Bun
 						p Fun in the bun
@@ -95,7 +108,11 @@ html(lang="en")
 			h4 Sauces
 			section
 				.wide_checkbox
-					.custom_check_off
+					if burger.toppings.contains('standardBun') || (!burger.toppings.contains('lettuceBun') && !burger.toppings.contains('glutenFreeBun') && !burger.toppings.contains('grilledCheeseBun'))
+						.custom_check_on
+					else
+						.custom_check_off
+
 					.toggle
 						h3 Ketchup
 						p Tomato inspired
