@@ -33,7 +33,7 @@ routes.post("/burger", (req, res) => {
     let _order = mongoose.Types.ObjectId(body.order_id);
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
-        if (body[key] == "true") {
+        if (body[key] == true) {
           if (premiumToppingsArray.includes(key)) {
             premiumToppings.push(key);
           } else {
@@ -52,6 +52,7 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
+  console.log(burgerObject)
   itemDAO.postBurger(burgerFormat(burgerObject), _order);
 });
 
