@@ -35,7 +35,7 @@ routes.get("/burgercombo", (req, res) => {
 });
 
 routes.post("/burger", (req, res) => {
-  const senderId = req.query.sender;
+  const senderId = req.body.sender_id;
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
@@ -68,7 +68,7 @@ routes.post("/burger", (req, res) => {
   itemDAO
     .postBurger((burgerObject), burgerObject._order)
     .then(order => {
-      return send.sendOrderedBurgerUpsizeMessage("112773586026604", burgerObject, order);
+      return send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
     });
 });
 
