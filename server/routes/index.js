@@ -32,7 +32,7 @@ routes.post('/combo', (req, res) => {
 })
 
 routes.get('/testlog', (req, res) => {
-  console.log('logging into HEROKU');
+  console.log({type:"Fiat", model:"500", color:"white"});
 });
 
 
