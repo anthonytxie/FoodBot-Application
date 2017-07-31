@@ -20,6 +20,8 @@ const receiptElements = function(order) {
     }
   });
 };
+
+
 const receiptMessageTemplate = function(order) {
   const attachment = {
     attachment: {
