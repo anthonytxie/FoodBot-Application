@@ -17,10 +17,13 @@ app.set('view engine', 'pug');
 
 
 // middleware
-app.use(bodyParser.json())
-app.use(session({secret: 'cats', resave:false}))
-app.use(index)
-app.use(item)
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use(session({secret: 'cats', resave:false}));
+app.use(index);
+app.use(item);
 
 
 

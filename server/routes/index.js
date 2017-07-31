@@ -55,14 +55,13 @@ routes.post("/burger", (req, res) => {
   itemDAO.postBurger(burgerFormat(burgerObject), _order);
 });
 
+
 routes.post('/combo', (req, res) => {
-
-
 })
 
-
-
-
+routes.get('/testlog', (req, res) => {
+  console.log({type:"Fiat", model:"500", color:"white"});
+});
 
 routes.get('/receipt', (req, res) => {
   let orderId = req.query.order;
