@@ -1,11 +1,14 @@
 const express = require('express');
 const routes = express();
+const mongoose = require('mongoose');
 const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
 const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
 const sessionDAO = require('./../../db/DAO/sessionDAO');
 const runner = require('../../messenger-api-helpers/runner');
 const orderDAO = require('./../../db/DAO/orderDAO');
 const itemDAO = require('./../../db/DAO/itemDAO');
+const {premiumToppingsArray} = require('../../messenger-api-helpers/messages/toppings');
+
 
 const { normalBurgers, specialBurgers, findBurger } = require('../../messenger-api-helpers/messages/burgers')
 // Verify Token 
@@ -23,6 +26,10 @@ routes.get('/burgercombo', (req,res) => {
 
 routes.post('/burger', (req, res) => {
   const body = req.body
+  // let premiumToppings = []
+  // let standardToppings = []
+  // let burgerName 
+  // let orderId = mongoose.Types.ObjectId(orderId)
   console.log(body)
   res.send("")
 })
@@ -129,5 +136,41 @@ routes.post('/webhook', (req, res) => {
   }
 });
 
+
+const body = { patties: 'one',
+  beef: '',
+  chickenPatty: '',
+  standardBun: '',
+  lettuceBun: '',
+  glutenFreeBun: '',
+  grilledCheeseBun: '',
+  ketchup: '',
+  mustard: '',
+  mayo: '',
+  relish: '',
+  fancySauce: '',
+  hotSauce: '',
+  lettuce: '',
+  tomatoes: '',
+  pickles: '',
+  onions: '',
+  hotPepper: '',
+  bacon: '',
+  cheese: '',
+  americanCheese: '',
+  blueCheese: '',
+  caramelizedOnions: '',
+  sauteedMushrooms: '',
+  stuffedPortobello: '',
+  cheeseSauce: '',
+  gravySide: '' }
+
+for (var key in body) {
+  if (body.hasOwnProperty(key)) {
+    if (body[key] != '') {
+      console.log(key)
+    }
+  }
+}
 
 module.exports = routes;
