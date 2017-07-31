@@ -21,7 +21,7 @@ html(lang="en")
 		p #{order_id}
 		p #{burgerObject.title}
 
-		if #{burgerObject.title} == "Varsity Blues"
+		if burgerObject.title == "Varsity Blues"
 			p YES
 			p #{JSON.stringify(burgerObject)}
 		else
