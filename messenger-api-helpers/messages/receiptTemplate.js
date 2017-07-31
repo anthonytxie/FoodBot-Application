@@ -79,8 +79,6 @@ const receiptElements = function(order) {
 //   id: "597fbf1c245369001139c528"
 // };
 
-console.log(receiptElements(order))
-
 const receiptMessageTemplate = function(order) {
   const attachment = {
     attachment: {
