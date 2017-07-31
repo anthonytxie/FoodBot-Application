@@ -72,7 +72,7 @@ const sendConfirmOrderMessage = (recipientId) => {
 // ===== RECEIPT ===============================================================
 
 const sendReceiptTemplate = (recipientId, order) => {
-  sendMessage(recipientId, messages.receiptTemplate(order));
+  sendMessage(recipientId, messages.receiptMessageTemplate(order));
 }
 
 // ===== ECHO & GENERIC ===============================================================
