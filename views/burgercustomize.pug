@@ -19,7 +19,13 @@ html(lang="en")
 			}(document, 'script', 'Messenger'));
 
 		p #{order_id}
-		p #{JSON.stringify(burgerObject)}
+		p #{burgerObject.title}
+
+		if true
+			p #{JSON.stringify(burgerObject)}
+		else
+			p #{JSON.stringify(burgerObject)}
+
 
 		form(id="only_form", method="post", action="burger.js")
 			input(type="hidden" name="order_id", value="#{order_id}")

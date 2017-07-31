@@ -132,7 +132,7 @@ const welcomeMessage = {
     type: "template",
     payload: {
       template_type: "button",
-      text: `Hey :) \n\n Welcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
+      text: `Hey :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
       buttons: [
         {
           type: "postback",
@@ -269,5 +269,6 @@ module.exports = {
   burgerTemplate,
   upsizeOrderMessage,
   confirmedMessageTemplate,
-  orderAskContinue
+  orderAskContinue,
+  receiptMessageTemplate
 };
