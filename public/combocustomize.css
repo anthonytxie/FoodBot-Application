@@ -24,10 +24,11 @@ section {
 }
 
 h4 {
+	letter-spacing: .05em;
 	color: #b8b8b8;
 	padding-top: 40px!important;
 	padding-bottom: 10px!important;
-	padding-left: 10px!important;
+	padding-left: 14px!important;
 }
 
 h3, h4 {
