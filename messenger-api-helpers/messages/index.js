@@ -204,7 +204,7 @@ const upsizeOrderMessage = function(order, senderId) {
         buttons: [
           {
             type: "web_url",
-            url: `https://foodbotapi.herokuapp.com/burgercombo?order=${order._id}&sender=senderId`,
+            url: `https://foodbotapi.herokuapp.com/burgercombo?order=${order._id}&sender=${senderId}`,
             title: "Yes",
             webview_height_ratio: "full",
             messenger_extensions: true
