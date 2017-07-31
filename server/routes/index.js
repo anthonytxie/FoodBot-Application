@@ -118,13 +118,14 @@ routes.post("/combo", (req, res) => {
     itemName: drinkObject(req.body),
     itemCombo: true
   };
-
+  console.log(side)
+  console.log(drink)
   itemDAO.postDrink(drink).then(() => {
     itemDAO.postSide(side)
   }).then((order) => {
     send.sendOrderedMessage(senderId, order)
   })
-  
+
 });
 
 
