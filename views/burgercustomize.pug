@@ -40,11 +40,11 @@ html(lang="en")
 			h4 Patties
 			section.radio.section1.required
 				input(type="hidden", name="patties", value=1)
-				if burger.patties == 3
+				if burgerObject.patties == 3
 					.quantity 1
 					.quantity 2
 					.quantity.patty_selected 3
-				else if burger.patties == 2
+				else if burgerObject.patties == 2
 					.quantity 1
 					.quantity.patty_selected 2
 					.quantity 3
