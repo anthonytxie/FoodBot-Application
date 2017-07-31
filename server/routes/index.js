@@ -35,7 +35,7 @@ routes.get("/burgercombo", (req, res) => {
 });
 
 routes.post("/burger", (req, res) => {
-  const senderId = req.body.sender;
+  const senderId = req.body.sender_id;
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
