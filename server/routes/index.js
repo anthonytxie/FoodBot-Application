@@ -74,7 +74,7 @@ routes.post("/burger", (req, res) => {
 
 routes.post("/combo", (req, res) => {
   console.log(req.body);
-  let orderId = mongoose.Types.objectId(req.body.order_id);
+  let orderId = mongoose.Types.ObjectId(req.body.order_id);
   let senderId = req.body.sender_id;
 
 
