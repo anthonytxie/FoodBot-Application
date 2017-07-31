@@ -5,6 +5,8 @@ const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/re
 const sessionDAO = require('./../../db/DAO/sessionDAO');
 const runner = require('../../messenger-api-helpers/runner');
 const orderDAO = require('./../../db/DAO/orderDAO');
+const itemDAO = require('./../../db/DAO/itemDAO');
+
 const { normalBurgers, specialBurgers, findBurger } = require('../../messenger-api-helpers/messages/burgers')
 // Verify Token 
 //need to put secret in process.env
@@ -18,6 +20,19 @@ routes.get('/', (req, res) => {
 routes.get('/burgercombo', (req,res) => {
   res.render('burgercombopage'); //send back pug file
 });
+
+routes.post('/burger', (req, res) => {
+  const body = req.body
+  console.log(body)
+  res.send(body)
+})
+
+routes.post('/combo', (req, res) => {
+
+})
+
+
+
 
 
 routes.get('/receipt', (req, res) => {

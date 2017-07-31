@@ -69,11 +69,11 @@ const handleReceivePostback = messagingEvent => {
               send.sendReceiptMessage(senderId, order);
             })
             .catch(err => console.log(err));
-        // case "confirm-order":
-        //   runner.confirmOrder(senderId).then((order) => {
-        //     send.sendFarewellMessage(senderId,order);
-        //   });
-        //   break;
+        case "confirm-order":
+          runner.confirmOrder(senderId).then(order => {
+            send.sendReceiptTemplate(senderId, order);
+          });
+          break;
         default:
           console.log(`unknown postback called ${type}`);
           break;
