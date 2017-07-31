@@ -17,34 +17,7 @@ const premiumToppings = {
   standardCheese: 0
 };
 
-// const burgerObject = function(burgerObject) {
-//   const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
-//     return x.title == burgerObject.title;
-//   });
-//   const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
-//   const customizedBurgerPremiumToppings = burgerObject.burgerObject.premiumToppings.sort();
-//   const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
-//     return standardBurgerPremiumToppings.indexOf(x) === -1
-//   })
+const premiumToppingsArray = ['friedEgg','glutenFreeBun', 'grilledCheeseBun', 'threePartBun', 'chickenPatty', 'soyPatty', 'stuffedPortobello', 'bacon', 'caramelizedOnions', 'americanCheese', 'blueCheese', 'cheeseSauce', 'gravySide', 'sauteedMushrooms', 'blueCheese', 'swissCheese', 'standardCheese'];
 
 
-//   let price = burgerList[0].burgerObject.basePrice
-//   additionalPremiumToppings.forEach((x) => {
-//     price += premiumToppings[x]
-//   })
-//   return price
-// };
-
-// var finalPrice = burgerObject({ title: 'The Richmond',
-//   image_url: 'http://i.imgur.com/z7ANC0C.jpg',
-//   subtitle: 'Double cheese burger with bacon & caramelized onions.',
-//   burgerObject: 
-//    { title: 'The Richmond',
-//      patties: 2,
-//      standardToppings: [ 'standardBun', 'fancySauce' ],
-//      premiumToppings: [ 'standardCheese', 'caramelizedOnions', 'bacon', 'blueCheese', 'cheeseSauce'],
-//      basePrice: 9.99 } })
-
-// console.log(finalPrice)
-
-module.exports = { premiumToppings };
+module.exports = { premiumToppings, premiumToppingsArray };
