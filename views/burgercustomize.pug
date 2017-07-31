@@ -393,10 +393,10 @@ html(lang="en")
 				if (checkbox.hasClass("custom_check_on")) {
 				} else {
 					$(this).parent().find("input[value=true]").attr("value", "");
-					$(this).children("input").attr("value", "");
+					$(this).children("input").attr("value", true);
 
 					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
-					checkbox.addClass("custom_check_on");
+					checkbox.removeClass("custom_check_off").addClass("custom_check_on");
 				}
 			})
 
