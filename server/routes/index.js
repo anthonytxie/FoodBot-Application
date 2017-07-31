@@ -21,14 +21,16 @@ routes.get('/', (req, res) => {
 
 
 routes.get('/burgercombo', (req,res) => {
-  res.render('burgercombopage'); //send back pug file
+  let orderId = req.query.order
+  let senderId = req.query.sender
+  res.render('burgercombopage',{order_id: orderId, sender_id:senderId}); //send back pug file
 });
 
 routes.post("/burger", (req, res) => {
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
-    let patties = body.patties;
+    let patties = parseFloat(body.patties);
     let itemName = body.title;
     let _order = mongoose.Types.ObjectId(body.order_id);
     for (var key in body) {
