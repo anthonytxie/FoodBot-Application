@@ -55,7 +55,7 @@ html(lang="en")
 					p.price $2.00
 
 				.wide_checkbox
-					if (toppings.includes('chickenPatty'))
+					if toppings.includes('chickenPatty')
 						.custom_check_on
 						input(type="hidden", name="chickenPatty", value=true)
 					else
@@ -71,7 +71,7 @@ html(lang="en")
 			section.radio.section2.required
 
 				.wide_checkbox
-					if toppings.includes('standardBun') || (!toppings.includes('lettuceBun') && !toppings.includes('glutenFreeBun') && !toppings.includes('grilledCheeseBun'))
+					if true
 						.custom_check_on
 						input(type="hidden", name="standardBun", value=true)
 					else
