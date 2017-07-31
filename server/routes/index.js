@@ -117,11 +117,15 @@ routes.post("/combo", (req, res) => {
     itemCombo: true
   };
 
+  console.log(side)
+  console.log(drink)
+
   itemDAO.postDrink(drink, orderId).then(() => {
     itemDAO.postSide(side, orderId)
-  }).then((order) => {
+  }).catch((err) => console.log(err))
+  .then((order) => {
     send.sendOrderedMessage(senderId, order)
-  })
+  }).catch((err) => console.log(err));
 
 });
 
