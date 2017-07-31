@@ -66,7 +66,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .renewSessionAndReturnOrder(senderId)
             .then(order => {
-              send.sendReceiptMessage(senderId, order);
+              send.sendReceiptTemplate(senderId, order);
             })
             .catch(err => console.log(err));
         case "confirm-order":
