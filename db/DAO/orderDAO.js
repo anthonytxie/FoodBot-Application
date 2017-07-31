@@ -30,7 +30,7 @@ orderDAO.getOrderById = (orderId) => {
 }
 orderDAO.getAllOrders = () => {
   return new Promise((resolve, reject) => {
-    populateOrder(Order.find())
+    Order.find().populate("_items")
       .then((orders) => resolve(orders))
       .catch((err) => reject(err))
   });
