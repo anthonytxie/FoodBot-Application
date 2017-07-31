@@ -24,7 +24,7 @@ html(lang="en")
 		p #{typeof(burgerObject.patties)}
 
 		- var burger = burgerObject.burgerObject
-		- var toppings = burger.standardToppings.concat(premiumToppings)
+		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
 
 		if burger.title == "Varsity Blues"
 			p YES
