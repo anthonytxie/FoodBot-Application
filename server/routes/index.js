@@ -28,7 +28,7 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/burgercombo", (req, res) => {
-  let orderId = mongoose.Types.ObjectId(req.query.order);
+  let orderId = req.query.order;
   let senderId = req.query.sender;
   res.render("burgercombopage", { order_id: orderId, sender_id: senderId }); //send back pug file
 });
@@ -61,8 +61,7 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
-  console.log(burgerObject);
-  itemDAO.postBurger(burgerFormat(burgerObject), orderId)
+  itemDAO.postBurger(burgerFormat(burgerObject), burgerObject._order)
     .then((order) => {
       send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
     })
