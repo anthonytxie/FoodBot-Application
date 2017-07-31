@@ -15,6 +15,7 @@ const {
   premiumToppingsArray
 } = require("../../messenger-api-helpers/messages/toppings");
 
+const send = require("../../messenger-api-helpers/send");
 const {
   normalBurgers,
   specialBurgers,
@@ -67,7 +68,7 @@ routes.post("/burger", (req, res) => {
   itemDAO
     .postBurger((burgerObject), burgerObject._order)
     .then(order => {
-      send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
+      return send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
     });
 });
 
