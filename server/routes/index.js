@@ -35,7 +35,7 @@ routes.get("/burgercombo", (req, res) => {
 });
 
 routes.post("/burger", (req, res) => {
-  const senderId = req.query.sender;
+  const senderId = req.body.sender;
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
@@ -65,7 +65,7 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
-  console.log(senderId)
+  console.log(req.body)
   send.sendFarewellMessage(senderId)
 
 });
