@@ -65,6 +65,7 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
+  console.log(senderId)
   send.sendFarewellMessage(senderId)
 
 });
