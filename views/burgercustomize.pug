@@ -26,13 +26,6 @@ html(lang="en")
 		- var burger = burgerObject.burgerObject
 		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
 
-		h4 TOPPINGS TO BE SELECTED
-		p #{toppings}
-		p #{typeof(toppings[0])}
-		h4 bacon
-		p #{'bacon' in ['bacon','notbacon']}
-		p #{'bacon' in topings}
-
 		if burger.title == "Varsity Blues"
 			p YES
 			p #{JSON.stringify(burgerObject)}
@@ -47,11 +40,11 @@ html(lang="en")
 			h4 Patties
 			section.radio.section1.required
 				input(type="hidden", name="patties", value=1)
-				if burgerObject.patties == 3
+				if burger.patties == 3
 					.quantity 1
 					.quantity 2
 					.quantity.patty_selected 3
-				else if burgerObject.patties == 2
+				else if burger.patties == 2
 					.quantity 1
 					.quantity.patty_selected 2
 					.quantity 3
@@ -81,7 +74,7 @@ html(lang="en")
 			section.radio.section2.required
 
 				.wide_checkbox
-					if 'standardBun' in toppings || !('lettuceBun' in toppings) && !('glutenFreeBun' in toppings) && !('grilledCheeseBun' in toppings)
+					if toppings.includes('standardBun') || (!toppings.includes('lettuceBun') && !toppings.includes('glutenFreeBun') && !toppings.includes('grilledCheeseBun'))
 						.custom_check_on
 					else
 						.custom_check_off
@@ -92,7 +85,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'lettuceBun' in toppings
+					if toppings.includes('lettuceBun')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -103,7 +96,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'glutenFreeBun' in toppings
+					if toppings.includes('glutenFreeBun')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -114,7 +107,7 @@ html(lang="en")
 					p.price $1.50
 
 				.wide_checkbox
-					if 'grilledCheeseBun' in toppings
+					if toppings.includes('grilledCheeseBun')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -129,7 +122,7 @@ html(lang="en")
 			section
 
 				.wide_checkbox
-					if 'ketchup' in toppings
+					if toppings.includes('ketchup')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -140,7 +133,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'mustard' in toppings
+					if toppings.includes('mustard')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -151,7 +144,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'mayo' in toppings
+					if toppings.includes('mayo')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -162,7 +155,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'relish' in toppings
+					if toppings.includes('relish')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -173,7 +166,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'fancySauce' in toppings
+					if toppings.includes('fancySauce')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -184,7 +177,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'hotSauce' in toppings
+					if toppings.includes('hotSauce')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -199,7 +192,7 @@ html(lang="en")
 			section
 				// FREE
 				.wide_checkbox
-					if 'lettuce' in toppings
+					if toppings.includes('lettuce')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -210,7 +203,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'tomatoes' in toppings
+					if toppings.includes('tomatoes')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -221,7 +214,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'pickles' in toppings
+					if toppings.includes('pickles')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -232,7 +225,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'onions' in toppings
+					if toppings.includes('onions')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -243,7 +236,7 @@ html(lang="en")
 					p.price FREE
 
 				.wide_checkbox
-					if 'hotPepper' in toppings
+					if toppings.includes('hotPepper')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -255,7 +248,7 @@ html(lang="en")
 
 				// NOT FREE
 				.wide_checkbox
-					if 'bacon' in toppings
+					if toppings.includes('bacon')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -266,7 +259,7 @@ html(lang="en")
 					p.price $1.50
 
 				.wide_checkbox
-					if 'standardCheese' in toppings
+					if toppings.includes('standardCheese')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -277,7 +270,7 @@ html(lang="en")
 					p.price $1.00
 
 				.wide_checkbox
-					if 'americanCheese' in toppings
+					if toppings.includes('americanCheese')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -288,7 +281,7 @@ html(lang="en")
 					p.price $1.00
 
 				.wide_checkbox
-					if 'blueCheese' in toppings
+					if toppings.includes('blueCheese')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -299,7 +292,7 @@ html(lang="en")
 					p.price $1.50
 
 				.wide_checkbox
-					if 'caramelizedOnions' in toppings
+					if toppings.includes('caramelizedOnions')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -310,7 +303,7 @@ html(lang="en")
 					p.price $1.00
 
 				.wide_checkbox
-					if 'stuffedPortobello' in toppings
+					if toppings.includes('stuffedPortobello')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -321,7 +314,7 @@ html(lang="en")
 					p.price $6.00
 
 				.wide_checkbox
-					if 'sauteedMushrooms' in toppings
+					if toppings.includes('sauteedMushrooms')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -333,7 +326,7 @@ html(lang="en")
 
 				// SIDES
 				.wide_checkbox
-					if 'cheeseSauce' in toppings
+					if toppings.includes('cheeseSauce')
 						.custom_check_on
 					else
 						.custom_check_off
@@ -344,7 +337,7 @@ html(lang="en")
 					p.price $2.50
 
 				.wide_checkbox
-					if 'gravySide' in toppings
+					if toppings.includes('gravySide')
 						.custom_check_on
 					else
 						.custom_check_off
