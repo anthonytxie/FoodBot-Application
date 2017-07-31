@@ -26,6 +26,9 @@ html(lang="en")
 		- var burger = burgerObject.burgerObject
 		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
 
+		h4 TOPPINGS TO BE SELECTED
+		p #{toppings}
+
 		if burger.title == "Varsity Blues"
 			p YES
 			p #{JSON.stringify(burgerObject)}
