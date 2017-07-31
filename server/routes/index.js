@@ -30,7 +30,7 @@ routes.post("/burger", (req, res) => {
     let premiumToppings = [];
     let patties = body.patties;
     let itemName = body.title;
-    let _order = mongoose.Types.ObjectId(body.order_id);
+    let _order = body.order_id
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
         if (body[key] == true) {
