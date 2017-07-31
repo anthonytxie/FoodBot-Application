@@ -407,11 +407,11 @@ html(lang="en")
 					$(".patty_selected").removeClass("patty_selected");
 					$(this).addClass("patty_selected");
 					if ($(this).attr("id") === "one") {
-						$("input[name='patties']").attr("val", 1);
+						$("input[name='patties']").attr("value", 1);
 					} else if ($(this).attr("id") === "two") {
-						$("input[name='patties']").attr("val", 2);
+						$("input[name='patties']").attr("value", 2);
 					} else if ($(this).attr("id") === "three") {
-						$("input[name='patties']").attr("val", 3);
+						$("input[name='patties']").attr("value", 3);
 					}
 				}
 			})
@@ -435,6 +435,12 @@ html(lang="en")
 			})
 
 			$(".required").on("click", ".wide_checkbox", function() {
+				if($(".section1").find(".custom_check_on").length >= 1 && $(".section2").find(".custom_check_on").length >= 1) {
+					$("button").prop('disabled', false);
+				}
+			})
+
+			$(document).ready(function(){
 				if($(".section1").find(".custom_check_on").length >= 1 && $(".section2").find(".custom_check_on").length >= 1) {
 					$("button").prop('disabled', false);
 				}
