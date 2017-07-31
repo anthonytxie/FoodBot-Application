@@ -19,7 +19,7 @@ section {
 	color: black;
 	border-top: 1px solid #e7e7e7;
 	border-bottom: 1px solid #e7e7e7;
-	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
 }
 
 h4 {
@@ -254,7 +254,7 @@ p.price {
 	color: rgba(0,0,0,.4);
 	display: inline-block;
 	position: relative;
-	bottom: 6px;
+	bottom: 8px;
 }
 
 button {
@@ -266,7 +266,7 @@ button {
 	font-weight: 400!important;
 	letter-spacing: .1em;
 	border-radius: 0 !important;
-	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
 	border: 0px solid white!important;
 }
 
