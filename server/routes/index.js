@@ -65,9 +65,11 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
-  console.log(req.body)
-  send.sendFarewellMessage(senderId)
-
+  itemDAO
+    .postBurger((burgerObject), burgerObject._order)
+    .then(order => {
+      return send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
+    });
 });
 
 routes.post("/combo", (req, res) => {
