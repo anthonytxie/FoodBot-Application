@@ -78,7 +78,13 @@ itemDAO.post = function(data, sessionId) {
 
 itemDAO.postBurger = function(data, orderId) {
   return new Promise((resolve, reject) => {
-    const burger = new Burger(data);
+    const burger = new Burger({
+    _order: orderId,
+    patties: data.patties,
+    itemName: data.itemName,
+    premiumToppings: [...data.premiumToppings],
+    standardToppings: [...data.standardToppings]
+  })
     burger.save().then(item => {
       resolve(
         populateOrder(

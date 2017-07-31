@@ -62,10 +62,10 @@ routes.post("/burger", (req, res) => {
   };
   const burgerObject = burgerFormat(req.body);
   console.log(burgerObject);
-  // itemDAO.postBurger(burgerFormat(burgerObject), _order)
-  //   .then((order) => {
-  //     send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
-  //   })
+  itemDAO.postBurger(burgerFormat(burgerObject), _order)
+    .then((order) => {
+      send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
+    })
 });
 
 routes.post("/combo", (req, res) => {
