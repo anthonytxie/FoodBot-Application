@@ -71,7 +71,7 @@ const sendConfirmOrderMessage = (recipientId) => {
 
 // ===== RECEIPT ===============================================================
 
-const sendReceiptMessage = (recipientId, order) => {
+const sendReceiptTemplate = (recipientId, order) => {
   sendMessage(recipientId, messages.receiptTemplate(order));
 }
 
@@ -171,7 +171,7 @@ module.exports = {
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
   sendFarewellMessage,
-  sendReceiptMessage
+  sendReceiptTemplate
 };
 
 

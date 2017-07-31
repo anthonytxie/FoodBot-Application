@@ -1,40 +1,47 @@
-const receiptTemplate = function(order) {
+const { normalBurgers, specialBurgers, findBurger } = require("./burgers");
+
+const receiptElements = function(order) {
+  return order._items.map(x => {
+    if (x.itemType === "burger") {
+      let burger = findBurger(x.name);
+      return {
+        title: burger.title,
+        subtitle: burger.subtitle,
+        price: x.price,
+        currency: "CAD",
+        image_url: burger.image_url
+      };
+    } else {
+      return {
+        title: x.itemName,
+        price: x.price,
+        currency: "CAD"
+      };
+    }
+  });
+};
+const receiptMessageTemplate = function(order) {
   const attachment = {
     attachment: {
       type: "template",
       payload: {
-        template_type: "generic",
-        elements: [
-          {
-            title: `Okay so, ${burger.title}, would you like the usual way or do you want to customize it?`,
-            image_url: burger.image_url,
-            buttons: [
-              {
-                type: "postback",
-                title: "The Usual",
-                payload: JSON.stringify({
-                  type: "order-burger",
-                  data: {
-                    foodType: "burger",
-                    customize: false,
-                    foodObject: burger.burgerObject
-                  }
-                })
-              },
-              {
-                type: "web_url",
-                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}`,
-                title: "Open Combo Customize Webview",
-                webview_height_ratio: "full",
-                messenger_extensions: true
-              }
-            ]
-          }
-        ]
+        recipient_name: "Customer",
+        template_type: "receipt",
+        order_number: order._id,
+        currency: "CAD",
+        payment_method: "Pick Up",
+        timestamp: Date.now(),
+        elements: receiptElements(order),
+        summary: {
+          subtotal: order.orderPrice,
+          total_tax: order.orderPrice * 0.13,
+          total_cost: order.orderPrice * 1.13
+        },
       }
     }
   };
-  return attachment;
 
-  module.exports = {receiptTemplate}
+  return attachment;
 };
+
+module.exports = { receiptMessageTemplate };
