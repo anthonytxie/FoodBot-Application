@@ -62,6 +62,7 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
+  console.log(burgerObject);
   itemDAO.postBurger(burgerFormat(burgerObject), burgerObject._order)
     .then((order) => {
       send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
