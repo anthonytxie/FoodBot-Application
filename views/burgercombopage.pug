@@ -19,25 +19,26 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 		form
-			input(type="hidden" name="order_id", value="#{order_id}")
+			input(type="hidden" name="order_id", value=#{order_id})
+			input(type="hidden" name="sender_id", value=#{sender_id})
 			h4 Fries
 			section.section1.radio.required
 				input(type="hidden" name="food_type", value="")
-				.wide_checkbox
+				.wide_checkbox#smallFries
 					.custom_check_off
 					.toggle
 						h3 Regular
 						p Basic fries
 					p.price $4.00
 
-				.wide_checkbox
+				.wide_checkbox#cheesyFries
 					.custom_check_off
 					.toggle
 						h3 Cheesy
 						p Add cheese
 					p.price $6.50
 
-				.wide_checkbox
+				.wide_checkbox#poutine
 					.custom_check_off
 					.toggle
 						h3 Poutine
@@ -48,21 +49,21 @@ html(lang="en")
 			h4 Drinks
 			section.section2.radio.required
 				input(type="hidden" name="drink_type", value="")
-				.wide_checkbox#milkshake_toggle.milkshake
+				.wide_checkbox#milkshake_toggle.milkshake#milkshake
 					.custom_check_off
 					.toggle
 						h3 Milkshakes
 						p Dairy for days
 					p.price $4.00
 
-				.wide_checkbox#soda_toggle.soda
+				.wide_checkbox#soda_toggle.soda#soda
 					.custom_check_off
 					.toggle
 						h3 Soda
 						p So many options
 					p.price $1.40
 
-				.wide_checkbox#water_toggle.water
+				.wide_checkbox#water_toggle.water#water
 					.custom_check_off
 					.toggle
 						h3 Water
@@ -75,21 +76,21 @@ html(lang="en")
 				section.section3.radio.required
 					input(type="hidden" name="milkshake_flavor", value="")
 					// vanilla
-					.wide_checkbox
+					.wide_checkbox#vanilla
 						.custom_check_off
 						.toggle
 							h3 Vanilla
 							p Back to the basics
 
 					// chocolate
-					.wide_checkbox
+					.wide_checkbox#chocolate
 						.custom_check_off
 						.toggle
 							h3 Chocolate
 							p Made from cocoa
 
 					// strawberry
-					.wide_checkbox
+					.wide_checkbox#strawberry
 						.custom_check_off
 						.toggle
 							h3 Strawberry
@@ -100,55 +101,55 @@ html(lang="en")
 				h4 Soda Flavors
 				section.section4.radio.required
 					input(type="hidden" name="soda_flavor", value="")
-					.wide_checkbox
+					.wide_checkbox#pepsi
 						.custom_check_off
 						.toggle
 							h3 Pepsi
 							p Brown bubbles
 
-					.wide_checkbox
+					.wide_checkbox#dietPepsi
 						.custom_check_off
 						.toggle
 							h3 Diet Pepsi
 							p Healthier brown bubbles
 
-					.wide_checkbox
+					.wide_checkbox#rootBeer
 						.custom_check_off
 						.toggle
 							h3 Root Beer
 							p (Root Beer)^2 = Beer
 
-					.wide_checkbox
+					.wide_checkbox#drpepper
 						.custom_check_off
 						.toggle
 							h3 Dr Pepper
 							p That's Mr Pepper to you
 
-					.wide_checkbox
+					.wide_checkbox#7-up
 						.custom_check_off
 						.toggle
 							h3 7-Up
 							p Heads down thumbs up
 
-					.wide_checkbox
+					.wide_checkbox#mountainDew
 						.custom_check_off
 						.toggle
 							h3 Mountain Dew
 							p Fresh from the mountain
 
-					.wide_checkbox
+					.wide_checkbox#gingerAle
 						.custom_check_off
 						.toggle
 							h3 Ginger Ale
 							p Good for the tummy
 
-					.wide_checkbox
+					.wide_checkbox#orangeCrush
 						.custom_check_off
 						.toggle
 							h3 Orange Crush
 							p Orange you glad you picked this one
 
-					.wide_checkbox
+					.wide_checkbox#icedTea
 						.custom_check_off
 						.toggle
 							h3 Iced Tea
@@ -159,6 +160,11 @@ html(lang="en")
 			br
 
 		script.
+
+			$(".wide_checkbox").click(function(){
+				var id = $(this).attr("id");
+				$(this).parent().children("input").attr("value", id);
+			})
 
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
@@ -207,17 +213,3 @@ html(lang="en")
 					$("button").prop('disabled', true);
 				}
 			})
-
-
-
-			//- // section 2
-			//- $("body").on("click", ".wide_checkbox", function() {
-			//- 	let checkbox = $(this).children("div:first-child");
-			//- 	if (checkbox.hasClass("custom_check_on")) {
-			//- 		checkbox.removeClass("custom_check_on");
-			//- 		checkbox.addClass("custom_check_off");
-			//- 	} else {
-			//- 		checkbox.removeClass("custom_check_off");
-			//- 		checkbox.addClass("custom_check_on");
-			//- 	}
-			//- })
