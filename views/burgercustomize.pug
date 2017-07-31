@@ -283,7 +283,7 @@ html(lang="en")
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
 				$("button").click(function(){
-					document.getElementById("only_form").submit();
+					// document.getElementById("only_form").submit();
 					MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
 					}, function error(err) {
