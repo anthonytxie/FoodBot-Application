@@ -93,6 +93,40 @@ itemDAO.postBurger = function(data, orderId) {
   });
 };
 
+itemDAO.postDrink = function(data, orderId) {
+  return new Promise((resolve, reject) => {
+    const burger = new Drink(data);
+    drink.save().then(item => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: orderId },
+            { $push: { _items: item._id } },
+            { new: true }
+          )
+        )
+      );
+    }).catch((err) => reject(err));
+  });
+};
+
+itemDAO.postSide = function(data, orderId) {
+  return new Promise((resolve, reject) => {
+    const side = new Side(data);
+    side.save().then(item => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: orderId },
+            { $push: { _items: item._id } },
+            { new: true }
+          )
+        )
+      );
+    }).catch((err) => reject(err));
+  });
+};
+
 
 itemDAO.postCombo = function(sessionId) {
   return new Promise((resolve, reject) => {

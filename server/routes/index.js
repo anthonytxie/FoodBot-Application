@@ -30,10 +30,10 @@ routes.post("/burger", (req, res) => {
     let premiumToppings = [];
     let patties = body.patties;
     let itemName = body.title;
-    let _order = body.order_id
+    let _order = mongoose.Types.ObjectId(body.order_id);
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
-        if (body[key] == true) {
+        if (body[key] == 'true') {
           if (premiumToppingsArray.includes(key)) {
             premiumToppings.push(key);
           } else {
@@ -51,15 +51,44 @@ routes.post("/burger", (req, res) => {
       standardToppings: [...premiumToppings]
     };
   };
-  // const burgerObject = burgerFormat(req.body);
-  console.log(req.body)
-  // itemDAO.postBurger(burgerFormat(burgerObject), _order);
+  const burgerObject = burgerFormat(req.body);
+  console.log(burgerObject)
+  itemDAO.postBurger(burgerFormat(burgerObject), _order)
+    .then((order) => {
+      send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
+    })
 });
 
 
-routes.post('/combo', (req, res) => {
-})
+routes.post("/combo", (req, res) => {
+  console.log(req.body);
+  const drinkObject = function(body) {
+    switch (body.drinkType) {
+      case "water":
+        return "waterBottle";
+        break;
+      case "soda":
+        return body.drinkName;
+        break;
+      case "milkshake":
+        if (body.milkshakeFlavor === "strawberry") {
+          return "strawberryMilkshake";
+        } else if (body.milkshakeFlavor === "vanilla") {
+          return "vanillaMilkshake";
+        } else if (body.milkshakeFlavor === "chocolate") {
+          return "chocolateMilkshake";
+        }
+        break;
+      default:
+        console.log("no idea");
+        break;
+    }
+  };
 
+  const sideObject = function(body) {
+    return body.fries;
+  };
+});
 routes.get('/testlog', (req, res) => {
   console.log({type:"Fiat", model:"500", color:"white"});
 });
@@ -73,12 +102,13 @@ routes.get('/receipt', (req, res) => {
 });
 
 routes.get('/burgercustomize', (req,res) => {
-  let id = req.query.order
-  let burgerName = req.query.name
+  let id = req.query.order;
+  let burgerName = req.query.name;
+  let senderId = req.query.sender;
   let burgerObject = findBurger(burgerName);
   orderDAO.getOrderById(id)
     .then((order) => {
-      res.render('burgercustomize', {order_id: id, burgerObject: burgerObject});
+      res.render('burgercustomize', {order_id: id, sender_id: senderId, burgerObject: burgerObject});
     })
 });
 
@@ -102,7 +132,7 @@ routes.get('/orders', (req, res) => {
     .then((orders) => {
       res.send(orders)
     }).catch((err) => res.send(err))
-})
+});
 
 
 routes.post('/webhook', (req, res) => {
@@ -221,4 +251,59 @@ routes.post('/webhook', (req, res) => {
 
 // console.log(createBurger(postBody))
 
+
+
+// const milkshakeBody = {
+//   fries: "cheesyFries",
+//   drinkType: "milkshake",
+//   milkshakeFlavor: 'strawberry',
+//   drinkName: ""
+// };
+
+// const popBody = {
+//   fries: "cheesyFries",
+//   drinkType: "soda",
+//   milkshakeFlavor: '',
+//   drinkName: "dr.pepper"
+// };
+
+// const waterBody = {
+//   fries: "cheesyFries",
+//   drinkType: "water",
+//   milkshakeFlavor: '',
+//   drinkName: ""
+// };
+
+
+// const drinkObject = function(body) {
+//   switch(body.drinkType) {
+//     case "water":
+//       return 'waterBottle'
+//       break;
+//     case "soda":
+//       return body.drinkName
+//       break;
+//     case "milkshake":
+//       if (body.milkshakeFlavor === 'strawberry'){
+//         return 'strawberryMilkshake';
+//       }
+//       else if (body.milkshakeFlavor === 'vanilla') {
+//         return 'vanillaMilkshake';
+//       }
+//       else if (body.milkshakeFlavor === 'chocolate') {
+//         return 'chocolateMilkshake';
+//       }
+//       break;
+//     default:
+//       console.log('no idea');
+//       break;
+//   }
+// }
+
+// const sideObject = function(body) {
+//   return body.fries
+// }
+
+// console.log(drinkObject(popBody))
+// console.log(sideObject(popBody))
 module.exports = routes;
