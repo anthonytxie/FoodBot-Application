@@ -28,15 +28,11 @@ routes.post('/burger', (req, res) => {
 })
 
 routes.post('/combo', (req, res) => {
-
 })
 
 routes.get('/testlog', (req, res) => {
   console.log({type:"Fiat", model:"500", color:"white"});
 });
-
-
-
 
 routes.get('/receipt', (req, res) => {
   let orderId = req.query.order;

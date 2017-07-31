@@ -10,9 +10,19 @@ html(lang="en")
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 	body
+		script.
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'Messenger'));
 		form
+			input(type="hidden" name="order_id", value="#{order_id}")
 			h4 Fries
 			section.section1.radio.required
+				input(type="hidden" name="food_type", value="")
 				.wide_checkbox
 					.custom_check_off
 					.toggle
@@ -37,6 +47,7 @@ html(lang="en")
 			br
 			h4 Drinks
 			section.section2.radio.required
+				input(type="hidden" name="drink_type", value="")
 				.wide_checkbox#milkshake_toggle.milkshake
 					.custom_check_off
 					.toggle
@@ -62,6 +73,7 @@ html(lang="en")
 				br
 				h4 Milkshake Flavors
 				section.section3.radio.required
+					input(type="hidden" name="milkshake_flavor", value="")
 					// vanilla
 					.wide_checkbox
 						.custom_check_off
@@ -87,6 +99,7 @@ html(lang="en")
 				br
 				h4 Soda Flavors
 				section.section4.radio.required
+					input(type="hidden" name="soda_flavor", value="")
 					.wide_checkbox
 						.custom_check_off
 						.toggle
@@ -146,6 +159,18 @@ html(lang="en")
 			br
 
 		script.
+
+			// called when MessengerExtensions is done loading
+			window.extAsyncInit = function() {
+				$("button").click(function(){
+					// document.getElementById("only_form").submit();
+					MessengerExtensions.requestCloseBrowser(function success() {
+						console.log("success");
+					}, function error(err) {
+						console.log(err);
+					});
+				})
+			}
 
 			// first 2 sections (radio)
 			$(".radio").on("click", ".wide_checkbox", function() {
