@@ -8,7 +8,7 @@ const findBurger = function(payloadData) {
     .pop();
 };
 
-const burgerTemplate = function(payloadData, order) {
+const burgerTemplate = function(payloadData, order, senderId) {
   const burger = findBurger(payloadData);
   const attachment = {
     attachment: {
@@ -34,7 +34,7 @@ const burgerTemplate = function(payloadData, order) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}`,
+                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=senderId`,
                 title: "Open Combo Customize Webview",
                 webview_height_ratio: "full",
                 messenger_extensions: true

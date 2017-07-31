@@ -194,7 +194,7 @@ const genericTemplate = {
   }
 };
 
-const upsizeOrderMessage = function(order) {
+const upsizeOrderMessage = function(order, senderId) {
   const attachment = {
     attachment: {
       type: "template",
@@ -204,7 +204,7 @@ const upsizeOrderMessage = function(order) {
         buttons: [
           {
             type: "web_url",
-            url: `https://foodbotapi.herokuapp.com/burgercombo?order=${order._id}`,
+            url: `https://foodbotapi.herokuapp.com/burgercombo?order=${order._id}&sender=senderId`,
             title: "Yes",
             webview_height_ratio: "full",
             messenger_extensions: true
