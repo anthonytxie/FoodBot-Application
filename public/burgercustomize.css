@@ -32,6 +32,7 @@ h3, h4 {
 }
 
 form {
+	border-left: 1px solid red;
 	width: 100%;
 	max-width: 414px;
 	margin: 0 auto;
