@@ -99,7 +99,7 @@ const receiptMessageTemplate = function(order) {
       }
     }
   };
-  console.log(attachment)
+  console.log(JSON.stringify(attachment))
   return attachment;
 };
 
