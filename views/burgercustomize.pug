@@ -28,6 +28,10 @@ html(lang="en")
 
 		h4 TOPPINGS TO BE SELECTED
 		p #{toppings}
+		p #{typeof(toppings[0])}
+		h4 bacon
+		p #{'bacon' in ['bacon','notbacon']}
+		p #{'bacon' in topings}
 
 		if burger.title == "Varsity Blues"
 			p YES
