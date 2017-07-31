@@ -51,9 +51,9 @@ routes.post("/burger", (req, res) => {
       standardToppings: [...premiumToppings]
     };
   };
-  const burgerObject = burgerFormat(req.body);
-  console.log(burgerObject)
-  itemDAO.postBurger(burgerFormat(burgerObject), _order);
+  // const burgerObject = burgerFormat(req.body);
+  console.log(req.body)
+  // itemDAO.postBurger(burgerFormat(burgerObject), _order);
 });
 
 
