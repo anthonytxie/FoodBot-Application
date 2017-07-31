@@ -392,7 +392,7 @@ html(lang="en")
 				let checkbox = $(this).children("div:first-child");
 				if (checkbox.hasClass("custom_check_on")) {
 				} else {
-					$(this).parent().find("input[value="true"]").attr("value", "");
+					$(this).parent().find("input[value='true']").attr("value", "");
 					$(this).children("input").attr("value", "true");
 
 					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
