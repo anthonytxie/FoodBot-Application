@@ -1,29 +1,36 @@
-const express = require('express');
+const express = require("express");
 const routes = express();
-const mongoose = require('mongoose');
-const { handleReceivePostback } = require('../../messenger-api-helpers/receive/receivePostback')
-const { handleReceiveMessage } = require('../../messenger-api-helpers/receive/receiveMessage')
-const sessionDAO = require('./../../db/DAO/sessionDAO');
-const runner = require('../../messenger-api-helpers/runner');
-const orderDAO = require('./../../db/DAO/orderDAO');
-const itemDAO = require('./../../db/DAO/itemDAO');
-const {premiumToppingsArray} = require('../../messenger-api-helpers/messages/toppings');
+const mongoose = require("mongoose");
+const {
+  handleReceivePostback
+} = require("../../messenger-api-helpers/receive/receivePostback");
+const {
+  handleReceiveMessage
+} = require("../../messenger-api-helpers/receive/receiveMessage");
+const sessionDAO = require("./../../db/DAO/sessionDAO");
+const runner = require("../../messenger-api-helpers/runner");
+const orderDAO = require("./../../db/DAO/orderDAO");
+const itemDAO = require("./../../db/DAO/itemDAO");
+const {
+  premiumToppingsArray
+} = require("../../messenger-api-helpers/messages/toppings");
 
-
-const { normalBurgers, specialBurgers, findBurger } = require('../../messenger-api-helpers/messages/burgers')
-// Verify Token 
+const {
+  normalBurgers,
+  specialBurgers,
+  findBurger
+} = require("../../messenger-api-helpers/messages/burgers");
+// Verify Token
 //need to put secret in process.env
 
-
-routes.get('/', (req, res) => {
-  res.send('hello welcome to foodbot api');
+routes.get("/", (req, res) => {
+  res.send("hello welcome to foodbot api");
 });
 
-
-routes.get('/burgercombo', (req,res) => {
-  let orderId = req.query.order
-  let senderId = req.query.sender
-  res.render('burgercombopage',{order_id: orderId, sender_id:senderId}); //send back pug file
+routes.get("/burgercombo", (req, res) => {
+  let orderId = req.query.order;
+  let senderId = req.query.sender;
+  res.render("burgercombopage", { order_id: orderId, sender_id: senderId }); //send back pug file
 });
 
 routes.post("/burger", (req, res) => {
@@ -35,11 +42,11 @@ routes.post("/burger", (req, res) => {
     let _order = mongoose.Types.ObjectId(body.order_id);
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
-        if (body[key] == 'true') {
+        if (body[key] == "true") {
           if (premiumToppingsArray.includes(key)) {
             premiumToppings.push(key);
           } else {
-            standardToppings.push(key);
+            if (key != "beef") standardToppings.push(key);
           }
         }
       }
@@ -49,18 +56,17 @@ routes.post("/burger", (req, res) => {
       _order: _order,
       patties: patties,
       itemName: itemName,
-      premiumToppings: [...standardToppings],
-      standardToppings: [...premiumToppings]
+      premiumToppings: [...premiumToppings],
+      standardToppings: [...standardToppings]
     };
   };
   const burgerObject = burgerFormat(req.body);
-  console.log(burgerObject)
+  console.log(burgerObject);
   // itemDAO.postBurger(burgerFormat(burgerObject), _order)
   //   .then((order) => {
   //     send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
   //   })
 });
-
 
 routes.post("/combo", (req, res) => {
   console.log(req.body);
@@ -91,53 +97,58 @@ routes.post("/combo", (req, res) => {
     return body.fries;
   };
 });
-routes.get('/testlog', (req, res) => {
-  console.log({type:"Fiat", model:"500", color:"white"});
+routes.get("/testlog", (req, res) => {
+  console.log({ type: "Fiat", model: "500", color: "white" });
 });
 
-routes.get('/receipt', (req, res) => {
+routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
-  orderDAO.getOrderById(orderId)
-    .then((order) => {
-      res.render('receipt', {order: order});
-    });
+  orderDAO.getOrderById(orderId).then(order => {
+    res.render("receipt", { order: order });
+  });
 });
 
-routes.get('/burgercustomize', (req,res) => {
+routes.get("/burgercustomize", (req, res) => {
   let id = req.query.order;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
   let burgerObject = findBurger(burgerName);
-  orderDAO.getOrderById(id)
-    .then((order) => {
-      res.render('burgercustomize', {order_id: id, sender_id: senderId, burgerObject: burgerObject});
+  orderDAO.getOrderById(id).then(order => {
+    res.render("burgercustomize", {
+      order_id: id,
+      sender_id: senderId,
+      burgerObject: burgerObject
+    });
+  });
+});
+
+routes.get("/isActiveSession", (req, res) => {
+  sessionDAO
+    .isSessionActive("1234676803307932")
+    .then(isSessionActive => {
+      res.send(isSessionActive);
     })
+    .catch(err => res.send(err));
 });
 
-routes.get('/isActiveSession', (req, res) => {
-  sessionDAO.isSessionActive("1234676803307932")
-    .then((isSessionActive) => {
-      res.send(isSessionActive)
-    }).catch((err) => res.send(err))
-});
-
-routes.get('/webhook', (req, res) => {
-  if (req.query['hub.verify_token'] === process.env.secret ) {
-    res.send(req.query['hub.challenge']);
+routes.get("/webhook", (req, res) => {
+  if (req.query["hub.verify_token"] === process.env.secret) {
+    res.send(req.query["hub.challenge"]);
   } else {
-    res.send('Error, wrong token');
+    res.send("Error, wrong token");
   }
 });
 
-routes.get('/orders', (req, res) => {
-  orderDAO.getAllOrders()
-    .then((orders) => {
-      res.send(orders)
-    }).catch((err) => res.send(err))
+routes.get("/orders", (req, res) => {
+  orderDAO
+    .getAllOrders()
+    .then(orders => {
+      res.send(orders);
+    })
+    .catch(err => res.send(err));
 });
 
-
-routes.post('/webhook', (req, res) => {
+routes.post("/webhook", (req, res) => {
   /*
     You must send back a status of 200(success) within 20 seconds
     to let us know you've successfully received the callback.
@@ -155,79 +166,72 @@ routes.post('/webhook', (req, res) => {
   const data = req.body;
 
   // Make sure this is a page subscription
-  if (data.object === 'page') {
+  if (data.object === "page") {
     // Iterate over each entry
     // There may be multiple if batched
-    data.entry.forEach((pageEntry) => {
+    data.entry.forEach(pageEntry => {
       // Iterate over each messaging event and handle accordingly
-      pageEntry.messaging.forEach((messagingEvent) => {
-        console.log({messagingEvent});
+      pageEntry.messaging.forEach(messagingEvent => {
+        console.log({ messagingEvent });
         if (messagingEvent.postback) {
           handleReceivePostback(messagingEvent);
-        } 
-        else if (messagingEvent.message) {
+        } else if (messagingEvent.message) {
           handleReceiveMessage(messagingEvent);
+        } else if (messagingEvent.delivery) {
+          console.log("delivery");
+        } else if (messagingEvent.read) {
+          console.log("read");
+        } else if (messagingEvent.optin) {
+          console.log("auth log in");
+        } else if (messagingEvent.account_linking) {
+          console.log("account link");
+        } else {
+          console.log(
+            "Webhook received unknown messagingEvent: ",
+            messagingEvent
+          );
         }
-        else if (messagingEvent.delivery) {
-            console.log('delivery')
-        }
-        else if (messagingEvent.read) {
-            console.log('read')
-        }
-        else if (messagingEvent.optin) {
-            console.log('auth log in')
-          }
-        else if (messagingEvent.account_linking) {
-            console.log('account link')
-          }
-        else {
-            console.log(
-              'Webhook received unknown messagingEvent: ',
-              messagingEvent
-            );
-          }
       });
     });
   }
 });
 
+// const postBody =
+// { order_id: '597eb88e157115001155186f',
+//   sender_id: '1435338713202002',
+//   title: 'Single Bacon Cheeseburger',
+//   patties: '1',
+//   beef: 'true',
+//   chickenPatty: '',
+//   standardBun: 'true',
+//   lettuceBun: '',
+//   glutenFreeBun: '',
+//   grilledCheeseBun: '',
+//   ketchup: '',
+//   mustard: '',
+//   mayo: '',
+//   relish: '',
+//   fancySauce: '',
+//   hotSauce: '',
+//   lettuce: '',
+//   tomatoes: '',
+//   pickles: '',
+//   hotPepper: '',
+//   onions: '',
+//   bacon: 'true',
+//   standardCheese: 'true',
+//   americanCheese: '',
+//   blueCheese: '',
+//   caramelizedOnions: '',
+//   stuffedPortobello: '',
+//   sauteedMushrooms: '',
+//   cheeseSauce: 'true',
+//   gravySide: '' }
 
-
-// const postBody = {
-//     patties: 1,
-//     beef: "",
-//     chickenPatty: "",
-//     standardBun: "",
-//     lettuceBun: "",
-//     glutenFreeBun: "",
-//     grilledCheeseBun: "",
-//     ketchup: "",
-//     mustard: "true",
-//     mayo: "",
-//     relish: "",
-//     fancySauce: "",
-//     hotSauce: "",
-//     lettuce: "",
-//     tomatoes: "",
-//     pickles: "",
-//     onions: "",
-//     hotPepper: "",
-//     bacon: "",
-//     cheese: "",
-//     americanCheese: "",
-//     blueCheese: "true",
-//     caramelizedOnions: "",
-//     sauteedMushrooms: "",
-//     stuffedPortobello: "",
-//     cheeseSauce: "",
-//     gravySide: "",
-//     order_id: "1234",
-//     title: "burger name"
-//   };
 // const createBurger = function(body) {
 //   let standardToppings = [];
 //   let premiumToppings = [];
-//   let patties = body.patties;
+//   let patties = parseFloat(body.patties);
 //   let itemName = body.title;
 //   let _order = body.order_id;
 //   for (var key in body) {
@@ -236,6 +240,7 @@ routes.post('/webhook', (req, res) => {
 //         if (premiumToppingsArray.includes(key)) {
 //           premiumToppings.push(key);
 //         } else {
+//           if (key != 'beef')
 //           standardToppings.push(key);
 //         }
 //       }
@@ -246,14 +251,12 @@ routes.post('/webhook', (req, res) => {
 //     _order: _order,
 //     patties: patties,
 //     itemName: itemName,
-//     premiumToppings: [...standardToppings],
-//     standardToppings: [...premiumToppings]
+//     premiumToppings: [...premiumToppings],
+//     standardToppings: [...standardToppings]
 //   };
 // };
 
 // console.log(createBurger(postBody))
-
-
 
 // const milkshakeBody = {
 //   fries: "cheesyFries",
@@ -275,7 +278,6 @@ routes.post('/webhook', (req, res) => {
 //   milkshakeFlavor: '',
 //   drinkName: ""
 // };
-
 
 // const drinkObject = function(body) {
 //   switch(body.drinkType) {
