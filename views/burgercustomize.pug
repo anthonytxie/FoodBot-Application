@@ -21,13 +21,18 @@ html(lang="en")
 		p #{order_id}
 		p #{JSON.stringify(burgerObject)}
 
-		form
+		form(id="only_form", method="post", action="burger.js")
+			input(type="hidden" name="order_id", value="#{order_id}")
+			input(type="hidden" name="title" value="#{burgerObject.title}")
 			h4 Patties
 			section.radio.section1.required
+				input(type="hidden", name="patties", value=1)
 				.quantity.patty_selected 1
 				.quantity 2
 				.quantity 3
+
 				.wide_checkbox
+					input(type="hidden", name="beef", value="")
 					.custom_check_off
 					.toggle
 						h3 Beef
@@ -35,6 +40,7 @@ html(lang="en")
 					p.price $2.00
 
 				.wide_checkbox
+					input(type="hidden", name="chickenPatty", value="")
 					.custom_check_off
 					.toggle
 						h3 Chicken
@@ -44,25 +50,33 @@ html(lang="en")
 			br
 			h4 Bun
 			section.radio.section2.required
+
 				.wide_checkbox
+					input(type="hidden", name='standardBun', value="")
 					.custom_check_off
 					.toggle
 						h3 White Bun
 						p Solid choice
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='lettuceBun', value="")
 					.custom_check_off
 					.toggle
 						h3 Lettuce Bun
 						p Lettuce eat this bun
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='glutenFreeBun', value="")
 					.custom_check_off
 					.toggle
 						h3 Gluten Free Bun
 						p Mo' gluten mo' problems
 					p.price $1.50
+
 				.wide_checkbox
+					input(type="hidden", name='grilledCheeseBun', value="")
 					.custom_check_off
 					.toggle
 						h3 Grilled Cheese Bun
@@ -72,37 +86,50 @@ html(lang="en")
 			br
 			h4 Sauces
 			section
+
 				.wide_checkbox
+					input(type="hidden", name='ketchup', value="")
 					.custom_check_off
 					.toggle
 						h3 Ketchup
 						p Tomato inspired
 					p.price FREE
+
+
 				.wide_checkbox
+					input(type="hidden", name='mustard', value="")
 					.custom_check_off
 					.toggle
 						h3 Mustard
 						p BRB I mustard
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='mayo', value="")
 					.custom_check_off
 					.toggle
 						h3 Mayo
 						p Mayo wishes come true
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='relish', value="")
 					.custom_check_off
 					.toggle
 						h3 Relish
 						p I relish the idea of this burger
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='fancySauce', value="")
 					.custom_check_off
 					.toggle
 						h3 Fancy Sauce
 						p Comes with a monocle
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='hotSauce', value="")
 					.custom_check_off
 					.toggle
 						h3 Hot Sauce
@@ -114,30 +141,39 @@ html(lang="en")
 			section
 				// FREE
 				.wide_checkbox
+					input(type="hidden", name='lettuce', value="")
 					.custom_check_off
 					.toggle
 						h3 Lettuce
 						p Now it's a salad
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='tomatoes', value="")
 					.custom_check_off
 					.toggle
 						h3 Tomato
 						p Solid ketchup
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='pickles', value="")
 					.custom_check_off
 					.toggle
 						h3 Pickle
 						p Salty cucumber
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='onions', value="")
 					.custom_check_off
 					.toggle
 						h3 Onions
 						p Like ogres but with slightly more layers
 					p.price FREE
+
 				.wide_checkbox
+					input(type="hidden", name='hotPepper', value="")
 					.custom_check_off
 					.toggle
 						h3 Hot Peppers
@@ -146,42 +182,55 @@ html(lang="en")
 
 				// NOT FREE
 				.wide_checkbox
+					input(type="hidden", name='bacon', value="")
 					.custom_check_off
 					.toggle
 						h3 Bacon
 						p Was once a part of a pig 
 					p.price $1.50
+
 				.wide_checkbox
+					input(type="hidden", name='cheese', value="")
 					.custom_check_off
 					.toggle
 						h3 Regular Cheese
 						p Expensive rotten milk
 					p.price $1.00
+
 				.wide_checkbox
+					input(type="hidden", name='americanCheese', value="")
 					.custom_check_off
 					.toggle
 						h3 American Style Cheese
 						p American expensive rotten milk
 					p.price $1.00
+
 				.wide_checkbox
+					input(type="hidden", name='blueCheese', value="")
 					.custom_check_off
 					.toggle
 						h3 Blue Cheese
 						p Milk that is even more rotten
 					p.price $1.50
+
 				.wide_checkbox
+					input(type="hidden", name='caramelizedOnions', value="")
 					.custom_check_off
 					.toggle
 						h3 Caramelized Onions
 						p Like onions but caramelized
 					p.price $1.00
+
 				.wide_checkbox
+					input(type="hidden", name='stuffedPortobello', value="")
 					.custom_check_off
 					.toggle
 						h3 Stuffed Portobello
 						p Stuffed with...?
 					p.price $6.00
+
 				.wide_checkbox
+					input(type="hidden", name='sauteedMushrooms', value="")
 					.custom_check_off
 					.toggle
 						h3 Sauteed Mushrooms
@@ -190,12 +239,15 @@ html(lang="en")
 
 				// SIDES
 				.wide_checkbox
+					input(type="hidden", name='cheeseSauce', value="")
 					.custom_check_off
 					.toggle
 						h3 Side of Cheese Sauce
 						p Technically not a topping
 					p.price $2.50
+
 				.wide_checkbox
+					input(type="hidden", name='gravySide', value="")
 					.custom_check_off
 					.toggle
 						h3 Side of Gravy
@@ -210,6 +262,7 @@ html(lang="en")
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
 				$("button").click(function(){
+					document.getElementById("only_form").submit();
 					MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
 					}, function error(err) {
