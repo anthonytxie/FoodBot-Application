@@ -9,7 +9,7 @@ html, body {
 	height: 100%;
 	background-color: #f6f6f6;
 	color: rgba(0,0,0,0.4);
-	font-family: Lato;
+	font-family: Arial;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
@@ -286,7 +286,7 @@ p.price {
 }
 
 button {
-	font-family: Lato!important;
+	font-family: Arial!important;
 	background-color: #0080ff !important;
 	color: white !important;
 	text-decoration: none!important;
