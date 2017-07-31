@@ -24,13 +24,16 @@ routes.get('/burgercombo', (req,res) => {
 routes.post('/burger', (req, res) => {
   const body = req.body
   console.log(body)
-  res.send(body)
+  res.send("")
 })
 
 routes.post('/combo', (req, res) => {
 
 })
 
+routes.get('/testlog', (req, res) => {
+  console.log('logging into HEROKU');
+});
 
 
 
