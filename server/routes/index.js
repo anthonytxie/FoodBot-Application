@@ -24,15 +24,37 @@ routes.get('/burgercombo', (req,res) => {
   res.render('burgercombopage'); //send back pug file
 });
 
-routes.post('/burger', (req, res) => {
-  const body = req.body
-  // let premiumToppings = []
-  // let standardToppings = []
-  // let burgerName 
-  // let orderId = mongoose.Types.ObjectId(orderId)
-  console.log(body)
-  res.send("")
-})
+routes.post("/burger", (req, res) => {
+  const burgerFormat = function(body) {
+    let standardToppings = [];
+    let premiumToppings = [];
+    let patties = body.patties;
+    let itemName = body.title;
+    let _order = mongoose.Types.ObjectId(body.order_id);
+    for (var key in body) {
+      if (body.hasOwnProperty(key)) {
+        if (body[key] == "true") {
+          if (premiumToppingsArray.includes(key)) {
+            premiumToppings.push(key);
+          } else {
+            standardToppings.push(key);
+          }
+        }
+      }
+    }
+
+    return {
+      _order: _order,
+      patties: patties,
+      itemName: itemName,
+      premiumToppings: [...standardToppings],
+      standardToppings: [...premiumToppings]
+    };
+  };
+  const burgerObject = burgerFormat(req.body);
+  itemDAO.postBurger(burgerFormat(burgerObject), _order);
+});
+
 
 routes.post('/combo', (req, res) => {
 })
@@ -137,40 +159,65 @@ routes.post('/webhook', (req, res) => {
 });
 
 
-const body = { patties: 'one',
-  beef: '',
-  chickenPatty: '',
-  standardBun: '',
-  lettuceBun: '',
-  glutenFreeBun: '',
-  grilledCheeseBun: '',
-  ketchup: '',
-  mustard: '',
-  mayo: '',
-  relish: '',
-  fancySauce: '',
-  hotSauce: '',
-  lettuce: '',
-  tomatoes: '',
-  pickles: '',
-  onions: '',
-  hotPepper: '',
-  bacon: '',
-  cheese: '',
-  americanCheese: '',
-  blueCheese: '',
-  caramelizedOnions: '',
-  sauteedMushrooms: '',
-  stuffedPortobello: '',
-  cheeseSauce: '',
-  gravySide: '' }
 
-for (var key in body) {
-  if (body.hasOwnProperty(key)) {
-    if (body[key] != '') {
-      console.log(key)
-    }
-  }
-}
+// const postBody = {
+//     patties: 1,
+//     beef: "",
+//     chickenPatty: "",
+//     standardBun: "",
+//     lettuceBun: "",
+//     glutenFreeBun: "",
+//     grilledCheeseBun: "",
+//     ketchup: "",
+//     mustard: "true",
+//     mayo: "",
+//     relish: "",
+//     fancySauce: "",
+//     hotSauce: "",
+//     lettuce: "",
+//     tomatoes: "",
+//     pickles: "",
+//     onions: "",
+//     hotPepper: "",
+//     bacon: "",
+//     cheese: "",
+//     americanCheese: "",
+//     blueCheese: "true",
+//     caramelizedOnions: "",
+//     sauteedMushrooms: "",
+//     stuffedPortobello: "",
+//     cheeseSauce: "",
+//     gravySide: "",
+//     order_id: "1234",
+//     title: "burger name"
+//   };
+// const createBurger = function(body) {
+//   let standardToppings = [];
+//   let premiumToppings = [];
+//   let patties = body.patties;
+//   let itemName = body.title;
+//   let _order = body.order_id;
+//   for (var key in body) {
+//     if (body.hasOwnProperty(key)) {
+//       if (body[key] == "true") {
+//         if (premiumToppingsArray.includes(key)) {
+//           premiumToppings.push(key);
+//         } else {
+//           standardToppings.push(key);
+//         }
+//       }
+//     }
+//   }
+
+//   return {
+//     _order: _order,
+//     patties: patties,
+//     itemName: itemName,
+//     premiumToppings: [...standardToppings],
+//     standardToppings: [...premiumToppings]
+//   };
+// };
+
+// console.log(createBurger(postBody))
 
 module.exports = routes;

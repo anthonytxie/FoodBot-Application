@@ -74,6 +74,26 @@ itemDAO.post = function(data, sessionId) {
   });
 };
 
+
+
+itemDAO.postBurger = function(data, orderId) {
+  return new Promise((resolve, reject) => {
+    const burger = new Burger(data);
+    burger.save().then(item => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: orderId },
+            { $push: { _items: item._id } },
+            { new: true }
+          )
+        )
+      );
+    }).catch((err) => reject(err));
+  });
+};
+
+
 itemDAO.postCombo = function(sessionId) {
   return new Promise((resolve, reject) => {
     Order.findOne({ _session: sessionId })
