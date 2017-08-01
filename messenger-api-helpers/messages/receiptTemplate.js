@@ -115,9 +115,8 @@ const receiptMessageTemplate = function(order) {
         }
       }
     }
-  };
+  }
 };
-
 
 // const attachment = {
 //   type: "template",
