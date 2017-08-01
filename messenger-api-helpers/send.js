@@ -23,13 +23,13 @@ const sendMenuMessage = (recipientId, data) => {
 
 const sendSpecialBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
-  sendMessage(recipientId, messages.specialBurgerMenuMessageTwo);
+  setTimeout(sendMessage(recipientId, messages.specialBurgerMenuMessageTwo),2000);
 
 };
 
 const sendNormalBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.normalBurgerMenuMessageOne);
-  sendMessage(recipientId, messages.normalBurgerMenuMessageTwo);
+  setTimeout(sendMessage(recipientId, messages.normalBurgerMenuMessageTwo),2000);
 
 };
 
