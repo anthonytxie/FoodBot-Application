@@ -23,25 +23,7 @@ const receiptElements = function(order) {
 
 
 const receiptMessageTemplate = function(order) {
-  return {
-    attachment: {
-      type: "template",
-      payload: {
-        template_type: "receipt",
-        recipient_name: "Customer",
-        order_number: order._id,
-        currency: "CAD",
-        payment_method: "Pick Up",
-        timestamp: parseInt(((new Date).getTime())/1000).toString(),
-        elements: receiptElements(order),
-        summary: {
-          subtotal: parseFloat(order.orderPrice),
-          total_tax: parseFloat((order.orderPrice * 0.13).toFixed(2)),
-          total_cost: parseFloat((order.orderPrice * 1.13).toFixed(2))
-        }
-      }
-    }
-  }
+  return { text: 'receipt' } 
 };
 
 
