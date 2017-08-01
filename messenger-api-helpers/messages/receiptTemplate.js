@@ -79,37 +79,16 @@ const receiptElements = function(order) {
 //   id: "597fbf1c245369001139c528"
 // };
 const receiptMessageTemplate = function(order) {
-  const attachment = {
-    attachment: {
-      type: "template",
-      payload: {
-        recipient_name: "Customer",
-        template_type: "receipt",
-        order_number: order._id,
-        currency: "CAD",
-        payment_method: "Pick Up",
-        timestamp: Date.now(),
-        elements: receiptElements(order),
-        summary: {
-          subtotal: order.orderPrice,
-          total_tax: order.orderPrice * 0.13,
-          total_cost: order.orderPrice * 1.13
-        }
-      }
-    }
-  };
-  console.log(JSON.stringify(attachment));
   return {
     attachment: {
       type: "template",
       payload: {
         template_type: "receipt",
-        recipient_name: "Stephane Crozatier",
-        order_number: "12345678902",
-        currency: "USD",
-        payment_method: "Visa 2345",
-        order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
-        timestamp: "1428444852",
+        recipient_name: "Customer",
+        order_number: order._id,
+        currency: "CAD",
+        payment_method: "Pick Up",
+        timestamp: Date.now(),
         elements: [
           {
             title: "Classic White T-Shirt",
@@ -128,30 +107,11 @@ const receiptMessageTemplate = function(order) {
             image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
           }
         ],
-        address: {
-          street_1: "1 Hacker Way",
-          street_2: "",
-          city: "Menlo Park",
-          postal_code: "94025",
-          state: "CA",
-          country: "US"
-        },
         summary: {
-          subtotal: 75.0,
-          shipping_cost: 4.95,
-          total_tax: 6.19,
-          total_cost: 56.14
-        },
-        adjustments: [
-          {
-            name: "New Customer Discount",
-            amount: 20
-          },
-          {
-            name: "$10 Off Coupon",
-            amount: 10
-          }
-        ]
+          subtotal: order.orderPrice,
+          total_tax: order.orderPrice * 0.13,
+          total_cost: order.orderPrice * 1.13
+        }
       }
     }
   };
