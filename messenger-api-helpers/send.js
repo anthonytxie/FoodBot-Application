@@ -22,9 +22,10 @@ const sendMenuMessage = (recipientId, data) => {
 };
 
 const sendSpecialBurgerMenu = (recipientId, data) => {
-  sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
-  setTimeout(sendMessage(recipientId, messages.specialBurgerMenuMessageTwo),8000);
-
+  let messages = [ messages.specialBurgerMenuMessageOne, messages.specialBurgerMenuMessageTwo ]
+  messages.forEach( (x) => {
+    setTimeout(sendMessage(recipientId, x), 2000);
+  });
 };
 
 const sendNormalBurgerMenu = (recipientId, data) => {
