@@ -25,7 +25,7 @@ const receiptElements = function(order) {
 const receiptMessageTemplate = function(order) {
   return {
     attachment: {
-      text: "Receipt",
+      type: "Receipt",
       payload: {
         template_type: "receipt",
         recipient_name: "Customer",
