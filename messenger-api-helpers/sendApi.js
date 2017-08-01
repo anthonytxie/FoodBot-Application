@@ -8,7 +8,7 @@ const request =  require('request');
 
 const PAGE_ACCESS_TOKEN = process.env.page_token || 'EAACH5pouINQBAGRIEVUI1dg9BwjBg0b6vIiZC6HkLwLo6YhUrpvIU1xNtKvYKZAxyxt5CDYviuIdYAezlE7LNGlR7TQe1uDRIvc5zhhw3kabwHUPzBKWhV6iWXIaVCJuKIvKm7BiZCNst2fJp7dZAw77EqxGPbAFlmeZCnk2FCwZDZD';
 
-const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 1) => {
+const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 5) => {
   // Error if developer forgot to specify an endpoint to send our request to
   if (!endPoint) {
     console.error('callAPI requires you specify an endpoint.');
