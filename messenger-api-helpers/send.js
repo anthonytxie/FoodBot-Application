@@ -22,19 +22,19 @@ const sendMenuMessage = (recipientId, data) => {
 };
 
 const sendSpecialBurgerMenu = (recipientId, data) => {
-  let messages = [ messages.specialBurgerMenuMessageOne, messages.specialBurgerMenuMessageTwo ]
-  let functions = messages.map((x) => {
-    return setTimeout(sendMessage(recipientId, x), 2000);
-  });
-  for (i = 0; i < functions.length; i++) {
-    array_of_functions[i]();
-  }
+  sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
+  setTimeout(() => {
+    sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
+  }, 8000);
 };
+
+
 
 const sendNormalBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.normalBurgerMenuMessageOne);
-  setTimeout(sendMessage(recipientId, messages.normalBurgerMenuMessageTwo),8000);
-
+  setTimeout(() => {
+    sendMessage(recipientId, messages.normalBurgerMenuMessageTwo);
+  }, 8000);
 };
 
 const sendDrinkMenuMessage = (recipientId, data) => {
@@ -156,6 +156,8 @@ const sendReadReceipt = (recipientId) => {
 
   sendApi.callMessagesAPI(messageData);
 };
+
+
 
 
 module.exports = {
