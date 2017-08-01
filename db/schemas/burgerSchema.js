@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 const { normalBurgers, specialBurgers } = require("./../../messenger-api-helpers/messages/burgers")
-const { toppings } = require("./../../messenger-api-helpers/messages/toppings")
+const { premiumToppings } = require("./../../messenger-api-helpers/messages/toppings")
 
 
 
