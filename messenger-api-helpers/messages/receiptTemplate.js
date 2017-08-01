@@ -90,24 +90,7 @@ const receiptMessageTemplate = function(order) {
         currency: "CAD",
         payment_method: "Pick Up",
         timestamp: parseInt(((new Date).getTime())/1000).toString(),
-        elements: [
-          {
-            title: "Classic White T-Shirt",
-            subtitle: "100% Soft and Luxurious Cotton",
-            quantity: 2,
-            price: 50,
-            currency: "USD",
-            image_url: "http://petersapparel.parseapp.com/img/whiteshirt.png"
-          },
-          {
-            title: "Classic Gray T-Shirt",
-            subtitle: "100% Soft and Luxurious Cotton",
-            quantity: 1,
-            price: 25,
-            currency: "USD",
-            image_url: "http://petersapparel.parseapp.com/img/grayshirt.png"
-          }
-        ],
+        elements: receiptElements(order),
         summary: {
           subtotal: parseFloat(order.orderPrice),
           total_tax: parseFloat((2 * 0.13).toFixed(2)),
