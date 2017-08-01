@@ -246,7 +246,7 @@ const orderAskContinue = function(order) {
             type: "postback",
             title: "Done",
             payload: JSON.stringify({
-              type: "see-receipt"
+              type: "receipt"
             })
           }
           // {
