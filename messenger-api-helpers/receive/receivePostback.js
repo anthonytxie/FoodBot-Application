@@ -76,7 +76,7 @@ const handleReceivePostback = messagingEvent => {
         //   break;
         case "order-continue":
           runner
-            .confirmOrder(senderId)
+            .renewSessionAndReturnOrder(senderId)
             .then(order => {
               send.sendOrderedMessage(senderId, order);
             })
