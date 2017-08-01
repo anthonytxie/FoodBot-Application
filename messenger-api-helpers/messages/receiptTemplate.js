@@ -93,8 +93,8 @@ const receiptMessageTemplate = function(order) {
         elements: receiptElements(order),
         summary: {
           subtotal: parseFloat(order.orderPrice),
-          total_tax: parseFloat((2 * 0.13).toFixed(2)),
-          total_cost: parseFloat((2 * 1.13).toFixed(2))
+          total_tax: parseFloat((order.orderPrice * 0.13).toFixed(2)),
+          total_cost: parseFloat((order.orderPrice * 1.13).toFixed(2))
         }
       }
     }
