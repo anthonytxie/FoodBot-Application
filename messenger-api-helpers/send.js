@@ -23,7 +23,7 @@ const sendMenuMessage = (recipientId, data) => {
 
 const sendSpecialBurgerMenu = (recipientId, data) => {
   let messages = [ messages.specialBurgerMenuMessageOne, messages.specialBurgerMenuMessageTwo ]
-  messages.forEach( (x) => {
+  messages.map((x) => {
     setTimeout(sendMessage(recipientId, x), 2000);
   });
 };
