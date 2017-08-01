@@ -89,7 +89,7 @@ const receiptMessageTemplate = function(order) {
         order_number: order._id,
         currency: "CAD",
         payment_method: "Pick Up",
-        timestamp: Date.now(),
+        timestamp: parseInt(((new Date).getTime())/1000).toString(),
         elements: [
           {
             title: "Classic White T-Shirt",
