@@ -45,12 +45,25 @@ const handleReceiveMessage = messagingEvent => {
           case "upgrade-combo":
             runner
               .upgradeCombo(senderId)
-              .then((order) => {
-                send.sendOrderedMessage(senderId,order);
+              .then(order => {
+                send.sendOrderedMessage(senderId, order);
               })
               .catch(err => console.log(err));
             break;
+          case "receipt":
+            runner
+              .confirmOrder(senderId)
+              .then(order => {
+                send.sendReceiptTemplate(senderId, order);
+              })
+              .catch(err => console.log(err));
           default:
+          case "see-menu":
+            //creates New Order
+            runner.renewSession(senderId).then(order => {
+              send.sendMenuMessage(senderId, order._session);
+            });
+            break;
             console.log(`unknown postback called ${type}`);
             break;
         }
