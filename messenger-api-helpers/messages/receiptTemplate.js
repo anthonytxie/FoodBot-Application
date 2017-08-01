@@ -79,6 +79,7 @@ const receiptElements = function(order) {
 //   id: "597fbf1c245369001139c528"
 // };
 const receiptMessageTemplate = function(order) {
+  console.log(order.orderPrice)
   return {
     attachment: {
       type: "template",
@@ -108,9 +109,9 @@ const receiptMessageTemplate = function(order) {
           }
         ],
         summary: {
-          subtotal: order.orderPrice,
-          total_tax: order.orderPrice * 0.13,
-          total_cost: order.orderPrice * 1.13
+          subtotal: parseFloat(order.orderPrice),
+          total_tax: (parseFloat(order.orderPrice) * 0.13),
+          total_cost: (parseFloat(order.orderPrice) * 1.13)
         }
       }
     }
