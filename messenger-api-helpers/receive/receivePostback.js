@@ -78,7 +78,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .renewSessionAndReturnOrder(senderId)
             .then(order => {
-              send.sendOrderedBurgerUpsizeMessage(senderId);
+              send.sendOrderedMessage(senderId, order);
             })
             .catch(err => console.log(err));
           break;

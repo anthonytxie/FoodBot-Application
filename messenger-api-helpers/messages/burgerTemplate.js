@@ -35,7 +35,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
               {
                 type: "web_url",
                 url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
-                title: "Open Combo Customize Webview",
+                title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true
               }
