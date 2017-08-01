@@ -69,6 +69,7 @@ const handleReceivePostback = messagingEvent => {
               send.sendReceiptTemplate(senderId, order);
             })
             .catch(err => console.log(err));
+          break;
         // case "confirm-order":
         //   runner.confirmOrder(senderId).then(order => {
         //     send.sendReceiptTemplate(senderId, order);

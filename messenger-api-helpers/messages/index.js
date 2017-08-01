@@ -226,65 +226,41 @@ const upsizeOrderMessage = function(order, senderId) {
 
 
 
-// const orderAskContinue = function(order) {
-//   const attachment = {
-//     attachment: {
-//       type: "template",
-//       payload: {
-//         template_type: "button",
-//         text:
-//           "Alright! We added that to your order. Are you done or would you like to order more?",
-//         buttons: [
-//           {
-//             type: "postback",
-//             title: "Order More",
-//             payload: JSON.stringify({
-//               type: "see-menu"
-//             })
-//           },
-//           {
-//             type: "postback",
-//             title: "Done",
-//             payload: JSON.stringify({
-//               type: "receipt"
-//             })
-//           }
-//           // {
-//           //   type: "web_url",
-//           //   url: `https://foodbotapi.herokuapp.com/receipt?order=${order._id}`,
-//           //   title: "Done",
-//           //   webview_height_ratio: "full",
-//           //   messenger_extensions: true
-//           // }
-//         ]
-//       }
-//     }
-//   };
-//   return attachment;
-// };
-
-
-const orderAskContinue = function() {
-  return {
-    text:
-      "Alright! We added that to your order. Are you done or would you like to order more?",
-    quick_replies: [
-      {
-        content_type: "text",
-        title: "Order More",
-        payload: JSON.stringify({
-          type: "see-menu"
-        })
-      },
-      {
-        content_type: "text",
-        title: "Done",
-        payload: JSON.stringify({
-          type: "receipt"
-        })
+const orderAskContinue = function(order) {
+  const attachment = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "button",
+        text:
+          "Alright! We added that to your order. Are you done or would you like to order more?",
+        buttons: [
+          {
+            type: "postback",
+            title: "Order More",
+            payload: JSON.stringify({
+              type: "see-menu"
+            })
+          },
+          {
+            type: "postback",
+            title: "Done",
+            payload: JSON.stringify({
+              type: "see-receipt"
+            })
+          }
+          // {
+          //   type: "web_url",
+          //   url: `https://foodbotapi.herokuapp.com/receipt?order=${order._id}`,
+          //   title: "Done",
+          //   webview_height_ratio: "full",
+          //   messenger_extensions: true
+          // }
+        ]
       }
-    ]
+    }
   };
+  return attachment;
 };
 
 const confirmedMessageTemplate = () => {
