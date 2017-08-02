@@ -1,6 +1,12 @@
+//MODULES
 const express = require('express');
 const routes = express();
+
+//DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
+
+//SEND FUNCTIONS
+const send = require("../../messenger-api-helpers/send");
 
 
 routes.get("/receipt", (req, res) => {

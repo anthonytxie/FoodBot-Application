@@ -1,8 +1,10 @@
+// MODULES
 const express = require("express");
 const routes = express();
+
+//SEND FUNCTIONS
 const { handleReceivePostback } = require("../../messenger-api-helpers/receive/receivePostback");
 const {  handleReceiveMessage } = require("../../messenger-api-helpers/receive/receiveMessage");
-
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/", (req, res) => {

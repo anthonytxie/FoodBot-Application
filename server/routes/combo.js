@@ -1,8 +1,13 @@
+// MODULES
 const express = require('express');
 const routes = express();
-const itemDAO = require("./../../db/DAO/itemDAO");
-const send = require("../../messenger-api-helpers/send");
 const mongoose = require("mongoose");
+
+//DAO
+const itemDAO = require("./../../db/DAO/itemDAO");
+
+//SEND FUNCTIONS
+const send = require("../../messenger-api-helpers/send");
 
 
 routes.get("/burgercombo", (req, res) => {
