@@ -1,8 +1,7 @@
 // MODULES
-const express = require('express');
+const express = require("express");
 const routes = express();
 const mongoose = require("mongoose");
-
 
 // DAOS
 const itemDAO = require("./../../db/DAO/itemDAO");
@@ -15,19 +14,17 @@ const { findBurger } = require("../../messenger-api-helpers/messages/burgers");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-
 routes.get("/burgercustomize", (req, res) => {
-	let id = req.query.order;
-	let burgerName = req.query.name;
-	let senderId = req.query.sender;
-	let burgerObject = findBurger(burgerName);
-	res.render("burgercustomize", {
-		order_id: id,
-		sender_id: senderId,
-		burgerObject: burgerObject
-	});
+  let id = req.query.order;
+  let burgerName = req.query.name;
+  let senderId = req.query.sender;
+  let burgerObject = findBurger(burgerName);
+  res.render("burgercustomize", {
+    order_id: id,
+    sender_id: senderId,
+    burgerObject: burgerObject
+  });
 });
-
 
 routes.post("/burger", (req, res) => {
   const senderId = req.body.sender_id;
@@ -60,11 +57,12 @@ routes.post("/burger", (req, res) => {
     };
   };
   const burgerObject = burgerFormat(req.body);
-  itemDAO.postBurger(burgerObject, burgerObject._order).then(order => {
-    return send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
-  });
+  itemDAO
+    .postBurger(burgerObject, burgerObject._order)
+    .then(order => {
+      return send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
+    })
+    .catch(err => console.log(err));
 });
-
-
 
 module.exports = routes;

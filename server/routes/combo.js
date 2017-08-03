@@ -65,7 +65,6 @@ routes.post("/combo", (req, res) => {
     .then(() => {
       itemDAO.postSide(side, orderId);
     })
-    .catch(err => console.log(err))
     .then(order => {
       send.sendOrderedMessage(senderId, order);
     })
