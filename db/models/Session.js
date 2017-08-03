@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const schemaOptions =  require('../schemas/settings/schemaSettings');
 
 const sessionSchema = new Schema({
   session: String,

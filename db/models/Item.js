@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 const { burgerSchema } = require('./../schemas/burgerSchema');
 const { drinkSchema } = require('./../schemas/drinkSchema');
 const { sideSchema } = require('./../schemas/sideSchema');
