@@ -1,6 +1,6 @@
 const { Session, User } = require("./../models/index");
-
 const sessionDAO = {};
+const sessionTimeOutTime = 180000;
 
 sessionDAO.isSessionActive = function(PSID) {
     return new Promise((resolve, reject) => {
@@ -8,21 +8,23 @@ sessionDAO.isSessionActive = function(PSID) {
             .then(user => {
                 if (!user) {
                     resolve(false);
-                } else
+                } else {
                     return Session.findOne({ _user: user.id }).sort({
                         createdAt: -1
                     });
+                }
             })
             .then(session => {
                 if (
                     (session.isActive) &&
-                    (Date.now() - session.lastActiveDate) < 180000
+                    (Date.now() - session.lastActiveDate) < sessionTimeOutTime
                 ) {
                     resolve(true);
                 } else {
                     resolve(false);
                 }
-            });
+            })
+            .catch((err) => reject(err));
     });
 };
 
@@ -41,15 +43,6 @@ sessionDAO.findSessionById = function(sessionId) {
     });
 };
 
-sessionDAO.findAllSessions = function() {
-    return new Promise((resolve, reject) => {
-        Session.find()
-            .then(sessions => {
-                return resolve(sessions);
-            })
-            .catch(err => reject(err));
-    });
-};
 
 sessionDAO.createSession = function(PSID) {
     return new Promise((resolve, reject) => {
@@ -58,7 +51,6 @@ sessionDAO.createSession = function(PSID) {
                 const newSession = new Session({ _user: user._id });
                 return newSession.save();
             })
-            .catch(err => reject(err))
             .then(session => {
                 return User.findOneAndUpdate(
                     { PSID },
@@ -74,17 +66,21 @@ sessionDAO.createSession = function(PSID) {
     });
 };
 
-sessionDAO.sessionRenewal = function(PSID) {
+sessionDAO.renewSession = function(PSID) {
     return new Promise((resolve, reject) => {
         User.findOne({ PSID })
             .then(user => {
-                return Session.findOne({ _user: user._id }).sort({
-                    createdAt: -1
-                });
+                if (user) {
+                    return Session.findOne({ _user: user._id }).sort({
+                        createdAt: -1
+                    });
+                }
+                else {
+                    reject('there is no user');
+                }
             })
-            .catch(err => reject(err))
             .then(session => {
-                if ((Date.now() - session.lastActiveDate > 180000) || (!session.isActive)) {
+                if ((Date.now() - session.lastActiveDate > sessionTimeOutTime) || (!session.isActive)) {
                     return Session.findOneAndUpdate(
                         { _id: session._id },
                         { $set: { isActive: false } },
@@ -113,7 +109,6 @@ sessionDAO.closeSession = function(PSID) {
                     createdAt: -1
                 });
             })
-            .catch(err => reject(err))
             .then(session => {
                 return Session.findOneAndUpdate(
                     { _id: session._id },

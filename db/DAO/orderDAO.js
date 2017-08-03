@@ -13,7 +13,6 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
         });
         return newOrder.save();
       })
-      .catch(err => reject(err))
       .then(order => resolve(order))
       .catch(err => reject(err));
   });
@@ -25,15 +24,17 @@ orderDAO.getOrderById = (orderId) => {
       .then((order) => {
         resolve(order)
       })
+      .catch(err => reject(err));
   })
 
 }
 orderDAO.getAllOrders = () => {
   return new Promise((resolve, reject) => {
-    Order.find({}).populate("_items").exec(function(err, orders) {
-      if (err) return handleError(err);
-      resolve(orders)
-    });
+    populateOrder(Order.find({}))
+      .then((orders) => {
+        resolve(orders);
+      })
+      .catch((err) => reject(err));
   });
 };
 

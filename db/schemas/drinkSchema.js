@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-mongoose.Promise = global.Promise;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 
 const drinkSchema = new Schema(
@@ -15,8 +14,8 @@ const drinkSchema = new Schema(
         "pepsi",
         "dietPepsi",
         "7-up",
-        "crushOrange",
-        "dr.pepper",
+        "orangeCrush",
+        "drpepper",
         "icedTea",
         "gingerAle",
         "rootBeer",

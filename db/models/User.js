@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-mongoose.Promise = global.Promise;
-const schemaOptions =  require('../schemas/settings/schemaSettings');
 
 const userSchema = new Schema ({
 
   firstName: String,
 
   lastName: String,
-
+  // this is the unique page scoped id facebook messenger gives
   PSID: {
     type: String,
     unique: true,

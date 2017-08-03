@@ -10,7 +10,6 @@ userDAO.createUser = function(PSID) {
         const newSession = new Session({ _user: user._id });
         return newSession.save();
       })
-      .catch(err => reject(err))
       .then(session => {
         return User.findOneAndUpdate(
           { PSID },
@@ -34,7 +33,9 @@ userDAO.isUserCreated = function(PSID) {
         if (user) {
           resolve(true);
         }
-        else resolve(false);
+        else {
+          resolve(false);
+        }
       }).catch((err) => reject(err));
   });
 };
