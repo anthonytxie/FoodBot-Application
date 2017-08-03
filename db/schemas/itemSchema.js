@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-mongoose.Promise = global.Promise;
 const {disciminatorOptions} =  require('./settings/schemaSettings');
 const itemSchema = new mongoose.Schema({
   createdDate: {

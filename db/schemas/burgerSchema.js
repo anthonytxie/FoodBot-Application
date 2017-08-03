@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
 const { Schema } = mongoose;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 const { normalBurgers, specialBurgers } = require("./../../messenger-api-helpers/messages/burgers")

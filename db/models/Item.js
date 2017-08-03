@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-mongoose.Promise = global.Promise;
 const { burgerSchema } = require('./../schemas/burgerSchema');
 const { drinkSchema } = require('./../schemas/drinkSchema');
 const { sideSchema } = require('./../schemas/sideSchema');
