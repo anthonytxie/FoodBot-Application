@@ -10,7 +10,7 @@ const initialize = (senderId) => {
   return userDAO.isUserCreated(senderId)
     .then((isCreated) => {
       if (isCreated) {
-        return sessionDAO.sessionRenewal(senderId)
+        return sessionDAO.renewSession(senderId)
           .then((session) => {
             return orderDAO.initializeOrder(senderId, session._id)
           })
@@ -31,11 +31,11 @@ const isUserCreated = (senderId) => {
 // ===== SESSION ===============================================================
 
 const renewSession = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
+  return sessionDAO.renewSession(senderId)
 };
 
 const renewSessionAndReturnOrder = (senderId) => {
-  return sessionDAO.sessionRenewal(senderId)
+  return sessionDAO.renewSession(senderId)
     .then((session) => {
       return orderDAO.showOrderDetails(session._id)
     })
@@ -50,7 +50,7 @@ const isSessionActive = (senderId) => {
 
 const createNewOrder = (senderId) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .renewSession(senderId)
     .then(session => {
       return orderDAO.initializeOrder(senderId, session._id);
     })
@@ -69,7 +69,7 @@ const confirmOrder = (senderId) => {
 
 const unconfirmOrder = (senderId) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .renewSession(senderId)
     .then(session => {
       return orderDAO.confirmOrder(session._id, false);
     })
@@ -78,7 +78,7 @@ const unconfirmOrder = (senderId) => {
 
 const showCurrentOrder = (senderId) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .renewSession(senderId)
     .then(session => {
       return orderDAO.showOrderDetails(session._id);
     })
@@ -90,7 +90,7 @@ const showCurrentOrder = (senderId) => {
 
 const addItemtoOrder = (senderId, data) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .renewSession(senderId)
     .then(session => {
       return itemDAO.post(data, session._id);
     })
@@ -99,7 +99,7 @@ const addItemtoOrder = (senderId, data) => {
 
 const deleteMostRecentItemAdded = (senderId) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .renewSession(senderId)
     .then(session => {
       return itemDAO.deleteMostRecentItem(session._id);
     })
@@ -109,7 +109,7 @@ const deleteMostRecentItemAdded = (senderId) => {
 
 const upgradeCombo = (senderId, data) => {
   return sessionDAO
-    .sessionRenewal(senderId)
+    .renewSession(senderId)
     .then(session => {
       return itemDAO.postCombo(session._id)
     })
