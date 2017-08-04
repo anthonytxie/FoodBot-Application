@@ -1,15 +1,7 @@
-const { normalBurgers, specialBurgers } = require("./burgers");
-
-const findBurger = function(payloadData) {
-  return [...normalBurgers, ...specialBurgers]
-    .filter(x => {
-      return x.title === payloadData.title;
-    })
-    .pop();
-};
+const { menuItems, findItem } = require("./menuItems");
 
 const burgerTemplate = function(payloadData, order, senderId) {
-  const burger = findBurger(payloadData);
+  const burger = findItem(payloadData);
   const attachment = {
     attachment: {
       type: "template",

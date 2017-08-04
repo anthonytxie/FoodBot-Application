@@ -1,4 +1,4 @@
-const normalBurgers = [
+const menuItems = [
 	{
 		title: "Single Hamburger (No Cheese)",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
@@ -8,7 +8,7 @@ const normalBurgers = [
 			patties: 1,
 			standardToppings: ["standardBun"],
 			premiumToppings: [],
-			basePrice:  5.99
+			basePrice: 5.99
 		}
 	},
 	{
@@ -19,8 +19,8 @@ const normalBurgers = [
 			title: "Single Cheeseburger",
 			patties: 1,
 			standardToppings: ["standardBun"],
-			premiumToppings: ['standardCheese'],
-			basePrice:  6.99
+			premiumToppings: ["standardCheese"],
+			basePrice: 6.99
 		}
 	},
 
@@ -32,8 +32,8 @@ const normalBurgers = [
 			title: "Single Baconburger",
 			patties: 1,
 			standardToppings: ["standardBun"],
-			premiumToppings: ['bacon'],
-			basePrice:  7.49
+			premiumToppings: ["bacon"],
+			basePrice: 7.49
 		}
 	},
 
@@ -45,8 +45,8 @@ const normalBurgers = [
 			title: "Single Cheese Baconburger",
 			patties: 1,
 			standardToppings: ["standardBun"],
-			premiumToppings: ['standardCheese', 'bacon'],
-			basePrice:  8.49
+			premiumToppings: ["standardCheese", "bacon"],
+			basePrice: 8.49
 		}
 	},
 
@@ -59,7 +59,7 @@ const normalBurgers = [
 			patties: 2,
 			standardToppings: ["standardBun"],
 			premiumToppings: [],
-			basePrice:  7.99
+			basePrice: 7.99
 		}
 	},
 
@@ -128,10 +128,8 @@ const normalBurgers = [
 			premiumToppings: ["soyPatty"],
 			standardToppings: ["standardBun"]
 		}
-	}
-];
+	},
 
-const specialBurgers = [
 	{
 		title: "Top Bun",
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
@@ -191,7 +189,8 @@ const specialBurgers = [
 	{
 		title: "Say Cheese",
 		image_url: "http://i.imgur.com/Jq4kO7S.jpg",
-		subtitle: "Double cheeseburger, stuffed between two grilled cheese buns.",
+		subtitle:
+			"Double cheeseburger, stuffed between two grilled cheese buns.",
 		burgerObject: {
 			title: "Say Cheese",
 			patties: 2,
@@ -238,16 +237,38 @@ const specialBurgers = [
 			standardToppings: ["standardBun"],
 			basePrice: 9.99
 		}
+	},
+	{
+		title: "Fries",
+		image_url: "Perfectly cut, golden cripsy, potato fries.",
+		subtitle: "One beef patty, on a sesame bun."
+	},
+	{
+		title: "Poutine",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "Poutine, the Canadian way."
+	},
+
+	{
+		title: "Cheesy Fries",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "Cheesy fries."
+	},
+
+	{
+		title: "Milkshake",
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "Delicious ice-cream milkshake"
 	}
 ];
 
-
-
-const findBurger = function(name) {
-  return [...normalBurgers, ...specialBurgers]
-    .filter(x => {
-      return x.title === name;
-    })
-    .pop();
+const findItem = function(name) {
+	return [...menuItems]
+		.filter(x => {
+			return x.title === name;
+		})
+		.pop();
 };
-module.exports = { normalBurgers, specialBurgers, findBurger };
+
+
+module.exports = { menuItems, findItem };

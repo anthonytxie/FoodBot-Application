@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { disciminatorOptions } = require("./settings/schemaSettings");
-const { normalBurgers, specialBurgers } = require("./../../messenger-api-helpers/messages/burgers")
-const { premiumToppings } = require("./../../messenger-api-helpers/messages/toppings")
+const { menuItems } = require("./../../messenger-api-helpers/messages/menuItems");
+const { premiumToppings } = require("./../../messenger-api-helpers/messages/toppings");
 
 
 
@@ -45,7 +45,7 @@ const burgerSchema = new Schema(
 
 
 burgerSchema.virtual("price").get(function() {
-  const burgerList = [...normalBurgers, ...specialBurgers].filter(x => {
+  const burgerList = [menuItems].filter(x => {
     return x.title === this.itemName;
   });
   const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
