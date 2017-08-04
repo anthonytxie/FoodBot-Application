@@ -9,7 +9,7 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 
 //HELPER FUNCTIONS
 const { premiumToppingsArray } = require("../../messenger-api-helpers/messages/toppings");
-const { findItem } = require("../../messenger-api-helpers/messages/burgers");
+const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
