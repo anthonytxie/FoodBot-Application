@@ -64,13 +64,13 @@ const menuMessage = {
                 type: "see-normal-burgers"
             })
         },
-        {
-            content_type: "text",
-            title: "Sides",
-            payload: JSON.stringify({
-                type: "see-sides-menu"
-            })
-        }
+        // {
+        //     content_type: "text",
+        //     title: "Sides",
+        //     payload: JSON.stringify({
+        //         type: "see-sides-menu"
+        //     })
+        // }
     ]
 };
 
