@@ -1,7 +1,9 @@
 const { menuItems, findItem } = require("./menuItems");
+console.log(findItem('Top Bun'))
+
 
 const burgerTemplate = function(payloadData, order, senderId) {
-  const burger = findItem(payloadData);
+  const burger = findItem(payloadData.title);
   const attachment = {
     attachment: {
       type: "template",
