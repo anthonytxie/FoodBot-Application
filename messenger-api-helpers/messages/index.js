@@ -3,7 +3,8 @@ const {
   specialBurgerMenuMessageOne,
   specialBurgerMenuMessageTwo,
   normalBurgerMenuMessageOne,
-  normalBurgerMenuMessageTwo
+  normalBurgerMenuMessageTwo,
+  normalBurgerMenuMessageThree
 } = require("./menu");
 
 const {receiptMessageTemplate} = require('./receiptTemplate');
@@ -278,6 +279,7 @@ module.exports = {
   specialBurgerMenuMessageTwo,
   normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo,
+  normalBurgerMenuMessageThree,
   burgerTemplate,
   upsizeOrderMessage,
   confirmedMessageTemplate,

@@ -98,7 +98,23 @@ const normalBurgerMenuMessageTwo = {
             top_element_style: "compact",
             elements: [
                 burgerMenuTemplate(menuItems[4]),
-                burgerMenuTemplate(menuItems[5])
+                burgerMenuTemplate(menuItems[5]),
+                burgerMenuTemplate(menuItems[6]),
+                burgerMenuTemplate(menuItems[7])
+            ]
+        }
+    }
+};
+
+const normalBurgerMenuMessageThree = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                burgerMenuTemplate(menuItems[8]),
+                burgerMenuTemplate(menuItems[9])
             ],
             buttons: [
                 {
@@ -120,10 +136,10 @@ const specialBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(menuItems[6]),
-                burgerMenuTemplate(menuItems[7]),
-                burgerMenuTemplate(menuItems[8]),
-                burgerMenuTemplate(menuItems[9])
+                burgerMenuTemplate(menuItems[10]),
+                burgerMenuTemplate(menuItems[11]),
+                burgerMenuTemplate(menuItems[12]),
+                burgerMenuTemplate(menuItems[13])
             ]
         }
     }
@@ -136,8 +152,11 @@ const specialBurgerMenuMessageTwo = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(menuItems[10]),
-                burgerMenuTemplate(menuItems[11])
+                burgerMenuTemplate(menuItems[14]),
+                burgerMenuTemplate(menuItems[15]),
+                burgerMenuTemplate(menuItems[16])
+                burgerMenuTemplate(menuItems[17])
+
             ],
             buttons: [
                 {
@@ -152,26 +171,27 @@ const specialBurgerMenuMessageTwo = {
     }
 };
 
-// const sideMenuMessage = {
-//     attachment: {
-//         type: "template",
-//         payload: {
-//             template_type: "list",
-//             top_element_style: "compact",
-//             elements: [
-//                 sideMenuTemplate(sides[0]),
-//                 sideMenuTemplate(sides[1]),
-//                 sideMenuTemplate(sides[2]),
-//                 sideMenuTemplate(sides[3])
-//             ]
-//         }
-//     }
-// };
+const sideMenuMessage = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                sideMenuTemplate(menuItems[0]),
+                sideMenuTemplate(menuItems[1]),
+                sideMenuTemplate(menuItems[2]),
+                sideMenuTemplate(menuItems[3])
+            ]
+        }
+    }
+};
 
 module.exports = {
     menuMessage,
     specialBurgerMenuMessageOne,
     specialBurgerMenuMessageTwo,
     normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo
+    normalBurgerMenuMessageTwo,
+    normalBurgerMenuMessageThree
 };

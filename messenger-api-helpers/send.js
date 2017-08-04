@@ -35,6 +35,9 @@ const sendNormalBurgerMenu = (recipientId, data) => {
   setTimeout(() => {
     sendMessage(recipientId, messages.normalBurgerMenuMessageTwo);
   }, 500);
+  setTimeout(() => {
+    sendMessage(recipientId, messages.normalBurgerMenuMessageThree);
+  }, 500);
 };
 
 const sendDrinkMenuMessage = (recipientId, data) => {
