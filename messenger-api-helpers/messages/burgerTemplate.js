@@ -1,6 +1,4 @@
 const { menuItems, findItem } = require("./menuItems");
-console.log(findItem('Top Bun'))
-
 
 const burgerTemplate = function(payloadData, order, senderId) {
   const burger = findItem(payloadData.title);
@@ -22,7 +20,13 @@ const burgerTemplate = function(payloadData, order, senderId) {
                   data: {
                     foodType: "burger",
                     customize: false,
-                    foodObject: burger.burgerObject
+                    foodObject: {
+                      title: burger.title,
+                      patties: burger.patties,
+                      standardToppings: burger.standardToppings,
+                      premiumToppings: burger.premiumToppings,
+                      basePrice: burger.basePrice
+                    }
                   }
                 })
               },
@@ -41,5 +45,6 @@ const burgerTemplate = function(payloadData, order, senderId) {
   };
   return attachment;
 };
+
 
 module.exports = { burgerTemplate };

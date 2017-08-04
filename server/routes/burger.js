@@ -19,11 +19,11 @@ routes.get("/burgercustomize", (req, res) => {
   let id = req.query.order;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
-  let burgerObject = findItem(burgerName);
+  let burger = findItem(burgerName);
   res.render("burgercustomize", {
     order_id: id,
     sender_id: senderId,
-    burgerObject: burgerObject
+    burger: burger
   });
 });
 

@@ -39,11 +39,6 @@ const burgerSchema = new Schema(
 
 
 
-
-
-
-
-
 burgerSchema.virtual("price").get(function() {
   const burgerList = [...menuItems].filter(x => {
     return x.title === this.itemName;
