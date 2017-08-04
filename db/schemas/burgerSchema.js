@@ -45,7 +45,7 @@ const burgerSchema = new Schema(
 
 
 burgerSchema.virtual("price").get(function() {
-  const burgerList = [menuItems].filter(x => {
+  const burgerList = [...menuItems].filter(x => {
     return x.title === this.itemName;
   });
   const standardBurgerPremiumToppings = burgerList[0].burgerObject.premiumToppings.sort();
