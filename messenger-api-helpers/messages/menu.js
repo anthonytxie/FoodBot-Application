@@ -154,7 +154,7 @@ const specialBurgerMenuMessageTwo = {
             elements: [
                 burgerMenuTemplate(menuItems[14]),
                 burgerMenuTemplate(menuItems[15]),
-                burgerMenuTemplate(menuItems[16])
+                burgerMenuTemplate(menuItems[16]),
                 burgerMenuTemplate(menuItems[17])
 
             ],
