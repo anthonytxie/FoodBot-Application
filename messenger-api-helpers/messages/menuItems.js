@@ -124,9 +124,9 @@ const menuItems = [
 		subtitle: "Veggie burger with soy pattie.",
 		burgerObject: {
 			title: "Veggie Burger",
-
 			premiumToppings: ["soyPatty"],
-			standardToppings: ["standardBun"]
+			standardToppings: ["standardBun"],
+			basePrice: 7.99
 		}
 	},
 
