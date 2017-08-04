@@ -25,7 +25,7 @@ const sendSpecialBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
   setTimeout(() => {
     sendMessage(recipientId, messages.specialBurgerMenuMessageTwo);
-  }, 500);
+  }, 400);
 };
 
 
@@ -34,10 +34,10 @@ const sendNormalBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.normalBurgerMenuMessageOne);
   setTimeout(() => {
     sendMessage(recipientId, messages.normalBurgerMenuMessageTwo);
-  }, 500);
+  }, 400);
   setTimeout(() => {
     sendMessage(recipientId, messages.normalBurgerMenuMessageThree);
-  }, 500);
+  }, 800);
 };
 
 const sendDrinkMenuMessage = (recipientId, data) => {
