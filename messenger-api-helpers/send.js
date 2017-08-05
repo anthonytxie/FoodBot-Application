@@ -77,9 +77,6 @@ const sendReceiptTemplate = (recipientId, order) => {
 };
 
 // ===== ECHO & GENERIC ===============================================================
-const sendGenericTemplate = (recipientId) => {
-  sendMessage(recipientId, messages.genericTemplate)
-};
 
 const sendEchoMessage = (recipientId, message) => {
   sendMessage(recipientId, messages.messageTemplate(message));

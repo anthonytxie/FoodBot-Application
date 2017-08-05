@@ -152,44 +152,6 @@ const orderAskContinue = function(order) {
 
 const askFriesSizeMessage = function(order) {
   return {
-    text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
-    quick_replies: [
-      {
-        content_type: "text",
-        title: "Medium",
-        payload: JSON.stringify({
-          type: "order-fries",
-          data: {
-            foodObject: {
-              _order: order._id,
-              itemName: "fries",
-              itemSize: "medium"
-            }
-          }
-        })
-      },
-      {
-        content_type: "text",
-        title: "Large",
-        payload: JSON.stringify({
-          type: "order-fries",
-          data: {
-            foodObject: {
-              _order: order._id,
-              itemName: "fries",
-              itemSize: "large"
-            }
-          }
-        })
-      }
-    ]
-  };
-};
-
-
-
-const askMilkshakeFlavorMessage = function(order) {
-  return {
     text:
       "Would you like to see our favourite burgers, standard burgers, or sides?",
     quick_replies: [
@@ -217,6 +179,54 @@ const askMilkshakeFlavorMessage = function(order) {
     ]
   };
 };
+
+const askMilkshakeFlavorMessage = function(order) {
+  return {
+    text: "Would you like vanilla, chocolate, or strawberry?",
+    quick_replies: [
+      {
+        content_type: "text",
+        title: "Vanilla",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "vanillaMilkshake"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Chocolate",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "chocolateMilkshake"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Strawberry",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "strawberryMilkshake"
+            }
+          }
+        })
+      }
+    ]
+  };
+};
+
 module.exports = {
   messageTemplate,
   persistentMenu,
