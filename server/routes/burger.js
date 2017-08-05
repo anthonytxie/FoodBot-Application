@@ -66,7 +66,6 @@ routes.post("/burger", (req, res) => {
   itemDAO
     .postBurger(burger.foodObject, burger._order)
     .then(order => {
-      console.log(order._id)
       return send.sendOrderedBurgerUpsizeMessage(senderId, order);
     })
     .catch(err => console.log(err));
