@@ -8,12 +8,13 @@ const itemDAO = require("./../../db/DAO/itemDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 
 //HELPER FUNCTIONS
-const { premiumToppingsArray } = require("../../messenger-api-helpers/messages/toppings");
+const {
+  premiumToppingsArray
+} = require("../../messenger-api-helpers/messages/toppings");
 const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
-
 
 routes.get("/burgercustomize", (req, res) => {
   let id = req.query.order;
@@ -50,12 +51,16 @@ routes.post("/burger", (req, res) => {
     }
 
     return {
-      patties: patties,
-      itemName: itemName,
-      premiumToppings: [...premiumToppings],
-      standardToppings: [...standardToppings]
+      orderId: _order,
+      foodObject: {
+        patties: patties,
+        itemName: itemName,
+        premiumToppings: [...premiumToppings],
+        standardToppings: [...standardToppings]
+      }
     };
   };
+  
   const burgerObject = burgerFormat(req.body);
   itemDAO
     .postBurger(burgerObject, burgerObject._order)

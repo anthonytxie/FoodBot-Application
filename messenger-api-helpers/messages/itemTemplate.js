@@ -18,7 +18,9 @@ const burgerTemplate = function(payloadData, order, senderId) {
                 payload: JSON.stringify({
                   type: "order-burger",
                   data: {
+                    orderId: order._id,
                     foodObject: {
+                      _order: order._id,
                       itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
