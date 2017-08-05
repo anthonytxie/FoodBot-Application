@@ -30,7 +30,7 @@ html(lang="en")
 			- const id = item._id; // id of current item
 
 			- let combo = false; // whether this item is a burger with a combo
-			if name === "burger"
+			if type === "burger"
 				if index <= items.length - 3
 					- const next_item = items[index + 1]; // check if the following item is a drink or fry with the itemCombo property
 					- const next_next_item = items[index + 2];
@@ -44,7 +44,7 @@ html(lang="en")
 				- price += item.price;
 
 				input(type="hidden", name="order_id", value=order_id)
-				input(type="hidden", name=name, value=id)
+				input(type="hidden", name=type, value=id)
 
 				if combo
 					// sort the next 2 rows, display side first
