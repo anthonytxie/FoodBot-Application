@@ -24,7 +24,7 @@ const menuMessage = {
             content_type: "text",
             title: "Sides",
             payload: JSON.stringify({
-                type: "see-sides-menu"
+                type: "see-sides"
             })
         }
     ]
