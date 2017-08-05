@@ -10,7 +10,7 @@ const premiumToppings = {
   blueCheese: 1.5,
   cheeseSauce: 2.5,
   gravySide: 1.5,
-  sauteedMushroom: 1.,
+  sauteedMushrooms: 1,
   friedEgg: 0,
   standardCheese: 0
 };
