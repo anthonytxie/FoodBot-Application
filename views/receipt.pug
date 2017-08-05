@@ -47,7 +47,8 @@ html(lang="en")
 				input(type="hidden", name=name, value=id)
 
 				if combo
-					if next_item.itemType === "drink" // the next 2 items are part of combo but only get sorted here
+					// sort the next 2 rows, display side first
+					if next_item.itemType === "drink"
 						- const combo_drink = next_item;
 						- const combo_side = next_next_item;
 					else
