@@ -30,6 +30,7 @@ html(lang="en")
 			- const id = item._id; // id of current item
 
 			- let combo = false; // whether this item is a burger with a combo
+			- console.log("cats");
 			if type === "burger"
 				if index <= items.length - 3
 					if itemCombo in items[index + 1]
@@ -44,10 +45,10 @@ html(lang="en")
 				input(type="hidden", name="order_id", value=order._id)
 				input(type="hidden", name=type, value=id)
 
-				- console.log("combo: ");
-				- console.log(combo);
-
 				if combo
+
+					p combo happened
+
 					// sort the next 2 rows, display side first
 					if items[index + 1] === "drink"
 						- const combo_drink = items[index + 1];
