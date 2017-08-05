@@ -32,7 +32,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
+                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true
@@ -79,7 +79,7 @@ const sideTemplate = function(payloadData, order, senderId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
+                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true
