@@ -15,37 +15,17 @@ const messageTemplate = message => {
   return { text: message };
 };
 
-const confirmOrderButton = {
+
+// ===== PERSISTENT MENU ===============================================================
+
+const seeMenuButton = {
   type: "postback",
-  title: "Confirm Order",
+  title: "New Order",
   payload: JSON.stringify({
-    type: "confirm-order"
+    type: "see-menu"
   })
 };
 
-const unconfirmOrderButton = {
-  type: "postback",
-  title: "Unconfirm Order",
-  payload: JSON.stringify({
-    type: "unconfirm-order"
-  })
-};
-
-const deleteLastItemButton = {
-  type: "postback",
-  title: "Delete Last Item",
-  payload: JSON.stringify({
-    type: "delete-last-item"
-  })
-};
-
-const showOrderDetailsButton = {
-  type: "postback",
-  title: "Show Order Details",
-  payload: JSON.stringify({
-    type: "show-current-order"
-  })
-};
 const newOrderButton = {
   type: "postback",
   title: "New Order",
@@ -54,46 +34,6 @@ const newOrderButton = {
   })
 };
 
-const orderBurgerButton = {
-  type: "postback",
-  title: "Order Burger",
-  payload: JSON.stringify({
-    type: "order-item",
-    data: {
-      foodType: "burger"
-    }
-  })
-};
-
-const orderDrinkButton = {
-  type: "postback",
-  title: "Order Drink",
-  payload: JSON.stringify({
-    type: "order-item",
-    data: {
-      foodType: "drink"
-    }
-  })
-};
-
-const orderSideButton = {
-  type: "postback",
-  title: "Order Side",
-  payload: JSON.stringify({
-    type: "order-item",
-    data: {
-      foodType: "side"
-    }
-  })
-};
-
-const initializeButton = {
-  type: "postback",
-  title: "Initialize",
-  payload: JSON.stringify({
-    type: "initialize"
-  })
-};
 
 const persistentMenu = {
   persistent_menu: [
@@ -108,6 +48,9 @@ const persistentMenu = {
   ]
 };
 
+
+// ===== GETTING STARTED ===============================================================
+
 const getStarted = {
   setting_type: "call_to_actions",
   thread_state: "new_thread",
@@ -119,6 +62,10 @@ const getStarted = {
     }
   ]
 };
+
+
+
+
 
 const welcomeMessage = {
   attachment: {
@@ -140,47 +87,6 @@ const welcomeMessage = {
           payload: JSON.stringify({
             type: "see-menu"
           })
-        }
-      ]
-    }
-  }
-};
-
-const burgerCustomizeWebview = {
-  type: "web_url",
-  url: "https://foodbotapi.herokuapp.com/burgercustomize",
-  title: "Open Burger Customize Webview",
-  webview_height_ratio: "full",
-  messenger_extensions: true
-};
-
-const comboCustomizeWebview = {
-  type: "web_url",
-  url: "https://foodbotapi.herokuapp.com/burgercustomize",
-  title: "Open Combo Customize Webview",
-  webview_height_ratio: "full",
-  messenger_extensions: true
-};
-
-const genericTemplate = {
-  attachment: {
-    type: "template",
-    payload: {
-      template_type: "generic",
-      elements: [
-        {
-          title: "Webview",
-          subtitle: "Webview test",
-          item_url: "https://www.oculus.com/en-us/rift/",
-          image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-          buttons: [burgerCustomizeWebview, comboCustomizeWebview]
-        },
-        {
-          title: "Order Commands",
-          subtitle: "Your Hands, Now in VR",
-          item_url: "https://www.oculus.com/en-us/touch/",
-          image_url: "http://messengerdemo.parseapp.com/img/touch.png",
-          buttons: [deleteLastItemButton, showOrderDetailsButton]
         }
       ]
     }
@@ -256,15 +162,11 @@ const orderAskContinue = function(order) {
   return attachment;
 };
 
-const confirmedMessageTemplate = () => {
-  return { text: "Ok we've confirmed the order" };
-};
 
 module.exports = {
   messageTemplate,
   persistentMenu,
   getStarted,
-  genericTemplate,
   welcomeMessage,
   menuMessage,
   specialBurgerMenuMessageOne,
@@ -274,7 +176,6 @@ module.exports = {
   normalBurgerMenuMessageThree,
   burgerTemplate,
   upsizeOrderMessage,
-  confirmedMessageTemplate,
   orderAskContinue,
   receiptMessageTemplate
 };

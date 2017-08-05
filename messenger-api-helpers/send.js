@@ -37,8 +37,8 @@ const sendNormalBurgerMenu = (recipientId, data) => {
   }, 800);
 };
 
-const sendFriesMenuMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.FriesMenuMessage);
+const sendSideMenuMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.sideMenuMessage);
 };
 
 
@@ -148,14 +148,11 @@ module.exports = {
   sendMenuMessage,
   sendReadReceipt,
   sendInitializeMessage,
-  sendCreateNewOrderMessage,
-  sendOrderMessage,
   sendEchoMessage,
   sendGenericTemplate,
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
-  sendDrinkMenuMessage,
-  sendFriesMenuMessage,
+  sendSideMenuMessage,
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
