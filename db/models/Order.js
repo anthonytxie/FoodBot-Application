@@ -52,19 +52,6 @@ orderSchema.virtual('orderPrice').get(function() {
   return price.toFixed(2)
 });
 
-// orderSchema.virtual('itemCombos').get(function() {
-//   let combosArray = []
-//   let comboItems = []
-//   for ( let item of this._items) {
-//     if (item.itemCombo) {
-//       comboItems.push(item)
-//     }
-//   }
-//   while(comboItems > 0)
-//     combosArray.push(comboItems.splice(0,2));
-//   return combosArray
-
-// })
 
 
 
