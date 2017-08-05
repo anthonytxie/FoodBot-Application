@@ -21,11 +21,11 @@ const burgerTemplate = function(payloadData, order, senderId) {
                     foodType: "burger",
                     customize: false,
                     foodObject: {
-                      title: burger.title,
+                      _order: order._id,
+                      itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
-                      premiumToppings: burger.premiumToppings,
-                      basePrice: burger.basePrice
+                      premiumToppings: burger.premiumToppings
                     }
                   }
                 })
