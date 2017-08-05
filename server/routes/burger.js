@@ -50,7 +50,6 @@ routes.post("/burger", (req, res) => {
     }
 
     return {
-      _order: _order,
       patties: patties,
       itemName: itemName,
       premiumToppings: [...premiumToppings],

@@ -1,31 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const {disciminatorOptions} =  require('./settings/schemaSettings');
+const { disciminatorOptions } = require("./settings/schemaSettings");
 
-const sideSchema = new Schema ({
-  itemType: {
-    type: String,
-    default: 'Sides'
+const sideSchema = new Schema(
+  {
+    itemType: {
+      type: String,
+      default: "Sides"
+    },
+    itemName: {
+      type: String,
+      enum: ["fries", "poutine", "cheesyFries"]
+    },
+
+    itemSize: {
+      type: String,
+      enum: ["small", "medium", "large"]
+    },
+
+    itemCombo: {
+      type: Boolean,
+      default: false
+    }
   },
-  itemName: {
-    type: String,
-    enum: ['mediumFries', 'largeFries', 'poutine', 'cheesyFries', 'smallFries'],
-    default: 'medium'
-  },
-
-  itemSize: {
-    type: String,
-    enum: ['small', 'medium', 'large']
-  },
-
-  itemCombo: {
-    type: Boolean,
-    default: false
-  }
-
-
-
-}, disciminatorOptions);
+  disciminatorOptions
+);
 
 sideSchema.virtual("price").get(function() {
   if (this.itemCombo) {
@@ -33,28 +32,27 @@ sideSchema.virtual("price").get(function() {
       return 6.0;
     } else if (this.itemName === "cheesyFries") {
       return 4.5;
-    } else if (this.itemName === "smallFries") {
+    } else if (this.itemName === "fries") {
       return 2.0;
-    } else {
-      switch (this.itemName) {
-        case "mediumFries":
-          return 3.99;
-          break;
-        case "largeFries":
-          return 4.99;
-          break;
-        case "poutine":
-          return 7.99;
-          break;
-        case "cheesyFries":
-          return 6.49;
-          break;
-        default:
-          return 3.99;
-          break;
+    } 
+  }
+  else {
+    if (this.itemName ==="cheesyFries") {
+      return 6.49;
+    }
+    else if (this.itemName ==="poutine") {
+      return 7.99;
+    }
+    else if (this.itemName ==="fries") {
+      if (this.itemSize ==="medium") {
+        return 3.99;
+      }
+      else if (this.itemSize ==="large") {
+        return 4.99;
       }
     }
   }
 });
 
-module.exports = {sideSchema};
+
+module.exports = { sideSchema };

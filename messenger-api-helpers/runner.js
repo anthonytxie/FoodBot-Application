@@ -88,11 +88,30 @@ const showCurrentOrder = (senderId) => {
 // ===== Items ===============================================================
 
 
-const addItemtoOrder = (senderId, data) => {
+const addBurgerToOrder = (senderId, data) => {
   return sessionDAO
     .renewSession(senderId)
     .then(session => {
-      return itemDAO.post(data, session._id);
+      return itemDAO.postBurger(data.foodObject, data.foodObject._order);
+    })
+    .catch(err => console.log(err));
+};
+
+
+const addSideToOrder = (senderId, data) => {
+  return sessionDAO
+    .renewSession(senderId)
+    .then(session => {
+      return itemDAO.postSide(data.foodObject, data.orderId);
+    })
+    .catch(err => console.log(err));
+};
+
+const addDrinkToOrder = (senderId, data) => {
+  return sessionDAO
+    .renewSession(senderId)
+    .then(session => {
+      return itemDAO.postDrink(data.foodObject, data.orderId);
     })
     .catch(err => console.log(err));
 };
@@ -107,26 +126,17 @@ const deleteMostRecentItemAdded = (senderId) => {
 };
 
 
-const upgradeCombo = (senderId, data) => {
-  return sessionDAO
-    .renewSession(senderId)
-    .then(session => {
-      return itemDAO.postCombo(session._id)
-    })
-    .catch(err => console.log(err))
-}
-
-
 module.exports = {
   initialize,
   createNewOrder,
   confirmOrder,
   unconfirmOrder,
-  addItemtoOrder,
+  addBurgerToOrder,
+  addSideToOrder,
+  addDrinkToOrder,
   deleteMostRecentItemAdded,
   showCurrentOrder,
   renewSession,
-  upgradeCombo,
   isSessionActive,
   isUserCreated,
   renewSessionAndReturnOrder

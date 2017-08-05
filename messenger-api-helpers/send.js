@@ -37,7 +37,7 @@ const sendNormalBurgerMenu = (recipientId, data) => {
   }, 800);
 };
 
-const sendSideMenuMessage = (recipientId, data) => {
+const sendSideMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.sideMenuMessage);
 };
 
@@ -47,6 +47,8 @@ const sendOrderedMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.orderAskContinue(order))
 };
 
+
+// ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
 };
@@ -54,6 +56,16 @@ const sendBurgerOrderPrompt = (recipientId, data, order) => {
 const sendOrderedBurgerUpsizeMessage = (recipientId, data, order) => {
   sendMessage(recipientId, messages.upsizeOrderMessage(order, recipientId));
 };
+
+const askFriesSize = (recipientId, order) => {
+  sendMessage(recipientId, messages.askFriesSizeMessage(order));
+};
+
+const askMilkshakeFlavor = (recipientId, order) => {
+  sendMessage(recipientId, messages.askMilkshakeFlavorMessage(order));
+};
+
+
 
 
 // ===== RECEIPT ===============================================================
@@ -65,9 +77,6 @@ const sendReceiptTemplate = (recipientId, order) => {
 };
 
 // ===== ECHO & GENERIC ===============================================================
-const sendGenericTemplate = (recipientId) => {
-  sendMessage(recipientId, messages.genericTemplate)
-};
 
 const sendEchoMessage = (recipientId, message) => {
   sendMessage(recipientId, messages.messageTemplate(message));
@@ -149,15 +158,16 @@ module.exports = {
   sendReadReceipt,
   sendInitializeMessage,
   sendEchoMessage,
-  sendGenericTemplate,
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
-  sendSideMenuMessage,
+  sendSideMenu,
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
   sendFarewellMessage,
-  sendReceiptTemplate
+  sendReceiptTemplate,
+  askFriesSize,
+  askMilkshakeFlavor
 };
 
 

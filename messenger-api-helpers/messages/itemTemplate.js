@@ -18,21 +18,18 @@ const burgerTemplate = function(payloadData, order, senderId) {
                 payload: JSON.stringify({
                   type: "order-burger",
                   data: {
-                    foodType: "burger",
-                    customize: false,
                     foodObject: {
-                      title: burger.title,
+                      itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
-                      premiumToppings: burger.premiumToppings,
-                      basePrice: burger.basePrice
+                      premiumToppings: burger.premiumToppings
                     }
                   }
                 })
               },
               {
                 type: "web_url",
-                url: `https://foodbotapi.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
+                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true
@@ -45,6 +42,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
   };
   return attachment;
 };
+
 
 
 module.exports = { burgerTemplate };
