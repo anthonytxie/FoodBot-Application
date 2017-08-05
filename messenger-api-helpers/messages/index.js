@@ -4,7 +4,8 @@ const {
   specialBurgerMenuMessageTwo,
   normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo,
-  normalBurgerMenuMessageThree
+  normalBurgerMenuMessageThree,
+  sideMenuMessage
 } = require("./menu");
 
 const {receiptMessageTemplate} = require('./receiptTemplate');
@@ -51,17 +52,14 @@ const persistentMenu = {
 
 // ===== GETTING STARTED ===============================================================
 
-const getStarted = {
-  setting_type: "call_to_actions",
-  thread_state: "new_thread",
-  call_to_actions: [
-    {
-      payload: JSON.stringify({
-        type: "initialize"
-      })
-    }
-  ]
-};
+const getStarted = { 
+  get_started:{
+    payload: JSON.stringify({
+      type: 'initialize',
+    })
+  }
+}
+
 
 const welcomeMessage = {
   attachment: {

@@ -13,10 +13,10 @@ const setPersistentMenu = () => {
   sendApi.callThreadAPI('messenger_profile', messages.persistentMenu);
 };
 
-
 setGetStarted()
-
 setPersistentMenu()
 
 module.exports = { setPersistentMenu, setGetStarted };
+
+
 

@@ -37,7 +37,7 @@ const sendNormalBurgerMenu = (recipientId, data) => {
   }, 800);
 };
 
-const sendSideMenuMessage = (recipientId, data) => {
+const sendSideMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.sideMenuMessage);
 };
 
@@ -152,7 +152,7 @@ module.exports = {
   sendGenericTemplate,
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
-  sendSideMenuMessage,
+  sendSideMenu,
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,

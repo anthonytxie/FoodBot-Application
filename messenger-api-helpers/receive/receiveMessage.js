@@ -33,7 +33,7 @@ const handleReceiveMessage = messagingEvent => {
             break;
           case "see-sides":
             runner.renewSession(senderId).then(order => {
-              send.sendFriesMenuMessage(senderId);
+              send.sendSideMenu(senderId);
             });
             break;
           case "upgrade-combo":
