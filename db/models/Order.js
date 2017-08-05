@@ -59,10 +59,10 @@ orderSchema.virtual('orderCombo').get(function() {
   for (i=0; i < this._items.length; i++) {
     if (this._items[i].itemCombo) {
       if (this._items[i-1].itemType  === "burger" ) {
-        comboArray.push(this._items[i-1])
+        array.push(this._items[i-1])
       } else {
-        comboArray.push(this._items[i-1])
-        comboArray.push(this._items[i])
+        array.push(this._items[i-1])
+        array.push(this._items[i])
       }
     }
   }
