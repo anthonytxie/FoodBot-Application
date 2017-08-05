@@ -40,6 +40,7 @@ const handleReceivePostback = messagingEvent => {
             runner.renewSessionAndReturnOrder(senderId)
               .then((order) => {
                 data[orderId] = order._id;
+                console.log(data);
                 return runner.addSideToOrder(senderId, data)
               })
               .then((order) => {
