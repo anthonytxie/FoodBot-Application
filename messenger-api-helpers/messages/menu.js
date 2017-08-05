@@ -66,7 +66,7 @@ const sideMenuTemplate = sideObject => {
                     type: "order-side",
                     data: {
                         foodObject: {
-                            itemName: sideObject.title,
+                            itemName: sideObject.itemName
                         }
                     }
                 })

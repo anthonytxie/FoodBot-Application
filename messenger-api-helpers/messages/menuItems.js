@@ -223,14 +223,18 @@ const menuItems = [
 		type: "side",
 
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Perfectly cut, golden cripsy, potato fries."
+		subtitle: "Perfectly cut, golden cripsy, potato fries.",
+		itemName: "fries"
+
 	},
 	{
 		title: "Poutine",
 		type: "side",
 		customize: false,
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Poutine, the Canadian way."
+		subtitle: "Poutine, the Canadian way.",
+		itemName: "poutine"
+
 	},
 
 	{
@@ -238,15 +242,17 @@ const menuItems = [
 		type: "side",
 		customize: false,
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Cheesy fries."
+		subtitle: "Cheesy fries.",
+		itemName: "cheesyFries"
 	},
 
 	{
 		title: "Milkshake",
 		type: "side",
-
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Delicious ice-cream milkshake"
+		subtitle: "Delicious ice-cream milkshake",
+		itemName: "milkshake"
+
 	}
 ];
 
