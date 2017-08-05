@@ -48,7 +48,7 @@ const handleReceivePostback = messagingEvent => {
           } 
             else if (data.foodObject.itemName === "fries") {
               runner.renewSessionAndReturnOrder(senderId).then(order => {
-                send.askFriesSize(senderId);
+                send.askFriesSize(senderId, order);
               });
             } else if (data.foodObject.itemName === "milkshake") {
               runner.renewSessionAndReturnOrder(senderId).then(order => {
