@@ -39,7 +39,7 @@ const handleReceivePostback = messagingEvent => {
           if (data.foodObject.itemName === "cheesyFries" || data.foodObject.itemName === "poutine" ) {
             runner.renewSessionAndReturnOrder(senderId)
               .then((order) => {
-                return runner.addSideToOrder(senderId, {itemName: data.foodObject.itemName, orderId: order._id})
+                return runner.addSideToOrder(senderId, {foodObject: { itemName: data.foodObject.itemName}, orderId: order._id})
               })
               .then((order) => {
                 send.sendOrderedMessage(senderId, order);
