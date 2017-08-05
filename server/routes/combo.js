@@ -63,7 +63,7 @@ routes.post("/combo", (req, res) => {
   itemDAO
     .postDrink(drink, orderId)
     .then(() => {
-      itemDAO.postSide(side, orderId);
+      return itemDAO.postSide(side, orderId);
     })
     .then(order => {
       send.sendOrderedMessage(senderId, order);

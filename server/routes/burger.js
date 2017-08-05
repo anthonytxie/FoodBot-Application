@@ -62,11 +62,11 @@ routes.post("/burger", (req, res) => {
     };
   };
   
-  const burgerObject = burgerFormat(req.body);
+  const burger = burgerFormat(req.body);
   itemDAO
-    .postBurger(burgerObject, burgerObject._order)
+    .postBurger(burger.foodObject, burger._order)
     .then(order => {
-      return send.sendOrderedBurgerUpsizeMessage(senderId, burgerObject, order);
+      return send.sendOrderedBurgerUpsizeMessage(senderId, order);
     })
     .catch(err => console.log(err));
 });

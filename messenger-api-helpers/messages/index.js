@@ -82,7 +82,7 @@ const welcomeMessage = {
 
 // ===== ORDERS ===============================================================
 
-const upsizeOrderMessage = function(order, senderId) {
+const upsizeOrderMessage = function(senderId, order) {
   const attachment = {
     attachment: {
       type: "template",
