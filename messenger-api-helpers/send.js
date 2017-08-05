@@ -158,7 +158,6 @@ module.exports = {
   sendReadReceipt,
   sendInitializeMessage,
   sendEchoMessage,
-  sendGenericTemplate,
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
   sendSideMenu,
