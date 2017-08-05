@@ -4,17 +4,17 @@ const {
   specialBurgerMenuMessageTwo,
   normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo,
-  normalBurgerMenuMessageThree
+  normalBurgerMenuMessageThree,
+  sideMenuMessage
 } = require("./menu");
 
-const {receiptMessageTemplate} = require('./receiptTemplate');
+const { receiptMessageTemplate } = require("./receiptTemplate");
 
-const { burgerTemplate } = require("./burgerTemplate");
+const { burgerTemplate } = require("./itemTemplate");
 
 const messageTemplate = message => {
   return { text: message };
 };
-
 
 // ===== PERSISTENT MENU ===============================================================
 
@@ -34,33 +34,24 @@ const newOrderButton = {
   })
 };
 
-
 const persistentMenu = {
   persistent_menu: [
     {
       locale: "default",
       composer_input_disabled: false,
-      call_to_actions: [
-        seeMenuButton,
-        newOrderButton
-      ]
+      call_to_actions: [seeMenuButton, newOrderButton]
     }
   ]
 };
 
-
 // ===== GETTING STARTED ===============================================================
 
 const getStarted = {
-  setting_type: "call_to_actions",
-  thread_state: "new_thread",
-  call_to_actions: [
-    {
-      payload: JSON.stringify({
-        type: "initialize"
-      })
-    }
-  ]
+  get_started: {
+    payload: JSON.stringify({
+      type: "initialize"
+    })
+  }
 };
 
 const welcomeMessage = {
@@ -89,7 +80,6 @@ const welcomeMessage = {
   }
 };
 
-
 // ===== ORDERS ===============================================================
 
 const upsizeOrderMessage = function(order, senderId) {
@@ -102,7 +92,7 @@ const upsizeOrderMessage = function(order, senderId) {
         buttons: [
           {
             type: "web_url",
-            url: `https://foodbotapi.herokuapp.com/burgercombo?order=${order._id}&sender=${senderId}`,
+            url: `https://foodbotstaging.herokuapp.com/burgercombo?order=${order._id}&sender=${senderId}`,
             title: "Yes",
             webview_height_ratio: "full",
             messenger_extensions: true
@@ -114,15 +104,12 @@ const upsizeOrderMessage = function(order, senderId) {
               type: "order-continue"
             })
           }
-
         ]
       }
     }
   };
   return attachment;
 };
-
-
 
 const orderAskContinue = function(order) {
   const attachment = {
@@ -149,7 +136,7 @@ const orderAskContinue = function(order) {
           }
           // {
           //   type: "web_url",
-          //   url: `https://foodbotapi.herokuapp.com/receipt?order=${order._id}`,
+          //   url: `https://foodbotstaging.herokuapp.com/receipt?order=${order._id}`,
           //   title: "Done",
           //   webview_height_ratio: "full",
           //   messenger_extensions: true
@@ -161,6 +148,94 @@ const orderAskContinue = function(order) {
   return attachment;
 };
 
+// ===== ITEMS ===============================================================
+
+const askFriesSizeMessage = function(order) {
+  return {
+    text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
+    quick_replies: [
+      {
+        content_type: "text",
+        title: "Medium",
+        payload: JSON.stringify({
+          type: "order-fries",
+          data: {
+            orderId: order._id,
+
+            foodObject: {
+              itemName: "fries",
+              itemSize: "medium"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Large",
+        payload: JSON.stringify({
+          type: "order-fries",
+          data: {
+            orderId: order._id,
+
+            foodObject: {
+              itemName: "fries",
+              itemSize: "large"
+            }
+          }
+        })
+      }
+    ]
+  };
+};
+
+const askMilkshakeFlavorMessage = function(order) {
+  return {
+    text: "Would you like vanilla, chocolate, or strawberry?",
+    quick_replies: [
+      {
+        content_type: "text",
+        title: "Vanilla",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            orderId: order._id,
+            foodObject: {
+              itemName: "vanillaMilkshake"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Chocolate",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            orderId: order._id,
+
+            foodObject: {
+              itemName: "chocolateMilkshake"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Strawberry",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            orderId: order._id,
+
+            foodObject: {
+              itemName: "strawberryMilkshake"
+            }
+          }
+        })
+      }
+    ]
+  };
+};
 
 module.exports = {
   messageTemplate,
@@ -173,8 +248,11 @@ module.exports = {
   normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo,
   normalBurgerMenuMessageThree,
+  sideMenuMessage,
   burgerTemplate,
   upsizeOrderMessage,
   orderAskContinue,
-  receiptMessageTemplate
+  receiptMessageTemplate,
+  askFriesSizeMessage,
+  askMilkshakeFlavorMessage
 };

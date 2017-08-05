@@ -33,16 +33,26 @@ const handleReceiveMessage = messagingEvent => {
             break;
           case "see-sides":
             runner.renewSession(senderId).then(order => {
-              send.sendFriesMenuMessage(senderId);
+              send.sendSideMenu(senderId);
             });
             break;
           case "upgrade-combo":
-            runner
+            runner.renewSession
               .upgradeCombo(senderId)
-              .then((order) => {
-                send.sendOrderedMessage(senderId,order);
+              .then(order => {
+                send.sendOrderedMessage(senderId, order);
               })
               .catch(err => console.log(err));
+            break;
+          case "order-fries":
+            runner.addSideToOrder(senderId, data).then(order => {
+              send.sendOrderedMessage(senderId, order);
+            });
+            break;
+          case "order-shake":
+            runner.addDrinkToOrder(senderId, data).then(order => {
+              send.sendOrderedMessage(senderId, order);
+            });
             break;
           default:
             console.log(`unknown postback called ${type}`);

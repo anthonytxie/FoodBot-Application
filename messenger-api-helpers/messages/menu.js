@@ -1,10 +1,10 @@
 const { menuItems } = require("./menuItems");
 
-
 // ===== GENERAL MENU ===============================================================
 
 const menuMessage = {
-    text: "Would you like to see our favourite burgers, standard burgers, or sides?",
+    text:
+        "Would you like to see our favourite burgers, standard burgers, or sides?",
     quick_replies: [
         {
             content_type: "text",
@@ -20,16 +20,15 @@ const menuMessage = {
                 type: "see-normal-burgers"
             })
         },
-        // {
-        //     content_type: "text",
-        //     title: "Sides",
-        //     payload: JSON.stringify({
-        //         type: "see-sides-menu"
-        //     })
-        // }
+        {
+            content_type: "text",
+            title: "Sides",
+            payload: JSON.stringify({
+                type: "see-sides"
+            })
+        }
     ]
 };
-
 
 // ===== MENU TEMPLATES ===============================================================
 
@@ -54,7 +53,6 @@ const burgerMenuTemplate = burgerObject => {
     };
 };
 
-
 const sideMenuTemplate = sideObject => {
     return {
         title: sideObject.title,
@@ -65,10 +63,11 @@ const sideMenuTemplate = sideObject => {
                 type: "postback",
                 title: "Order Side",
                 payload: JSON.stringify({
-                    type: "show-side",
+                    type: "order-side",
                     data: {
-                        foodType: "side",
-                        title: sideObject.title
+                        foodObject: {
+                            itemName: sideObject.itemName
+                        }
                     }
                 })
             }
@@ -158,7 +157,6 @@ const specialBurgerMenuMessageTwo = {
                 burgerMenuTemplate(menuItems[15]),
                 burgerMenuTemplate(menuItems[16]),
                 burgerMenuTemplate(menuItems[17])
-
             ],
             buttons: [
                 {
@@ -184,11 +182,19 @@ const sideMenuMessage = {
                 sideMenuTemplate(menuItems[19]),
                 sideMenuTemplate(menuItems[20]),
                 sideMenuTemplate(menuItems[21])
+            ],
+            buttons: [
+                {
+                    title: "View More",
+                    type: "postback",
+                    payload: JSON.stringify({
+                        type: "see-menu"
+                    })
+                }
             ]
         }
     }
 };
-
 
 module.exports = {
     menuMessage,

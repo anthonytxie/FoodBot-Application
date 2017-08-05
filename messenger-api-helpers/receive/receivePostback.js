@@ -29,22 +29,40 @@ const handleReceivePostback = messagingEvent => {
           break;
         case "show-burger":
           runner
-            .renewSessionAndReturnOrder(senderId, data)
+            .renewSessionAndReturnOrder(senderId)
             .then(order => {
               send.sendBurgerOrderPrompt(senderId, data, order);
             })
             .catch(err => console.log(err));
           break;
-        case "order-burger":
-          if (data.customize === false) {
-            runner
-              .addItemtoOrder(senderId, data)
-              .then(order => {
-                send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
+        case "order-side":
+          if (data.foodObject.itemName === "cheesyFries" || data.foodObject.itemName === "poutine" ) {
+            runner.renewSessionAndReturnOrder(senderId)
+              .then((order) => {
+                return runner.addSideToOrder(senderId, {foodObject: { itemName: data.foodObject.itemName}, orderId: order._id})
               })
-              .catch(err => console.log(err));
-          } else {
-          }
+              .then((order) => {
+                send.sendOrderedMessage(senderId, order);
+              })
+          } 
+            else if (data.foodObject.itemName === "fries") {
+              runner.renewSessionAndReturnOrder(senderId).then(order => {
+                send.askFriesSize(senderId, order);
+              });
+            } else if (data.foodObject.itemName === "milkshake") {
+              runner.renewSessionAndReturnOrder(senderId).then(order => {
+                send.askMilkshakeFlavor(senderId, order);
+              });
+            }
+          
+          break;
+        case "order-burger":
+          runner
+            .addBurgerToOrder(senderId, data)
+            .then(order => {
+              send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
+            })
+            .catch(err => console.log(err));
           break;
         case "delete-last-item":
           runner
