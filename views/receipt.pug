@@ -21,21 +21,15 @@ html(lang="en")
 
 		- var items = order._items;
 
-		p= items
-
-		form Double Bacon Cheese Burger
-			.description Also includes ...
-			input(type="submit")
-			.price $13.00
-
-		form Burger Combo
-			.description Comes with ...
-			input(type="submit")
-			.price $8.00
-
-		form Fries
-			input(type="submit")
-			.price $2.00
+		each item in items
+			form= item.itemName
+				input(type="hidden", name="burger_id", value="VALUE")
+				input(type="hidden", name="drink_id", value="VALUE")
+				input(type="hidden", name="side_id", value="VALUE")
+				.toppings= item.standardToppings
+				.toppings= item.premiumToppings
+				input(type="submit")
+				.price $13.00
 
 		button SOUNDS GOOD
 		
