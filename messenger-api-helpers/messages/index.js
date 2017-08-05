@@ -171,6 +171,7 @@ module.exports = {
   normalBurgerMenuMessageOne,
   normalBurgerMenuMessageTwo,
   normalBurgerMenuMessageThree,
+  sideMenuMessage,
   burgerTemplate,
   upsizeOrderMessage,
   orderAskContinue,
