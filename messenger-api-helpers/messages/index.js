@@ -10,7 +10,7 @@ const {
 
 const {receiptMessageTemplate} = require('./receiptTemplate');
 
-const { burgerTemplate } = require("./burgerTemplate");
+const { burgerTemplate } = require("./itemTemplate");
 
 const messageTemplate = message => {
   return { text: message };

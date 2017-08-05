@@ -51,6 +51,10 @@ const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
 };
 
+const sendSideOrderPrompt = (recipientId, data) => {
+  sendMessage(recipientId, messages.sideTemplate(data));
+};
+
 const sendOrderedBurgerUpsizeMessage = (recipientId, data, order) => {
   sendMessage(recipientId, messages.upsizeOrderMessage(order, recipientId));
 };
@@ -154,6 +158,7 @@ module.exports = {
   sendNormalBurgerMenu,
   sendSideMenu,
   sendBurgerOrderPrompt,
+  sendSideOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
   sendFarewellMessage,
