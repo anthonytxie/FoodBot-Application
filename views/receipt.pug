@@ -19,7 +19,7 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
-		- var { items } = order
+		- var items = order.items;
 
 		each item in items
 			p= item.itemName
