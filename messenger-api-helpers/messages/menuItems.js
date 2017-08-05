@@ -252,7 +252,6 @@ const menuItems = [
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Delicious ice-cream milkshake",
 		itemName: "milkshake"
-
 	}
 ];
 
