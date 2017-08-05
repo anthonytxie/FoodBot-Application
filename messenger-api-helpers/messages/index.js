@@ -190,51 +190,33 @@ const askFriesSizeMessage = function(order) {
 
 const askMilkshakeFlavorMessage = function(order) {
   return {
-    text: "Would you like vanilla, chocolate, or strawberry?",
+    text:
+      "Would you like to see our favourite burgers, standard burgers, or sides?",
     quick_replies: [
       {
         content_type: "text",
-        title: "Vanilla",
+        title: "Our Favourites",
         payload: JSON.stringify({
-          type: "order-shake",
-          data: {
-            foodObject: {
-              _order: order._id,
-              itemName: "vanillaMilkshake"
-            }
-          }
+          type: "see-special-burgers"
         })
       },
       {
         content_type: "text",
-        title: "Chocolate",
+        title: "Normal Burgers",
         payload: JSON.stringify({
-          type: "order-shake",
-          data: {
-            foodObject: {
-              _order: order._id,
-              itemName: "chocolateMilkshake"
-            }
-          }
+          type: "see-normal-burgers"
         })
       },
       {
         content_type: "text",
-        title: "Strawberry",
+        title: "Sides",
         payload: JSON.stringify({
-          type: "order-shake",
-          data: {
-            foodObject: {
-              _order: order._id,
-              itemName: "strawberryMilkshake"
-            }
-          }
+          type: "see-sides"
         })
       }
     ]
   };
 };
-
 module.exports = {
   messageTemplate,
   persistentMenu,
