@@ -52,11 +52,11 @@ html(lang="en")
 
 					// sort the next 2 rows, display side first
 					if items[index + 1] === "drink"
-						- const combo_drink = items[index + 1];
-						- const combo_side = items[index + 2];
+						- combo_drink = items[index + 1];
+						- combo_side = items[index + 2];
 					else
-						- const combo_side = items[index + 1];
-						- const combo_drink = items[index + 2];
+						- combo_side = items[index + 1];
+						- combo_drink = items[index + 2];
 
 					- price	+= combo_drink.price;
 					.temp= combo_drink.itemName
