@@ -33,9 +33,7 @@ html(lang="en")
 			- console.log("cats");
 			if type === "burger"
 				if index <= items.length - 3
-					p could be a combo
 					if typeof itemCombo in items[index + 1] !== "undefined"
-						p combo set to true
 						- combo = true;
 
 			- let price = 0;
@@ -49,7 +47,8 @@ html(lang="en")
 
 				if combo
 
-					p combo happened
+					- let combo_drink = undefined;
+					- let combo_side = undefined;
 
 					// sort the next 2 rows, display side first
 					if items[index + 1] === "drink"
@@ -59,7 +58,13 @@ html(lang="en")
 						- const combo_side = items[index + 1];
 						- const combo_drink = items[index + 2];
 
-					
+					- price	+= combo_drink.price;
+					.temp= combo_drink.itemName
+					.price= combo_drink.price
+
+					- price	+= combo_side.price;
+					.temp= combo_side.itemName
+					.price= combo_side.price
 
 			- index++;
 
