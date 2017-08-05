@@ -230,7 +230,6 @@ const menuItems = [
 	{
 		title: "Poutine",
 		type: "side",
-		customize: false,
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
 		itemName: "poutine"
@@ -240,7 +239,6 @@ const menuItems = [
 	{
 		title: "Cheesy Fries",
 		type: "side",
-		customize: false,
 		image_url: "http://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Cheesy fries.",
 		itemName: "cheesyFries"

@@ -36,7 +36,7 @@ const handleReceivePostback = messagingEvent => {
             .catch(err => console.log(err));
           break;
         case "order-side":
-          if (data.foodObject.itemName === 'cheesyFries' || data.foodObject.itemName === 'poutine' ) {
+          if (data.foodObject.itemName === "cheesyFries" || data.foodObject.itemName === "poutine" ) {
             runner.renewSessionAndReturnOrder(senderId)
               .then((order) => {
                 data[orderId] = order._id;
