@@ -34,7 +34,7 @@ html(lang="en")
 			if type === "burger"
 				if index <= items.length - 3
 					p could be a combo
-					if itemCombo in items[index + 1]
+					if typeof itemCombo in items[index + 1] !== "undefined"
 						p combo set to true
 						- combo = true;
 
