@@ -69,6 +69,8 @@ orderSchema.virtual('orderCombo').get(function() {
 
   while (array.length > 0)
     comboArray.push(array.splice(0,3));
+
+  return comboArray;
 })
 
 
