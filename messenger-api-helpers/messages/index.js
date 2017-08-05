@@ -150,34 +150,41 @@ const orderAskContinue = function(order) {
 
 // ===== ITEMS ===============================================================
 
-const askFriesSizeMessage = {
-    text:
-      "Would you like to see our favourite burgers, standard burgers, or sides?",
+const askFriesSizeMessage = function(order) {
+  return {
+    text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
     quick_replies: [
       {
         content_type: "text",
-        title: "Our Favourites",
+        title: "Medium",
         payload: JSON.stringify({
-          type: "see-special-burgers"
+          type: "order-fries",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "fries",
+              itemSize: "medium"
+            }
+          }
         })
       },
       {
         content_type: "text",
-        title: "Normal Burgers",
+        title: "Large",
         payload: JSON.stringify({
-          type: "see-normal-burgers"
-        })
-      },
-      {
-        content_type: "text",
-        title: "Sides",
-        payload: JSON.stringify({
-          type: "see-sides"
+          type: "order-fries",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "fries",
+              itemSize: "large"
+            }
+          }
         })
       }
     ]
   };
-
+};
 
 const askMilkshakeFlavorMessage = function(order) {
   return {

@@ -48,7 +48,6 @@ const handleReceivePostback = messagingEvent => {
           } 
             else if (data.foodObject.itemName === "fries") {
               runner.renewSessionAndReturnOrder(senderId).then(order => {
-                console.log(order)
                 send.sendMenuMessage(senderId);
               });
             } else if (data.foodObject.itemName === "milkshake") {
