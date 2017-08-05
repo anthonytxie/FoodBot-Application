@@ -43,11 +43,11 @@ sideSchema.virtual("price").get(function() {
     else if (this.itemName ==="poutine") {
       return 7.99;
     }
-    else if (this.itemName ==='fries') {
-      if (this.itemSize ==='medium') {
+    else if (this.itemName ==="fries") {
+      if (this.itemSize ==="medium") {
         return 3.99;
       }
-      else if (this.itemName ==='large') {
+      else if (this.itemSize ==="large") {
         return 4.99;
       }
     }

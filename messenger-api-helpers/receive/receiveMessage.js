@@ -50,7 +50,7 @@ const handleReceiveMessage = messagingEvent => {
             });
             break;
           case "order-shake":
-            runner.addSideToOrder(senderId, data).then(order => {
+            runner.addDrinkToOrder(senderId, data).then(order => {
               send.sendOrderedMessage(senderId, order);
             });
             break;

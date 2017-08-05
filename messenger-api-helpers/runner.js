@@ -107,6 +107,15 @@ const addSideToOrder = (senderId, data) => {
     .catch(err => console.log(err));
 };
 
+const addDrinkToOrder = (senderId, data) => {
+  return sessionDAO
+    .renewSession(senderId)
+    .then(session => {
+      return itemDAO.postDrink(data.foodObject, data.orderId);
+    })
+    .catch(err => console.log(err));
+};
+
 const deleteMostRecentItemAdded = (senderId) => {
   return sessionDAO
     .renewSession(senderId)
@@ -124,6 +133,7 @@ module.exports = {
   unconfirmOrder,
   addBurgerToOrder,
   addSideToOrder,
+  addDrinkToOrder,
   deleteMostRecentItemAdded,
   showCurrentOrder,
   renewSession,
