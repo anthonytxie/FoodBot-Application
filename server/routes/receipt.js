@@ -9,6 +9,32 @@ const itemDAO = require("./../../db/DAO/itemDAO");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
+routes.get("/stripe", (req, res) => {
+  res.render("stripe.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
+});
+
+routes.post("/charge", (req, res) => {
+  let amount = 500;
+  stripe.customers.create({
+    _user: '1234',
+    _PSID: '1234',
+    source: req.body.stripeToken
+  }).then(customer => {
+    stripe.charges.create({
+      amount,
+      description: "sample charge",
+      currency: "cad",
+      customer: customer.id
+    })
+    .then(charge => {
+      res.render("charge.pug")
+    })
+
+  })
+})
+
+
+
 routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
   orderDAO
