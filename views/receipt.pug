@@ -19,7 +19,16 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
-		p= order
+		- var { items } = order
+
+		each item in items
+			p= item.itemName
+
+		each item in items
+			form= item.itemName
+				.description DESCRIPTION
+				input(type="submit")
+				.price $9.99
 
 		form Double Bacon Cheese Burger
 			.description Also includes ...
