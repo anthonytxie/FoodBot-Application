@@ -3,7 +3,7 @@ const express = require('express');
 const pug = require('pug');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const stripe = require('stripe')('sk_test_wGIrSvj5T4LPKJe603wPoLhw')
 
 // ROUTES
 const burger = require('./routes/burger');
@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-console.log(burger);
 
 // Route Middleware
 app.use(burger);

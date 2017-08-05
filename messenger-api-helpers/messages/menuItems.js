@@ -2,7 +2,7 @@ const menuItems = [
 	{
 		title: "Single Hamburger (No Cheese)",
 		type: "burger",
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -13,7 +13,7 @@ const menuItems = [
 		title: "Single Cheeseburger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with cheese, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -25,7 +25,7 @@ const menuItems = [
 		title: "Single Baconburger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with bacon, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -37,7 +37,7 @@ const menuItems = [
 		title: "Single Bacon Cheeseburger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with cheese and bacon, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -49,7 +49,7 @@ const menuItems = [
 		title: "Double Hamburger (No Cheese)",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Two beef patties, on a sesame bun.",
 		patties: 2,
 		standardToppings: ["standardBun"],
@@ -61,7 +61,7 @@ const menuItems = [
 		title: "Double Cheeseburger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/z7ANC0C.jpg",
+		image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Double cheese burger with caramelized onions.",
 
 		patties: 2,
@@ -74,7 +74,7 @@ const menuItems = [
 		title: "Double Baconburger (No Cheese)",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/aUB3Mrd.jpg",
+		image_url: "https://i.imgur.com/aUB3Mrd.jpg",
 		subtitle: "Two patties with bacon on a burger.",
 
 		patties: 2,
@@ -87,7 +87,7 @@ const menuItems = [
 		title: "Double Bacon Cheeseburger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/wySPVNs.jpg",
+		image_url: "https://i.imgur.com/wySPVNs.jpg",
 		subtitle: "Two patties with bacon & cheese.",
 
 		patties: 2,
@@ -100,7 +100,7 @@ const menuItems = [
 		title: "Chicken Burger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Chicken burger with mayo.",
 
 		premiumToppings: ["chickenPatty"],
@@ -112,7 +112,7 @@ const menuItems = [
 		title: "Veggie Burger",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/z7ANC0C.jpg",
+		image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Veggie burger with soy pattie.",
 		premiumToppings: ["soyPatty"],
 		standardToppings: ["standardBun"],
@@ -123,7 +123,7 @@ const menuItems = [
 		title: "Top Bun",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle:
 			"Two beef patties, fancy sauce, cheese, pickles, chopped lettuce, diced onion, served on a three part bun.",
 		patties: 2,
@@ -135,7 +135,7 @@ const menuItems = [
 		title: "The Richmond",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/z7ANC0C.jpg",
+		image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Double cheese burger with bacon & caramelized onions.",
 
 		patties: 2,
@@ -148,7 +148,7 @@ const menuItems = [
 		title: "Breakfast At Tiffany's",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/aUB3Mrd.jpg",
+		image_url: "https://i.imgur.com/aUB3Mrd.jpg",
 		subtitle:
 			"Double cheese burger with bacon, caramelized onions & a friend egg.",
 
@@ -162,7 +162,7 @@ const menuItems = [
 		title: "Varsity Blues",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/wySPVNs.jpg",
+		image_url: "https://i.imgur.com/wySPVNs.jpg",
 		subtitle: "Two beef patties, bacon, & blue cheese.",
 
 		patties: 2,
@@ -175,7 +175,7 @@ const menuItems = [
 		title: "Say Cheese",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/Jq4kO7S.jpg",
+		image_url: "https://i.imgur.com/Jq4kO7S.jpg",
 		subtitle: "Double cheeseburger, stuffed between two grilled cheese buns.",
 		patties: 2,
 		standardToppings: [],
@@ -187,7 +187,7 @@ const menuItems = [
 		title: "The Portobello",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/m4IQMAD.jpg",
+		image_url: "https://i.imgur.com/m4IQMAD.jpg",
 		subtitle:
 			"A Portobello stuffed with herbed cheese, rolled in panko crumbs & fried.",
 
@@ -200,7 +200,7 @@ const menuItems = [
 		title: "Chicken Chicken",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/m4IQMAD.jpg",
+		image_url: "https://i.imgur.com/m4IQMAD.jpg",
 		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
 		premiumToppings: ["chickenPatty"],
 		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
@@ -210,7 +210,7 @@ const menuItems = [
 		title: "Swiss Bank Account",
 		type: "burger",
 
-		image_url: "http://i.imgur.com/m4IQMAD.jpg",
+		image_url: "https://i.imgur.com/m4IQMAD.jpg",
 		subtitle: "Two beef patties, grilled mushrooms and swiss cheese.",
 
 		patties: 2,
@@ -222,7 +222,7 @@ const menuItems = [
 		title: "Fries",
 		type: "side",
 
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Perfectly cut, golden cripsy, potato fries.",
 		itemName: "fries"
 
@@ -230,7 +230,7 @@ const menuItems = [
 	{
 		title: "Poutine",
 		type: "side",
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
 		itemName: "poutine"
 
@@ -239,7 +239,7 @@ const menuItems = [
 	{
 		title: "Cheesy Fries",
 		type: "side",
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Cheesy fries.",
 		itemName: "cheesyFries"
 	},
@@ -247,7 +247,7 @@ const menuItems = [
 	{
 		title: "Milkshake",
 		type: "side",
-		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Delicious ice-cream milkshake",
 		itemName: "milkshake"
 	}
