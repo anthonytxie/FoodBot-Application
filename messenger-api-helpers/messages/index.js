@@ -20,7 +20,7 @@ const messageTemplate = message => {
 
 const seeMenuButton = {
   type: "postback",
-  title: "New Order",
+  title: "See Menu",
   payload: JSON.stringify({
     type: "see-menu"
   })
@@ -63,10 +63,6 @@ const getStarted = {
   ]
 };
 
-
-
-
-
 const welcomeMessage = {
   attachment: {
     type: "template",
@@ -92,6 +88,9 @@ const welcomeMessage = {
     }
   }
 };
+
+
+// ===== ORDERS ===============================================================
 
 const upsizeOrderMessage = function(order, senderId) {
   const attachment = {
