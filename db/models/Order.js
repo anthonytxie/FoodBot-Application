@@ -52,8 +52,24 @@ orderSchema.virtual('orderPrice').get(function() {
   return price.toFixed(2)
 });
 
+orderSchema.virtual('orderCombo').get(function() {
+  let comboArray = []
+  let array=[]
 
+  for (i=0; i < this._items.length; i++) {
+    if (this._items[i].itemCombo) {
+      if (this._items[i-1].itemType  === "burger" ) {
+        comboArray.push(this._items[i-1])
+      } else {
+        comboArray.push(this._items[i-1])
+        comboArray.push(this._items[i])
+      }
+    }
+  }
 
+  while (array.length > 0)
+    comboArray.push(array.splice(0,3));
+})
 
 
 const Order = mongoose.model('Order', orderSchema);

@@ -6,7 +6,7 @@ const sideSchema = new Schema(
   {
     itemType: {
       type: String,
-      default: "Sides"
+      default: "side"
     },
     itemName: {
       type: String,
