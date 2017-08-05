@@ -32,8 +32,7 @@ html(lang="en")
 			- let combo = false; // whether this item is a burger with a combo
 			if type === "burger"
 				if index <= items.length - 3
-					- const next_item = items[index + 1]; // check if the following item is a drink or fry with the itemCombo property
-					if "itemCombo" in next_item
+					if "itemCombo" in items[index + 1];
 						- combo = true;
 
 			- let price = 0;
@@ -54,13 +53,7 @@ html(lang="en")
 						- const combo_side = items[index + 1];
 						- const combo_drink = items[index + 2];
 
-					- price += combo_side.price; // display price and update total price
-					.temp= combo_side.itemName
-					.price= combo_side.price
 					
-					- price += combo_drink.price; // display price and update total price
-					.temp= combo_drink.itemName
-					.price= combo_drink.price
 
 			- index++;
 
