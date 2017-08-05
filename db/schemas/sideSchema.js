@@ -13,6 +13,11 @@ const sideSchema = new Schema ({
     default: 'medium'
   },
 
+  itemSize: {
+    type: String,
+    enum: ['small', 'medium', 'large']
+  },
+
   itemCombo: {
     type: Boolean,
     default: false

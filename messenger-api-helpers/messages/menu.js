@@ -1,4 +1,5 @@
-const { normalBurgers, specialBurgers } = require("./burgers");
+const { menuItems } = require("./menuItems");
+
 
 const burgerMenuTemplate = burgerObject => {
     return {
@@ -20,24 +21,56 @@ const burgerMenuTemplate = burgerObject => {
         ]
     };
 };
-console.log(...normalBurgers[0].burgerObject.standardToppings);
+
+
+const sideMenuTemplate = sideObject => {
+    return {
+        title: sideObject.title,
+        image_url: sideObject.image_url,
+        subtitle: sideObject.subtitle,
+        buttons: [
+            {
+                type: "postback",
+                title: "Order Burger",
+                payload: JSON.stringify({
+                    type: "show-side",
+                    data: {
+                        foodType: "side",
+                        title: sideObject.title
+                    }
+                })
+            }
+        ]
+    };
+};
+
+
+
+
 const menuMessage = {
-    text: "Would you like to see our Special Burgers or Normal Burgers?",
+    text: "Would you like to see our favourite burgers, standard burgers, or sides?",
     quick_replies: [
         {
             content_type: "text",
-            title: "Specials",
+            title: "Our Favourites",
             payload: JSON.stringify({
                 type: "see-special-burgers"
             })
         },
         {
             content_type: "text",
-            title: "Burgers",
+            title: "Normal Burgers",
             payload: JSON.stringify({
                 type: "see-normal-burgers"
             })
-        }
+        },
+        // {
+        //     content_type: "text",
+        //     title: "Sides",
+        //     payload: JSON.stringify({
+        //         type: "see-sides-menu"
+        //     })
+        // }
     ]
 };
 
@@ -48,10 +81,10 @@ const normalBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(normalBurgers[0]),
-                burgerMenuTemplate(normalBurgers[1]),
-                burgerMenuTemplate(normalBurgers[2]),
-                burgerMenuTemplate(normalBurgers[3])
+                burgerMenuTemplate(menuItems[0]),
+                burgerMenuTemplate(menuItems[1]),
+                burgerMenuTemplate(menuItems[2]),
+                burgerMenuTemplate(menuItems[3])
             ]
         }
     }
@@ -64,8 +97,24 @@ const normalBurgerMenuMessageTwo = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(normalBurgers[4]),
-                burgerMenuTemplate(normalBurgers[5])
+                burgerMenuTemplate(menuItems[4]),
+                burgerMenuTemplate(menuItems[5]),
+                burgerMenuTemplate(menuItems[6]),
+                burgerMenuTemplate(menuItems[7])
+            ]
+        }
+    }
+};
+
+const normalBurgerMenuMessageThree = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                burgerMenuTemplate(menuItems[8]),
+                burgerMenuTemplate(menuItems[9])
             ],
             buttons: [
                 {
@@ -87,10 +136,10 @@ const specialBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(specialBurgers[0]),
-                burgerMenuTemplate(specialBurgers[1]),
-                burgerMenuTemplate(specialBurgers[2]),
-                burgerMenuTemplate(specialBurgers[3])
+                burgerMenuTemplate(menuItems[10]),
+                burgerMenuTemplate(menuItems[11]),
+                burgerMenuTemplate(menuItems[12]),
+                burgerMenuTemplate(menuItems[13])
             ]
         }
     }
@@ -103,8 +152,11 @@ const specialBurgerMenuMessageTwo = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(specialBurgers[4]),
-                burgerMenuTemplate(specialBurgers[5])
+                burgerMenuTemplate(menuItems[14]),
+                burgerMenuTemplate(menuItems[15]),
+                burgerMenuTemplate(menuItems[16]),
+                burgerMenuTemplate(menuItems[17])
+
             ],
             buttons: [
                 {
@@ -119,10 +171,27 @@ const specialBurgerMenuMessageTwo = {
     }
 };
 
+const sideMenuMessage = {
+    attachment: {
+        type: "template",
+        payload: {
+            template_type: "list",
+            top_element_style: "compact",
+            elements: [
+                sideMenuTemplate(menuItems[0]),
+                sideMenuTemplate(menuItems[1]),
+                sideMenuTemplate(menuItems[2]),
+                sideMenuTemplate(menuItems[3])
+            ]
+        }
+    }
+};
+
 module.exports = {
     menuMessage,
     specialBurgerMenuMessageOne,
     specialBurgerMenuMessageTwo,
     normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo
+    normalBurgerMenuMessageTwo,
+    normalBurgerMenuMessageThree
 };

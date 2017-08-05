@@ -1,9 +1,9 @@
-const { normalBurgers, specialBurgers, findBurger } = require("./burgers");
+const { menuItems, findItem } = require("./menuItems");
 
 const receiptElements = function(order) {
   return order._items.map(x => {
     if (x.itemType === "burger") {
-      let burger = findBurger(x.itemName);
+      let burger = findItem(x.itemName);
       return {
         title: burger.title,
         subtitle: burger.subtitle,

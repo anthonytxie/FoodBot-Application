@@ -1,5 +1,3 @@
-const { normalBurgers, specialBurgers } = require("./burgers");
-
 const premiumToppings = {
   glutenFreeBun: 1.5,
   grilledCheeseBun: 2.99,

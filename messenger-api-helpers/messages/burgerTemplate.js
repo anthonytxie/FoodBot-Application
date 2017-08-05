@@ -1,15 +1,7 @@
-const { normalBurgers, specialBurgers } = require("./burgers");
-
-const findBurger = function(payloadData) {
-  return [...normalBurgers, ...specialBurgers]
-    .filter(x => {
-      return x.title === payloadData.title;
-    })
-    .pop();
-};
+const { menuItems, findItem } = require("./menuItems");
 
 const burgerTemplate = function(payloadData, order, senderId) {
-  const burger = findBurger(payloadData);
+  const burger = findItem(payloadData.title);
   const attachment = {
     attachment: {
       type: "template",
@@ -28,7 +20,13 @@ const burgerTemplate = function(payloadData, order, senderId) {
                   data: {
                     foodType: "burger",
                     customize: false,
-                    foodObject: burger.burgerObject
+                    foodObject: {
+                      title: burger.title,
+                      patties: burger.patties,
+                      standardToppings: burger.standardToppings,
+                      premiumToppings: burger.premiumToppings,
+                      basePrice: burger.basePrice
+                    }
                   }
                 })
               },
@@ -47,5 +45,6 @@ const burgerTemplate = function(payloadData, order, senderId) {
   };
   return attachment;
 };
+
 
 module.exports = { burgerTemplate };

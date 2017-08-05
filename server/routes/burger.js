@@ -9,20 +9,21 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 
 //HELPER FUNCTIONS
 const { premiumToppingsArray } = require("../../messenger-api-helpers/messages/toppings");
-const { findBurger } = require("../../messenger-api-helpers/messages/burgers");
+const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
+
 
 routes.get("/burgercustomize", (req, res) => {
   let id = req.query.order;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
-  let burgerObject = findBurger(burgerName);
+  let burger = findItem(burgerName);
   res.render("burgercustomize", {
     order_id: id,
     sender_id: senderId,
-    burgerObject: burgerObject
+    burger: burger
   });
 });
 
