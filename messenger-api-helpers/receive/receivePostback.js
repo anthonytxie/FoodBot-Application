@@ -45,8 +45,8 @@ const handleReceivePostback = messagingEvent => {
               .then((order) => {
                 send.sendOrderedMessage(senderId, order);
               })
-          } else {
-            if (data.foodObject.itemName === "fries") {
+          } 
+            else if (data.foodObject.itemName === "fries") {
               runner.renewSessionAndReturnOrder(senderId).then(order => {
                 send.askFriesSize(senderId);
               });
@@ -55,7 +55,7 @@ const handleReceivePostback = messagingEvent => {
                 send.askMilkshakeFlavor(senderId);
               });
             }
-          }
+          
           break;
         case "order-burger":
           runner
