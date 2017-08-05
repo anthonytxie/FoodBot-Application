@@ -5,6 +5,7 @@ const routes = express();
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
 const itemDAO = require("./../../db/DAO/itemDAO");
+const stripe = require('stripe')('sk_test_wGIrSvj5T4LPKJe603wPoLhw')
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
