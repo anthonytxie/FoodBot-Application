@@ -37,12 +37,22 @@ const handleReceiveMessage = messagingEvent => {
             });
             break;
           case "upgrade-combo":
-            runner
+            runner.renewSession
               .upgradeCombo(senderId)
-              .then((order) => {
-                send.sendOrderedMessage(senderId,order);
+              .then(order => {
+                send.sendOrderedMessage(senderId, order);
               })
               .catch(err => console.log(err));
+            break;
+          case "order-fries":
+            runner.addSideToOrder(senderId, data).then(order => {
+              send.sendOrderedMessage(senderId, order);
+            });
+            break;
+          case "order-shake":
+            runner.addSideToOrder(senderId, data).then(order => {
+              send.sendOrderedMessage(senderId, order);
+            });
             break;
           default:
             console.log(`unknown postback called ${type}`);

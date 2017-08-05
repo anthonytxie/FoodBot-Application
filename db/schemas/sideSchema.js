@@ -34,32 +34,25 @@ sideSchema.virtual("price").get(function() {
       return 4.5;
     } else if (this.itemName === "fries") {
       return 2.0;
-    } else {
-      switch (this.itemName) {
-        case "fries":
-          if (itemSize === "small") {
-            return 2.99;
-          } else if (itemSize === "medium") {
-            return 3.99;
-          } else {
-            return 4.99;
-          }
-          break;
-        case "largeFries":
-          return 4.99;
-          break;
-        case "poutine":
-          return 7.99;
-          break;
-        case "cheesyFries":
-          return 6.49;
-          break;
-        default:
-          return 3.99;
-          break;
+    } 
+  }
+  else {
+    if (this.itemName ==="cheesyFries") {
+      return 6.49;
+    }
+    else if (this.itemName ==="poutine") {
+      return 7.99;
+    }
+    else if (this.itemName ==='fries') {
+      if (this.itemSize ==='medium') {
+        return 3.99;
+      }
+      else if (this.itemName ==='large') {
+        return 4.99;
       }
     }
   }
 });
+
 
 module.exports = { sideSchema };

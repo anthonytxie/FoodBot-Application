@@ -160,8 +160,9 @@ const askFriesSizeMessage = function(order) {
         payload: JSON.stringify({
           type: "order-fries",
           data: {
+            orderId: order._id,
+
             foodObject: {
-              _order: order._id,
               itemName: "fries",
               itemSize: "medium"
             }
@@ -174,8 +175,9 @@ const askFriesSizeMessage = function(order) {
         payload: JSON.stringify({
           type: "order-fries",
           data: {
+            orderId: order._id,
+
             foodObject: {
-              _order: order._id,
               itemName: "fries",
               itemSize: "large"
             }
@@ -196,8 +198,8 @@ const askMilkshakeFlavorMessage = function(order) {
         payload: JSON.stringify({
           type: "order-shake",
           data: {
+            orderId: order._id,
             foodObject: {
-              _order: order._id,
               itemName: "vanillaMilkshake"
             }
           }
@@ -209,8 +211,9 @@ const askMilkshakeFlavorMessage = function(order) {
         payload: JSON.stringify({
           type: "order-shake",
           data: {
+            orderId: order._id,
+
             foodObject: {
-              _order: order._id,
               itemName: "chocolateMilkshake"
             }
           }
@@ -222,8 +225,9 @@ const askMilkshakeFlavorMessage = function(order) {
         payload: JSON.stringify({
           type: "order-shake",
           data: {
+            orderId: order._id,
+
             foodObject: {
-              _order: order._id,
               itemName: "strawberryMilkshake"
             }
           }
