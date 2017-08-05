@@ -47,10 +47,12 @@ const handleReceivePostback = messagingEvent => {
               })
           } 
             else if (data.foodObject.itemName === "fries") {
+              console.log('fries')
               runner.renewSessionAndReturnOrder(senderId).then(order => {
                 send.askFriesSize(senderId);
               });
             } else if (data.title === "milkshake") {
+              console.log('milkshake')
               runner.renewSessionAndReturnOrder(senderId).then(order => {
                 send.askMilkshakeFlavor(senderId);
               });
