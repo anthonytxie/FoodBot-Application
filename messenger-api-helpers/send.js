@@ -58,7 +58,7 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, data, order) => {
 };
 
 const askFriesSize = (receipientId, order) => {
-  sendMessage(recipientId, messages.askFriesSizeMessage(order));
+  sendMessage(recipientId, messages.askFriesSizeMessage);
 };
 
 const askMilkshakeFlavor = (receipientId, order) => {

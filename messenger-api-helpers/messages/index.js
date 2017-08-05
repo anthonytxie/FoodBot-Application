@@ -150,8 +150,7 @@ const orderAskContinue = function(order) {
 
 // ===== ITEMS ===============================================================
 
-const askFriesSizeMessage = function(order) {
-  return {
+const askFriesSizeMessage = {
     text:
       "Would you like to see our favourite burgers, standard burgers, or sides?",
     quick_replies: [
@@ -178,7 +177,7 @@ const askFriesSizeMessage = function(order) {
       }
     ]
   };
-};
+
 
 const askMilkshakeFlavorMessage = function(order) {
   return {
