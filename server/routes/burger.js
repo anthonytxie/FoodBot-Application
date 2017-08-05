@@ -21,6 +21,7 @@ routes.get("/burgercustomize", (req, res) => {
   let burgerName = req.query.name;
   let senderId = req.query.sender;
   let burger = findItem(burgerName);
+  console.log(burger);
   res.render("burgercustomize", {
     order_id: id,
     sender_id: senderId,
