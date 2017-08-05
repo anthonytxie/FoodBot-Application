@@ -64,7 +64,7 @@ routes.post("/burger", (req, res) => {
   
   const burger = burgerFormat(req.body);
   itemDAO
-    .postBurger(burger.foodObject, burger._order)
+    .postBurger(burger.foodObject, burger.orderId)
     .then(order => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, order);
     })
