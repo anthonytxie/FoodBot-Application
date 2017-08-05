@@ -35,24 +35,35 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
-        case "show-side":
-          runner
-            .renewSession(senderId)
-            .then(order => {
-              send.sendSideOrderPrompt(senderId, data);
-            })
-            .catch(err => console.log(err));
+        case "order-side":
+          if (!data.customize) {
+            runner.renewSessionAndReturnOrder(senderId)
+              .then((order) => {
+                data[orderId] = order._id;
+                return runner.addSideToOrder(senderId, data)
+              })
+              .then((order) => {
+                send.sendOrderedMessage(senderId, order);
+              })
+          } else {
+            if (data.title === "Fries") {
+              runner.renewSessionAndReturnOrder(senderId).then(order => {
+                send.askFriesSize(senderId);
+              });
+            } else if (data.title === "Milkshake") {
+              runner.renewSessionAndReturnOrder(senderId).then(order => {
+                send.askMilkshakeFlavor(senderId);
+              });
+            }
+          }
           break;
         case "order-burger":
-          if (data.customize === false) {
-            runner
-              .addBurgerToOrder(senderId, data)
-              .then(order => {
-                send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
-              })
-              .catch(err => console.log(err));
-          } else {
-          }
+          runner
+            .addBurgerToOrder(senderId, data)
+            .then(order => {
+              send.sendOrderedBurgerUpsizeMessage(senderId, data, order);
+            })
+            .catch(err => console.log(err));
           break;
         case "delete-last-item":
           runner

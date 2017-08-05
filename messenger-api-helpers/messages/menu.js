@@ -63,17 +63,17 @@ const sideMenuTemplate = sideObject => {
                 type: "postback",
                 title: "Order Side",
                 payload: JSON.stringify({
-                    type: "show-side",
+                    type: "order-side",
                     data: {
-                        foodType: "side",
-                        title: sideObject.title
+                        foodObject: {
+                            itemName: sideObject.title,
+                        }
                     }
                 })
             }
         ]
     };
 };
-
 
 const normalBurgerMenuMessageOne = {
     attachment: {

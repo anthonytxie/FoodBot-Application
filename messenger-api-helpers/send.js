@@ -47,17 +47,25 @@ const sendOrderedMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.orderAskContinue(order))
 };
 
+
+// ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
-};
-
-const sendSideOrderPrompt = (recipientId, data) => {
-  sendMessage(recipientId, messages.sideTemplate(data));
 };
 
 const sendOrderedBurgerUpsizeMessage = (recipientId, data, order) => {
   sendMessage(recipientId, messages.upsizeOrderMessage(order, recipientId));
 };
+
+const askFriesSize = (receipientId, order) => {
+  sendMessage(recipientId, messages.askFriesSizeMessage(order));
+};
+
+const askMilkshakeFlavor = (receipientId, order) => {
+  sendMessage(recipientId, messages.askMilkshakeFlavorMessage(order));
+};
+
+
 
 
 // ===== RECEIPT ===============================================================
@@ -158,11 +166,12 @@ module.exports = {
   sendNormalBurgerMenu,
   sendSideMenu,
   sendBurgerOrderPrompt,
-  sendSideOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
   sendFarewellMessage,
-  sendReceiptTemplate
+  sendReceiptTemplate,
+  askFriesSize,
+  askMilkshakeFlavor
 };
 
 

@@ -8,14 +8,13 @@ const {
   sideMenuMessage
 } = require("./menu");
 
-const {receiptMessageTemplate} = require('./receiptTemplate');
+const { receiptMessageTemplate } = require("./receiptTemplate");
 
 const { burgerTemplate } = require("./itemTemplate");
 
 const messageTemplate = message => {
   return { text: message };
 };
-
 
 // ===== PERSISTENT MENU ===============================================================
 
@@ -35,31 +34,25 @@ const newOrderButton = {
   })
 };
 
-
 const persistentMenu = {
   persistent_menu: [
     {
       locale: "default",
       composer_input_disabled: false,
-      call_to_actions: [
-        seeMenuButton,
-        newOrderButton
-      ]
+      call_to_actions: [seeMenuButton, newOrderButton]
     }
   ]
 };
 
-
 // ===== GETTING STARTED ===============================================================
 
-const getStarted = { 
-  get_started:{
+const getStarted = {
+  get_started: {
     payload: JSON.stringify({
-      type: 'initialize',
+      type: "initialize"
     })
   }
-}
-
+};
 
 const welcomeMessage = {
   attachment: {
@@ -87,7 +80,6 @@ const welcomeMessage = {
   }
 };
 
-
 // ===== ORDERS ===============================================================
 
 const upsizeOrderMessage = function(order, senderId) {
@@ -112,15 +104,12 @@ const upsizeOrderMessage = function(order, senderId) {
               type: "order-continue"
             })
           }
-
         ]
       }
     }
   };
   return attachment;
 };
-
-
 
 const orderAskContinue = function(order) {
   const attachment = {
@@ -159,6 +148,90 @@ const orderAskContinue = function(order) {
   return attachment;
 };
 
+// ===== ITEMS ===============================================================
+
+const askFriesSizeMessage = function(order) {
+  return {
+    text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
+    quick_replies: [
+      {
+        content_type: "text",
+        title: "Medium",
+        payload: JSON.stringify({
+          type: "order-fries",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "fries",
+              itemSize: "medium"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Large",
+        payload: JSON.stringify({
+          type: "order-fries",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "fries",
+              itemSize: "large"
+            }
+          }
+        })
+      }
+    ]
+  };
+};
+
+const askMilkshakeFlavorMessage = function(order) {
+  return {
+    text: "Would you like vanilla, chocolate, or strawberry?",
+    quick_replies: [
+      {
+        content_type: "text",
+        title: "Vanilla",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "vanillaMilkshake"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Chocolate",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "chocolateMilkshake"
+            }
+          }
+        })
+      },
+      {
+        content_type: "text",
+        title: "Strawberry",
+        payload: JSON.stringify({
+          type: "order-shake",
+          data: {
+            foodObject: {
+              _order: order._id,
+              itemName: "strawberryMilkshake"
+            }
+          }
+        })
+      }
+    ]
+  };
+};
 
 module.exports = {
   messageTemplate,
@@ -175,5 +248,7 @@ module.exports = {
   burgerTemplate,
   upsizeOrderMessage,
   orderAskContinue,
-  receiptMessageTemplate
+  receiptMessageTemplate,
+  askFriesSizeMessage,
+  askMilkshakeFlavorMessage
 };
