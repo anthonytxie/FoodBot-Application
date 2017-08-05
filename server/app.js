@@ -27,6 +27,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+console.log(burger);
+
 // Route Middleware
 app.use(burger);
 app.use(combo);
