@@ -66,7 +66,7 @@ routes.post("/burger", (req, res) => {
   itemDAO
     .postBurger(burger.foodObject, burger._order)
     .then(order => {
-      return send.sendFarewellMessage(senderId);
+      console.log(order)
     })
     .catch(err => console.log(err));
 });
