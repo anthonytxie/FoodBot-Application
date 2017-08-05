@@ -56,6 +56,23 @@ itemDAO.postSide = function(data, orderId) {
 };
 
 
+itemDAO.deleteItemById = function(orderId, itemId) {
+  return new Promise((resolve, reject) => {
+    Item.findOneAndRemove({ _id: itemId }).then(() => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: orderId },
+            { $pull: { _items: itemId } },
+            { new: true }
+          )
+        )
+      );
+    });
+  });
+};
+
+
 itemDAO.deleteMostRecentItem = function(sessionId) {
   return new Promise((resolve, reject) => {
     Order.findOne({ _session: sessionId })
