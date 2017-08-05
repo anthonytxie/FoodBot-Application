@@ -53,7 +53,8 @@ html(lang="en")
 						- const combo_side = items[index + 1];
 						- const combo_drink = items[index + 2];
 
-					
+					- price	+= combo_drink.price;				
+					- price	+= combo_side.price;				
 
 			- index++;
 
