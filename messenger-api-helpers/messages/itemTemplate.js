@@ -19,7 +19,6 @@ const burgerTemplate = function(payloadData, order, senderId) {
                   type: "order-burger",
                   data: {
                     foodObject: {
-                      _order: order._id,
                       itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
