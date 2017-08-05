@@ -16,8 +16,7 @@ routes.get("/stripe", (req, res) => {
 routes.post("/charge", (req, res) => {
   let amount = 500;
   stripe.customers.create({
-    _user: '1234',
-    _PSID: '1234',
+    email: req.body.stripeEmail,
     source: req.body.stripeToken
   }).then(customer => {
     stripe.charges.create({
