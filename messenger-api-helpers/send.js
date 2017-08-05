@@ -16,8 +16,7 @@ const sendFarewellMessage = (recipientId) => {
 
 
 // ===== MENU ===============================================================
-
-const sendMenuMessage = (recipientId, data) => {
+const sendMenuMessage = (recipientId) => {
   sendMessage(recipientId, messages.menuMessage);
 };
 
@@ -27,8 +26,6 @@ const sendSpecialBurgerMenu = (recipientId, data) => {
     sendMessage(recipientId, messages.specialBurgerMenuMessageTwo);
   }, 400);
 };
-
-
 
 const sendNormalBurgerMenu = (recipientId, data) => {
   sendMessage(recipientId, messages.normalBurgerMenuMessageOne);
@@ -40,44 +37,26 @@ const sendNormalBurgerMenu = (recipientId, data) => {
   }, 800);
 };
 
-const sendDrinkMenuMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.drinkMenuMessage);
-};
-
-
-const sendFriesMenuMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.FriesMenuMessage);
+const sendSideMenuMessage = (recipientId, data) => {
+  sendMessage(recipientId, messages.sideMenuMessage);
 };
 
 
 // ===== ORDER ===============================================================
 const sendOrderedMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.orderAskContinue(order))
-}
+};
 
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
-}
+};
 
 const sendOrderedBurgerUpsizeMessage = (recipientId, data, order) => {
   sendMessage(recipientId, messages.upsizeOrderMessage(order, recipientId));
-}
-
-const sendCreateNewOrderMessage = (recipientId, data) => {
-  sendMessage(recipientId, messages.messageTemplate(data));
 };
 
-const sendOrderMessage = (recipientId) => {
-  sendMessage(recipientId, messages.messageTemplate());
-};
-
-
-const sendConfirmOrderMessage = (recipientId) => {
-  sendMessage(recipientId, messages.confirmedMessageTemplate());
-};
 
 // ===== RECEIPT ===============================================================
-
 const sendReceiptTemplate = (recipientId, order) => {
   sendMessage(recipientId, messages.messageTemplate('OK this is your order'))
   setTimeout(() => {
@@ -86,11 +65,9 @@ const sendReceiptTemplate = (recipientId, order) => {
 };
 
 // ===== ECHO & GENERIC ===============================================================
-
 const sendGenericTemplate = (recipientId) => {
   sendMessage(recipientId, messages.genericTemplate)
-}
-
+};
 
 const sendEchoMessage = (recipientId, message) => {
   sendMessage(recipientId, messages.messageTemplate(message));
@@ -171,14 +148,11 @@ module.exports = {
   sendMenuMessage,
   sendReadReceipt,
   sendInitializeMessage,
-  sendCreateNewOrderMessage,
-  sendOrderMessage,
   sendEchoMessage,
   sendGenericTemplate,
   sendSpecialBurgerMenu,
   sendNormalBurgerMenu,
-  sendDrinkMenuMessage,
-  sendFriesMenuMessage,
+  sendSideMenuMessage,
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,

@@ -186,8 +186,8 @@ const menuItems = [
 	},
 	{
 		title: "Fries",
-		image_url: "Perfectly cut, golden cripsy, potato fries.",
-		subtitle: "One beef patty, on a sesame bun."
+		image_url: "http://i.imgur.com/6PnW8EE.jpg",
+		subtitle: "Perfectly cut, golden cripsy, potato fries."
 	},
 	{
 		title: "Poutine",

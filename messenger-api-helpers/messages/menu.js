@@ -1,6 +1,38 @@
 const { menuItems } = require("./menuItems");
 
 
+// ===== GENERAL MENU ===============================================================
+
+const menuMessage = {
+    text: "Would you like to see our favourite burgers, standard burgers, or sides?",
+    quick_replies: [
+        {
+            content_type: "text",
+            title: "Our Favourites",
+            payload: JSON.stringify({
+                type: "see-special-burgers"
+            })
+        },
+        {
+            content_type: "text",
+            title: "Normal Burgers",
+            payload: JSON.stringify({
+                type: "see-normal-burgers"
+            })
+        },
+        // {
+        //     content_type: "text",
+        //     title: "Sides",
+        //     payload: JSON.stringify({
+        //         type: "see-sides-menu"
+        //     })
+        // }
+    ]
+};
+
+
+// ===== MENU TEMPLATES ===============================================================
+
 const burgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
@@ -31,7 +63,7 @@ const sideMenuTemplate = sideObject => {
         buttons: [
             {
                 type: "postback",
-                title: "Order Burger",
+                title: "Order Side",
                 payload: JSON.stringify({
                     type: "show-side",
                     data: {
@@ -42,36 +74,6 @@ const sideMenuTemplate = sideObject => {
             }
         ]
     };
-};
-
-
-
-
-const menuMessage = {
-    text: "Would you like to see our favourite burgers, standard burgers, or sides?",
-    quick_replies: [
-        {
-            content_type: "text",
-            title: "Our Favourites",
-            payload: JSON.stringify({
-                type: "see-special-burgers"
-            })
-        },
-        {
-            content_type: "text",
-            title: "Normal Burgers",
-            payload: JSON.stringify({
-                type: "see-normal-burgers"
-            })
-        },
-        // {
-        //     content_type: "text",
-        //     title: "Sides",
-        //     payload: JSON.stringify({
-        //         type: "see-sides-menu"
-        //     })
-        // }
-    ]
 };
 
 const normalBurgerMenuMessageOne = {
@@ -178,14 +180,15 @@ const sideMenuMessage = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                sideMenuTemplate(menuItems[0]),
-                sideMenuTemplate(menuItems[1]),
-                sideMenuTemplate(menuItems[2]),
-                sideMenuTemplate(menuItems[3])
+                sideMenuTemplate(menuItems[18]),
+                sideMenuTemplate(menuItems[19]),
+                sideMenuTemplate(menuItems[20]),
+                sideMenuTemplate(menuItems[21])
             ]
         }
     }
 };
+
 
 module.exports = {
     menuMessage,
@@ -193,5 +196,6 @@ module.exports = {
     specialBurgerMenuMessageTwo,
     normalBurgerMenuMessageOne,
     normalBurgerMenuMessageTwo,
-    normalBurgerMenuMessageThree
+    normalBurgerMenuMessageThree,
+    sideMenuMessage
 };

@@ -19,12 +19,12 @@ const handleReceivePostback = messagingEvent => {
         case "see-menu":
           //creates New Order
           runner.renewSession(senderId).then(order => {
-            send.sendMenuMessage(senderId, order._session);
+            send.sendMenuMessage(senderId);
           });
           break;
         case "create_new_order":
           runner.createNewOrder(senderId).then(order => {
-            send.sendOrderMessage(senderId, order._id);
+            send.sendMenuMessage(senderId);
           });
           break;
         case "show-burger":
@@ -50,15 +50,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .deleteMostRecentItemAdded(senderId)
             .then(order => {
-              send.sendOrderMessage(senderId, order._id);
-            })
-            .catch(err => console.log(err));
-          break;
-        case "show-current-order":
-          runner
-            .showCurrentOrder(senderId)
-            .then(order => {
-              send.sendOrderMessage(senderId, order._id);
+              send.sendGenericTemplate(senderId, order._id);
             })
             .catch(err => console.log(err));
           break;
@@ -70,11 +62,6 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
-        // case "confirm-order":
-        //   runner.confirmOrder(senderId).then(order => {
-        //     send.sendReceiptTemplate(senderId, order);
-        //   });
-        //   break;
         case "order-continue":
           runner
             .renewSessionAndReturnOrder(senderId)
