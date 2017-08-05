@@ -31,13 +31,7 @@ const handleReceiveMessage = messagingEvent => {
               send.sendNormalBurgerMenu(senderId);
             });
             break;
-          case "see-drinks":
-            runner.renewSession(senderId).then(order => {
-              send.sendDrinkMenuMessage(senderId);
-            });
-            break;
-
-          case "see-fries":
+          case "see-sides":
             runner.renewSession(senderId).then(order => {
               send.sendFriesMenuMessage(senderId);
             });
