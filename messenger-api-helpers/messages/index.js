@@ -101,15 +101,7 @@ const persistentMenu = {
       locale: "default",
       composer_input_disabled: false,
       call_to_actions: [
-        {
-          title: "Order Food",
-          type: "nested",
-          call_to_actions: [
-            orderBurgerButton,
-            orderSideButton,
-            orderDrinkButton
-          ]
-        },
+        seeMenuButton,
         newOrderButton
       ]
     }
