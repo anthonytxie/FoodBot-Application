@@ -43,7 +43,7 @@ html(lang="en")
 				- price += item.price;
 
 				input(type="hidden", name="orderId", value=order._id)
-				input(type="hidden", name="itemIds", value=id)
+				input(type="hidden", name="itemIds[]", value=id)
 
 				if combo
 
@@ -59,12 +59,12 @@ html(lang="en")
 					- price	+= combo_drink.price; // add the drink to the delete id list
 					.temp= combo_drink.itemName
 					.price= combo_drink.price
-					input(type="hidden", name="itemIds", value=combo_drink._id)
+					input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
 					- price	+= combo_side.price; // add the side to the delete id list
 					.temp= combo_side.itemName
 					.price= combo_side.price
-					input(type="hidden", name="itemIds", value=combo_side._id)
+					input(type="hidden", name="itemIds[]", value=combo_side._id)
 
 					- index += 2; // this is so we don't enter drinks and side twice
 					p Total: #{price}
