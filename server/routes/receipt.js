@@ -60,7 +60,7 @@ routes.post("/delete", (req, res) => {
   let orderId = req.body.orderId;
   let itemIds = req.body.itemIds;
   async.each(itemIds, (itemId) => {
-    itemDAO.deleteItemById(itemId)
+    itemDAO.deleteItemById(itemId, orderId)
       .then((item) => {
         console.log(item)
       }).catch((err) => console.log(err))
