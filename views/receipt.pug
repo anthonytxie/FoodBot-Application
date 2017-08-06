@@ -87,3 +87,23 @@ html(lang="en")
 					});
 				})
 			}
+
+			// send delete requests with AJAX
+			$("form").submit(function(e) {
+
+				$.ajax({
+					type: "POST",
+					url: "delete", // script where we handle deleting
+					data: $(this).serialize(), // serializes the form's elements
+					success: function(data) {
+						console.log("delete request sent successfully");
+					}
+				});
+
+				e.preventDefault(); // avoids actually submitting the form
+				});
+
+
+
+
+
