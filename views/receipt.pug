@@ -21,11 +21,10 @@ html(lang="en")
 
 		
 		- const items = order._items; // all items in the order
-		- let index = 0; // the index of the current item
+		- let index = 0; 
 
-		each item in items
-			
-			- const type = item.itemType; // type of current item: burger, drink or side
+		while index < items.length
+		    - const type = item.itemType; // type of current item: burger, drink or side
 			- const name = item.itemName; // name of current item
 			- const id = item._id; // id of current item
 
@@ -42,15 +41,13 @@ html(lang="en")
 
 				- price += item.price;
 
-				input(type="hidden", name="order_id", value=order._id)
-				input(type="hidden", name=type, value=id)
+				input(type="hidden", name="orderId", value=order._id)
+				input(type="hidden", name="itemIds", value=id)
 
 				if combo
 
-					- let combo_drink = undefined;
+					- let combo_drink = undefined; // find the drink and side that are part of this combo
 					- let combo_side = undefined;
-
-					// sort the next 2 rows, display side first
 					if items[index + 1] === "drink"
 						- combo_drink = items[index + 1];
 						- combo_side = items[index + 2];
@@ -58,15 +55,15 @@ html(lang="en")
 						- combo_side = items[index + 1];
 						- combo_drink = items[index + 2];
 
-					- price	+= combo_drink.price;
+					- price	+= combo_drink.price; // add the drink to the delete id list
 					.temp= combo_drink.itemName
 					.price= combo_drink.price
-					input(type="hidden", name="drink", value=combo_drink._id)
+					input(type="hidden", name="itemIds", value=combo_drink._id)
 
-					- price	+= combo_side.price;
+					- price	+= combo_side.price; // add the side to the delete id list
 					.temp= combo_side.itemName
 					.price= combo_side.price
-					input(type="hidden", name="drink", value=combo_drink._id)
+					input(type="hidden", name="itemIds", value=combo_side._id)
 
 					- index += 2; // this is so we don't enter drinks and side twice
 
