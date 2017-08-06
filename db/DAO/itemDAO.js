@@ -62,7 +62,7 @@ itemDAO.deleteItemById = function(itemId, orderId) {
       .then(item => {
         return Order.findOneAndUpdate(
           { _id: orderId },
-          { $pull: { _items: item._id } },
+          { $pull: { _items: itemId } },
           { new: true }
         );
       })
