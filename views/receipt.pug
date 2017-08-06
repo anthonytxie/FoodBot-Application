@@ -24,13 +24,12 @@ html(lang="en")
 		- let index = 0; 
 
 		while index < items.length
-			- const item = items[0];
-			- const type = item.itemType; // type of current item: burger, drink or side
-			- const name = item.itemName; // name of current item
-			- const id = item._id; // id of current item
+			- let item = items[0];
+			- let type = item.itemType; // type of current item: burger, drink or side
+			- let name = item.itemName; // name of current item
+			- let id = item._id; // id of current item
 
 			- let combo = false; // whether this item is a burger with a combo
-			- console.log("cats");
 			if type === "burger"
 				if index <= items.length - 3
 					if typeof itemCombo in items[index + 1] !== "undefined"
@@ -66,7 +65,7 @@ html(lang="en")
 					.price= combo_side.price
 					input(type="hidden", name="itemIds[]", value=combo_side._id)
 
-					- index += 2; // this is so we don't enter drinks and side twice
+					- index += 2; // this is so we don't enter drinks and sides twice
 					p Total: #{price}
 
 				input(type="submit", value="DELETE FROM ORDER")
