@@ -56,11 +56,20 @@ itemDAO.postSide = function(data, orderId) {
 };
 
 
-itemDAO.deleteItemById = function(orderId, itemId) {
+itemDAO.deleteItemById = function(itemId, orderId) {
   return new Promise((resolve, reject) => {
-    Item.findOneAndRemove({ _id: itemId }).then((item) => {
-      resolve(item)
-    }).catch((err) => reject(err));
+    Item.findOneAndRemove({ _id: itemId })
+      .then(item => {
+        return Order.findOneAndUpdate(
+          { _id: orderId },
+          { $pull: { _items: item._id } },
+          { new: true }
+        );
+      })
+      .then(order => {
+        resolve(order);
+      })
+      .catch(err => reject(err));
   });
 };
 
