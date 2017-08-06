@@ -56,7 +56,7 @@ itemDAO.postSide = function(data, orderId) {
 };
 
 
-itemDAO.deleteItemById = function(orderId, itemId) {
+itemDAO.deleteItemById = function(itemId) {
   return new Promise((resolve, reject) => {
     Item.findOneAndRemove({ _id: itemId }).then((item) => {
       resolve(item)
