@@ -60,19 +60,23 @@ routes.post("/delete", (req, res) => {
   let orderId = req.body.orderId;
   let itemIds = req.body.itemIds;
   console.log(itemIds);
-  async.each(itemIds, (itemId) => {
-    itemDAO.deleteItemById(mongoose.Types.ObjectId(orderId, mongoose.Types.ObjectId(itemId)))
-      .then(() => {
-        console.log('deleted item')
-      }).catch((err) => console.log(err))
-  })
+  itemDAO.deleteItemById(mongoose.Types.ObjectId(orderId, mongoose.Types.objectId(itemIds[0])))
+    .then(() => {
+      console.log('item deleted')
+    })
+  // async.each(itemIds, (itemId) => {
+  //   itemDAO.deleteItemById(mongoose.Types.ObjectId(orderId, mongoose.Types.ObjectId(itemId)))
+  //     .then(() => {
+  //       console.log('deleted item')
+  //     }).catch((err) => console.log(err))
+  // })
 
 
-}, function (error) {
-  if (error) res.json(500, {error: error});
+// }, function (error) {
+//   if (error) res.json(500, {error: error});
 
-  console.log('items deleted');
-  return res.json(201, {msg: 'items deleted'} );
+//   console.log('items deleted');
+//   return res.json(201, {msg: 'items deleted'} );
 });
 
 module.exports = routes;
