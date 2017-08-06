@@ -1,6 +1,8 @@
 //MODULES
 const express = require("express");
 const routes = express();
+const async = require('async');
+const mongoose = require('mongoose');
 
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
@@ -55,39 +57,22 @@ routes.get("/orders", (req, res) => {
 });
 
 routes.post("/delete", (req, res) => {
-  console.log(req.body);
-
   let orderId = req.body.orderId;
+  let itemIds = req.body.itemIds;
+  console.log(itemIds);
+  async.each(itemIds, (itemId) => {
+    itemDAO.deleteItemById(mongoose.Types.ObjectId(orderId, mongoose.Types.ObjectId(itemId)))
+      .then(() => {
+        console.log('deleted item')
+      }).catch((err) => console.log(err))
+  })
 
-  if (req.body.burgerId & (req.body.sideId)) {
-    let burgerId = req.body.burgerId;
-    let drinkId = req.body.drinkId;
-    let sideId = req.body.sideId;
-    itemDAO.deleteItemById(orderId, burgerId)
-      .then(() => {
-        itemDAO.deleteItemById(orderId, drinkId);
-      })
-      .then(() => {
-        itemDAO.deleteItemById(orderId, sideId);
-      })
-      .then(() => {
-        res.status(200);
-      })
-  }
-  else if (req.body.sideId) {
-    let sideId = req.body.sideId;
-    itemDAO.deleteItemById(orderId, sideId)
-    .then(() => {
-      res.status(200);
-    })
-  }
-  else if (req.body.drinkId) {
-    let drinkId =req.body.drinkId; 
-    itemDAO.deleteItemById(orderId, drinkId)
-    .then(() => {
-      res.status(200);
-    })
-  }
+
+}, function (error) {
+  if (error) res.json(500, {error: error});
+
+  console.log('items deleted');
+  return res.json(201, {msg: 'items deleted'} );
 });
 
 module.exports = routes;
