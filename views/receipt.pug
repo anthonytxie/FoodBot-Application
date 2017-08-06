@@ -38,7 +38,7 @@ html(lang="en")
 
 			- let price = 0;
 
-			form= name
+			form(method="post", action="delete")= name
 
 				- price += item.price;
 
@@ -61,10 +61,16 @@ html(lang="en")
 					- price	+= combo_drink.price;
 					.temp= combo_drink.itemName
 					.price= combo_drink.price
+					input(type="hidden", name="drink", value=combo_drink._id)
 
 					- price	+= combo_side.price;
 					.temp= combo_side.itemName
 					.price= combo_side.price
+					input(type="hidden", name="drink", value=combo_drink._id)
+
+					- index += 2; // this is so we don't enter drinks and side twice
+
+				input(type="submit")
 
 			- index++;
 
