@@ -67,8 +67,9 @@ html(lang="en")
 					input(type="hidden", name="itemIds", value=combo_side._id)
 
 					- index += 2; // this is so we don't enter drinks and side twice
+					p Total: ${price}
 
-				input(type="submit")
+				input(type="submit", value="DELETE FROM ORDER")
 
 			- index++;
 
