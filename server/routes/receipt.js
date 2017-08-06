@@ -61,8 +61,10 @@ routes.post("/delete", (req, res) => {
   let itemIds = req.body.itemIds;
   console.log(itemIds);
   async.each(itemIds, (itemId) => {
-    console.log(itemId)
-    itemDAO.deleteItemById(mongoose.Types.ObjectId(itemId))
+    itemDAO.deleteItemById(mongoose.Types.ObjectId(orderId, mongoose.Types.ObjectId(itemId)))
+      .then(() => {
+        console.log('deleted item')
+      })
   })
 
 
