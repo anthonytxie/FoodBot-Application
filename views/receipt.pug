@@ -21,48 +21,55 @@ html(lang="en")
 
 		
 		- const items = order._items; // all items in the order
-		- let index = 0; // the index of the current item
+		- let index = 0; 
 
-		each item in items
-			
+		while index < items.length
+			- const item = items[0];
 			- const type = item.itemType; // type of current item: burger, drink or side
 			- const name = item.itemName; // name of current item
 			- const id = item._id; // id of current item
 
 			- let combo = false; // whether this item is a burger with a combo
+			- console.log("cats");
 			if type === "burger"
 				if index <= items.length - 3
-					if itemCombo in items[index + 1]
+					if typeof itemCombo in items[index + 1] !== "undefined"
 						- combo = true;
 
 			- let price = 0;
 
-			form= name
+			form(method="post", action="delete")= name
 
 				- price += item.price;
 
-				input(type="hidden", name="order_id", value=order._id)
-				input(type="hidden", name=type, value=id)
-
-				- console.log("combo: ");
-				- console.log(combo);
+				input(type="hidden", name="orderId", value=order._id)
+				input(type="hidden", name="itemIds", value=id)
 
 				if combo
-					// sort the next 2 rows, display side first
-					if items[index + 1] === "drink"
-						- const combo_drink = items[index + 1];
-						- const combo_side = items[index + 2];
-					else
-						- const combo_side = items[index + 1];
-						- const combo_drink = items[index + 2];
 
-					- price	+= combo_drink.price;
+					- let combo_drink = undefined; // find the drink and side that are part of this combo
+					- let combo_side = undefined;
+					if items[index + 1] === "drink"
+						- combo_drink = items[index + 1];
+						- combo_side = items[index + 2];
+					else
+						- combo_side = items[index + 1];
+						- combo_drink = items[index + 2];
+
+					- price	+= combo_drink.price; // add the drink to the delete id list
 					.temp= combo_drink.itemName
 					.price= combo_drink.price
+					input(type="hidden", name="itemIds", value=combo_drink._id)
 
-					- price	+= combo_side.price;
+					- price	+= combo_side.price; // add the side to the delete id list
 					.temp= combo_side.itemName
 					.price= combo_side.price
+					input(type="hidden", name="itemIds", value=combo_side._id)
+
+					- index += 2; // this is so we don't enter drinks and side twice
+					p Total: #{price}
+
+				input(type="submit", value="DELETE FROM ORDER")
 
 			- index++;
 

@@ -57,6 +57,8 @@ routes.get("/orders", (req, res) => {
 });
 
 routes.post("/delete", (req, res) => {
+  console.log(req.body);
+
   let orderId = req.body.orderId;
   let itemIds = itemIds
 
