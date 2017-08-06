@@ -57,11 +57,9 @@ routes.get("/orders", (req, res) => {
 });
 
 routes.post("/delete", (req, res) => {
-  console.log(req.body);
-
   let orderId = req.body.orderId;
-  let itemIds = itemIds
-
+  let itemIds = req.body.itemIds;
+  console.log(itemIds);
   async.each(itemIds, (itemId) => {
     console.log(itemId)
     itemDAO.deleteItemById(mongoose.Types.ObjectId(itemId))
