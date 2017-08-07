@@ -109,7 +109,7 @@ html(lang="en")
 			options = {};
 			$("#view1container").dragend(options);
 			// send delete requests with AJAX
-			$(".dragend-page").submit(function(e) {
+			$(".dragend-page form").submit(function(e) {
 
 				$.ajax({
 					type: "POST",
