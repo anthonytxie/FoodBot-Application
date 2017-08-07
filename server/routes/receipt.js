@@ -79,9 +79,6 @@ routes.post("/confirmOrder", (req, res) => {
     .then(order => {
       console.log(order._session._id)
     })
-    .then(() => {
-      send.sendMessageGeneric('bye now')
-    })
     .catch(err => res.send(err));
 });
 
