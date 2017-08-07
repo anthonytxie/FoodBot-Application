@@ -41,22 +41,21 @@ orderDAO.getAllOrders = () => {
 
 orderDAO.confirmOrder = function(orderId) {
   return new Promise((resolve, reject) => {
-    Session.findOneAndUpdate(
-      ({ _id: order._session._id }, { $set: { isActive: false } }, { new: true })
-    ).then(session => {
-      resolve(
-        populateOrder(
-          Order.findOneAndUpdate(
-            { _id: orderId },
-            { isConfirmed: true },
-            { new: true }
-          ).sort({ createdAt: -1 })
-        )
+    populateOrder(
+      Order.findOneAndUpdate(
+        { _id: orderId },
+        { isConfirmed: true },
+        { new: true }
+      )
+    ).then(order => {
+      Session.findOneAndUpdate(
+        { _id: order._session._id },
+        { $set: { isActive: false } },
+        { new: true }
       );
     });
   });
 };
-
 
 orderDAO.showOrderDetails = function(sessionId) {
   return new Promise((resolve, reject) => {
