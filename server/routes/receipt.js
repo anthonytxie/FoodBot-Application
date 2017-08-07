@@ -77,7 +77,7 @@ routes.post("/confirmOrder", (req, res) => {
   orderDAO
     .confirmOrder(orderId)
     .then(order => {
-      return sessionDAO.closeSession(order._session._id)
+      console.log(order._session._id)
     })
     .then(() => {
       send.sendMessageGeneric('bye now')
