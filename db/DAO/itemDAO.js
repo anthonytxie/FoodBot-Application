@@ -22,19 +22,41 @@ itemDAO.postBurger = function(data, orderId) {
 };
 
 itemDAO.postDrink = function(data, orderId) {
-  return new Promise((resolve, reject) => {
-    const drink = new Drink(data);
-    drink.save().then(item => {
-      resolve(
-        populateOrder(
-          Order.findOneAndUpdate(
-            { _id: orderId },
-            { $push: { _items: item._id } },
-            { new: true }
-          )
-        )
-      );
-    }).catch((err) => reject(err));
+return new Promise((resolve, reject) => {
+    if (data.itemCombo) {
+      populateOrder(Order.findOne({ _id: orderId })).then(order => {
+        if (order._items.slice(-1)[0].itemType ==='burger') {
+          const drink = new Drink(data);
+          drink.save().then(item => {
+            resolve(
+              populateOrder(
+                Order.findOneAndUpdate(
+                  { _id: orderId },
+                  { $push: { _items: item._id } },
+                  { new: true }
+                )
+              )
+            );
+          });
+        }
+      });
+    } else {
+      const drink = new Drink(data);
+      drink
+        .save()
+        .then(item => {
+          resolve(
+            populateOrder(
+              Order.findOneAndUpdate(
+                { _id: orderId },
+                { $push: { _items: item._id } },
+                { new: true }
+              )
+            )
+          );
+        })
+        .catch(err => reject(err));
+    }
   });
 };
 
@@ -42,7 +64,7 @@ itemDAO.postSide = function(data, orderId) {
   return new Promise((resolve, reject) => {
     if (data.itemCombo) {
       populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (order._items.slice(-1)[0].itemType ==='burger') {
+        if (order._items.slice(-1)[0].itemCombo) {
           const side = new Side(data);
           side.save().then(item => {
             resolve(
