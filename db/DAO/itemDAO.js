@@ -58,7 +58,7 @@ itemDAO.postSide = function(data, orderId) {
         } else {
           resolve("Sorry you can't add combo items before adding a burger");
         }
-      });
+      }).catch((err) => console.log(err))
     } else {
       const side = new Side(data);
       side
