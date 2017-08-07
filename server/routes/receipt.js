@@ -71,6 +71,14 @@ routes.get("/orders", (req, res) => {
     .catch(err => console.log(err));
 });
 
+routes.post('/confirmorder', (req, res) => {
+  const orderId = req.body.orderId;
+  orderDAO.confirmOrder(orderId) 
+    .then((order) => {
+      res.status(200).send(order);
+    }).catch((err) => res.status(400).send(err))
+});
+
 routes.post("/delete", (req, res) => {
   let orderId = req.body.orderId;
   let itemIds = req.body.itemIds;
