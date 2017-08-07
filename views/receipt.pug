@@ -51,7 +51,7 @@ html(lang="en")
 
 				- let price = 0;
 
-				form.view1form.dragend-page(method="post", action="delete")= name
+				form.dragend-page(method="post", action="delete")= name
 
 					- price += item.price;
 
@@ -108,7 +108,7 @@ html(lang="en")
 			options = {};
 			$("#view1container").dragend(options);
 			// send delete requests with AJAX
-			$(".view1form").submit(function(e) {
+			$(".dragend-page").submit(function(e) {
 
 				$.ajax({
 					type: "POST",
