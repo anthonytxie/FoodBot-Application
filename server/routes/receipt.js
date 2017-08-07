@@ -71,12 +71,14 @@ routes.get("/orders", (req, res) => {
     .catch(err => console.log(err));
 });
 
-routes.post("/confirmorder", (req, res) => {
+routes.post("/confirmOrder", (req, res) => {
   const orderId = req.body.orderId;
-  orderDAO.confirmOrder(orderId) 
-    .then((order) => {
-      res.status(200).send(order);
-    }).catch((err) => res.status(400).send(err))
+  orderDAO
+    .confirmOrder(orderId)
+    .then(order => {
+      res.send(order);
+    })
+    .catch(err => res.send(err));
 });
 
 routes.post("/delete", (req, res) => {
