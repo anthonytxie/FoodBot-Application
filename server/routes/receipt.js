@@ -61,7 +61,7 @@ routes.post("/charge", (req, res) => {
 
 // this is temporary
 routes.get("/receipt", (req, res) => {
-  res.render("checkout.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
+  res.render("receipt.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
 });
 
 routes.post("/delete", (req, res) => {
