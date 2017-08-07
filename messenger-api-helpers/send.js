@@ -10,8 +10,8 @@ const sendInitializeMessage = (recipientId, data) => {
 };
 
 
-const sendFarewellMessage = (recipientId) => {
-  sendMessage(recipientId, messages.messageTemplate('Farewell!'));
+const sendMessageGeneric = (recipientId, message) => {
+  sendMessage(recipientId, messages.messageTemplate(message));
 };
 
 
@@ -164,7 +164,7 @@ module.exports = {
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
-  sendFarewellMessage,
+  sendMessageGeneric,
   sendReceiptTemplate,
   askFriesSize,
   askMilkshakeFlavor

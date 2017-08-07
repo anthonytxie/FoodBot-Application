@@ -39,7 +39,10 @@ return new Promise((resolve, reject) => {
             );
           });
         }
-      });
+        else {
+          resolve(false);
+        }
+      }).catch((err) => reject(err));
     } else {
       const drink = new Drink(data);
       drink
