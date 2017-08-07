@@ -40,8 +40,6 @@ routes.post("/charge", (req, res) => {
   })
 })
 
-
-
 routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
   orderDAO
@@ -70,13 +68,6 @@ routes.post("/delete", (req, res) => {
         console.log(item)
       }).catch((err) => console.log(err))
   })
-
-
-}, function (error) {
-  if (error) res.json(500, {error: error});
-
-  console.log('items deleted');
-  return res.json(201, {msg: 'items deleted'} );
 });
 
 module.exports = routes;
