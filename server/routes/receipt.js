@@ -73,8 +73,7 @@ routes.get("/orders", (req, res) => {
 
 routes.post('/confirmorder', (req, res) => {
   const orderId = req.body.orderId;
-  res.send(orderId)
-
+  res.JSON(orderId)
 });
 
 routes.post("/delete", (req, res) => {
