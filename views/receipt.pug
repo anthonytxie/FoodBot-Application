@@ -82,9 +82,9 @@ html(lang="en")
 						- index += 2; // this is so we don't enter drinks and sides twice
 						p Total: #{price}
 
-					input(type="submit", value="DELETE FROM ORDER")
+					input.view1button(type="submit", value="DELETE FROM ORDER")
 					- index++;
-					button#view1button Sounds Good
+					button.view1button#doneview1 Sounds Good
 
 		#view2container(style="display:none;")
 			input(name="method", type="radio", value="pickup")
@@ -101,7 +101,7 @@ html(lang="en")
 				.price 1
 			input(type="submit", value="Checkout")
 
-			button#view2button Purchase
+			button#doneview2 Purchase
 		
 		script.
 			// view 1
@@ -122,7 +122,7 @@ html(lang="en")
 
 				e.preventDefault(); // avoids actually submitting the form
 			});
-			$("#view1button").click(function(){
+			$("#doneview1").click(function(){
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
@@ -149,6 +149,9 @@ html(lang="en")
 				});
 				e.preventDefault();
 			});
+			$("#doneview2").click(function(){
+				$("#view2container").hide();
+			})
 
 			// view 3
 			window.addEventListener('popstate', function() { // close checkout on page navigation
