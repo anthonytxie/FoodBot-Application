@@ -9,6 +9,7 @@ html(lang="en")
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src='https://checkout.stripe.com/checkout.js')
+		
 	body
 		input(name="method", type="radio", value="pickup")
 		input(name="method", type="radio", value="delivery")
@@ -46,7 +47,6 @@ html(lang="en")
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
 				locale: 'auto',
 				currency: "CAD",
-				bitcoin: true,
 				token: function(token) {
 					// You can access the token ID with `token.id`.
 					// Get the token ID to your server-side code for use.

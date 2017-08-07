@@ -1,0 +1,15 @@
+.ui-page-theme-a {
+	text-shadow: 0 0 0 white;
+}
+
+/* 414px max width */
+html, body {
+	width: 100%;
+	height: 100%;
+	background-color: #f7f7f7;
+	color: rgba(0,0,0,0.4);
+	font-family: Arial;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+}
