@@ -54,7 +54,10 @@ routes.get("/receipt", (req, res) => {
   orderDAO
     .getOrderById(orderId)
     .then(order => {
-      res.render("receipt", { order: order });
+      res.render("receipt", { 
+        order: order,
+        keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
+      });
     })
     .catch(err => console.log(err));
 });
