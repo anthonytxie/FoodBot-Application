@@ -42,18 +42,20 @@ itemDAO.postSide = function(data, orderId) {
   return new Promise((resolve, reject) => {
     if (data.itemCombo) {
       populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        const side = new Side(data);
-        side.save().then(item => {
-          resolve(
-            populateOrder(
-              Order.findOneAndUpdate(
-                { _id: orderId },
-                { $push: { _items: item._id } },
-                { new: true }
+        if (order._items) {
+          const side = new Side(data);
+          side.save().then(item => {
+            resolve(
+              populateOrder(
+                Order.findOneAndUpdate(
+                  { _id: orderId },
+                  { $push: { _items: item._id } },
+                  { new: true }
+                )
               )
-            )
-          );
-        });
+            );
+          });
+        }
       });
     } else {
       const side = new Side(data);
