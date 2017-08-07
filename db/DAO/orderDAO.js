@@ -38,7 +38,6 @@ orderDAO.getAllOrders = () => {
   });
 };
 
-
 orderDAO.confirmOrder = function(orderId) {
   return new Promise((resolve, reject) => {
     populateOrder(
@@ -47,11 +46,21 @@ orderDAO.confirmOrder = function(orderId) {
         { isConfirmed: true },
         { new: true }
       )
-    ).then(order => {
-      resolve(order)
-    }).catch((err) => reject(err))
+    )
+      .then(order => {
+        Session.findByIdAndUpdate(
+          order._session._id,
+          { $set: { isActive: false } },
+          { new: true }
+        );
+      })
+      .then(session => {
+        resolve(session);
+      })
+      .catch(err => reject(err));
   });
 };
+
 
 orderDAO.showOrderDetails = function(sessionId) {
   return new Promise((resolve, reject) => {
