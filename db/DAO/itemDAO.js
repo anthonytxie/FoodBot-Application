@@ -42,23 +42,19 @@ itemDAO.postSide = function(data, orderId) {
   return new Promise((resolve, reject) => {
     if (data.itemCombo) {
       populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (order._items.slice(-1)[0].itemType === "burger") {
-          const side = new Side(data);
-          side.save().then(item => {
-            resolve(
-              populateOrder(
-                Order.findOneAndUpdate(
-                  { _id: orderId },
-                  { $push: { _items: item._id } },
-                  { new: true }
-                )
+        const side = new Side(data);
+        side.save().then(item => {
+          resolve(
+            populateOrder(
+              Order.findOneAndUpdate(
+                { _id: orderId },
+                { $push: { _items: item._id } },
+                { new: true }
               )
-            );
-          });
-        } else {
-          resolve("Sorry you can't add combo items before adding a burger");
-        }
-      }).catch((err) => console.log(err))
+            )
+          );
+        });
+      });
     } else {
       const side = new Side(data);
       side
