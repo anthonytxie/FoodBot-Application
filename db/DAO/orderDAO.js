@@ -53,7 +53,7 @@ orderDAO.confirmOrder = function(orderId) {
         { $set: { isActive: false } },
         { new: true }
       );
-    });
+    }).catch((err) => reject(err))
   });
 };
 
