@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+	head
+		title Checkout
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+		link(rel ='stylesheet', href="receipt.css", type='text/css')
+		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+	body
+		input(name="method", type="radio", value="pickup")
+		input(name="method", type="radio", value="delivery")
+		input(name="time", type="time", "value="22:15:00")
+		.item_row
+			.item Burger
+			.price 12
+		.item_row
+			.item HST (13%)
+			.price 1
+		.item_row
+			.item Processing Fee
+			.price 1
+		input(type="submit")
+		script.
+			// called when MessengerExtensions is done loading
+			window.extAsyncInit = function() {
+				$("button").click(function(){
+					// document.getElementById("only_form").submit();
+					MessengerExtensions.requestCloseBrowser(function success() {
+						console.log("success");
+					}, function error(err) {
+						console.log(err);
+					});
+				})
+			}
