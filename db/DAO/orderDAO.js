@@ -40,13 +40,11 @@ orderDAO.getAllOrders = () => {
 
 orderDAO.confirmOrder = function(orderId) {
   return new Promise((resolve, reject) => {
-    populateOrder(
       Order.findOneAndUpdate(
         { _id: orderId },
-        { isConfirmed: true },
+        { $set: { isConfirmed: true } },
         { new: true }
-      )
-    ).then((order) => {
+      ).then((order) => {
       resolve(order)
     }).catch((err) => reject(err))
   });
