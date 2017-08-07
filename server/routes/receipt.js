@@ -49,28 +49,23 @@ routes.post("/charge", (req, res) => {
   })
 })
 
-// routes.get("/receipt", (req, res) => {
-//   let orderId = req.query.order;
-//   orderDAO
-//     .getOrderById(orderId)
-//     .then(order => {
-//       res.render("receipt", { order: order });
-//     })
-//     .catch(err => console.log(err));
-// });
-
-// routes.get("/orders", (req, res) => {
-//   orderDAO
-//     .getAllOrders()
-//     .then(orders => {
-//       res.send(orders);
-//     })
-//     .catch(err => console.log(err));
-// });
-
-// this is temporary
 routes.get("/receipt", (req, res) => {
-  res.render("receipt.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
+  let orderId = req.query.order;
+  orderDAO
+    .getOrderById(orderId)
+    .then(order => {
+      res.render("receipt", { order: order });
+    })
+    .catch(err => console.log(err));
+});
+
+routes.get("/orders", (req, res) => {
+  orderDAO
+    .getAllOrders()
+    .then(orders => {
+      res.send(orders);
+    })
+    .catch(err => console.log(err));
 });
 
 routes.post("/delete", (req, res) => {
