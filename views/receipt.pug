@@ -20,68 +20,76 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
+		- // this page is going to broken up into several phases
+		- // 1: see receipt, remove / restore items
+		- // 2: ajax/get_order, see pickup or delivery, time, pay button
+		- // 3: payment
 		
+		- // VIEW 1
+
 		- const items = order._items; // all items in the order
 		- let index = 0; 
 
-		while index < items.length
-			- let item = items[index];
-			- let type = item.itemType; // type of current item: burger, drink or side
-			- let name = item.itemName; // name of current item
-			- let id = item._id; // id of current item
+		//- #demo
+		//- 	.dragend-page PAGE 1
+		//- 	.dragend-page PAGE 2
 
-			- let combo = false; // whether this item is a burger with a combo
-			if type === "burger"
-				if index <= items.length - 3
-					if typeof itemCombo in items[index + 1] !== "undefined"
-						- combo = true;
+		#view1container
 
-			- let price = 0;
+			while index < items.length
+				- let item = items[index];
+				- let type = item.itemType; // type of current item: burger, drink or side
+				- let name = item.itemName; // name of current item
+				- let id = item._id; // id of current item
 
-			form(method="post", action="delete")= name
+				- let combo = false; // whether this item is a burger with a combo
+				if type === "burger"
+					if index <= items.length - 3
+						if typeof itemCombo in items[index + 1] !== "undefined"
+							- combo = true;
 
-				- price += item.price;
+				- let price = 0;
 
-				input(type="hidden", name="orderId", value=order._id)
-				input(type="hidden", name="itemIds[]", value=id)
+				form.dragend-page(method="post", action="delete")= name
 
-				if combo
+					- price += item.price;
 
-					- let combo_drink = undefined; // find the drink and side that are part of this combo
-					- let combo_side = undefined;
-					if items[index + 1] === "drink"
-						- combo_drink = items[index + 1];
-						- combo_side = items[index + 2];
-					else
-						- combo_side = items[index + 1];
-						- combo_drink = items[index + 2];
+					input(type="hidden", name="orderId", value=order._id)
+					input(type="hidden", name="itemIds[]", value=id)
 
-					- price	+= combo_drink.price; // add the drink to the delete id list
-					.temp= combo_drink.itemName
-					.price= combo_drink.price
-					input(type="hidden", name="itemIds[]", value=combo_drink._id)
+					if combo
 
-					- price	+= combo_side.price; // add the side to the delete id list
-					.temp= combo_side.itemName
-					.price= combo_side.price
-					input(type="hidden", name="itemIds[]", value=combo_side._id)
+						- let combo_drink = undefined; // find the drink and side that are part of this combo
+						- let combo_side = undefined;
+						if items[index + 1] === "drink"
+							- combo_drink = items[index + 1];
+							- combo_side = items[index + 2];
+						else
+							- combo_side = items[index + 1];
+							- combo_drink = items[index + 2];
 
-					- index += 2; // this is so we don't enter drinks and sides twice
-					p Total: #{price}
+						- price	+= combo_drink.price; // add the drink to the delete id list
+						.temp= combo_drink.itemName
+						.price= combo_drink.price
+						input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
-				input(type="submit", value="DELETE FROM ORDER")
+						- price	+= combo_side.price; // add the side to the delete id list
+						.temp= combo_side.itemName
+						.price= combo_side.price
+						input(type="hidden", name="itemIds[]", value=combo_side._id)
 
-			- index++;
+						- index += 2; // this is so we don't enter drinks and sides twice
+						p Total: #{price}
 
-		button Sounds Good
+					input(type="submit", value="DELETE FROM ORDER")
 
-		#demo
-			.dragend-page PAGE 1
-			.dragend-page PAGE 2
+				- index++;
+
+			button Sounds Good
 		
 		script.
 			options = {};
-			$("#demo").dragend(options);
+			$("#view1container").dragend(options);
 
 
 
