@@ -8,11 +8,9 @@ html(lang="en")
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+		script(src="dragend-master/dragend.js")
 	body
 		script.
-			// swipe library
-			// https://github.com/Stereobit/dragend
-
 			// code to connect to the extension necessary to close this view
 			(function(d, s, id){
 				var js, fjs = d.getElementsByTagName(s)[0];
@@ -76,8 +74,17 @@ html(lang="en")
 			- index++;
 
 		button Sounds Good
+
+		#demo
+			.dragend_page PAGE 1
+			.dragend_page PAGE 2
 		
 		script.
+			options = {};
+			$("#demo").dragend(options);
+
+
+
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
 				$("button").click(function(){
