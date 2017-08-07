@@ -101,21 +101,13 @@ sessionDAO.renewSession = function(PSID) {
     });
 };
 
-sessionDAO.closeSession = function(PSID) {
+sessionDAO.closeSession = function(sessionId) {
     return new Promise((resolve, reject) => {
-        User.findOne({ PSID })
-            .then(user => {
-                return Session.findOne({ _user: user._id }).sort({
-                    createdAt: -1
-                });
-            })
-            .then(session => {
-                return Session.findOneAndUpdate(
-                    { _id: session._id },
-                    { $set: { isActive: false } },
-                    { new: true }
-                );
-            })
+        Session.findOneAndUpdate(
+            { _id: sessionId },
+            { $set: { isActive: false } },
+            { new: true }
+        )
             .then(session => {
                 resolve(session);
             })

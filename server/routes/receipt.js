@@ -76,7 +76,7 @@ routes.post("/confirmOrder", (req, res) => {
   orderDAO
     .confirmOrder(orderId)
     .then(order => {
-      res.send(order);
+      return sessionDAO.closeSession(order._session._id)
     })
     .catch(err => res.send(err));
 });

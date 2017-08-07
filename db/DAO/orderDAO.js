@@ -1,4 +1,4 @@
-const { Order, User, Session } = require('./../models/index');
+const { Order, User } = require('./../models/index');
 const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");
@@ -46,18 +46,9 @@ orderDAO.confirmOrder = function(orderId) {
         { isConfirmed: true },
         { new: true }
       )
-    )
-      .then(order => {
-        Session.findByIdAndUpdate(
-          order._session._id,
-          { $set: { isActive: false } },
-          { new: true }
-        );
-      })
-      .then(session => {
-        resolve(session);
-      })
-      .catch(err => reject(err));
+    ).then((order) => {
+      resolve(order)
+    }).catch((err) => reject(err))
   });
 };
 
