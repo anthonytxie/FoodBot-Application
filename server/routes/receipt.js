@@ -23,6 +23,7 @@ routes.get("/stripe", (req, res) => {
 
 
 routes.get("/getOrder/:orderId"), (req, res) => {
+  console.log(req.params);
   const orderId = mongoose.Types.ObjectId(req.params.orderId);
   orderDAO.getOrderById(orderId)
     .then((order) => {
