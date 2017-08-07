@@ -5,6 +5,7 @@ const async = require('async');
 const mongoose = require('mongoose');
 
 //DAO
+const sessionDAO = require("./../../db/DAO/sessionDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 const itemDAO = require("./../../db/DAO/itemDAO");
 const stripe = require('stripe')('sk_test_wGIrSvj5T4LPKJe603wPoLhw')
@@ -77,6 +78,9 @@ routes.post("/confirmOrder", (req, res) => {
     .confirmOrder(orderId)
     .then(order => {
       return sessionDAO.closeSession(order._session._id)
+    })
+    .then(() => {
+      send.sendMessageGeneric('bye now')
     })
     .catch(err => res.send(err));
 });
