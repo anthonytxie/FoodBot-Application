@@ -48,11 +48,7 @@ orderDAO.confirmOrder = function(orderId) {
         { new: true }
       )
     ).then(order => {
-      Session.findOneAndUpdate(
-        { _id: order._session._id },
-        { $set: { isActive: false } },
-        { new: true }
-      );
+      resolve(order)
     }).catch((err) => reject(err))
   });
 };
