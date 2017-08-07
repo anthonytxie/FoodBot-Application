@@ -100,7 +100,7 @@ html(lang="en")
 			.item_row
 				.item Processing Fee
 				.price 1
-			input#view2button(type="submit", value="Checkout")
+			input#doneview2(type="submit", value="Checkout")
 		
 		script.
 			// view 1
@@ -138,7 +138,7 @@ html(lang="en")
 					// Get the token ID to your server-side code for use.
 				}
 			});
-			document.getElementById('view2button').addEventListener('click', function(e) {
+			document.getElementById('doneview2').addEventListener('click', function(e) {
 				// Open Checkout with further options:
 				handler.open({
 					name: 'FoodBot',
