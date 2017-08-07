@@ -12,6 +12,11 @@ const stripe = require('stripe')('sk_test_wGIrSvj5T4LPKJe603wPoLhw')
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
+// move this to own routes .js file
+routes.get("/checkout", (req, res) => {
+  res.render("checkout.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
+});
+
 routes.get("/stripe", (req, res) => {
   res.render("stripe.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
 });
