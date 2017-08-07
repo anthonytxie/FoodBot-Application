@@ -42,7 +42,7 @@ itemDAO.postSide = function(data, orderId) {
   return new Promise((resolve, reject) => {
     if (data.itemCombo) {
       populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (order._items) {
+        if (order._items.slice(-1)[0].itemType ==='burger') {
           const side = new Side(data);
           side.save().then(item => {
             resolve(
