@@ -171,7 +171,8 @@ module.exports = {
   sendMessageGeneric,
   sendReceiptTemplate,
   askFriesSize,
-  askMilkshakeFlavor
+  askMilkshakeFlavor,
+  sendComboError
 };
 
 
