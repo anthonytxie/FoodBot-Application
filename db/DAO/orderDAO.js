@@ -38,19 +38,25 @@ orderDAO.getAllOrders = () => {
   });
 };
 
-orderDAO.confirmOrder = function(sessionId, confirmStatus) {
+
+orderDAO.confirmOrder = function(orderId) {
   return new Promise((resolve, reject) => {
-    populateOrder(
-      Order.findOneAndUpdate(
-        { _session: sessionId },
-        { isConfirmed: confirmStatus },
-        { new: true }
-      ).sort({ createdAt: -1 })
-    )
-      .then(order => resolve(order))
-      .catch(err => reject(err));
+    Session.findOneAndUpdate(
+      ({ _id: order._session._id }, { $set: { isActive: false } }, { new: true })
+    ).then(session => {
+      resolve(
+        populateOrder(
+          Order.findOneAndUpdate(
+            { _id: orderId },
+            { isConfirmed: true },
+            { new: true }
+          ).sort({ createdAt: -1 })
+        )
+      );
+    });
   });
 };
+
 
 orderDAO.showOrderDetails = function(sessionId) {
   return new Promise((resolve, reject) => {

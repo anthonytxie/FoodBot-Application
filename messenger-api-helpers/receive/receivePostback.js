@@ -72,14 +72,6 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
-        case "see-receipt":
-          runner
-            .confirmOrder(senderId)
-            .then(order => {
-              send.sendReceiptTemplate(senderId, order);
-            })
-            .catch(err => console.log(err));
-          break;
         case "order-continue":
           runner
             .renewSessionAndReturnOrder(senderId)

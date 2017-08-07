@@ -70,16 +70,6 @@ const sendComboError = (recipientId, order) => {
 };
 
 
-
-
-// ===== RECEIPT ===============================================================
-const sendReceiptTemplate = (recipientId, order) => {
-  sendMessage(recipientId, messages.messageTemplate('OK this is your order'))
-  setTimeout(() => {
-    sendMessage(recipientId, messages.receiptMessageTemplate(order));
-  }, 500);
-};
-
 // ===== ECHO & GENERIC ===============================================================
 
 const sendEchoMessage = (recipientId, message) => {
@@ -169,7 +159,6 @@ module.exports = {
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
   sendMessageGeneric,
-  sendReceiptTemplate,
   askFriesSize,
   askMilkshakeFlavor,
   sendComboError

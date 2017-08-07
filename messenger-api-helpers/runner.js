@@ -58,24 +58,6 @@ const createNewOrder = (senderId) => {
 };
 
 
-const confirmOrder = (senderId) => {
-  return sessionDAO
-    .closeSession(senderId)
-    .then(session => {
-      return orderDAO.confirmOrder(session._id, true);
-    })
-    .catch(err => console.log(err));
-};
-
-const unconfirmOrder = (senderId) => {
-  return sessionDAO
-    .renewSession(senderId)
-    .then(session => {
-      return orderDAO.confirmOrder(session._id, false);
-    })
-    .catch(err => console.log(err));
-};
-
 const showCurrentOrder = (senderId) => {
   return sessionDAO
     .renewSession(senderId)
@@ -129,8 +111,6 @@ const deleteMostRecentItemAdded = (senderId) => {
 module.exports = {
   initialize,
   createNewOrder,
-  confirmOrder,
-  unconfirmOrder,
   addBurgerToOrder,
   addSideToOrder,
   addDrinkToOrder,

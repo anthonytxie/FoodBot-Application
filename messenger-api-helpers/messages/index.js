@@ -8,8 +8,6 @@ const {
   sideMenuMessage
 } = require("./menu");
 
-const { receiptMessageTemplate } = require("./receiptTemplate");
-
 const { burgerTemplate } = require("./itemTemplate");
 
 const messageTemplate = message => {
@@ -127,13 +125,6 @@ const orderAskContinue = function(order) {
               type: "see-menu"
             })
           },
-          // {
-          //   type: "postback",
-          //   title: "Done",
-          //   payload: JSON.stringify({
-          //     type: "see-receipt"
-          //   })
-          // }
           {
             type: "web_url",
             url: `https://foodbotstaging.herokuapp.com/receipt?order=${order._id}`,
@@ -278,7 +269,6 @@ module.exports = {
   burgerTemplate,
   upsizeOrderMessage,
   orderAskContinue,
-  receiptMessageTemplate,
   askFriesSizeMessage,
   askMilkshakeFlavorMessage,
   comboErrorMessage
