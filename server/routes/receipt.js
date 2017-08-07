@@ -21,6 +21,15 @@ routes.get("/stripe", (req, res) => {
   res.render("stripe.pug", {keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" })
 });
 
+
+routes.get("/getOrder/:orderId", (req, res) => {
+  const orderId = req.params.orderId;
+  orderDAO.getOrderById(orderId).then(order => {
+    res.status(200).send(order);
+  });
+});
+
+
 routes.post("/charge", (req, res) => {
   let amount = 500;
   stripe.customers.create({

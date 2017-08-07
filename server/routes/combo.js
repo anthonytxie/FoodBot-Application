@@ -1,5 +1,5 @@
 // MODULES
-const express = require('express');
+const express = require("express");
 const routes = express();
 const mongoose = require("mongoose");
 
@@ -9,14 +9,11 @@ const itemDAO = require("./../../db/DAO/itemDAO");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-
 routes.get("/burgercombo", (req, res) => {
   let orderId = req.query.order;
   let senderId = req.query.sender;
   res.render("burgercombopage", { order_id: orderId, sender_id: senderId }); //send back pug file
 });
-
-
 
 routes.post("/combo", (req, res) => {
   console.log(req.body);
@@ -62,11 +59,17 @@ routes.post("/combo", (req, res) => {
 
   itemDAO
     .postDrink(drink, orderId)
-    .then(() => {
-      return itemDAO.postSide(side, orderId);
+    .then(order => {
+      if (!order) {
+        send.sendComboError(senderId);
+      } else {
+        return itemDAO.postSide(side, orderId);
+      }
     })
     .then(order => {
-      send.sendOrderedMessage(senderId, order);
+      if (order) {
+        send.sendOrderedMessage(senderId, order);
+      }
     })
     .catch(err => console.log(err));
 });

@@ -10,8 +10,8 @@ const sendInitializeMessage = (recipientId, data) => {
 };
 
 
-const sendFarewellMessage = (recipientId) => {
-  sendMessage(recipientId, messages.messageTemplate('Farewell!'));
+const sendMessageGeneric = (recipientId, message) => {
+  sendMessage(recipientId, messages.messageTemplate(message));
 };
 
 
@@ -63,6 +63,10 @@ const askFriesSize = (recipientId, order) => {
 
 const askMilkshakeFlavor = (recipientId, order) => {
   sendMessage(recipientId, messages.askMilkshakeFlavorMessage(order));
+};
+
+const sendComboError = (recipientId, order) => {
+  sendMessage(recipientId, messages.comboErrorMessage);
 };
 
 
@@ -164,10 +168,11 @@ module.exports = {
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
-  sendFarewellMessage,
+  sendMessageGeneric,
   sendReceiptTemplate,
   askFriesSize,
-  askMilkshakeFlavor
+  askMilkshakeFlavor,
+  sendComboError
 };
 
 
