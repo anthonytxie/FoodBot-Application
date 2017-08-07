@@ -5,7 +5,7 @@ html(lang="en")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
 		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
-		link(rel ='stylesheet', href="receipt.css", type='text/css')
+		link(rel ='stylesheet', href="checkout.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src='https://checkout.stripe.com/checkout.js')
@@ -43,8 +43,10 @@ html(lang="en")
 		script.
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
-				image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
 				locale: 'auto',
+				currency: "CAD",
+				bitcoin: true,
 				token: function(token) {
 					// You can access the token ID with `token.id`.
 					// Get the token ID to your server-side code for use.
@@ -54,8 +56,8 @@ html(lang="en")
 			document.getElementById('customButton').addEventListener('click', function(e) {
 				// Open Checkout with further options:
 				handler.open({
-					name: 'Stripe.com',
-					description: '2 widgets',
+					name: 'FoodBot',
+					description: 'Your Order',
 					zipCode: true,
 					amount: 2000
 				});
