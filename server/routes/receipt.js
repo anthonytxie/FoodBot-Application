@@ -22,14 +22,13 @@ routes.get("/stripe", (req, res) => {
 });
 
 
-routes.get("/getOrder/:orderId"), (req, res) => {
-  console.log(req.params);
-  const orderId = mongoose.Types.ObjectId(req.params.orderId);
-  orderDAO.getOrderById(orderId)
-    .then((order) => {
-      res.status(200).send(order);
-    });
-};
+routes.get("/getOrder/:orderId", (req, res) => {
+  const orderId = req.params.orderId;
+  orderDAO.getOrderById(orderId).then(order => {
+    res.status(200).send(order);
+  });
+});
+
 
 routes.post("/charge", (req, res) => {
   let amount = 500;
