@@ -237,6 +237,32 @@ const askMilkshakeFlavorMessage = function(order) {
   };
 };
 
+const comboErrorMessage = {
+    text:
+        "We're sorry. You can't order combo items without order a burger first. See burgers here:",
+    quick_replies: [
+        {
+            content_type: "text",
+            title: "Our Favourites",
+            payload: JSON.stringify({
+                type: "see-special-burgers"
+            })
+        },
+        {
+            content_type: "text",
+            title: "Normal Burgers",
+            payload: JSON.stringify({
+                type: "see-normal-burgers"
+            })
+        }
+    ]
+};
+
+
+
+
+
+
 module.exports = {
   messageTemplate,
   persistentMenu,
@@ -254,5 +280,6 @@ module.exports = {
   orderAskContinue,
   receiptMessageTemplate,
   askFriesSizeMessage,
-  askMilkshakeFlavorMessage
+  askMilkshakeFlavorMessage,
+  comboErrorMessage
 };

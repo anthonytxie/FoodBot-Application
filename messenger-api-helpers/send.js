@@ -65,6 +65,10 @@ const askMilkshakeFlavor = (recipientId, order) => {
   sendMessage(recipientId, messages.askMilkshakeFlavorMessage(order));
 };
 
+const sendComboError = (recipientId, order) => {
+  sendMessage(recipientId, messages.comboErrorMessage);
+};
+
 
 
 

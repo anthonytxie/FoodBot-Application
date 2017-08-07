@@ -61,10 +61,7 @@ routes.post("/combo", (req, res) => {
     .postDrink(drink, orderId)
     .then(order => {
       if (!order) {
-        send.sendMessageGeneric(
-          senderId,
-          "We're sorry. You can't order combo items unless you order a burger first"
-        );
+        send.sendComboError(senderId);
       } else {
         return itemDAO.postSide(side, orderId);
       }
