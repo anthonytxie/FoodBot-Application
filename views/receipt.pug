@@ -51,40 +51,41 @@ html(lang="en")
 
 				- let price = 0;
 
-				form.dragend-page(method="post", action="delete")= name
+				.dragend-page
+					form(method="post", action="delete")= name
 
-					- price += item.price;
+						- price += item.price;
 
-					input(type="hidden", name="orderId", value=order._id)
-					input(type="hidden", name="itemIds[]", value=id)
+						input(type="hidden", name="orderId", value=order._id)
+						input(type="hidden", name="itemIds[]", value=id)
 
-					if combo
+						if combo
 
-						- let combo_drink = undefined; // find the drink and side that are part of this combo
-						- let combo_side = undefined;
-						if items[index + 1] === "drink"
-							- combo_drink = items[index + 1];
-							- combo_side = items[index + 2];
-						else
-							- combo_side = items[index + 1];
-							- combo_drink = items[index + 2];
+							- let combo_drink = undefined; // find the drink and side that are part of this combo
+							- let combo_side = undefined;
+							if items[index + 1] === "drink"
+								- combo_drink = items[index + 1];
+								- combo_side = items[index + 2];
+							else
+								- combo_side = items[index + 1];
+								- combo_drink = items[index + 2];
 
-						- price	+= combo_drink.price; // add the drink to the delete id list
-						.temp= combo_drink.itemName
-						.price= combo_drink.price
-						input(type="hidden", name="itemIds[]", value=combo_drink._id)
+							- price	+= combo_drink.price; // add the drink to the delete id list
+							.temp= combo_drink.itemName
+							.price= combo_drink.price
+							input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
-						- price	+= combo_side.price; // add the side to the delete id list
-						.temp= combo_side.itemName
-						.price= combo_side.price
-						input(type="hidden", name="itemIds[]", value=combo_side._id)
+							- price	+= combo_side.price; // add the side to the delete id list
+							.temp= combo_side.itemName
+							.price= combo_side.price
+							input(type="hidden", name="itemIds[]", value=combo_side._id)
 
-						- index += 2; // this is so we don't enter drinks and sides twice
-						p Total: #{price}
+							- index += 2; // this is so we don't enter drinks and sides twice
+							p Total: #{price}
 
-					input.view1button(type="submit", value="DELETE FROM ORDER")
-					- index++;
-					button.view1button#doneview1 Sounds Good
+							input.view1button(type="submit", value="DELETE FROM ORDER")
+							- index++;
+						button.view1button#doneview1 Sounds Good
 
 		//- VIEW 2
 		#view2container(style="display:none;")
