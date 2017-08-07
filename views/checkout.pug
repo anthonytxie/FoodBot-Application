@@ -8,6 +8,7 @@ html(lang="en")
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+		script(src='https://checkout.stripe.com/checkout.js')
 	body
 		input(name="method", type="radio", value="pickup")
 		input(name="method", type="radio", value="delivery")
@@ -21,7 +22,10 @@ html(lang="en")
 		.item_row
 			.item Processing Fee
 			.price 1
-		input(type="submit")
+		input(type="submit", value="Checkout")
+
+		button#customButton Purchase
+
 		script.
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
@@ -34,3 +38,31 @@ html(lang="en")
 					});
 				})
 			}
+
+		
+		script.
+			var handler = StripeCheckout.configure({
+				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+				image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+				locale: 'auto',
+				token: function(token) {
+					// You can access the token ID with `token.id`.
+					// Get the token ID to your server-side code for use.
+				}
+			});
+		
+			document.getElementById('customButton').addEventListener('click', function(e) {
+				// Open Checkout with further options:
+				handler.open({
+					name: 'Stripe.com',
+					description: '2 widgets',
+					zipCode: true,
+					amount: 2000
+				});
+		  		e.preventDefault();
+		  	});
+
+			// Close Checkout on page navigation:
+			window.addEventListener('popstate', function() {
+				handler.close();
+			});
