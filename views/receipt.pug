@@ -43,131 +43,131 @@ html(lang="en")
 				- let name = item.itemName; // name of current item
 				- let id = item._id; // id of current item
 
-				//- - let combo = false; // whether this item is a burger with a combo
-				//- if type === "burger"
-				//- 	if index <= items.length - 3
-				//- 		if typeof itemCombo in items[index + 1] !== "undefined"
-				//- 			- combo = true;
+				- let combo = false; // whether this item is a burger with a combo
+				if type === "burger"
+					if index <= items.length - 3
+						if typeof itemCombo in items[index + 1] !== "undefined"
+							- combo = true;
 
-				//- - let price = 0;
+				- let price = 0;
 
-				//- .dragend-page
-				//- 	form(method="post", action="delete")= name
+				.dragend-page
+					form(method="post", action="delete")= name
 
-				//- 		- price += item.price;
+						- price += item.price;
 
-				//- 		input(type="hidden", name="orderId", value=order._id)
-				//- 		input(type="hidden", name="itemIds[]", value=id)
+						input(type="hidden", name="orderId", value=order._id)
+						input(type="hidden", name="itemIds[]", value=id)
 
-						//- if combo
+						if combo
 
-						//- 	- let combo_drink = undefined; // find the drink and side that are part of this combo
-						//- 	- let combo_side = undefined;
-						//- 	if items[index + 1] === "drink"
-						//- 		- combo_drink = items[index + 1];
-						//- 		- combo_side = items[index + 2];
-						//- 	else
-						//- 		- combo_side = items[index + 1];
-						//- 		- combo_drink = items[index + 2];
+							- let combo_drink = undefined; // find the drink and side that are part of this combo
+							- let combo_side = undefined;
+							if items[index + 1] === "drink"
+								- combo_drink = items[index + 1];
+								- combo_side = items[index + 2];
+							else
+								- combo_side = items[index + 1];
+								- combo_drink = items[index + 2];
 
-						//- 	- price	+= combo_drink.price; // add the drink to the delete id list
-						//- 	.temp= combo_drink.itemName
-						//- 	.price= combo_drink.price
-						//- 	input(type="hidden", name="itemIds[]", value=combo_drink._id)
+							- price	+= combo_drink.price; // add the drink to the delete id list
+							.temp= combo_drink.itemName
+							.price= combo_drink.price
+							input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
-						//- 	- price	+= combo_side.price; // add the side to the delete id list
-						//- 	.temp= combo_side.itemName
-						//- 	.price= combo_side.price
-						//- 	input(type="hidden", name="itemIds[]", value=combo_side._id)
+							- price	+= combo_side.price; // add the side to the delete id list
+							.temp= combo_side.itemName
+							.price= combo_side.price
+							input(type="hidden", name="itemIds[]", value=combo_side._id)
 
-						//- 	- index += 2; // this is so we don't enter drinks and sides twice
-						//- 	p Total: #{price}
+							- index += 2; // this is so we don't enter drinks and sides twice
+							p Total: #{price}
 
-						//- 	input.view1button(type="submit", value="DELETE FROM ORDER")
-						//- 	- index++;
-						//- button.view1button#doneview1 Sounds Good
-				- index++
+							input.view1button(type="submit", value="DELETE FROM ORDER")
+								
+						- index++;
+						button.view1button#doneview1 Sounds Good
 
 		//- VIEW 2
-		//- #view2container(style="display:none;")
-		//- 	input(name="method", type="radio", value="pickup")
-		//- 	input(name="method", type="radio", value="delivery")
-		//- 	input(name="time", type="time", value="22:15:00")
-		//- 	.item_row
-		//- 		.item Burger
-		//- 		.price 12
-		//- 	.item_row
-		//- 		.item HST (13%)
-		//- 		.price 1
-		//- 	.item_row
-		//- 		.item Processing Fee
-		//- 		.price 1
-		//- 	input#doneview2(type="submit", value="Checkout")
+		#view2container(style="display:none;")
+			input(name="method", type="radio", value="pickup")
+			input(name="method", type="radio", value="delivery")
+			input(name="time", type="time", value="22:15:00")
+			.item_row
+				.item Burger
+				.price 12
+			.item_row
+				.item HST (13%)
+				.price 1
+			.item_row
+				.item Processing Fee
+				.price 1
+			input#doneview2(type="submit", value="Checkout")
 
 		h1 hello
 		
 		script.
-			//- // view 1
-			//- // horizontal scroll
-			//- options = {};
-			//- $("#view1container").dragend(options);
-			//- // send delete requests with AJAX
-			//- $(".dragend-page form").submit(function(e) {
+			// view 1
+			// horizontal scroll
+			options = {};
+			$("#view1container").dragend(options);
+			// send delete requests with AJAX
+			$(".dragend-page form").submit(function(e) {
 
-			//- 	$.ajax({
-			//- 		type: "POST",
-			//- 		url: "delete", // script where we handle deleting
-			//- 		data: $(this).serialize(), // serializes the form's elements
-			//- 		success: function(data) {
-			//- 			console.log("delete request sent successfully");
-			//- 		}
-			//- 	});
+				$.ajax({
+					type: "POST",
+					url: "delete", // script where we handle deleting
+					data: $(this).serialize(), // serializes the form's elements
+					success: function(data) {
+						console.log("delete request sent successfully");
+					}
+				});
 
-			//- 	e.preventDefault(); // avoids actually submitting the form
-			//- });
-			//- $("#doneview1").click(function(){
-			//- 	$("#view1container").hide();
-			//- 	$("#view2container").show();
-			//- })
+				e.preventDefault(); // avoids actually submitting the form
+			});
+			$("#doneview1").click(function(){
+				$("#view1container").hide();
+				$("#view2container").show();
+			})
 
-			//- // view 2
-			//- // all payment stuff
-			//- var handler = StripeCheckout.configure({
-			//- 	key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
-			//- 	image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
-			//- 	locale: 'auto',
-			//- 	currency: "CAD",
-			//- 	token: function(token) {
-			//- 		// You can access the token ID with `token.id`.
-			//- 		// Get the token ID to your server-side code for use.
-			//- 	}
-			//- });
-			//- document.getElementById('doneview2').addEventListener('click', function(e) {
-			//- 	// Open Checkout with further options:
-			//- 	handler.open({
-			//- 		name: 'FoodBot',
-			//- 		description: 'Your Order',
-			//- 		zipCode: true,
-			//- 		amount: 2000
-			//- 	});
-			//- 	e.preventDefault();
-			//- });
-			//- $("#doneview2").click(function(){
-			//- 	$("#view2container").hide();
-			//- })
+			// view 2
+			// all payment stuff
+			var handler = StripeCheckout.configure({
+				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
+				locale: 'auto',
+				currency: "CAD",
+				token: function(token) {
+					// You can access the token ID with `token.id`.
+					// Get the token ID to your server-side code for use.
+				}
+			});
+			document.getElementById('doneview2').addEventListener('click', function(e) {
+				// Open Checkout with further options:
+				handler.open({
+					name: 'FoodBot',
+					description: 'Your Order',
+					zipCode: true,
+					amount: 2000
+				});
+				e.preventDefault();
+			});
+			$("#doneview2").click(function(){
+				$("#view2container").hide();
+			})
 
-			//- // view 3
-			//- window.addEventListener('popstate', function() { // close checkout on page navigation
-			//- 	handler.close();
-			//- });
-			//- // called when MessengerExtensions is done loading
-			//- window.extAsyncInit = function() {
-			//- 	$("#view3button").click(function(){
-			//- 		// document.getElementById("only_form").submit();
-			//- 		MessengerExtensions.requestCloseBrowser(function success() {
-			//- 			console.log("success");
-			//- 		}, function error(err) {
-			//- 			console.log(err);
-			//- 		});
-			//- 	})
-			//- }
+			// view 3
+			window.addEventListener('popstate', function() { // close checkout on page navigation
+				handler.close();
+			});
+			// called when MessengerExtensions is done loading
+			window.extAsyncInit = function() {
+				$("#view3button").click(function(){
+					// document.getElementById("only_form").submit();
+					MessengerExtensions.requestCloseBrowser(function success() {
+						console.log("success");
+					}, function error(err) {
+						console.log(err);
+					});
+				})
+			}
