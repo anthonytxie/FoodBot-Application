@@ -121,7 +121,8 @@ html(lang="en")
 
 				e.preventDefault(); // avoids actually submitting the form
 			});
-			$("#doneview1").click(function(){
+			$("#doneview1").click(function(e){
+				e.preventDefault();
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
