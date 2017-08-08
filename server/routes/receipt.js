@@ -74,11 +74,15 @@ routes.get("/orders", (req, res) => {
 
 routes.post("/confirmOrder", (req, res) => {
   const orderId = req.body.orderId;
+  let receipentId;
   orderDAO
     .confirmOrder(orderId)
     .then(order => {
-      console.log(order._session)
-      res.send(order)
+      userId = order._user.PSID
+      return sessionDAO.closeSession(order._session._id)
+    })
+    .then(() => {
+      send.sendMessageGeneric(receipentId, 'bye!')
     })
     .catch(err => res.send(err));
 });
