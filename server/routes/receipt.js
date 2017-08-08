@@ -52,15 +52,7 @@ routes.post("/charge", (req, res) => {
 
 routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
-  orderDAO
-    .getOrderById(orderId)
-    .then(order => {
-      res.render("receipt", { 
-        order: order,
-        keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-      });
-    })
-    .catch(err => console.log(err));
+  res.render("receipt", { keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" });
 });
 
 routes.get("/orders", (req, res) => {
