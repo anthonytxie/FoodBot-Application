@@ -59,13 +59,6 @@ const welcomeMessage = {
       template_type: "button",
       text: `Hey :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
       buttons: [
-        // {
-        //   type: "postback",
-        //   title: "See Menu",
-        //   payload: JSON.stringify({
-        //     type: "see-menu"
-        //   })
-        // },
         {
           type: "postback",
           title: "Order",

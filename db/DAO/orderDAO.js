@@ -51,7 +51,7 @@ orderDAO.confirmOrder = function(orderId) {
 };
 
 
-orderDAO.showOrderDetails = function(sessionId) {
+orderDAO.getOrderBySessionId = function(sessionId) {
   return new Promise((resolve, reject) => {
     populateOrder(Order.findOne({ _session: sessionId }))
       .sort({

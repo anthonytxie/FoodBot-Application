@@ -17,7 +17,6 @@ const handleReceivePostback = messagingEvent => {
           });
           break;
         case "see-menu":
-          //creates New Order
           runner.renewSession(senderId).then(order => {
             send.sendMenuMessage(senderId);
           });
@@ -32,8 +31,7 @@ const handleReceivePostback = messagingEvent => {
             .renewSessionAndReturnOrder(senderId)
             .then(order => {
               send.sendBurgerOrderPrompt(senderId, data, order);
-            })
-            .catch(err => console.log(err));
+            }).catch(err => console.log(err));
           break;
         case "order-side":
           if (data.foodObject.itemName === "cheesyFries" || data.foodObject.itemName === "poutine" ) {
@@ -61,14 +59,6 @@ const handleReceivePostback = messagingEvent => {
             .addBurgerToOrder(senderId, data)
             .then(order => {
               send.sendOrderedBurgerUpsizeMessage(senderId, order);
-            })
-            .catch(err => console.log(err));
-          break;
-        case "delete-last-item":
-          runner
-            .deleteMostRecentItemAdded(senderId)
-            .then(order => {
-              send.sendGenericTemplate(senderId, order._id);
             })
             .catch(err => console.log(err));
           break;

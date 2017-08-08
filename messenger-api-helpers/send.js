@@ -47,14 +47,14 @@ const sendOrderedMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.orderAskContinue(order))
 };
 
+const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, order));
+};
+
 
 // ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
-};
-
-const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
-  sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, order));
 };
 
 const askFriesSize = (recipientId, order) => {

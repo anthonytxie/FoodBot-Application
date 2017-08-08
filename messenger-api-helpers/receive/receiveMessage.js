@@ -36,14 +36,6 @@ const handleReceiveMessage = messagingEvent => {
               send.sendSideMenu(senderId);
             });
             break;
-          case "upgrade-combo":
-            runner.renewSession
-              .upgradeCombo(senderId)
-              .then(order => {
-                send.sendOrderedMessage(senderId, order);
-              })
-              .catch(err => console.log(err));
-            break;
           case "order-fries":
             runner.addSideToOrder(senderId, data).then(order => {
               send.sendOrderedMessage(senderId, order);
@@ -58,12 +50,8 @@ const handleReceiveMessage = messagingEvent => {
             console.log(`unknown postback called ${type}`);
             break;
         }
-      } else if (message.text === "generic") {
-        send.sendGenericTemplate(senderId);
-      } else if (message.text) {
-        send.sendGenericMessage(senderId);
       } else {
-        send.sendGenericMessage(senderId);
+        send.sendMessageGeneric(senderId, "Sorry I didn't understand that.");
       }
     } else {
       runner.initialize(senderId).then(() => {
