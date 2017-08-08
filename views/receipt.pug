@@ -79,10 +79,9 @@ html(lang="en")
 							- index += 2; // this is so we don't enter drinks and sides twice
 							p Total: #{price}
 
-							input.view1button(type="submit", value="DELETE FROM ORDER")
-
+						input.view1button(type="submit", value="DELETE FROM ORDER")
 						- index++;
-						button.view1button#doneview1 Sounds Good
+						button.view1button.doneview1 Sounds Good
 
 		//- VIEW 2
 		#view2container(style="display:none;")
@@ -121,7 +120,7 @@ html(lang="en")
 
 				e.preventDefault(); // avoids actually submitting the form
 			});
-			$("#doneview1").click(function(e){
+			$(".doneview1").click(function(e){
 				e.preventDefault();
 				$("#view1container").hide();
 				$("#view2container").show();
