@@ -78,7 +78,7 @@ routes.post("/confirmOrder", (req, res) => {
   orderDAO
     .confirmOrder(orderId)
     .then(order => {
-      userId = order._user.PSID
+      receipentId = order._user.PSID
       return sessionDAO.closeSession(order._session._id)
     })
     .then(() => {
