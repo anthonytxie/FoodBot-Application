@@ -59,49 +59,49 @@ html(lang="en")
 						input(type="hidden", name="orderId", value=order._id)
 						input(type="hidden", name="itemIds[]", value=id)
 
-						if combo
+						//- if combo
 
-							- let combo_drink = undefined; // find the drink and side that are part of this combo
-							- let combo_side = undefined;
-							if items[index + 1] === "drink"
-								- combo_drink = items[index + 1];
-								- combo_side = items[index + 2];
-							else
-								- combo_side = items[index + 1];
-								- combo_drink = items[index + 2];
+						//- 	- let combo_drink = undefined; // find the drink and side that are part of this combo
+						//- 	- let combo_side = undefined;
+						//- 	if items[index + 1] === "drink"
+						//- 		- combo_drink = items[index + 1];
+						//- 		- combo_side = items[index + 2];
+						//- 	else
+						//- 		- combo_side = items[index + 1];
+						//- 		- combo_drink = items[index + 2];
 
-							- price	+= combo_drink.price; // add the drink to the delete id list
-							.temp= combo_drink.itemName
-							.price= combo_drink.price
-							input(type="hidden", name="itemIds[]", value=combo_drink._id)
+						//- 	- price	+= combo_drink.price; // add the drink to the delete id list
+						//- 	.temp= combo_drink.itemName
+						//- 	.price= combo_drink.price
+						//- 	input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
-							- price	+= combo_side.price; // add the side to the delete id list
-							.temp= combo_side.itemName
-							.price= combo_side.price
-							input(type="hidden", name="itemIds[]", value=combo_side._id)
+						//- 	- price	+= combo_side.price; // add the side to the delete id list
+						//- 	.temp= combo_side.itemName
+						//- 	.price= combo_side.price
+						//- 	input(type="hidden", name="itemIds[]", value=combo_side._id)
 
-							- index += 2; // this is so we don't enter drinks and sides twice
-							p Total: #{price}
+						//- 	- index += 2; // this is so we don't enter drinks and sides twice
+						//- 	p Total: #{price}
 
-							input.view1button(type="submit", value="DELETE FROM ORDER")
-							- index++;
-						button.view1button#doneview1 Sounds Good
+						//- 	input.view1button(type="submit", value="DELETE FROM ORDER")
+						//- 	- index++;
+						//- button.view1button#doneview1 Sounds Good
 
 		//- VIEW 2
-		#view2container(style="display:none;")
-			input(name="method", type="radio", value="pickup")
-			input(name="method", type="radio", value="delivery")
-			input(name="time", type="time", value="22:15:00")
-			.item_row
-				.item Burger
-				.price 12
-			.item_row
-				.item HST (13%)
-				.price 1
-			.item_row
-				.item Processing Fee
-				.price 1
-			input#doneview2(type="submit", value="Checkout")
+		//- #view2container(style="display:none;")
+		//- 	input(name="method", type="radio", value="pickup")
+		//- 	input(name="method", type="radio", value="delivery")
+		//- 	input(name="time", type="time", value="22:15:00")
+		//- 	.item_row
+		//- 		.item Burger
+		//- 		.price 12
+		//- 	.item_row
+		//- 		.item HST (13%)
+		//- 		.price 1
+		//- 	.item_row
+		//- 		.item Processing Fee
+		//- 		.price 1
+		//- 	input#doneview2(type="submit", value="Checkout")
 
 		h1 hello
 		
