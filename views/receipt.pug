@@ -29,11 +29,7 @@ html(lang="en")
 		- // VIEW 1
 
 		- const items = order._items; // all items in the order
-		- let index = 0; 
-
-		//- #demo
-		//- 	.dragend-page PAGE 1
-		//- 	.dragend-page PAGE 2
+		- let index = 0;
 
 		#view1container
 
@@ -83,9 +79,9 @@ html(lang="en")
 							- index += 2; // this is so we don't enter drinks and sides twice
 							p Total: #{price}
 
-							input.view1button(type="submit", value="DELETE FROM ORDER")
-							- index++;
-						button.view1button#doneview1 Sounds Good
+						input.view1button(type="submit", value="DELETE FROM ORDER")
+						- index++;
+						button.view1button.doneview1 Sounds Good
 
 		//- VIEW 2
 		#view2container(style="display:none;")
@@ -122,7 +118,8 @@ html(lang="en")
 
 				e.preventDefault(); // avoids actually submitting the form
 			});
-			$("#doneview1").click(function(){
+			$(".doneview1").click(function(e){
+				e.preventDefault();
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
