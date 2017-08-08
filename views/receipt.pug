@@ -31,23 +31,23 @@ html(lang="en")
 		- const items = order._items; // all items in the order
 		- let index = 0; 
 
-		//- #demo
-		//- 	.dragend-page PAGE 1
-		//- 	.dragend-page PAGE 2
+		#demo
+			.dragend-page PAGE 1
+			.dragend-page PAGE 2
 
-		//- #view1container
+		#view1container
 
-		//- 	while index < items.length
-		//- 		- let item = items[index];
-		//- 		- let type = item.itemType; // type of current item: burger, drink or side
-		//- 		- let name = item.itemName; // name of current item
-		//- 		- let id = item._id; // id of current item
+			while index < items.length
+				- let item = items[index];
+				- let type = item.itemType; // type of current item: burger, drink or side
+				- let name = item.itemName; // name of current item
+				- let id = item._id; // id of current item
 
-		//- 		- let combo = false; // whether this item is a burger with a combo
-		//- 		if type === "burger"
-		//- 			if index <= items.length - 3
-		//- 				if typeof itemCombo in items[index + 1] !== "undefined"
-		//- 					- combo = true;
+				- let combo = false; // whether this item is a burger with a combo
+				if type === "burger"
+					if index <= items.length - 3
+						if typeof itemCombo in items[index + 1] !== "undefined"
+							- combo = true;
 
 		//- 		- let price = 0;
 
