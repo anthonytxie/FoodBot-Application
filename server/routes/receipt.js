@@ -52,15 +52,11 @@ routes.post("/charge", (req, res) => {
 
 routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
-  orderDAO
-    .getOrderById(orderId)
-    .then(order => {
-      res.render("receipt", { 
-        order: order,
-        keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-      });
-    })
-    .catch(err => console.log(err));
+  orderDAO.findOrderById(orderId)
+    .then((order) => {
+      console.log(order)
+      res.render("receipt", { order, keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" });
+    }).catch((err) => res.send(err))
 });
 
 routes.get("/orders", (req, res) => {
@@ -74,11 +70,15 @@ routes.get("/orders", (req, res) => {
 
 routes.post("/confirmOrder", (req, res) => {
   const orderId = req.body.orderId;
+  let receipentId;
   orderDAO
     .confirmOrder(orderId)
     .then(order => {
-      console.log(order._session)
-      res.send(order)
+      receipentId = order._user.PSID
+      return sessionDAO.closeSession(order._session._id)
+    })
+    .then(() => {
+      send.sendMessageGeneric(receipentId, 'bye!')
     })
     .catch(err => res.send(err));
 });
