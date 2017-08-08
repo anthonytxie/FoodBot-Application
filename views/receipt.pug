@@ -12,14 +12,14 @@ html(lang="en")
 		script(src='https://checkout.stripe.com/checkout.js')
 	body
 		script.
-			//- // code to connect to the extension necessary to close this view
-			//- (function(d, s, id){
-			//- 	var js, fjs = d.getElementsByTagName(s)[0];
-			//- 	if (d.getElementById(id)) {return;}
-			//- 	js = d.createElement(s); js.id = id;
-			//- 	js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-			//- 	fjs.parentNode.insertBefore(js, fjs);
-			//- }(document, 'script', 'Messenger'));
+			// code to connect to the extension necessary to close this view
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'Messenger'));
 
 		- // this page is going to broken up into several phases
 		- // 1: see receipt, remove / restore items
@@ -28,8 +28,8 @@ html(lang="en")
 		
 		- // VIEW 1
 
-		- // const items = order._items; // all items in the order
-		- // let index = 0; 
+		- const items = order._items; // all items in the order
+		- let index = 0; 
 
 		//- #demo
 		//- 	.dragend-page PAGE 1
