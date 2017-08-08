@@ -18,7 +18,7 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
   });
 };
 
-orderDAO.getOrderById = (orderId) => {
+orderDAO.findOrderById = (orderId) => {
   return new Promise((resolve, reject) => {
     populateOrder(Order.findOne({_id: orderId}))
       .then((order) => {
