@@ -43,21 +43,21 @@ html(lang="en")
 				- let name = item.itemName; // name of current item
 				- let id = item._id; // id of current item
 
-				- let combo = false; // whether this item is a burger with a combo
-				if type === "burger"
-					if index <= items.length - 3
-						if typeof itemCombo in items[index + 1] !== "undefined"
-							- combo = true;
+				//- - let combo = false; // whether this item is a burger with a combo
+				//- if type === "burger"
+				//- 	if index <= items.length - 3
+				//- 		if typeof itemCombo in items[index + 1] !== "undefined"
+				//- 			- combo = true;
 
-				- let price = 0;
+				//- - let price = 0;
 
-				.dragend-page
-					form(method="post", action="delete")= name
+				//- .dragend-page
+				//- 	form(method="post", action="delete")= name
 
-						- price += item.price;
+				//- 		- price += item.price;
 
-						input(type="hidden", name="orderId", value=order._id)
-						input(type="hidden", name="itemIds[]", value=id)
+				//- 		input(type="hidden", name="orderId", value=order._id)
+				//- 		input(type="hidden", name="itemIds[]", value=id)
 
 						//- if combo
 
