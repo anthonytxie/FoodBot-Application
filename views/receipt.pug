@@ -111,19 +111,19 @@ html(lang="en")
 			options = {};
 			$("#view1container").dragend(options);
 			// send delete requests with AJAX
-			$(".dragend-page form").submit(function(e) {
+			//- $(".dragend-page form").submit(function(e) {
 
-				$.ajax({
-					type: "POST",
-					url: "delete", // script where we handle deleting
-					data: $(this).serialize(), // serializes the form's elements
-					success: function(data) {
-						console.log("delete request sent successfully");
-					}
-				});
+			//- 	$.ajax({
+			//- 		type: "POST",
+			//- 		url: "delete", // script where we handle deleting
+			//- 		data: $(this).serialize(), // serializes the form's elements
+			//- 		success: function(data) {
+			//- 			console.log("delete request sent successfully");
+			//- 		}
+			//- 	});
 
-				e.preventDefault(); // avoids actually submitting the form
-			});
+			//- 	e.preventDefault(); // avoids actually submitting the form
+			//- });
 			$("#doneview1").click(function(){
 				$("#view1container").hide();
 				$("#view2container").show();
