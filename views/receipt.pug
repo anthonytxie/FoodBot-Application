@@ -129,16 +129,14 @@ html(lang="en")
 			$("form").on("click", ".custom_check_on", function(){
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
-				const $span = $(this).parent();
-				$span.find("input").attr("name", "removeIds[]");
+				$(this).parent().find("input").attr("name", "removeIds[]");
 			})
 
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
-				const $span = $(this).parent();
-				$span.find("input").attr("name", "keepIds[]");
+				$(this).parent().find("input").attr("name", "keepIds[]");
 			})
 
 			// click confirm button
