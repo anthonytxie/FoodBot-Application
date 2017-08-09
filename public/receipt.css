@@ -121,10 +121,7 @@ form {
 }
 
 p {
-	display: inline-block;
 	margin: 0;
-	width: 50px;
-	float: right;
 }
 
 img {
