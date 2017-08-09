@@ -61,13 +61,6 @@ const welcomeMessage = {
       buttons: [
         {
           type: "postback",
-          title: "See Menu",
-          payload: JSON.stringify({
-            type: "see-menu"
-          })
-        },
-        {
-          type: "postback",
           title: "Order",
           payload: JSON.stringify({
             type: "see-menu"

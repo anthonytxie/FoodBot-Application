@@ -28,22 +28,6 @@ sessionDAO.isSessionActive = function(PSID) {
     });
 };
 
-
-sessionDAO.findSessionById = function(sessionId) {
-    return new Promise((resolve, reject) => {
-        Session.findOne({ session: sessionId })
-            .then(session => {
-                if (!session) {
-                    return resolve(false);
-                } else {
-                    return resolve(session);
-                }
-            })
-            .catch(err => reject(err));
-    });
-};
-
-
 sessionDAO.createSession = function(PSID) {
     return new Promise((resolve, reject) => {
         User.findOne({ PSID })

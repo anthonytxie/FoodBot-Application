@@ -23,6 +23,29 @@ const orderSchema = new Schema({
     default: Date.now
   },
 
+  isConfirmed: {
+    type: Boolean,
+    default: false
+  },
+
+  isPaid: {
+    type: Boolean,
+    default: false
+  },
+
+  stripeToken: {
+    type: String,
+  },
+
+  isDelivery: {
+    type: Boolean,
+    default: false 
+  },
+
+  fulfillmentDate: {
+    type: Date
+  },
+
   isCompleted: {
     type: Boolean,
     default: false
@@ -30,16 +53,6 @@ const orderSchema = new Schema({
 
   completedAt: {
     type: Date
-  },
-
-  isConfirmed: {
-    type: Boolean,
-    default: false
-  },
-
-  isDelivery: {
-    type: Boolean,
-    default: false 
   },
 
 }, schemaOptions)
