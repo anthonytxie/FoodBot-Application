@@ -40,43 +40,46 @@ html(lang="en")
 				- let name = item.itemName; // name of current item
 				- let price = item.price;
 
+				- let combo = "";
+				if item.itemType === "burger"
+					if index <= items.length - 3
+						if typeof itemCombo in items[index + 1] !== "undefined"
+							- combo = "(Combo)"
+
 				input(type="hidden", name="itemIds[]", value=item._id)
 				.wide_checkbox(toggle=index)
 					.custom_check_on
 					.toggle
-						h3= name
-						p= price
+						h3= "#{item.itemName} #{combo}"
+						p= "#{price}"
 
-				- let combo = false;        // whether this item is a burger with a combo
 				if item.itemType === "burger"
 					.zoom(value=item._id, style="display:none")
 						- let toppings = item.standardToppings.concat(item.premiumToppings)
 						each topping in toppings
 							.topping= topping
 						
+					if combo
+						- let combo_drink = undefined; // find the drink and side that are part of this combo
+						- let combo_side = undefined;
+						if items[index + 1] === "drink"
+							- combo_drink = items[index + 1];
+							- combo_side = items[index + 2];
+						else
+							- combo_side = items[index + 1];
+							- combo_drink = items[index + 2];
 
-					if index <= items.length - 3
-						if typeof itemCombo in items[index + 1] !== "undefined"
-							- let combo_drink = undefined; // find the drink and side that are part of this combo
-							- let combo_side = undefined;
-							if items[index + 1] === "drink"
-								- combo_drink = items[index + 1];
-								- combo_side = items[index + 2];
-							else
-								- combo_side = items[index + 1];
-								- combo_drink = items[index + 2];
+							- price	+= combo_drink.price; // add the drink to the delete id list
+								.drink= combo_drink.itemName
+								.price= combo_drink.price
+								input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
-								- price	+= combo_drink.price; // add the drink to the delete id list
-									.drink= combo_drink.itemName
-									.price= combo_drink.price
-									input(type="hidden", name="itemIds[]", value=combo_drink._id)
+							- price	+= combo_side.price; // add the side to the delete id list
+								.side= combo_side.itemName
+								.price= combo_side.price
+								input(type="hidden", name="itemIds[]", value=combo_side._id)
 
-								- price	+= combo_side.price; // add the side to the delete id list
-									.side= combo_side.itemName
-									.price= combo_side.price
-									input(type="hidden", name="itemIds[]", value=combo_side._id)
-
-								- index += 2; // this is so we don't enter drinks and sides twice
+							- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 				
 				p Total: #{price}
