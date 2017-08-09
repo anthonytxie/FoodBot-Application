@@ -129,6 +129,8 @@ html(lang="en")
 			$("form").on("click", ".custom_check_on", function(){
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
+				console.log($(this).parent());
+				console.log($(this).parent().find("input"));
 				$(this).parent().find("input").attr("name", "removeIds[]");
 			})
 
