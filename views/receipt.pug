@@ -59,22 +59,22 @@ html(lang="en")
 						each topping in toppings
 							.topping= topping
 						
-					if combo
-						- let combo_drink = undefined; // find the drink and side that are part of this combo
-						- let combo_side = undefined;
-						if items[index + 1] === "drink"
-							- combo_drink = items[index + 1];
-							- combo_side = items[index + 2];
-						else
-							- combo_side = items[index + 1];
-							- combo_drink = items[index + 2];
+						if combo
+							- let combo_drink = undefined; // find the drink and side that are part of this combo
+							- let combo_side = undefined;
+							if items[index + 1] === "drink"
+								- combo_drink = items[index + 1];
+								- combo_side = items[index + 2];
+							else
+								- combo_side = items[index + 1];
+								- combo_drink = items[index + 2];
 
-							- price	+= combo_drink.price; // add the drink to the delete id list
+								- price	+= combo_drink.price; // add the drink to the delete id list
 								.drink= combo_drink.itemName
 								.price= combo_drink.price
 								input(type="hidden", name="itemIds[]", value=combo_drink._id)
 
-							- price	+= combo_side.price; // add the side to the delete id list
+								- price	+= combo_side.price; // add the side to the delete id list
 								.side= combo_side.itemName
 								.price= combo_side.price
 								input(type="hidden", name="itemIds[]", value=combo_side._id)
