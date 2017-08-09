@@ -130,15 +130,15 @@ html(lang="en")
 				console.log($(this).parent());
 				console.log($(this).parent().find("input"));
 				$(this).parent().find("input").prop("name", "changed");
-				$(this).removeClass("custom_check_on");
-				$(this).addClass("custom_check_off");
+				//- $(this).removeClass("custom_check_on");
+				//- $(this).addClass("custom_check_off");
 			})
 
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
 				$(this).parent().find("input").prop("name", "changed");
-				$(this).removeClass("custom_check_off");
-				$(this).addClass("custom_check_on");
+				//- $(this).removeClass("custom_check_off");
+				//- $(this).addClass("custom_check_on");
 			})
 
 			// click confirm button
