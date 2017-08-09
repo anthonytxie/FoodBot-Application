@@ -50,8 +50,8 @@ html(lang="en")
 				.wide_checkbox(toggle=index)
 					.custom_check_on
 					.toggle
-						h3= "#{item.itemName} #{combo}"
-						p= "#{price}"
+						h3 #{item.itemName} #{combo}
+						p #{price}
 
 				if item.itemType === "burger"
 					.zoom(value=item._id, style="display:none")
