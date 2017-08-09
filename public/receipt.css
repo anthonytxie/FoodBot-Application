@@ -122,6 +122,8 @@ form {
 
 p {
 	margin: 0;
+	width: 50%;
+	float: right;
 }
 
 img {

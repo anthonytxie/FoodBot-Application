@@ -45,41 +45,41 @@ html(lang="en")
 					if index <= items.length - 3
 						if typeof itemCombo in items[index + 1] !== "undefined"
 							- combo = "(Combo)"
+				span
+					input(type="hidden", name="keepIds[]", value=item._id)
+					.wide_checkbox(toggle=index)
+						.custom_check_on
+						.toggle
+							h3 #{item.itemName} #{combo}
+							p #{price}
 
-				input(type="hidden", name="itemIds[]", value=item._id)
-				.wide_checkbox(toggle=index)
-					.custom_check_on
-					.toggle
-						h3 #{item.itemName} #{combo}
-						p #{price}
+					if item.itemType === "burger"
+						.zoom(value=item._id, style="display:none")
+							- let toppings = item.standardToppings.concat(item.premiumToppings)
+							each topping in toppings
+								.topping= topping
+							
+							if combo
+								- let combo_drink = undefined; // find the drink and side that are part of this combo
+								- let combo_side = undefined;
+								if items[index + 1] === "drink"
+									- combo_drink = items[index + 1];
+									- combo_side = items[index + 2];
+								else
+									- combo_side = items[index + 1];
+									- combo_drink = items[index + 2];
 
-				if item.itemType === "burger"
-					.zoom(value=item._id, style="display:none")
-						- let toppings = item.standardToppings.concat(item.premiumToppings)
-						each topping in toppings
-							.topping= topping
-						
-						if combo
-							- let combo_drink = undefined; // find the drink and side that are part of this combo
-							- let combo_side = undefined;
-							if items[index + 1] === "drink"
-								- combo_drink = items[index + 1];
-								- combo_side = items[index + 2];
-							else
-								- combo_side = items[index + 1];
-								- combo_drink = items[index + 2];
+									- price	+= combo_drink.price; // add the drink to the delete id list
+									.drink= combo_drink.itemName
+									.price= combo_drink.price
+									input(type="hidden", name="keepIds[]", value=combo_drink._id)
 
-								- price	+= combo_drink.price; // add the drink to the delete id list
-								.drink= combo_drink.itemName
-								.price= combo_drink.price
-								input(type="hidden", name="itemIds[]", value=combo_drink._id)
+									- price	+= combo_side.price; // add the side to the delete id list
+									.side= combo_side.itemName
+									.price= combo_side.price
+									input(type="hidden", name="keepIds[]", value=combo_side._id)
 
-								- price	+= combo_side.price; // add the side to the delete id list
-								.side= combo_side.itemName
-								.price= combo_side.price
-								input(type="hidden", name="itemIds[]", value=combo_side._id)
-
-							- index += 2; // this is so we don't enter drinks and sides twice
+								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 				
 			p Total: #{price}
@@ -103,23 +103,41 @@ html(lang="en")
 		
 		script.
 			// view 1
-			// horizontal scroll
-			options = {};
-			$("#view1container").dragend(options);
-			// send delete requests with AJAX
-			$(".dragend-page form").submit(function(e) {
+			//- // horizontal scroll
+			//- options = {};
+			//- $("#view1container").dragend(options);
+			//- // send delete requests with AJAX
+			//- $(".dragend-page form").submit(function(e) {
 
-				$.ajax({
-					type: "POST",
-					url: "delete", // script where we handle deleting
-					data: $(this).serialize(), // serializes the form's elements
-					success: function(data) {
-						console.log("delete request sent successfully");
-					}
-				});
+			//- 	$.ajax({
+			//- 		type: "POST",
+			//- 		url: "delete", // script where we handle deleting
+			//- 		data: $(this).serialize(), // serializes the form's elements
+			//- 		success: function(data) {
+			//- 			console.log("delete request sent successfully");
+			//- 		}
+			//- 	});
 
-				e.preventDefault(); // avoids actually submitting the form
-			});
+			//- 	e.preventDefault(); // avoids actually submitting the form
+			//- });
+
+			// add to deleteIds
+			$("form").on("click", ".custom_check_on", function(){
+				$(this).removeClass("custom_check_on");
+				$(this).addClass("custom_check_off");
+				const $span = $(this).parent();
+				$span.find("input").attr("name", "removeIds[]");
+			})
+
+			// remove from deleteIds
+			$("form").on("click", ".custom_check_off", function(){
+				$(this).removeClass("custom_check_off");
+				$(this).addClass("custom_check_on");
+				const $span = $(this).parent();
+				$span.find("input").attr("name", "keepIds[]");
+			})
+
+			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
 				$("#view1container").hide();
