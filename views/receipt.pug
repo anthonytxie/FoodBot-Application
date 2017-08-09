@@ -34,26 +34,28 @@ html(lang="en")
 		form(style="position:relative;", method="post", action="delete")
 
 			h4 ORDER SO FAR
-
 			input(type="hidden", name="orderId", value=order._id)
+
+			- let order_price = 0;
 
 			while index < items.length
 				- let item = items[index];  // loop through each item in the list
 				- let name = item.itemName; // name of current item
-				- let price = item.price;
+				- let combo_price = item.price; // equal to the price of the item or combo, if applicable
 
 				- let combo = "";
 				if item.itemType === "burger"
 					if index <= items.length - 3
 						if typeof itemCombo in items[index + 1] !== "undefined"
 							- combo = "(Combo)"
+							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
 				span
 					input(type="hidden", name="keepIds[]", value=item._id)
 					.wide_checkbox(toggle=index)
 						.custom_check_on
 						.toggle
 							h3 #{item.itemName} #{combo}
-						p.price #{price}
+						p.price #{combo_price}
 
 					if item.itemType === "burger"
 						.zoom(value=item._id, style="display:none")
