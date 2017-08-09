@@ -50,7 +50,7 @@ html(lang="en")
 							- combo = "(Combo)"
 							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
 				span
-					input(type="hidden", name="keepIds[]", value=item._id)
+					input.hidden_remove(type="hidden", name="keepIds[]", value=item._id)
 					.wide_checkbox(toggle=index)
 						.custom_check_on
 						.toggle
@@ -76,12 +76,12 @@ html(lang="en")
 									- price	+= combo_drink.price; // add the drink to the delete id list
 									.drink= combo_drink.itemName
 									.price= combo_drink.price
-									input(type="hidden", name="keepIds[]", value=combo_drink._id)
+									input.hidden_remove(type="hidden", name="keepIds[]", value=combo_drink._id)
 
 									- price	+= combo_side.price; // add the side to the delete id list
 									.side= combo_side.itemName
 									.price= combo_side.price
-									input(type="hidden", name="keepIds[]", value=combo_side._id)
+									input.hidden_remove(type="hidden", name="keepIds[]", value=combo_side._id)
 
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
