@@ -129,14 +129,14 @@ html(lang="en")
 			$("form").on("click", ".custom_check_on", function(){
 				console.log($(this).parent());
 				console.log($(this).parent().find("input"));
-				$(this).parent().find("input").attr("name", "removeIds[]");
+				$(this).parent().find("input").attr("name", "changed");
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
 			})
 
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
-				$(this).parent().find("input").attr("name", "keepIds[]");
+				$(this).parent().find("input").attr("name", "changed");
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
 			})
