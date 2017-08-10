@@ -112,10 +112,9 @@ html(lang="en")
 
 			input.doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
 			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
-		
-		- console.log(order._id);
 
 		script.
+			
 			//- console.log(order);
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function(){
@@ -136,7 +135,7 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				get_price(order_id);
+				get_price(!{JSON.stringify(order)});
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
@@ -148,7 +147,8 @@ html(lang="en")
 			// HST
 			// Stripe
 			// Total
-			const get_price = (order_id) => {
+			const get_price = (order) => {
+				const order_id = order._id;
 				console.log("get_price triggered");
 				$.get("/getorder/" + order_id).done(function(get_order){
 					const get_order_price = get_order.orderPrice;
