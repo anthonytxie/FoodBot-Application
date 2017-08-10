@@ -31,6 +31,8 @@ html(lang="en")
 		- const items = order._items; // all items in the order
 		- let index = 0;
 
+		- const order_id = order._id;
+
 		form#view1container(style="position:relative;", method="post", action="delete")
 
 			h4 ORDER SO FAR
@@ -133,7 +135,7 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				get_price(order._id);
+				get_price(order_id);
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
