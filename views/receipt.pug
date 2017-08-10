@@ -52,7 +52,7 @@ html(lang="en")
 
 				- order_price += combo_price;
 				span
-					input.hidden_remove(type="hidden", name="keepIds[]", value=item._id)
+					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
 					.wide_checkbox(toggle=index)
 						.custom_check_on
 						.toggle
@@ -78,12 +78,12 @@ html(lang="en")
 									- price	+= combo_drink.price; // add the drink to the delete id list
 									.drink= combo_drink.itemName
 									.price= combo_drink.price
-									input.hidden_remove(type="hidden", name="keepIds[]", value=combo_drink._id)
+									input(toggle_input=index, name="keepIds[]", value=combo_drink._id)
 
 									- price	+= combo_side.price; // add the side to the delete id list
 									.side= combo_side.itemName
 									.price= combo_side.price
-									input.hidden_remove(type="hidden", name="keepIds[]", value=combo_side._id)
+									input(toggle_input=index, name="keepIds[]", value=combo_side._id)
 
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
@@ -108,35 +108,18 @@ html(lang="en")
 			input#doneview2(type="submit", value="Checkout")
 		
 		script.
-			// view 1
-			//- // horizontal scroll
-			//- options = {};
-			//- $("#view1container").dragend(options);
-			//- // send delete requests with AJAX
-			//- $(".dragend-page form").submit(function(e) {
-
-			//- 	$.ajax({
-			//- 		type: "POST",
-			//- 		url: "delete", // script where we handle deleting
-			//- 		data: $(this).serialize(), // serializes the form's elements
-			//- 		success: function(data) {
-			//- 			console.log("delete request sent successfully");
-			//- 		}
-			//- 	});
-
-			//- 	e.preventDefault(); // avoids actually submitting the form
-			//- });
-
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function(){
-				$(".hidden_remove").prop("name", "removeIds[]");
+				const toggle = $(this).attr("toggle");
+				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
 			})
 
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
-				$(".hidden_remove").prop("name", "keepIds[]");
+				const toggle = $(this).attr("toggle");
+				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
 			})
