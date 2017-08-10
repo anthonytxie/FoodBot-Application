@@ -133,6 +133,7 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
+				get_price();
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
@@ -145,6 +146,7 @@ html(lang="en")
 			// Stripe
 			// Total
 			const get_price = () => {
+				console.log("get_price triggered");
 				$.get("/getOrder/" + order._id, function(order) {
 					const get_order_price = order.orderPrice;
 					const get_tax = order.orderPirce * .13;
