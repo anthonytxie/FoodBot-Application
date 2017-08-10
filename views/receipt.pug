@@ -93,9 +93,18 @@ html(lang="en")
 
 		//- VIEW 2
 		#view2container(style="display:none;")
-			input(name="method", type="radio", value="pickup")
-			input(name="method", type="radio", value="delivery")
-			input(name="time", type="time", value="22:15:00")
+
+			.lightswitch(style="height: 70px")
+				input(type="hidden", name="method", value="pickup")
+				div.selected(style="width: 50%; background: red; display: inline-block;") Pickup
+				div(style="width: 50%; background: blue; display: inline-block;") Delivery
+
+			input(name="time", type="time", value="22:15:00", style="height: 70px;")
+
+			input(name="address", type="text", style="height: 70px")
+
+			input(name="postal", type="text", style="height: 70px")
+
 			.item_row
 				.item Burger
 				.price 12
@@ -105,7 +114,9 @@ html(lang="en")
 			.item_row
 				.item Processing Fee
 				.price 1
-			input#doneview2(type="submit", value="Checkout")
+
+			input#doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
+			input#doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
 		
 		script.
 			// add to deleteIds
@@ -153,8 +164,25 @@ html(lang="en")
 				});
 				e.preventDefault();
 			});
-			$("#doneview2").click(function(){
+
+			// either closes the session or brings up the payment prompt
+			$("#doneview2").click(function(e){
 				$("#view2container").hide();
+				e.preventDefault();
+				if ($(this).attr("value") == "now") {
+					handler.open({
+						name: 'FoodBot',
+						description: 'Your Order',
+						zipCode: true,
+						amount: 2000
+					});
+				} else {
+					MessengerExtensions.requestCloseBrowser(function success() {
+						console.log("success");
+					}, function error(err) {
+						console.log(err);
+					});
+				}
 			})
 
 			// view 3
