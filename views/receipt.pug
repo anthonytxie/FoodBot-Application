@@ -31,8 +31,6 @@ html(lang="en")
 		- const items = order._items; // all items in the order
 		- let index = 0;
 
-		- const order_id = order._id;
-
 		form#view1container(style="position:relative;", method="post", action="delete")
 
 			h4 ORDER SO FAR
@@ -115,7 +113,7 @@ html(lang="en")
 			input.doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
 			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
 		
-		- console.log(order);
+		- console.log(order._id);
 
 		script.
 			//- console.log(order);
