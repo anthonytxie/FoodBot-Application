@@ -25,7 +25,7 @@ routes.get("/stripe", (req, res) => {
 
 routes.get("/getorder", (req, res) => {
   console.log(req.query)
-  res.send(req.query.orderId)
+  res.send('hello')
   // const orderId = req.params.orderId;
   // orderDAO.getOrderById(orderId).then(order => {
   //   res.send(order);
