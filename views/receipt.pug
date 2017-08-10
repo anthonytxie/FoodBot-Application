@@ -49,6 +49,8 @@ html(lang="en")
 						if typeof itemCombo in items[index + 1] !== "undefined"
 							- combo = "(Combo)"
 							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
+
+				- order_price += combo_price;
 				span
 					input.hidden_remove(type="hidden", name="keepIds[]", value=item._id)
 					.wide_checkbox(toggle=index)
@@ -86,7 +88,7 @@ html(lang="en")
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 				
-			p Total: #{price}
+			p Total: #{order_price}
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2
