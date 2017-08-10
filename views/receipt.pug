@@ -149,11 +149,11 @@ html(lang="en")
 			// Total
 			const get_price = (order_id) => {
 				console.log("get_price triggered");
-				$.get("/getorder/" + order_id).done(function(order){
-					const get_order_price = order.orderPrice;
-					const get_tax = order.orderPirce * .13;
+				$.get("/getorder/" + order_id).done(function(get_order){
+					const get_order_price = get_order.orderPrice;
+					const get_tax = get_order.orderPirce * .13;
 					// TODO: does this apply before or after tax?
-					const get_stripe = order.orderPrice * .029 + .3
+					const get_stripe = get_order.orderPrice * .029 + .3
 					const get_total = get_order_price + get_tax + get_stripe;
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
