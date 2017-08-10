@@ -156,14 +156,15 @@ html(lang="en")
 				console.log("get_price triggered");
 				$.get("/getorder/" + order_id).done(function(get_order){
 					const get_order_price = get_order.orderPrice;
-					const get_tax = get_order.orderPirce * .13;
+					const get_tax = get_order.orderPrice * .13;
 					// TODO: does this apply before or after tax?
 					const get_stripe = get_order.orderPrice * .029 + .3
 					const get_total = get_order_price + get_tax + get_stripe;
-					$("#get_order_price").html(get_order_price);
-					$("#get_tax").html(get_tax);
-					$("#get_stripe").html(get_stripe);
-					$("#get_total").html(get_total);
+					// round to 2 decimal places
+					$("#get_order_price").html(get_order_price.toFixed(2));
+					$("#get_tax").html(get_tax.toFixed(2));
+					$("#get_stripe").html(get_stripe.toFixed(2));
+					$("#get_total").html(get_total.toFixed(2));
 				}, "json");
 			}
 
