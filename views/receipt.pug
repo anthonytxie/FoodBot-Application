@@ -154,16 +154,16 @@ html(lang="en")
 					// Get the token ID to your server-side code for use.
 				}
 			});
-			document.getElementById('doneview2').addEventListener('click', function(e) {
-				// Open Checkout with further options:
-				handler.open({
-					name: 'FoodBot',
-					description: 'Your Order',
-					zipCode: true,
-					amount: 2000
-				});
-				e.preventDefault();
-			});
+			//- document.getElementById('doneview2').addEventListener('click', function(e) {
+			//- 	// Open Checkout with further options:
+			//- 	handler.open({
+			//- 		name: 'FoodBot',
+			//- 		description: 'Your Order',
+			//- 		zipCode: true,
+			//- 		amount: 2000
+			//- 	});
+			//- 	e.preventDefault();
+			//- });
 
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
