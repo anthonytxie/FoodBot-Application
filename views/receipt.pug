@@ -115,8 +115,10 @@ html(lang="en")
 			input.doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
 			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
 		
+		- console.log(order);
+
 		script.
-			console.log(order);
+			//- console.log(order);
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function(){
 				const toggle = $(this).attr("toggle");
