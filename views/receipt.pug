@@ -31,7 +31,7 @@ html(lang="en")
 		- const items = order._items; // all items in the order
 		- let index = 0;
 
-		form(style="position:relative;", method="post", action="delete")
+		form#view1container(style="position:relative;", method="post", action="delete")
 
 			h4 ORDER SO FAR
 			input(type="hidden", name="orderId", value=order._id)
