@@ -144,6 +144,18 @@ html(lang="en")
 
 			// view 2
 			// all payment stuff
+			// produces a length 4 list:
+			// Order
+			// HST
+			// Stripe
+			// Total
+			const get_price = () => {
+				$.get("/getOrder/" + order._id, function(order) {
+					// do shit with order
+				}, "json" );
+			}
+
+
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
@@ -154,17 +166,6 @@ html(lang="en")
 					// Get the token ID to your server-side code for use.
 				}
 			});
-			//- document.getElementById('doneview2').addEventListener('click', function(e) {
-			//- 	// Open Checkout with further options:
-			//- 	handler.open({
-			//- 		name: 'FoodBot',
-			//- 		description: 'Your Order',
-			//- 		zipCode: true,
-			//- 		amount: 2000
-			//- 	});
-			//- 	e.preventDefault();
-			//- });
-
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
 				console.log("a");
