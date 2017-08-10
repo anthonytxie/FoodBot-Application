@@ -25,12 +25,7 @@ routes.get("/stripe", (req, res) => {
 
 
 routes.get("/getorder", (req, res) => {
-  let orderId = req.query.orderid;
-  console.log(orderId)
-  orderDAO.findOrderById(orderId)
-    .then((order) => {
-      res.send(order);
-    }).catch((err) => res.send(err))
+  res.send('hello world')
 });
 
 
