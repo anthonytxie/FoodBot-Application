@@ -19,14 +19,15 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
 };
 
 orderDAO.findOrderById = (orderId) => {
-  return new Promise((resolve, reject) => {
+  return new Promise ((resolve ,reject) => {
     populateOrder(Order.findOne({_id: orderId}))
       .then((order) => {
         resolve(order)
       })
-      .catch(err => reject(err));
-  })
+      .catch((err) => reject (err));
+  });
 };
+
 
 orderDAO.getAllOrders = () => {
   return new Promise((resolve, reject) => {

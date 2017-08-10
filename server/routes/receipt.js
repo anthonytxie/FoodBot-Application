@@ -23,11 +23,13 @@ routes.get("/stripe", (req, res) => {
 });
 
 
-routes.get("/getOrder/:orderId", (req, res) => {
-  const orderId = req.params.orderId;
-  orderDAO.getOrderById(orderId).then(order => {
-    res.status(200).send(order);
-  });
+
+routes.get("/getorder/:orderid", (req, res) => {
+  let orderId = req.params.orderid;
+  orderDAO.findOrderById(orderId)
+    .then((order) => {
+      res.send(order);
+    }).catch((err) => res.send(err))
 });
 
 
