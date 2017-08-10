@@ -161,10 +161,10 @@ html(lang="en")
 					const get_stripe = get_order.orderPrice * .029 + .3
 					const get_total = get_order_price + get_tax + get_stripe;
 					// round to 2 decimal places
-					$("#get_order_price").html(get_order_price.toFixed(2));
-					$("#get_tax").html(get_tax.toFixed(2));
-					$("#get_stripe").html(get_stripe.toFixed(2));
-					$("#get_total").html(get_total.toFixed(2));
+					$("#get_order_price").html(parseFloat(get_order_price).toFixed(2));
+					$("#get_tax").html(parseFloat(get_tax).toFixed(2));
+					$("#get_stripe").html(parseFloat(get_stripe).toFixed(2));
+					$("#get_total").html(parseFloat(get_total).toFixed(2));
 				}, "json");
 			}
 
