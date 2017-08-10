@@ -53,8 +53,8 @@ html(lang="en")
 				- order_price += combo_price;
 				span
 					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
-					.wide_checkbox(toggle=index)
-						.custom_check_on
+					.wide_checkbox
+						.custom_check_on(toggle=index)
 						.toggle
 							h3 #{item.itemName} #{combo}
 						p.price #{combo_price}
