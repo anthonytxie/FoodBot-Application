@@ -153,11 +153,12 @@ html(lang="en")
 					// TODO: does this apply before or after tax?
 					const get_stripe = order.orderPrice * .029 + .3
 					const get_total = get_order_price + get_tax + get_stripe;
+				}, "json" ).done(function(){
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
 					$("#get_stripe").html(get_stripe);
 					$("#get_total").html(get_total);
-				}, "json" );
+				});
 			}
 
 
