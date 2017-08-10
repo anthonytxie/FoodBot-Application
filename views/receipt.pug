@@ -168,7 +168,6 @@ html(lang="en")
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
 				$("#view2container").hide();
-				e.preventDefault();
 				if ($(this).attr("value") == "now") {
 					handler.open({
 						name: 'FoodBot',
@@ -176,6 +175,7 @@ html(lang="en")
 						zipCode: true,
 						amount: 2000
 					});
+					e.preventDefault();
 				} else {
 					MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
