@@ -31,27 +31,33 @@ html(lang="en")
 		- const items = order._items; // all items in the order
 		- let index = 0;
 
-		form(style="position:relative;", method="post", action="delete")
+		form#view1container(style="position:relative;", method="post", action="delete")
 
+			h4 ORDER SO FAR
 			input(type="hidden", name="orderId", value=order._id)
+
+			- let order_price = 0;
 
 			while index < items.length
 				- let item = items[index];  // loop through each item in the list
 				- let name = item.itemName; // name of current item
-				- let price = item.price;
+				- let combo_price = item.price; // equal to the price of the item or combo, if applicable
 
 				- let combo = "";
 				if item.itemType === "burger"
 					if index <= items.length - 3
 						if typeof itemCombo in items[index + 1] !== "undefined"
 							- combo = "(Combo)"
+							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
+
+				- order_price += combo_price;
 				span
-					input(type="hidden", name="keepIds[]", value=item._id)
-					.wide_checkbox(toggle=index)
-						.custom_check_on
+					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
+					.wide_checkbox
+						.custom_check_on(toggle=index)
 						.toggle
 							h3 #{item.itemName} #{combo}
-							p #{price}
+						p.price #{combo_price}
 
 					if item.itemType === "burger"
 						.zoom(value=item._id, style="display:none")
@@ -72,80 +78,89 @@ html(lang="en")
 									- price	+= combo_drink.price; // add the drink to the delete id list
 									.drink= combo_drink.itemName
 									.price= combo_drink.price
-									input(type="hidden", name="keepIds[]", value=combo_drink._id)
+									input(toggle_input=index, name="keepIds[]", value=combo_drink._id)
 
 									- price	+= combo_side.price; // add the side to the delete id list
 									.side= combo_side.itemName
 									.price= combo_side.price
-									input(type="hidden", name="keepIds[]", value=combo_side._id)
+									input(toggle_input=index, name="keepIds[]", value=combo_side._id)
 
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 				
-			p Total: #{price}
+			p Total: #{order_price}
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2
 		#view2container(style="display:none;")
-			input(name="method", type="radio", value="pickup")
-			input(name="method", type="radio", value="delivery")
-			input(name="time", type="time", value="22:15:00")
-			.item_row
-				.item Burger
-				.price 12
-			.item_row
-				.item HST (13%)
-				.price 1
-			.item_row
-				.item Processing Fee
-				.price 1
-			input#doneview2(type="submit", value="Checkout")
+
+			.lightswitch(style="height: 70px")
+				input(type="hidden", name="method", value="pickup")
+				div.selected(style="width: 50%; background: red; display: inline-block;") Pickup
+				div(style="width: 50%; background: blue; display: inline-block;") Delivery
+
+			input(name="time", type="time", value="22:15:00", style="height: 70px;")
+
+			input(name="address", type="text", style="height: 70px")
+
+			input(name="postal", type="text", style="height: 70px")
+
+			p#get_order_price
+			p#get_tax
+			p#get_stripe
+			p#get_total
+
+			input.doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
+			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
 		
 		script.
-			// view 1
-			//- // horizontal scroll
-			//- options = {};
-			//- $("#view1container").dragend(options);
-			//- // send delete requests with AJAX
-			//- $(".dragend-page form").submit(function(e) {
-
-			//- 	$.ajax({
-			//- 		type: "POST",
-			//- 		url: "delete", // script where we handle deleting
-			//- 		data: $(this).serialize(), // serializes the form's elements
-			//- 		success: function(data) {
-			//- 			console.log("delete request sent successfully");
-			//- 		}
-			//- 	});
-
-			//- 	e.preventDefault(); // avoids actually submitting the form
-			//- });
-
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function(){
+				const toggle = $(this).attr("toggle");
+				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
-				const $span = $(this).parent();
-				$span.find("input").attr("name", "removeIds[]");
 			})
 
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
+				const toggle = $(this).attr("toggle");
+				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
-				const $span = $(this).parent();
-				$span.find("input").attr("name", "keepIds[]");
 			})
 
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
+				get_price();
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
 
 			// view 2
 			// all payment stuff
+			// produces a length 4 list:
+			// Order
+			// HST
+			// Stripe
+			// Total
+			const get_price = () => {
+				console.log("get_price triggered");
+				$.get("/getOrder/" + order._id, function(order) {
+					const get_order_price = order.orderPrice;
+					const get_tax = order.orderPirce * .13;
+					// TODO: does this apply before or after tax?
+					const get_stripe = order.orderPrice * .029 + .3
+					const get_total = get_order_price + get_tax + get_stripe;
+					$("#get_order_price").html(get_order_price);
+					$("#get_tax").html(get_tax);
+					$("#get_stripe").html(get_stripe);
+					$("#get_total").html(get_total);
+				}, "json" );
+			}
+
+
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
@@ -156,18 +171,27 @@ html(lang="en")
 					// Get the token ID to your server-side code for use.
 				}
 			});
-			document.getElementById('doneview2').addEventListener('click', function(e) {
-				// Open Checkout with further options:
-				handler.open({
-					name: 'FoodBot',
-					description: 'Your Order',
-					zipCode: true,
-					amount: 2000
-				});
-				e.preventDefault();
-			});
-			$("#doneview2").click(function(){
+			// either closes the session or brings up the payment prompt
+			$(".doneview2").click(function(e){
+				console.log("a");
 				$("#view2container").hide();
+				if ($(this).attr("value") == "now") {
+					console.log("b");
+					handler.open({
+						name: 'FoodBot',
+						description: 'Your Order',
+						zipCode: true,
+						amount: 2000
+					});
+					e.preventDefault();
+				} else {
+					console.log("c");
+					MessengerExtensions.requestCloseBrowser(function success() {
+						console.log("success");
+					}, function error(err) {
+						console.log(err);
+					});
+				}
 			})
 
 			// view 3

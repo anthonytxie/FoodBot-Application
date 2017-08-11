@@ -24,8 +24,12 @@ routes.get("/stripe", (req, res) => {
 
 
 
-routes.get("/getorder", (req, res) => {
-  res.send('hello world')
+routes.get("/getorder/:orderid", (req, res) => {
+  let orderId = req.params.orderid;
+  orderDAO.findOrderById(orderId)
+    .then((order) => {
+      res.send(order);
+    }).catch((err) => res.send(err))
 });
 
 

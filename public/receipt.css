@@ -2,6 +2,10 @@
 	text-shadow: 0 0 0 white;
 }
 
+span {
+	background-color: white;
+}
+
 /* 414px max width */
 html, body {
 	width: 100%;
@@ -121,10 +125,7 @@ form {
 }
 
 p {
-	display: inline-block;
 	margin: 0;
-	width: 50px;
-	float: right;
 }
 
 img {
@@ -180,6 +181,7 @@ img {
 	width: 100%;
 	height: 70px;
 	cursor: pointer;
+	background-color: white;
 }
 
 .wide_checkbox:hover, .quantity:hover {
