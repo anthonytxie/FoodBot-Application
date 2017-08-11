@@ -159,7 +159,7 @@ html(lang="en")
 					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
 					// TODO: does this apply before or after tax?
 					const get_stripe = parseFloat(get_order.orderPrice * .029 + .3).toFixed(2);
-					const get_total = parseFloat(get_order.orderPrice * 1.59 + .3).toFixed(2);
+					const get_total = parseFloat(get_order.orderPrice * .159 + .3).toFixed(2);
 					// round to 2 decimal places
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
