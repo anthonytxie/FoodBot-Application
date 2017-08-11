@@ -25,6 +25,14 @@ html(lang="en")
 		- // 1: see receipt, remove / restore items
 		- // 2: ajax/get_order, see pickup or delivery, time, pay button
 		- // 3: payment
+
+		- // TODO: finish the delete request
+		- // TODO: send form 2 information to backend
+		- // TODO: send payment indicator to stripe ?
+		- // TODO: close form on successful stripe
+
+		- // TODO: security
+		- // TODO: style
 		
 		- // VIEW 1
 
@@ -193,6 +201,8 @@ html(lang="en")
 						description: 'Your Order',
 						zipCode: true,
 						amount: pay_total * 100
+					}).then(function(){
+						console.log("payment complete!");
 					});
 					e.preventDefault();
 				} else {
