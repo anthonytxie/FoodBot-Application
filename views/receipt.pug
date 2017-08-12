@@ -150,12 +150,12 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				const options = {
-				  success: function() {
-				    get_price(!{JSON.stringify(order)});
-				  }
-				};
-				$("#view1container").ajaxSubmit(options);
+				//- const options = {
+				//-   success: function() {
+				//-     get_price(!{JSON.stringify(order)});
+				//-   }
+				//- };
+				//- $("#view1container").ajaxSubmit(options);
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
