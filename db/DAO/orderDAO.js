@@ -49,7 +49,8 @@ orderDAO.confirmOrder = function(data) {
             fulfillmentDate: data.time,
             isPaid: data.isPaid,
             address: data.address,
-            postalCode: data.postal
+            postalCode: data.postal,
+            orderConfirmDate: Date.now()
           }
         },
         { new: true }

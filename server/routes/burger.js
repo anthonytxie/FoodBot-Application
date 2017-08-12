@@ -72,3 +72,8 @@ routes.post("/burger", (req, res) => {
 });
 
 module.exports = routes;
+
+
+
+console.log(Date.parse("2017-09-13T02:53:00.000Z"))
+console.log( new Date(1505271180000))
