@@ -70,7 +70,9 @@ routes.post("/confirm", (req, res) => {
     orderDAO.confirmOrder({
       orderId,
       method,
-      time
+      time,
+      address,
+      postal
     });
   } else {
     orderDAO.confirmOrder({
