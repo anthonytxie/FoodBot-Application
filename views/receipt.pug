@@ -195,7 +195,9 @@ html(lang="en")
 				token: function(token) {
 					// You can access the token ID with `token.id`.
 					// Get the token ID to your server-side code for use.
+					var token_id = token.id;
 					console.log("this is when something happens with token");
+					$("#view2container").append("<input type='hidden' name='token_id' value='${token_id}'>");
 				}
 			});
 			// either closes the session or brings up the payment prompt
