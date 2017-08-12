@@ -1,3 +1,5 @@
+
+
 doctype html
 html(lang="en")
 	head
@@ -9,6 +11,7 @@ html(lang="en")
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="dragend-master/dragend.js")
+		script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
 	body
 		script.
@@ -100,7 +103,7 @@ html(lang="en")
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2
-		#view2container(style="display:none;")
+		form#view2container(style="display:none;")
 
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
@@ -147,10 +150,17 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				get_price(!{JSON.stringify(order)});
+				const options = {
+				  success: function() {
+				    get_price(!{JSON.stringify(order)});
+				  }
+				};
+				$("#view1container").ajaxSubmit(options);
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
+
+			var options = 
 
 			// view 2
 			// all payment stuff
@@ -162,6 +172,10 @@ html(lang="en")
 
 			// amount they have to pay
 			let pay_total = null;
+
+			const delete_items = () => {
+				
+			}
 
 			const get_price = (order) => {
 				const order_id = order._id;
