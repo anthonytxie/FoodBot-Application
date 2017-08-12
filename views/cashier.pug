@@ -22,7 +22,7 @@ html(lang="en")
 									img(src="money.png")
 								.number_time
 									.number Order #{order._id}
-									if item.methodFulfillment == "pickup"
+									if order.methodFulfillment == "pickup"
 										//- do countdown / up
 										.time Pickup @ #{order.fulfillmentDate}
 									else
