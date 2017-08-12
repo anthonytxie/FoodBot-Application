@@ -100,7 +100,7 @@ routes.post("/confirm", (req, res) => {
         })
       )
       .then(() => {
-        orderDAO
+        return orderDAO
           .confirmOrder({
             orderId,
             method,
@@ -110,6 +110,7 @@ routes.post("/confirm", (req, res) => {
             isPaid: true
           })
           .then(order => {
+            console.log(order._user._id)
             userDAO.updateEmail(order._user._id, token_email)
           })
           .then(() => {
