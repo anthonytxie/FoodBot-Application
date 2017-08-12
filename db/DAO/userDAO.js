@@ -38,6 +38,18 @@ userDAO.isUserCreated = function(PSID) {
   });
 };
 
-
+userDAO.updateEmail = function(userId, email) {
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(
+      { _id: userId },
+      { $set: { email: email } },
+      { new: true }
+    )
+      .then(user => {
+        resolve(user);
+      })
+      .catch(err => reject(err));
+  });
+};
 
 module.exports = userDAO;
