@@ -43,7 +43,7 @@ userDAO.updateEmail = function(userId, email) {
     User.findOneAndUpdate(
       { _id: userId },
       {
-        $push: {
+        $set: {
           email: email
         }
       },
