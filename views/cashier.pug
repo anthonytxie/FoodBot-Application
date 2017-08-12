@@ -1,6 +1,8 @@
 doctype html
 html(lang="en")
 	//- ipad: 1024 x 768 px
+	//- add delivery address and time
+	//- add pickup and time
 	head
 		title Cashier
 		meta(name="viewport", content="width=device-width, initial-scale=1")
@@ -17,11 +19,10 @@ html(lang="en")
 						.left
 							.overview
 								unless order.isPaid
-									//- money logo here
+									img(src="money.png")
 								.number_time
 									.number= order._id
-									//- stop using this
-									.time= order.CreatedAt
+									.time= order.fulfillmentDate
 							.details
 								each item in order._items
 									//- combo logic here
@@ -35,5 +36,5 @@ html(lang="en")
 						.right
 							unless order.isPaid
 								.option Mark as Paid
-							unless order.isCompleted
+							unless order.isInputted
 								.option Mark as Read
