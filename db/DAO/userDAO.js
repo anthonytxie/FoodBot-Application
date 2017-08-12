@@ -42,7 +42,7 @@ userDAO.updateEmail = function(userId, email) {
   return new Promise((resolve, reject) => {
     User.findOneAndUpdate(
       { _id: userId },
-      { $push: { emails: email } },
+      { $set: { email: email } },
       { new: true }
     )
       .then(user => {
