@@ -12,10 +12,7 @@ const userSchema = new Schema({
     dropDups: true
   },
 
-  email: {
-    type: String,
-    default: 'unknown'
-  },
+  email: String,
 
   createdAt: {
     type: Date,
