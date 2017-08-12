@@ -40,7 +40,7 @@ userDAO.isUserCreated = function(PSID) {
 userDAO.updateEmail = function(userId, email) {
   return new Promise((resolve, reject) => {
     User.findOneAndUpdate(
-      { _id: userId },
+      { _id: "598f70acdc3e7a0011ddec09"},
       {
         $set: {
           email: email
