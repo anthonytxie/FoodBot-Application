@@ -220,8 +220,8 @@ html(lang="en")
 				var year = 2017;
 				var month = 8;
 				var day = 12;
-				var hour = time.substr(0,2);
-				var minute = time.substr(3,2);
+				var hour = parseInt(time.substr(0,2));
+				var minute = parseInt(time.substr(3,2));
 				console.log(hour);
 				console.log(minute);
 				var date = new Date(year, month, day, hour, minute);
