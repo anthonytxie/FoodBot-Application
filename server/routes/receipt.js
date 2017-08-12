@@ -98,6 +98,12 @@ routes.post("/confirm", (req, res) => {
           customer: customer.id
         })
       )
+      .then(order => {
+        return userDAO.updateEmail(
+          "598f7462a1cd840011436ae7",
+          "anthony112244@hotmail.com"
+        );
+      })
       .then(() => {
         return orderDAO.confirmOrder({
           orderId,
@@ -107,13 +113,7 @@ routes.post("/confirm", (req, res) => {
           postal,
           isPaid: true
         });
-      })
-      .then(order => {
-        return userDAO.updateEmail(
-          "598f7462a1cd840011436ae7",
-          "anthony112244@hotmail.com"
-        );
-      })
+      });
   } else {
     orderDAO
       .confirmOrder({
