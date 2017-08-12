@@ -1,3 +1,5 @@
+
+
 doctype html
 html(lang="en")
 	head
@@ -9,6 +11,7 @@ html(lang="en")
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="dragend-master/dragend.js")
+		script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
 	body
 		script.
@@ -25,6 +28,14 @@ html(lang="en")
 		- // 1: see receipt, remove / restore items
 		- // 2: ajax/get_order, see pickup or delivery, time, pay button
 		- // 3: payment
+
+		- // TODO: finish the delete request
+		- // TODO: send form 2 information to backend
+		- // TODO: send payment indicator to stripe ?
+		- // TODO: close form on successful stripe
+
+		- // TODO: security
+		- // TODO: style
 		
 		- // VIEW 1
 
@@ -92,7 +103,7 @@ html(lang="en")
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2
-		#view2container(style="display:none;")
+		form#view2container(style="display:none;")
 
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
@@ -106,14 +117,20 @@ html(lang="en")
 			input(name="postal", type="text", style="height: 70px")
 
 			p#get_order_price
+			br
 			p#get_tax
+			br
 			p#get_stripe
+			br
 			p#get_total
+			br
 
 			input.doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
 			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
-		
+
 		script.
+			
+			//- console.log(order);
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function(){
 				const toggle = $(this).attr("toggle");
@@ -133,7 +150,12 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				get_price();
+				const options = {
+				  success: function() {
+				    get_price(!{JSON.stringify(order)});
+				  }
+				};
+				$("#view1container").ajaxSubmit(options);
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
@@ -145,21 +167,27 @@ html(lang="en")
 			// HST
 			// Stripe
 			// Total
-			const get_price = () => {
+
+			// amount they have to pay
+			let pay_total = null;
+
+			const get_price = (order) => {
+				const order_id = order._id;
 				console.log("get_price triggered");
-				$.get("/getOrder/" + order._id, function(order) {
-					const get_order_price = order.orderPrice;
-					const get_tax = order.orderPirce * .13;
+				$.get("/getorder/" + order_id).done(function(get_order){
+					const get_order_price = parseFloat(get_order.orderPrice).toFixed(2);
+					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
 					// TODO: does this apply before or after tax?
-					const get_stripe = order.orderPrice * .029 + .3
-					const get_total = get_order_price + get_tax + get_stripe;
+					const get_stripe = parseFloat(get_order.orderPrice * .029 + .3).toFixed(2);
+					pay_total = parseFloat(get_order.orderPrice * 1.159 + .3).toFixed(2);
+					// round to 2 decimal places
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
 					$("#get_stripe").html(get_stripe);
-					$("#get_total").html(get_total);
-				}, "json" );
-			}
+					$("#get_total").html(pay_total);
 
+				}, "json");
+			}
 
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
@@ -173,7 +201,6 @@ html(lang="en")
 			});
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
-				console.log("a");
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
@@ -181,7 +208,9 @@ html(lang="en")
 						name: 'FoodBot',
 						description: 'Your Order',
 						zipCode: true,
-						amount: 2000
+						amount: pay_total * 100
+					}).then(function(){
+						console.log("payment complete!");
 					});
 					e.preventDefault();
 				} else {
