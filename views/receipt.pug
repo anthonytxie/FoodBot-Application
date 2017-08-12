@@ -108,7 +108,7 @@ html(lang="en")
 				div(style="width: 50%; background: blue; display: inline-block;") Delivery
 
 			//- timestamp
-			input(name="time", type="time", value="08:30 AM", style="height: 70px;")
+			input#time(name="time", type="time", style="height: 70px;")
 
 			input(name="address", type="text", style="height: 70px")
 
@@ -127,6 +127,9 @@ html(lang="en")
 			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
 
 		script.
+			$(document).ready(function(){
+				document.getElementById("time").value = "22:53";
+			})
 			
 			// TODO: get feedback once confirmation is done
 
