@@ -29,10 +29,6 @@ html(lang="en")
 		- // 2: ajax/get_order, see pickup or delivery, time, pay button
 		- // 3: payment
 
-		- // TODO: send form 2 information to backend
-		- // TODO: send payment indicator to stripe ?
-		- // TODO: close form on successful stripe
-
 		- // TODO: security
 		- // TODO: style
 		
@@ -131,6 +127,8 @@ html(lang="en")
 
 		script.
 			
+			// TODO: get feedback once confirmation is done
+
 			//- console.log(order);
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
@@ -154,7 +152,6 @@ html(lang="en")
 				$.get("/getorder/" + order_id).done(function(get_order){
 					const get_order_price = parseFloat(get_order.orderPrice).toFixed(2);
 					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
-					// TODO: does this apply before or after tax?
 					const get_stripe = parseFloat((get_order.orderPrice * 1.13) * .029 + .3).toFixed(2);
 					pay_total = parseFloat((get_order.orderPrice * 1.13) * 1.029 + .3).toFixed(2);
 					// round to 2 decimal places
@@ -189,7 +186,7 @@ html(lang="en")
 			
 
 			var handler = StripeCheckout.configure({
-				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
 				locale: 'auto',
 				currency: "CAD",
