@@ -99,24 +99,21 @@ routes.post("/confirm", (req, res) => {
         })
       )
       .then(() => {
-        return orderDAO
-          .confirmOrder({
-            orderId,
-            method,
-            time,
-            address,
-            postal,
-            isPaid: true
-          })
-        })
-          .then(order => {
-            return userDAO.updateEmail("598f71daa1f190001106068e", token_email)
-          })
-          .then(() => {
-            
-          }).catch((err) => {
-            // payment didn't go through send message back to user
-          })
+        return orderDAO.confirmOrder({
+          orderId,
+          method,
+          time,
+          address,
+          postal,
+          isPaid: true
+        });
+      })
+      .then(order => {
+        return userDAO.updateEmail(
+          "598f7462a1cd840011436ae7",
+          "anthony112244@hotmail.com"
+        );
+      })
   } else {
     orderDAO
       .confirmOrder({
