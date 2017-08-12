@@ -87,11 +87,11 @@ routes.post("/confirmOrder", (req, res) => {
 routes.post("/delete", (req, res) => {
   console.log(req.body);
   let orderId = req.body.orderId;
-  let itemIds = req.body.deleteIds;
+  let itemIds = req.body.removeIds;
   async.each(itemIds, (itemId) => {
     itemDAO.deleteItemById(itemId, orderId)
       .then((item) => {
-        console.log(item)
+        res.status(200)
       }).catch((err) => console.log(err))
   })
 });
