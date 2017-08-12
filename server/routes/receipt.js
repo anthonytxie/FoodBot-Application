@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const sessionDAO = require("./../../db/DAO/sessionDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 const itemDAO = require("./../../db/DAO/itemDAO");
+const userDAO = require("./../../db/DAO/userDAO");
 const stripe = require("stripe")("sk_test_wGIrSvj5T4LPKJe603wPoLhw");
 
 //SEND FUNCTIONS
@@ -99,21 +100,22 @@ routes.post("/confirm", (req, res) => {
         })
       )
       .then(() => {
-        return orderDAO.confirmOrder({
-          orderId,
-          method,
-          time,
-          address,
-          postal,
-          isPaid: true
-        });
-      })
-      .then(order => {
-        return userDAO.updateEmail(
-          "598f7462a1cd840011436ae7",
-          "anthony112244@hotmail.com"
-        );
-      })
+        return orderDAO
+          .confirmOrder({
+            orderId,
+            method,
+            time,
+            address,
+            postal,
+            isPaid: true
+          })
+        })
+          .then(order => {
+            return userDAO.updateEmail(order._user._id, token_email)
+          })
+          .catch((err) => {
+            // payment didn't go through send message back to user
+          })
   } else {
     orderDAO
       .confirmOrder({
