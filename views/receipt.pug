@@ -153,6 +153,7 @@ html(lang="en")
 				const options = {
 				  success: function() {
 				    get_price(!{JSON.stringify(order)});
+				    console.log("delete and get");
 				  }
 				};
 				$("#view1container").ajaxSubmit(options);
