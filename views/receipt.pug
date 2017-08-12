@@ -163,7 +163,6 @@ html(lang="en")
 					$("#get_stripe").html(get_stripe);
 					$("#get_total").html(pay_total);
 					$("#view2container").append("<input type='hidden' name='authorized_payment' value='" + pay_total + "'>")
-
 				}, "json");
 			}
 
@@ -200,6 +199,7 @@ html(lang="en")
 					console.log(token.id);
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
+					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
 					$("#view2container").ajaxSubmit();
 					MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
