@@ -159,7 +159,7 @@ html(lang="en")
 					$("#get_tax").html(get_tax);
 					$("#get_stripe").html(get_stripe);
 					$("#get_total").html(pay_total);
-					$("#view2container").append("<input type='hidden' name='authorized_payment' value='" + pay_total + "'>")
+					$("#view2container").append("<input type='hidden' name='authorized_payment' value='" + pay_total * 100 + "'>")
 				}, "json");
 			}
 
