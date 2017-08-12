@@ -29,7 +29,6 @@ html(lang="en")
 		- // 2: ajax/get_order, see pickup or delivery, time, pay button
 		- // 3: payment
 
-		- // TODO: finish the delete request
 		- // TODO: send form 2 information to backend
 		- // TODO: send payment indicator to stripe ?
 		- // TODO: close form on successful stripe
@@ -105,6 +104,8 @@ html(lang="en")
 		//- VIEW 2
 		form#view2container(style="display:none;")
 
+			input(type="hidden", name="orderId", value=order._id)
+
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
 				div.selected(style="width: 50%; background: red; display: inline-block;") Pickup
@@ -132,7 +133,7 @@ html(lang="en")
 			
 			//- console.log(order);
 			// add to deleteIds
-			$("form").on("click", ".custom_check_on", function(){
+			$("form").on("click", ".custom_check_on", function() {
 				const toggle = $(this).attr("toggle");
 				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
@@ -146,31 +147,6 @@ html(lang="en")
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
 			})
-
-			// click confirm button
-			$(".doneview1").click(function(e){
-				e.preventDefault();
-				const options = {
-				  success: function() {
-				    get_price(!{JSON.stringify(order)});
-				    console.log("delete and get");
-				  }
-				};
-				$("#view1container").ajaxSubmit(options);
-				$("#view1container").hide();
-				$("#view2container").show();
-			})
-
-			// view 2
-			// all payment stuff
-			// produces a length 4 list:
-			// Order
-			// HST
-			// Stripe
-			// Total
-
-			// amount they have to pay
-			let pay_total = null;
 
 			const get_price = (order) => {
 				const order_id = order._id;
@@ -190,6 +166,27 @@ html(lang="en")
 				}, "json");
 			}
 
+			// click confirm button
+			$(".doneview1").click(function(e){
+				e.preventDefault();
+				var xhr = $("#view1container").ajaxSubmit();
+				$("#view1container").hide();
+				$("#view2container").show();
+			})
+
+			// view 2
+			// all payment stuff
+			// produces a length 4 list:
+			// Order
+			// HST
+			// Stripe
+			// Total
+
+			// amount they have to pay
+			let pay_total = null;
+
+			
+
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
@@ -198,6 +195,9 @@ html(lang="en")
 				token: function(token) {
 					// You can access the token ID with `token.id`.
 					// Get the token ID to your server-side code for use.
+					var token_id = token.id;
+					console.log("this is when something happens with token");
+					$("#view2container").append("<input type='hidden' name='token_id' value='${token_id}'>");
 				}
 			});
 			// either closes the session or brings up the payment prompt
