@@ -198,10 +198,12 @@ html(lang="en")
 					console.log(token.id);
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
+					$("#view2container").ajaxSubmit();
 				}
 			});
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
+				// this was sending twice
 				e.preventDefault();
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
@@ -212,12 +214,12 @@ html(lang="en")
 						zipCode: true,
 						amount: pay_total * 100
 					})
+					
 				} else {
 					console.log("c");
 					$("#view2container").ajaxSubmit();
 					MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
-
 					}, function error(err) {
 						console.log(err);
 					});
