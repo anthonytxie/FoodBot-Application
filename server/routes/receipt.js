@@ -70,10 +70,10 @@ routes.post("/confirm", (req, res) => {
     orderDAO.confirmOrder({
       orderId,
       method,
-      time,
-      address,
-      postal
-    });
+      time
+    }).then((order) => {
+      res.send(order);
+    })
   } else {
     orderDAO.confirmOrder({
       orderId,
@@ -81,7 +81,9 @@ routes.post("/confirm", (req, res) => {
       time,
       address,
       postal
-    });
+    }).then((order) => {
+      res.send(order);
+    })
   }
 });
 

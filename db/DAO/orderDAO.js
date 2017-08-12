@@ -37,28 +37,49 @@ orderDAO.getAllOrders = () => {
       .catch((err) => reject(err));
   });
 };
-
 orderDAO.confirmOrder = function(data) {
   return new Promise((resolve, reject) => {
-    populateOrder(
-      Order.findOneAndUpdate(
-        { _id: data.orderId },
-        {
-          $set: {
-            isConfirmed: true,
-            methodFulfillment: data.method,
-            fulfillmentDate: data.time,
-            address: address,
-            postalCode: postal
-          }
-        },
-        { new: true }
+    if (data.method === "pickup") {
+      populateOrder(
+        Order.findOneAndUpdate(
+          { _id: data.orderId },
+          {
+            $set: {
+              isConfirmed: true,
+              methodFulfillment: data.method,
+              fulfillmentDate: data.time
+              // address: address,
+              // postalCode: postal
+            }
+          },
+          { new: true }
+        )
       )
-    )
-      .then(order => {
-        resolve(order);
-      })
-      .catch(err => reject(err));
+        .then(order => {
+          resolve(order);
+        })
+        .catch(err => reject(err));
+    } else {
+      populateOrder(
+        Order.findOneAndUpdate(
+          { _id: data.orderId },
+          {
+            $set: {
+              isConfirmed: true,
+              methodFulfillment: data.method,
+              fulfillmentDate: data.time,
+              address: address,
+              postalCode: postal
+            }
+          },
+          { new: true }
+        )
+      )
+        .then(order => {
+          resolve(order);
+        })
+        .catch(err => reject(err));
+    }
   });
 };
 
