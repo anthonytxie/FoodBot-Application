@@ -59,7 +59,6 @@ routes.get("/orders", (req, res) => {
 });
 
 routes.post("/delete", (req, res) => {
-  console.log(req.body);
   let orderId = req.body.orderId;
   let itemIds = req.body.removeIds;
   async.each(itemIds, itemId => {
@@ -73,7 +72,6 @@ routes.post("/delete", (req, res) => {
 });
 
 routes.post("/confirm", (req, res) => {
-  console.log(req.body);
   let {
     orderId,
     method,
@@ -110,8 +108,7 @@ routes.post("/confirm", (req, res) => {
             isPaid: true
           })
           .then(order => {
-            console.log(order._user._id)
-            userDAO.updateEmail(order._user._id, token_email)
+            return userDAO.updateEmail(order._user._id, token_email)
           })
           .then(() => {
             
