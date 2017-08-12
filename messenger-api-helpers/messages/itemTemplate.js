@@ -9,7 +9,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
         template_type: "generic",
         elements: [
           {
-            title: `Okay so, ${burger.title}, would you like the usual way or do you want to customize it?`,
+            title: `Okay so, ${burger.title}, the usual way or customized?`,
             // image_url: burger.image_url,
             buttons: [
               {

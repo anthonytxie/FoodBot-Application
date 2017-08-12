@@ -8,14 +8,14 @@ const menuMessage = {
     quick_replies: [
         {
             content_type: "text",
-            title: "Our Favourites",
+            title: "Favorites",
             payload: JSON.stringify({
                 type: "see-special-burgers"
             })
         },
         {
             content_type: "text",
-            title: "Normal Burgers",
+            title: "Burgers",
             payload: JSON.stringify({
                 type: "see-normal-burgers"
             })
