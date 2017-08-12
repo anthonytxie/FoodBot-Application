@@ -1,5 +1,3 @@
-
-
 doctype html
 html(lang="en")
 	head
@@ -20,9 +18,20 @@ html(lang="en")
 								unless order.isPaid
 									//- money logo here
 								.number_time
-									.number order._id
-									.time order.CreatedAt
+									.number= order._id
+									//- stop using this
+									.time= order.CreatedAt
 							.details
+								each item in order._items
+									//- combo logic here
+									.name= item.itemName
+									.toppings
+										each topping in item.standardToppings
+											.topping= topping
+										each topping in item.premiumToppings
+											.topping= topping
 						.right
-
-					
+							unless order.isPaid
+								.option Mark as Paid
+							unless order.isCompleted
+								.option Mark as Read
