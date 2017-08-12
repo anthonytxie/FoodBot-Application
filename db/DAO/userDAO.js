@@ -37,6 +37,7 @@ userDAO.isUserCreated = function(PSID) {
       }).catch((err) => reject(err));
   });
 };
+
 userDAO.updateEmail = function(userId, email) {
   return new Promise((resolve, reject) => {
     User.findOneAndUpdate(
@@ -54,6 +55,8 @@ userDAO.updateEmail = function(userId, email) {
       .catch(err => reject(err));
   });
 };
+
+
 
 
 module.exports = userDAO;
