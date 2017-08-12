@@ -1,7 +1,5 @@
 const { User, Session } = require('./../models/index');
 const userDAO = {};
-const mongoose = require('mongoose');
-
 
 userDAO.createUser = function(PSID) {
   return new Promise((resolve, reject) => {
@@ -39,13 +37,14 @@ userDAO.isUserCreated = function(PSID) {
       }).catch((err) => reject(err));
   });
 };
+
 userDAO.updateEmail = function(userId, email) {
   return new Promise((resolve, reject) => {
     User.findOneAndUpdate(
-      { _id: mongoose.Types.ObjectId("598f70acdc3e7a0011ddec09")},
+      { _id: userId },
       {
         $set: {
-          email: "anthony112244@hotmail.com"
+          email: email
         }
       },
       { new: true }
@@ -56,6 +55,8 @@ userDAO.updateEmail = function(userId, email) {
       .catch(err => reject(err));
   });
 };
+
+
 
 
 module.exports = userDAO;
