@@ -47,8 +47,9 @@ orderDAO.confirmOrder = function(data) {
             isConfirmed: true,
             methodFulfillment: data.method,
             fulfillmentDate: data.time,
-            isPaid: data.isPaid
-            // postalCode: postal
+            isPaid: data.isPaid,
+            address: data.address,
+            postalCode: data.postal
           }
         },
         { new: true }
