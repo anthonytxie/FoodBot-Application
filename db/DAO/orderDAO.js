@@ -20,7 +20,7 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
 
 orderDAO.findOrderById = (orderId) => {
   return new Promise ((resolve ,reject) => {
-    Order.findOne({_id: orderId})
+    populateOrder(Order.findOne({_id: orderId}))
       .then((order) => {
         resolve(order)
       }).catch((err) => reject(err))
