@@ -225,7 +225,7 @@ html(lang="en")
 				console.log(hour);
 				console.log(minute);
 				var date = new Date(year, month, day, hour, minute);
-				$('#time').val(jQuery.param(date));
+				$('#time').val(JSON.stringify(date));
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
