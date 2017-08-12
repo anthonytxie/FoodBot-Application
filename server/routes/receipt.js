@@ -109,7 +109,7 @@ routes.post("/confirm", (req, res) => {
             isPaid: true
           })
           .then(order => {
-            return userDAO.updateEmail(order._user._id, token_email)
+            return userDAO.updateEmail("598f695238a85d0011ebdf4c", token_email)
           })
           .then(() => {
             
