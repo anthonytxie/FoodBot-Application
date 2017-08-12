@@ -11,7 +11,7 @@ html(lang="en")
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="dragend-master/dragend.js")
-		script(src="form.js")
+		//- script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
 	body
 		script.
@@ -150,12 +150,12 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				//- const options = {
-				//-   success: function() {
-				//-     get_price(!{JSON.stringify(order)});
-				//-   }
-				//- };
-				//- $("#view1container").ajaxSubmit(options);
+				const options = {
+				  success: function() {
+				    get_price(!{JSON.stringify(order)});
+				  }
+				};
+				$("#view1container").ajaxSubmit(options);
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
