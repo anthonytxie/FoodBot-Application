@@ -98,21 +98,8 @@ routes.post("/confirm", (req, res) => {
           currency: "cad",
           customer: customer.id
         })
-      );
-    if ((method = "pickup")) {
-      orderDAO
-        .confirmOrder({
-          orderId,
-          method,
-          time,
-          isPaid: true
-        })
-        .then(order => {
-          res.send(order);
-        });
-    } else {
-      orderDAO
-        .confirmOrder({
+      ).then(() => {
+        orderDAO.confirmOrder({
           orderId,
           method,
           time,
@@ -123,7 +110,7 @@ routes.post("/confirm", (req, res) => {
         .then(order => {
           res.send(order);
         });
-    }
+      })
   } else {
     if ((method = "pickup")) {
       orderDAO
