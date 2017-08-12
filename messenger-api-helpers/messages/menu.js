@@ -32,10 +32,31 @@ const menuMessage = {
 
 // ===== MENU TEMPLATES ===============================================================
 
-const burgerMenuTemplate = burgerObject => {
+const specialBurgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
         image_url: burgerObject.image_url,
+        subtitle: burgerObject.subtitle,
+        buttons: [
+            {
+                type: "postback",
+                title: "Order Burger",
+                payload: JSON.stringify({
+                    type: "show-burger",
+                    data: {
+                        foodType: "burger",
+                        title: burgerObject.title
+                    }
+                })
+            }
+        ]
+    };
+};
+
+
+const normalBurgerMenuTemplate = burgerObject => {
+    return {
+        title: burgerObject.title,
         subtitle: burgerObject.subtitle,
         buttons: [
             {
@@ -82,53 +103,15 @@ const normalBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(menuItems[0]),
-                burgerMenuTemplate(menuItems[1]),
-                burgerMenuTemplate(menuItems[2]),
-                burgerMenuTemplate(menuItems[3])
+                normalBurgerMenuTemplate(menuItems[4]),
+                normalBurgerMenuTemplate(menuItems[5]),
+                normalBurgerMenuTemplate(menuItems[6]),
+                normalBurgerMenuTemplate(menuItems[7])
             ]
         }
     }
 };
 
-const normalBurgerMenuMessageTwo = {
-    attachment: {
-        type: "template",
-        payload: {
-            template_type: "list",
-            top_element_style: "compact",
-            elements: [
-                burgerMenuTemplate(menuItems[4]),
-                burgerMenuTemplate(menuItems[5]),
-                burgerMenuTemplate(menuItems[6]),
-                burgerMenuTemplate(menuItems[7])
-            ]
-        }
-    }
-};
-
-const normalBurgerMenuMessageThree = {
-    attachment: {
-        type: "template",
-        payload: {
-            template_type: "list",
-            top_element_style: "compact",
-            elements: [
-                burgerMenuTemplate(menuItems[8]),
-                burgerMenuTemplate(menuItems[9])
-            ],
-            buttons: [
-                {
-                    title: "View More",
-                    type: "postback",
-                    payload: JSON.stringify({
-                        type: "see-menu"
-                    })
-                }
-            ]
-        }
-    }
-};
 
 const specialBurgerMenuMessageOne = {
     attachment: {
@@ -137,10 +120,10 @@ const specialBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(menuItems[10]),
-                burgerMenuTemplate(menuItems[11]),
-                burgerMenuTemplate(menuItems[12]),
-                burgerMenuTemplate(menuItems[13])
+                specialBurgerMenuTemplate(menuItems[10]),
+                specialBurgerMenuTemplate(menuItems[11]),
+                specialBurgerMenuTemplate(menuItems[12]),
+                specialBurgerMenuTemplate(menuItems[13])
             ]
         }
     }
@@ -153,10 +136,10 @@ const specialBurgerMenuMessageTwo = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                burgerMenuTemplate(menuItems[14]),
-                burgerMenuTemplate(menuItems[15]),
-                burgerMenuTemplate(menuItems[16]),
-                burgerMenuTemplate(menuItems[17])
+                specialBurgerMenuTemplate(menuItems[14]),
+                specialBurgerMenuTemplate(menuItems[15]),
+                specialBurgerMenuTemplate(menuItems[16]),
+                specialBurgerMenuTemplate(menuItems[17])
             ],
             buttons: [
                 {
@@ -201,7 +184,5 @@ module.exports = {
     specialBurgerMenuMessageOne,
     specialBurgerMenuMessageTwo,
     normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo,
-    normalBurgerMenuMessageThree,
     sideMenuMessage
 };

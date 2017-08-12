@@ -87,7 +87,7 @@ routes.post("/confirmOrder", (req, res) => {
 
 routes.post("/delete", (req, res) => {
   let orderId = req.body.orderId;
-  let itemIds = req.body.itemIds;
+  let itemIds = req.body.deleteIds;
   async.each(itemIds, (itemId) => {
     itemDAO.deleteItemById(itemId, orderId)
       .then((item) => {
