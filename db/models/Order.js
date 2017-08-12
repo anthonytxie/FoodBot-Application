@@ -42,11 +42,13 @@ const orderSchema = new Schema({
   },
 
   address: {
-    type: String
+    type: String,
+    trim: true
   },
 
   postalCode: {
-    type: String
+    type: String,
+    trim: true
   },
 
   fulfillmentDate: {

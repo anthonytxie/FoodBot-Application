@@ -110,8 +110,15 @@ routes.post("/confirm", (req, res) => {
             isPaid: true
           })
           .then(order => {
-            res.send(order);
-          });
+            userDAO.updateEmail(order._user._id, token_email)
+          })
+          .then(() => {
+            
+
+          }).catch((err) => {
+            // payment didn't go through send message back to user
+
+          })
       });
   } else {
     orderDAO

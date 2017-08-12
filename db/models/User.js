@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const userSchema = new Schema ({
-
+const userSchema = new Schema({
   firstName: String,
 
   lastName: String,
@@ -12,19 +11,27 @@ const userSchema = new Schema ({
     unique: true,
     dropDups: true
   },
-  
+
+  emails: [
+    {
+      type: String,
+      dropDups: true
+    }
+  ],
+
   createdAt: {
     type: Date,
     default: Date.now
   },
-  
-  _sessions: [{
-    type: Schema.ObjectId,
-    ref: "Session"
-  }]
+
+  _sessions: [
+    {
+      type: Schema.ObjectId,
+      ref: "Session"
+    }
+  ]
 });
 
-
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
