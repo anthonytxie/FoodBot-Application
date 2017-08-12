@@ -98,46 +98,36 @@ routes.post("/confirm", (req, res) => {
           currency: "cad",
           customer: customer.id
         })
-      ).then(() => {
-        orderDAO.confirmOrder({
-          orderId,
-          method,
-          time,
-          address,
-          postal,
-          isPaid: true
-        })
-        .then(order => {
-          res.send(order);
-        });
-      })
+      )
+      .then(() => {
+        orderDAO
+          .confirmOrder({
+            orderId,
+            method,
+            time,
+            address,
+            postal,
+            isPaid: true
+          })
+          .then(order => {
+            res.send(order);
+          });
+      });
   } else {
-    if ((method = "pickup")) {
-      orderDAO
-        .confirmOrder({
-          orderId,
-          method,
-          time
-        })
-        .then(order => {
-          res.send(order);
-        });
-    } else {
-      orderDAO
-        .confirmOrder({
-          orderId,
-          method,
-          time,
-          address,
-          postal
-        })
-        .then(order => {
-          res.send(order);
-        });
-    }
+    orderDAO
+      .confirmOrder({
+        orderId,
+        method,
+        time,
+        address,
+        postal,
+        isPaid: true
+      })
+      .then(order => {
+        res.send(order);
+      });
   }
 });
-
 // if there is no items in the delete request, return just the order... else loop through delete everything. at the end get the order and send it
 
 module.exports = routes;
