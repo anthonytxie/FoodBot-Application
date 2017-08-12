@@ -69,11 +69,10 @@ routes.post("/confirm", (req, res) => {
   if ((method = "pickup")) {
     orderDAO.confirmOrder({
       orderId,
-      method,
-      time,
-      address,
-      postal
-    });
+      method
+    }).then((order) => {
+      res.send(order);
+    })
   } else {
     orderDAO.confirmOrder({
       orderId,
@@ -81,7 +80,9 @@ routes.post("/confirm", (req, res) => {
       time,
       address,
       postal
-    });
+    }).then((order) => {
+      res.send(order);
+    })
   }
 });
 

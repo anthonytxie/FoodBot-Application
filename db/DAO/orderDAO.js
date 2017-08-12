@@ -47,9 +47,9 @@ orderDAO.confirmOrder = function(data) {
           $set: {
             isConfirmed: true,
             methodFulfillment: data.method,
-            fulfillmentDate: data.time,
-            address: address,
-            postalCode: postal
+            // fulfillmentDate: data.time,
+            // address: address,
+            // postalCode: postal
           }
         },
         { new: true }
