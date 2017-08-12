@@ -84,7 +84,6 @@ routes.post("/confirm", (req, res) => {
     token_email,
     authorized_payment
   } = req.body;
-  time = Date.parse(time);
   if (token_id) {
     let amount = parseFloat(authorized_payment);
     stripe.customers
