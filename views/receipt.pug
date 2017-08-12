@@ -107,7 +107,8 @@ html(lang="en")
 				div.selected(style="width: 50%; background: red; display: inline-block;") Pickup
 				div(style="width: 50%; background: blue; display: inline-block;") Delivery
 
-			input(name="time", type="time", value="22:15:00", style="height: 70px;")
+			//- timestamp
+			input(name="time", type="time", value="1914-12-20T08:30:45", style="height: 70px;")
 
 			input(name="address", type="text", style="height: 70px")
 
@@ -166,6 +167,9 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
+				// TODO: add logic here
+				$time = $("input[name='time']");
+				$time.attr("value", "2017-08-12 " + $time.attr("value"));
 				$("#view1container").ajaxSubmit();
 				$("#view1container").hide();
 				get_price(!{JSON.stringify(order)});
