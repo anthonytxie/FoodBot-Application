@@ -214,8 +214,9 @@ html(lang="en")
 			$(".doneview2").click(function(e){
 				// this was sending twice
 				e.preventDefault();
-				$time = $("input[name='time']");
-				$time.attr("value", "2017-08-12 " + $time.attr("value"));
+				$time = $("#time");
+				var time = document.getElementById("time").value
+				$time.attr("value", "2017-08-12 " + time);
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
