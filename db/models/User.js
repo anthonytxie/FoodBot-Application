@@ -15,7 +15,6 @@ const userSchema = new Schema({
   emails: [
     {
       type: String,
-      unique: true,
       dropDups: true
     }
   ],
