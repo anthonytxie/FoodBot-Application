@@ -69,7 +69,8 @@ routes.post("/confirm", (req, res) => {
   if ((method = "pickup")) {
     orderDAO.confirmOrder({
       orderId,
-      method
+      method,
+      time
     }).then((order) => {
       res.send(order);
     })
