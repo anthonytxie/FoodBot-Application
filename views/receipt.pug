@@ -223,7 +223,7 @@ html(lang="en")
 				var hour = time.substr(0,2);
 				var minute = time.substr(3,2);
 				var date = new Date(year, month, day, hour, minute);
-				$('#date').val(jQuery.param(date));
+				$('#time').val(jQuery.param(date));
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
