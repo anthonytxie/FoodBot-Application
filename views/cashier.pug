@@ -8,3 +8,21 @@ html(lang="en")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
 		link(rel ='stylesheet', href="cashier.css", type='text/css')
 	body
+		.container
+			.navbar 
+				div Foodbot
+				div Cashier
+			.flex
+				each order in orders
+					.order
+						.left
+							.overview
+								unless order.isPaid
+									//- money logo here
+								.number_time
+									.number order._id
+									.time order.CreatedAt
+							.details
+						.right
+
+					
