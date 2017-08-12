@@ -37,9 +37,16 @@ const orderSchema = new Schema({
     type: String,
   },
 
-  isDelivery: {
-    type: Boolean,
-    default: false 
+  methodFulfillment: {
+    type: String,
+  },
+
+  address: {
+    type: String
+  },
+
+  postalCode: {
+    type: String
   },
 
   fulfillmentDate: {

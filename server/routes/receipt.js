@@ -34,22 +34,23 @@ routes.get("/getorder/:orderid", (req, res) => {
 
 
 routes.post("/charge", (req, res) => {
-  let amount = 500;
-  stripe.customers.create({
-    email: req.body.stripeEmail,
-    source: req.body.stripeToken
-  }).then(customer => {
-    stripe.charges.create({
-      amount,
-      description: "sample charge",
-      currency: "cad",
-      customer: customer.id
-    })
-    .then(charge => {
-      res.render("charge.pug")
-    })
+  console.log(req.body);
+  // let amount = 500;
+  // stripe.customers.create({
+  //   email: req.body.stripeEmail,
+  //   source: req.body.stripeToken
+  // }).then(customer => {
+  //   stripe.charges.create({
+  //     amount,
+  //     description: "sample charge",
+  //     currency: "cad",
+  //     customer: customer.id
+  //   })
+  //   .then(charge => {
+  //     res.render("charge.pug")
+  //   })
 
-  })
+  // })
 })
 
 routes.get("/receipt", (req, res) => {
@@ -69,20 +70,7 @@ routes.get("/orders", (req, res) => {
     .catch(err => console.log(err));
 });
 
-routes.post("/confirmOrder", (req, res) => {
-  const orderId = req.body.orderId;
-  let receipentId;
-  orderDAO
-    .confirmOrder(orderId)
-    .then(order => {
-      receipentId = order._user.PSID
-      return sessionDAO.closeSession(order._session._id)
-    })
-    .then(() => {
-      send.sendMessageGeneric(receipentId, 'bye!')
-    })
-    .catch(err => res.send(err));
-});
+
 
 routes.post("/delete", (req, res) => {
   console.log(req.body);
@@ -94,6 +82,26 @@ routes.post("/delete", (req, res) => {
         res.status(200)
       }).catch((err) => console.log(err))
   })
+});
+
+routes.post("/confirm", (req, res) => {
+  console.log(req.body);
+  let { orderId, method, time, address, postal } = req.body;
+  if ((method = "pickup")) {
+    orderDAO.confirmOrder({
+      orderId,
+      method,
+      time
+    });
+  } else {
+    orderDAO.confirmOrder({
+      orderId,
+      method,
+      time,
+      address,
+      postal
+    });
+  }
 });
 
 
