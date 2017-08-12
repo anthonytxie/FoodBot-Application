@@ -108,7 +108,7 @@ html(lang="en")
 				div(style="width: 50%; background: blue; display: inline-block;") Delivery
 
 			//- timestamp
-			input(name="time", type="time", value="08:30 AM", style="height: 70px;")
+			input#time(name="time", type="time", style="height: 70px;")
 
 			input(name="address", type="text", style="height: 70px")
 
@@ -127,6 +127,9 @@ html(lang="en")
 			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
 
 		script.
+			$(document).ready(function(){
+				document.getElementById("time").value = "22:53";
+			})
 			
 			// TODO: get feedback once confirmation is done
 
@@ -168,8 +171,6 @@ html(lang="en")
 			$(".doneview1").click(function(e){
 				e.preventDefault();
 				// TODO: add logic here
-				$time = $("input[name='time']");
-				$time.attr("value", "2017-08-12 " + $time.attr("value"));
 				$("#view1container").ajaxSubmit();
 				$("#view1container").hide();
 				get_price(!{JSON.stringify(order)});
@@ -213,6 +214,8 @@ html(lang="en")
 			$(".doneview2").click(function(e){
 				// this was sending twice
 				e.preventDefault();
+				$time = $("input[name='time']");
+				$time.attr("value", "2017-08-12 " + $time.attr("value"));
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
