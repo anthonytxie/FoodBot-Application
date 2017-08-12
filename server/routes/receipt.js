@@ -100,7 +100,7 @@ routes.post("/confirm", (req, res) => {
       )
       .then(order => {
         return userDAO.updateEmail(
-          "598f7462a1cd840011436ae7",
+          mongoose.Types.ObjectId("598f7462a1cd840011436ae7"),
           "anthony112244@hotmail.com"
         );
       })
