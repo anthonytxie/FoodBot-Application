@@ -202,6 +202,7 @@ html(lang="en")
 			});
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
+				e.preventDefault();
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
@@ -211,7 +212,6 @@ html(lang="en")
 						zipCode: true,
 						amount: pay_total * 100
 					})
-					e.preventDefault();
 				} else {
 					console.log("c");
 					$("#view2container").ajaxSubmit();
