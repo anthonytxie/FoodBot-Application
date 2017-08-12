@@ -14,6 +14,7 @@ const userSchema = new Schema({
 
   email: {
     type: String
+    default: null
   },
 
   createdAt: {
