@@ -172,6 +172,7 @@ html(lang="en")
 				e.preventDefault();
 				$("#view1container").ajaxSubmit();
 				$("#view1container").hide();
+				get_price(!{JSON.stringify(order)});
 				$("#view2container").show();
 			})
 
