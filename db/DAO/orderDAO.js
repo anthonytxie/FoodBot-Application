@@ -96,5 +96,13 @@ orderDAO.getOrderBySessionId = function(sessionId) {
   });
 };
 
+orderDAO.showIncompleteOrders = function() {
+  return new Promise((resolve, reject) => {
+    populateOrder(Order.find({isCompleted: false}))
+      .then((orders) => {
+        resolve(orders);
+      }).catch((err) => reject(err));
+  });
+};
 
 module.exports = orderDAO;
