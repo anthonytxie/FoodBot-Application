@@ -219,7 +219,7 @@ html(lang="en")
 				var time = document.getElementById("time").value
 				var year = 2017;
 				var month = 7;
-				var day = 11c;
+				var day = 11;
 				var hour = parseInt(time.substr(0,2));
 				var minute = parseInt(time.substr(3,2));
 				console.log(hour);
@@ -227,7 +227,7 @@ html(lang="en")
 				var o = new Date(year, month, day, hour, minute);
 				var json = JSON.stringify(o);
 				console.log(json);
-				$("#time").attr("type", "text");
+				$("#time").attr("type", "hidden");
 				$('#time').val(json);
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
