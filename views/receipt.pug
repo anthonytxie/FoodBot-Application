@@ -214,9 +214,16 @@ html(lang="en")
 			$(".doneview2").click(function(e){
 				// this was sending twice
 				e.preventDefault();
-				$time = $("#time");
+
+				// year month day hours seconds
 				var time = document.getElementById("time").value
-				$time.attr("value", "2017-08-12 " + time);
+				var year = 2017;
+				var month = 8;
+				var day = 12;
+				var hour = time.substr(0,2);
+				var minute = time.substr(3,2);
+				var date = new Date(year, month, day, hour, minute);
+				$('#date').val(jQuery.param(obj));
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
