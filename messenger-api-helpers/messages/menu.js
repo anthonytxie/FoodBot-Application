@@ -77,7 +77,6 @@ const normalBurgerMenuTemplate = burgerObject => {
 const sideMenuTemplate = sideObject => {
     return {
         title: sideObject.title,
-        image_url: sideObject.image_url,
         subtitle: sideObject.subtitle,
         buttons: [
             {
