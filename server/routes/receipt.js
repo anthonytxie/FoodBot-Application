@@ -121,7 +121,7 @@ routes.post("/confirm", (req, res) => {
         time,
         address,
         postal,
-        isPaid: true
+        isPaid: false
       })
       .then(order => {
         res.send(order);

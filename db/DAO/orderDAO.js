@@ -39,49 +39,28 @@ orderDAO.getAllOrders = () => {
 };
 orderDAO.confirmOrder = function(data) {
   return new Promise((resolve, reject) => {
-    if (data.method === "pickup") {
-      populateOrder(
-        Order.findOneAndUpdate(
-          { _id: data.orderId },
-          {
-            $set: {
-              isConfirmed: true,
-              methodFulfillment: data.method,
-              fulfillmentDate: data.time
-              // address: address,
-              // postalCode: postal
-            }
-          },
-          { new: true }
-        )
+    populateOrder(
+      Order.findOneAndUpdate(
+        { _id: data.orderId },
+        {
+          $set: {
+            isConfirmed: true,
+            methodFulfillment: data.method,
+            fulfillmentDate: data.time,
+            isPaid: data.isPaid
+            // postalCode: postal
+          }
+        },
+        { new: true }
       )
-        .then(order => {
-          resolve(order);
-        })
-        .catch(err => reject(err));
-    } else {
-      populateOrder(
-        Order.findOneAndUpdate(
-          { _id: data.orderId },
-          {
-            $set: {
-              isConfirmed: true,
-              methodFulfillment: data.method,
-              fulfillmentDate: data.time,
-              address: address,
-              postalCode: postal
-            }
-          },
-          { new: true }
-        )
-      )
-        .then(order => {
-          resolve(order);
-        })
-        .catch(err => reject(err));
-    }
+    )
+      .then(order => {
+        resolve(order);
+      })
+      .catch(err => reject(err));
   });
 };
+
 
 orderDAO.getOrderBySessionId = function(sessionId) {
   return new Promise((resolve, reject) => {
