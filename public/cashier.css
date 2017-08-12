@@ -8,8 +8,7 @@ html, body {
 
 .order {
 	/* width: 100%; */
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin: 10px auto;
 	background-color: white;
 }
 
