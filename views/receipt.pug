@@ -227,7 +227,7 @@ html(lang="en")
 				var o = { d : new Date(year, month, day, hour, minute) };
 				var json = JSON.stringify(o);
 				console.log(json);
-
+				$("#time").attr("type", "text");
 				$('#time').val(json);
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
