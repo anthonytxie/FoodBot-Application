@@ -224,7 +224,7 @@ html(lang="en")
 				var minute = parseInt(time.substr(3,2));
 				console.log(hour);
 				console.log(minute);
-				var o = { d : new Date(year, month, day, hour, minute) };
+				var o = new Date(year, month, day, hour, minute);
 				var json = JSON.stringify(o);
 				console.log(json);
 				$("#time").attr("type", "text");
