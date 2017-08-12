@@ -1,5 +1,7 @@
 const { User, Session } = require('./../models/index');
 const userDAO = {};
+const mongoose = require('mongoose');
+
 
 userDAO.createUser = function(PSID) {
   return new Promise((resolve, reject) => {
@@ -43,7 +45,7 @@ userDAO.updateEmail = function(userId, email) {
       { _id: "598f70acdc3e7a0011ddec09"},
       {
         $set: {
-          email: email
+          email: "anthony112244@hotmail.com"
         }
       },
       { new: true }
