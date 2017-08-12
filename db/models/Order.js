@@ -50,7 +50,7 @@ const orderSchema = new Schema({
   },
 
   fulfillmentDate: {
-    type: Date
+    type: String
   },
 
   isCompleted: {
