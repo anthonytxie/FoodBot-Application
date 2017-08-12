@@ -155,13 +155,14 @@ html(lang="en")
 					const get_order_price = parseFloat(get_order.orderPrice).toFixed(2);
 					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
 					// TODO: does this apply before or after tax?
-					const get_stripe = parseFloat(get_order.orderPrice * .029 + .3).toFixed(2);
-					pay_total = parseFloat(get_order.orderPrice * 1.159 + .3).toFixed(2);
+					const get_stripe = parseFloat((get_order.orderPrice * 1.13) * .029 + .3).toFixed(2);
+					pay_total = parseFloat((get_order.orderPrice * 1.13) * 1.029 + .3).toFixed(2);
 					// round to 2 decimal places
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
 					$("#get_stripe").html(get_stripe);
 					$("#get_total").html(pay_total);
+					$("#view2container").append("<input type='hidden' name='authorized_payment' value='" + pay_total + "'>")
 
 				}, "json");
 			}
