@@ -29,7 +29,6 @@ html(lang="en")
 		- // 2: ajax/get_order, see pickup or delivery, time, pay button
 		- // 3: payment
 
-		- // TODO: finish the delete request
 		- // TODO: send form 2 information to backend
 		- // TODO: send payment indicator to stripe ?
 		- // TODO: close form on successful stripe
@@ -105,6 +104,8 @@ html(lang="en")
 		//- VIEW 2
 		form#view2container(style="display:none;")
 
+			input(type="hidden", name="orderId", value=order._id)
+
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
 				div.selected(style="width: 50%; background: red; display: inline-block;") Pickup
@@ -132,7 +133,7 @@ html(lang="en")
 			
 			//- console.log(order);
 			// add to deleteIds
-			$("form").on("click", ".custom_check_on", function(){
+			$("form").on("click", ".custom_check_on", function() {
 				const toggle = $(this).attr("toggle");
 				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
@@ -146,6 +147,24 @@ html(lang="en")
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
 			})
+
+			const get_price = (order) => {
+				const order_id = order._id;
+				console.log("get_price triggered");
+				$.get("/getorder/" + order_id).done(function(get_order){
+					const get_order_price = parseFloat(get_order.orderPrice).toFixed(2);
+					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
+					// TODO: does this apply before or after tax?
+					const get_stripe = parseFloat(get_order.orderPrice * .029 + .3).toFixed(2);
+					pay_total = parseFloat(get_order.orderPrice * 1.159 + .3).toFixed(2);
+					// round to 2 decimal places
+					$("#get_order_price").html(get_order_price);
+					$("#get_tax").html(get_tax);
+					$("#get_stripe").html(get_stripe);
+					$("#get_total").html(pay_total);
+
+				}, "json");
+			}
 
 			// click confirm button
 			$(".doneview1").click(function(e){
@@ -172,23 +191,7 @@ html(lang="en")
 			// amount they have to pay
 			let pay_total = null;
 
-			const get_price = (order) => {
-				const order_id = order._id;
-				console.log("get_price triggered");
-				$.get("/getorder/" + order_id).done(function(get_order){
-					const get_order_price = parseFloat(get_order.orderPrice).toFixed(2);
-					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
-					// TODO: does this apply before or after tax?
-					const get_stripe = parseFloat(get_order.orderPrice * .029 + .3).toFixed(2);
-					pay_total = parseFloat(get_order.orderPrice * 1.159 + .3).toFixed(2);
-					// round to 2 decimal places
-					$("#get_order_price").html(get_order_price);
-					$("#get_tax").html(get_tax);
-					$("#get_stripe").html(get_stripe);
-					$("#get_total").html(pay_total);
-
-				}, "json");
-			}
+			
 
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
