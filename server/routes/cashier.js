@@ -8,7 +8,7 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {
   	console.log(orders);
-    res.render("cashier.pug", orders);
+    res.render("cashier.pug", {orders});
   });
 });
 
