@@ -224,8 +224,11 @@ html(lang="en")
 				var minute = parseInt(time.substr(3,2));
 				console.log(hour);
 				console.log(minute);
-				var date = new Date(year, month, day, hour, minute);
-				$('#time').val(JSON.stringify(date));
+				var o = new Date(year, month, day, hour, minute);
+				var json = JSON.stringify(o);
+				console.log(json);
+				$("#time").attr("type", "text");
+				$('#time').val(json);
 				$("#view2container").hide();
 				if ($(this).attr("value") == "now") {
 					console.log("b");
