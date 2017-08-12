@@ -169,13 +169,7 @@ html(lang="en")
 			// click confirm button
 			$(".doneview1").click(function(e){
 				e.preventDefault();
-				const options = {
-				  success: function() {
-				    get_price(!{JSON.stringify(order)});
-				    console.log("delete and get");
-				  }
-				};
-				$("#view1container").ajaxSubmit(options);
+				var xhr = $("#view1container").ajaxSubmit();
 				$("#view1container").hide();
 				$("#view2container").show();
 			})
@@ -201,6 +195,7 @@ html(lang="en")
 				token: function(token) {
 					// You can access the token ID with `token.id`.
 					// Get the token ID to your server-side code for use.
+					console.log("this is when something happens with token");
 				}
 			});
 			// either closes the session or brings up the payment prompt
