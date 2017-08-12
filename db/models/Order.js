@@ -52,15 +52,19 @@ const orderSchema = new Schema({
   },
 
   fulfillmentDate: {
-    type: String
+    type: Date
   },
 
-  isCompleted: {
+  orderConfirmDate: {
+    type: Date
+  },
+
+  isInputted: {
     type: Boolean,
     default: false
   },
 
-  completedAt: {
+  inputDate: {
     type: Date
   },
 
