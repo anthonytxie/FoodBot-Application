@@ -32,27 +32,6 @@ routes.get("/getorder/:orderid", (req, res) => {
     }).catch((err) => res.send(err))
 });
 
-
-routes.post("/charge", (req, res) => {
-  console.log(req.body);
-  // let amount = 500;
-  // stripe.customers.create({
-  //   email: req.body.stripeEmail,
-  //   source: req.body.stripeToken
-  // }).then(customer => {
-  //   stripe.charges.create({
-  //     amount,
-  //     description: "sample charge",
-  //     currency: "cad",
-  //     customer: customer.id
-  //   })
-  //   .then(charge => {
-  //     res.render("charge.pug")
-  //   })
-
-  // })
-})
-
 routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
   orderDAO.findOrderById(orderId)
