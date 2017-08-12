@@ -21,8 +21,13 @@ html(lang="en")
 								unless order.isPaid
 									img(src="money.png")
 								.number_time
-									.number= order._id
-									.time= order.fulfillmentDate
+									.number Order #{order._id}
+									if item.methodFulfillment == "pickup"
+										//- do countdown / up
+										.time Pickup @ #{order.fulfillmentDate}
+									else
+										//- throw some bold tags in here
+										.time Delivery to #{order.address}, #{order.postalCode} @ #{order.fulfillmentDate}
 							.details
 								each item in order._items
 									//- combo logic here
