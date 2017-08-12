@@ -56,7 +56,6 @@ routes.get("/receipt", (req, res) => {
   let orderId = req.query.order;
   orderDAO.findOrderById(orderId)
     .then((order) => {
-      console.log(order)
       res.render("receipt", { order, keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ" });
     }).catch((err) => res.send(err))
 });
@@ -86,6 +85,7 @@ routes.post("/confirmOrder", (req, res) => {
 });
 
 routes.post("/delete", (req, res) => {
+  console.log(req.body);
   let orderId = req.body.orderId;
   let itemIds = req.body.deleteIds;
   async.each(itemIds, (itemId) => {
