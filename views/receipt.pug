@@ -200,6 +200,11 @@ html(lang="en")
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").ajaxSubmit();
+					MessengerExtensions.requestCloseBrowser(function success() {
+						console.log("success");
+					}, function error(err) {
+						console.log(err);
+					});
 				}
 			});
 			// either closes the session or brings up the payment prompt
