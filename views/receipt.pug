@@ -251,6 +251,15 @@ html(lang="en")
 				}
 			})
 
+			// deliver / pickup toggle
+			$(".lightbox").on("click", "div", function(){
+				$(".lightbox").children("div").removeClass("selected");
+				$(this).addClass("selected");
+				$(".lightbox").children("input").attr("value", $(this).text().toLowerCase());
+
+				// toggle certain fields in or out
+			})
+
 			// view 3
 			window.addEventListener('popstate', function() { // close checkout on page navigation
 				handler.close();
