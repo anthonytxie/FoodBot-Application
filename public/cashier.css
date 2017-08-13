@@ -22,7 +22,8 @@ html, body {
 }
 
 .time {
-	margin-bottom: 4px;
+	position: relative;
+	bottom: 4px;
 }
 
 .topping {
@@ -37,9 +38,10 @@ html, body {
 }
 
 .number {
+	position: relative;
+	bottom: 8px;
 	color: black;
 	font-weight: 600;
-	margin-bottom: 4px;
 }
 
 .flex {
