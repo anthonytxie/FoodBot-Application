@@ -22,7 +22,7 @@ html(lang="en")
 									img(src="money.png")
 								.number_time
 									- var order_id = order._id;
-									- var display_id = order_id.substr(-5);
+									- var display_id = order_id.toString().substr(-5);
 									.number Order #{(display_id)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
