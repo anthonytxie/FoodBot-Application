@@ -143,7 +143,7 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: white;
-	top: 17px;
+	top: 7px;
 	right: 10px;
 }
 
@@ -162,7 +162,7 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: #0080ff;
-	top: 17px;
+	top: 7px;
 	right: 10px;
 }
 
@@ -289,6 +289,17 @@ button {
 
 button:active {
 	background-color: #1E847B!important;
+}
+
+button.view1button {
+	margin: 0;
+}
+
+#original_total {
+	width: 95%;
+	position: fixed;
+	bottom: 52px;
+	text-align: right;
 }
 
 /*.quantity:nth-of-type(1) {

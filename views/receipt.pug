@@ -39,7 +39,7 @@ html(lang="en")
 
 		form#view1container(style="position:relative;", method="post", action="delete")
 
-			h4 ORDER SO FAR
+			h4 RECEIPT
 			input(type="hidden", name="orderId", value=order._id)
 
 			- let order_price = 0;
@@ -94,7 +94,7 @@ html(lang="en")
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 				
-			p Total: #{order_price}
+			p#original_total Total: #{order_price}
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2
