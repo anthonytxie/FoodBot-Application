@@ -3,12 +3,14 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	background-color: blue;
+	background-color: #1e2b3c;
+	font-family: Arial;
 }
 
 .order {
 	/* width: 100%; */
-	margin: 10px auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	background-color: white;
 }
 
@@ -18,6 +20,7 @@ html, body {
 
 .flex {
 	max-width: 95%;
+	margin: 0 auto;
 }
 
 .left {
