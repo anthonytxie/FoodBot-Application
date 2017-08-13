@@ -101,6 +101,9 @@ img {
 }
 
 button {
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
 	background-color: #337ab7;
 	color: white;
 	border: 0px solid black;
