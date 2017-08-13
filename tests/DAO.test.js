@@ -7,6 +7,7 @@ var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
+const itemDAO = require("./../db/DAO/itemDAO");
 const userDAO = require("./../db/DAO/userDAO");
 const sessionDAO = require("./../db/DAO/sessionDAO");
 const orderDAO = require("./../db/DAO/orderDAO");
@@ -15,9 +16,33 @@ const { User, Session, Order } = require("./../db/models/index");
 
 let userId;
 let firstSessionId;
+let secondSessionId;
 let PSID;
 let orderId;
+let itemId;
+let testBurger = {
+  patties: 2,
+  itemName: "Top Bun",
+  premiumToppings: ["threePartBun", "standardCheese"],
+  standardToppings: ["fancySauce", "pickles", "lettuce", "onions"]
+};
 
+let testDrink = {
+  itemName: "vanillaMilkshake",
+  itemCombo: false
+};
+let testSide = {
+  itemName: "poutine",
+  itemCombo: false
+};
+let testComboDrink = {
+  itemName: "vanillaMilkshake",
+  itemCombo: true
+};
+let testComboSide = {
+  itemName: "poutine",
+  itemCombo: true
+};
 beforeEach(done => {
   User.remove({})
     .then(() => {
@@ -32,12 +57,24 @@ beforeEach(done => {
     .then(user => {
       userId = user._id;
       firstSessionId = user._sessions[0]._id;
+      firstSessionActiveTime = user._sessions[0].lastActiveDate;
       PSID = user.PSID;
       return orderDAO.initializeOrder(PSID, firstSessionId);
     })
     .then(order => {
       orderId = order._id;
-      done();
+      return sessionDAO.closeSession(firstSessionId);
+    })
+    .then(session => {
+      return sessionDAO.renewSession(PSID);
+    })
+    .then(session => {
+      secondSessionId = session._id;
+      return itemDAO.postSide(testSide, orderId);
+    })
+    .then(order => {
+      itemId = order._items[0]._id;
+      return done();
     });
 });
 
@@ -78,12 +115,45 @@ describe("USER DAO", () => {
 });
 
 describe("Session DAO", () => {
-  it("should return whether a session is active", () => {
+  it("should return whether most recent session is active", () => {
     let result = sessionDAO.isSessionActive(PSID);
     return Promise.all([
       result.should.eventually.be.true
       // should test a false version true
     ]);
+  });
+
+  it("should renew the most recent session and keep it active", () => {
+    let result = sessionDAO.renewSession(PSID);
+    return Promise.all([
+      result.should.eventually.have.property("_id"),
+      result.should.eventually.have.property("isActive", true),
+      result.should.eventually.have
+        .property("lastActiveDate")
+        .to.be.above(firstSessionActiveTime)
+    ]);
+  });
+
+  it("should close the session", () => {
+    let result = sessionDAO.closeSession(firstSessionId);
+    return Promise.all([
+      result.should.eventually.have.property("_id"),
+      result.should.eventually.have.property("isActive", false)
+    ]);
+  });
+  it("should renew the session and create a new one", () => {
+    let result = sessionDAO.closeSession(secondSessionId);
+    return result.then(session => {
+      return Promise.all([
+        sessionDAO
+          .renewSession(PSID)
+          .should.eventually.have.property("isActive", true),
+        sessionDAO
+          .renewSession(PSID)
+          .should.eventually.have.property("_id")
+          .not.equal(secondSessionId)
+      ]);
+    });
   });
 });
 
@@ -103,7 +173,7 @@ describe("ORDER DAO", () => {
     let result = orderDAO.findOrderById(orderId);
     return Promise.all([
       result.should.eventually.have.deep.property("_id"),
-      result.should.eventually.have.property("_items").that.has.length(0)
+      result.should.eventually.have.property("_items").that.has.length(1)
     ]);
   });
 
@@ -111,7 +181,7 @@ describe("ORDER DAO", () => {
     let result = orderDAO.getOrderBySessionId(firstSessionId);
     return Promise.all([
       result.should.eventually.have.deep.property("_id"),
-      result.should.eventually.have.property("_items").that.has.length(0)
+      result.should.eventually.have.property("_items").that.has.length(1)
     ]);
   });
 
@@ -141,11 +211,137 @@ describe("ORDER DAO", () => {
   });
 
   it("should update inputted order", () => {
-    let result = orderDAO.updateInputtedOrder(orderId)
+    let result = orderDAO.updateInputtedOrder(orderId);
     return Promise.all([
       result.should.eventually.have.property("_id"),
       result.should.eventually.have.property("isInputted", true),
-      result.should.eventually.have.property("inputDate"),
+      result.should.eventually.have.property("inputDate")
+    ]);
+  });
+});
+
+describe("ITEM DAO", () => {
+  it("should add a burger to the order", () => {
+    let result = itemDAO.postBurger(testBurger, orderId);
+    return Promise.all([
+      result.should.eventually.have.property("_items").that.has.length(2),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemName", testBurger.itemName),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("patties", 2),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("standardToppings")
+        .to.include.deep.members(testBurger.standardToppings),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("premiumToppings")
+        .to.include.deep.members(testBurger.premiumToppings),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemType")
+        .to.equal("burger")
+    ]);
+  });
+
+  it("should add a drink to the order", () => {
+    let result = itemDAO.postDrink(testDrink, orderId);
+    return Promise.all([
+      result.should.eventually.have.property("_items").that.has.length(2),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemName", testDrink.itemName),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemCombo", false)
+    ]);
+  });
+
+  it("should add a side to the order", () => {
+    let result = itemDAO.postSide(testSide, orderId);
+    return Promise.all([
+      result.should.eventually.have.property("_items").that.has.length(2),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemName", testSide.itemName),
+      result.should.eventually.have
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemCombo", false)
+    ]);
+  });
+
+  it("should not add a combo drink to the order", () => {
+    let result = itemDAO.postDrink(testComboDrink, orderId);
+    return Promise.all([result.should.eventually.be.false]);
+  });
+
+  it("should not add not a combo drink to the order", () => {
+    let result = itemDAO.postSide(testComboSide, orderId);
+    return Promise.all([result.should.eventually.be.false]);
+  });
+
+  it("should add a combo drink to the order", () => {
+    let result = itemDAO.postBurger(testBurger, orderId);
+    return result.then(order => {
+      return Promise.all([
+        itemDAO
+          .postDrink(testComboDrink, orderId)
+          .should.eventually.have.property("_items")
+          .that.has.length.above(2),
+        itemDAO
+          .postDrink(testComboDrink, orderId)
+          .should.eventually.have.property("_items")
+          .that.has.property([2])
+          .that.has.property("itemName", testComboDrink.itemName),
+        itemDAO
+          .postDrink(testComboDrink, orderId)
+          .should.eventually.have.property("_items")
+          .that.has.property([2])
+          .that.has.property("itemCombo", testComboDrink.itemCombo)
+      ]);
+    });
+  });
+  it("should add a combo side to the order", () => {
+    let result = itemDAO.postBurger(testBurger, orderId);
+    return result
+      .then(order => {
+        return itemDAO.postDrink(testComboDrink, orderId);
+      })
+      .then(order => {
+        return Promise.all([
+          itemDAO
+            .postSide(testComboSide, orderId)
+            .should.eventually.have.property("_items")
+            .that.has.length.above(3),
+          itemDAO
+            .postSide(testComboSide, orderId)
+            .should.eventually.have.property("_items")
+            .that.has.property([3])
+            .that.has.property("itemName", testComboSide.itemName),
+          itemDAO
+            .postSide(testComboSide, orderId)
+            .should.eventually.have.property("_items")
+            .that.has.property([3])
+            .that.has.property("itemCombo", testComboSide.itemCombo)
+        ]);
+      });
+  });
+
+  it("should delete item by ID", () => {
+    let result = itemDAO.deleteItemById(itemId, orderId);
+    return Promise.all([
+      result.should.eventually.have.property("_items").that.has.length(0)
     ]);
   });
 });
