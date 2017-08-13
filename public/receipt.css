@@ -351,7 +351,7 @@ button.view1button {
 	position: relative;
 }
 
-#view2container input[type="text"], #view2container input[type="time"] {
+#view2container input[type=text], #view2container input[type=time] {
 	border: 0px solid black;
 	color: #666;
 	height: 50px;
