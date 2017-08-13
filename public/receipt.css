@@ -348,7 +348,9 @@ button.view1button {
 
 #view2container input {
 	border: 0px solid black;
-	background: white;
+	background: #e1e1e1;
+	color: #9b9b9b;
+	height: 70px;
 }
 
 #view2container input:focus {

@@ -110,11 +110,17 @@ html(lang="en")
 			p#get_total
 
 			//- timestamp
-			input#time(name="time", type="time", style="height: 70px;")
+			p DELIVERY TIME
+			input#time(name="time", type="time")
 
-			input(name="address", type="text", style="height: 70px", placeholder="Address")
+			p ADDRESS
+			input(name="address", type="text", placeholder="Address")
 
-			input(name="postal", type="text", style="height: 70px", placeholder="Postal Code")
+			p POSTAL CODE
+			input(name="postal", type="text", placeholder="Postal Code")
+
+			p ROOM NUMBER (OPTIONAL)
+			input(name="room", type="text")
 
 			//- p#get_order_price
 			//- br
