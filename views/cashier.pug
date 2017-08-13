@@ -21,7 +21,8 @@ html(lang="en")
 								unless order.isPaid
 									img(src="money.png")
 								.number_time
-									- var display_id = (order._id).substr(-5);
+									- var order_id = order._id.;
+									- var display_id = order_id.substr(-5);
 									.number Order #{(display_id)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
