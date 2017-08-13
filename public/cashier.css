@@ -5,6 +5,7 @@ html, body {
 	height: 100%;
 	background-color: #1e2b3c;
 	font-family: Arial;
+	color: #333;
 }
 
 .order {
@@ -15,11 +16,20 @@ html, body {
 	background-color: white;
 }
 
+.name {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
 .container {
 }
 
 .number_time {
 	display: inline-block;
+}
+
+.number {
+	color: black;
 }
 
 .flex {
