@@ -153,7 +153,6 @@ img {
 }
 
 .custom_check_on {
-	/*background-color: red;*/
 	margin-left: 20px;
 	width: 20px;
 	height: 20px;
@@ -300,6 +299,10 @@ button.view1button {
 	position: fixed;
 	bottom: 52px;
 	text-align: right;
+}
+
+.lightswitch div {
+	height: 100%;
 }
 
 /*.quantity:nth-of-type(1) {
