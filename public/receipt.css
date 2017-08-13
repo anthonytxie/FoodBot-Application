@@ -342,7 +342,12 @@ button.view1button {
 	background: white;
 }
 
-
+#get_total {
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	color: #9b9b9b;
+}
 
 
 
