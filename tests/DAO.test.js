@@ -139,4 +139,13 @@ describe("ORDER DAO", () => {
       result.should.eventually.have.property("orderConfirmDate")
     ]);
   });
+
+  it("should update inputted order", () => {
+    let result = orderDAO.updateInputtedOrder(orderId)
+    return Promise.all([
+      result.should.eventually.have.property("_id"),
+      result.should.eventually.have.property("isInputted", true),
+      result.should.eventually.have.property("inputDate"),
+    ]);
+  });
 });

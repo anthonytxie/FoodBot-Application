@@ -86,4 +86,25 @@ orderDAO.showIncompleteOrders = function() {
   });
 };
 
+
+orderDAO.updateInputtedOrder = function(orderId) {
+  return new Promise((resolve, reject) => {
+    populateOrder(
+      Order.findOneAndUpdate(
+        { _id: orderId },
+        {
+          $set: {
+            isInputted: true,
+            inputDate: Date.now()
+          }
+        },
+        { new: true }
+      )
+    )
+      .then(order => {
+        resolve(order);
+      })
+      .catch(err => reject(err));
+  });
+};
 module.exports = orderDAO;

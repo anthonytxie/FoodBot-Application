@@ -7,13 +7,21 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {
-    res.render("cashier.pug", {orders});
+    res.render("cashier.pug", { orders });
   });
 });
 
-
+// need to fix this so it's not sending all the orders
 routes.post("/input", (req, res) => {
-  console.log(req.body);
-})
+  let { orderId } = req.body;
+  orderDAO
+    .updateInputtedOrder(orderId)
+    .then(() => {
+      return orderDAO.showIncompleteOrders();
+    })
+    .then(orders => {
+      res.render("cashier.pug", {orders});
+    });
+});
 
-module.exports = routes
+module.exports = routes;
