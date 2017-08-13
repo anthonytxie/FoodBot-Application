@@ -53,11 +53,13 @@ html, body {
 
 .left {
 	width: 90%;
+	height: 100%;
 	display: inline-block;
 }
 
 .right {
 	width: 10%;
+	height: 100%;
 	display: inline-block;
 }
 
