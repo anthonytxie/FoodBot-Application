@@ -126,6 +126,7 @@ html(lang="en")
 			.pay_row
 				input.doneview2(type="submit", value="Pay Now")
 				input.doneview2(type="submit", value="Pay Later")
+
 		script.
 			$(document).ready(function(){
 				var d = new Date();
@@ -161,6 +162,14 @@ html(lang="en")
 					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
 					const get_stripe = parseFloat((get_order.orderPrice * 1.13) * .029 + .3).toFixed(2);
 					pay_total = parseFloat((get_order.orderPrice * 1.13) * 1.029 + .3).toFixed(2);
+					// close window if order is now empty
+					if (Math.round(get_order_price) == 0) {
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					}
 					// round to 2 decimal places
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
@@ -187,6 +196,12 @@ html(lang="en")
 			// HST
 			// Stripe
 			// Total
+
+			// tony things
+			//     close window if the ajax get total is zero
+			//     close window if is confirmed
+			//         should send them something
+			//     
 
 			// amount they have to pay
 			let pay_total = null;
@@ -291,3 +306,16 @@ html(lang="en")
 					});
 				})
 			}
+
+		if order.isConfirmed
+			script.
+				$(document).ready(function(){
+					setTimeout(function(){
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					}, 100);
+				})
+				
