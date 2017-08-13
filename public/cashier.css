@@ -9,6 +9,7 @@ html, body {
 
 .order {
 	/* width: 100%; */
+	font-size: .9em;
 	padding: 20px;
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -45,16 +46,20 @@ html, body {
 
 .navbar div {
 	display: inline-block;
-	font-size: 2em;
+	font-size: 3em;
 }
 
 .navbar div:nth-child(2) {
-	color: blue;
-	font-size: 1.2em;
+	color: #455263;
+	font-size: 2em;
 }
 
 .green {
 	color: green;
+}
+
+img {
+	width: 22px;
 }
 
 .overview {
