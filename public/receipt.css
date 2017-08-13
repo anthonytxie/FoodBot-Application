@@ -311,18 +311,18 @@ button.view1button {
 	height: 100%;
 	line-height: 70px;
 	font-size: 1.4em;
-	font-weight: 600;
+	font-weight: 400;
 	cursor: pointer;
 }
 
 .lightswitch div:nth-child(3) {
-	border-bottom: 2px solid grey;
-	border-left: 2px solid grey;
+	border-bottom: 2px solid #9b9b9b;
+	border-left: 2px solid #9b9b9b;
 }
 
 .lightswitch div:nth-child(2) {
-	border-bottom: 2px solid grey;
-	border-right: 2px solid grey;
+	border-bottom: 2px solid #9b9b9b;
+	border-right: 2px solid #9b9b9b;
 }
 
 .lightswitch div.selected {
