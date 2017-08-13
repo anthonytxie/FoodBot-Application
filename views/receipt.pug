@@ -243,7 +243,7 @@ html(lang="en")
 					}
 				}
 			});
-			
+
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
 				// this was sending twice
@@ -278,6 +278,7 @@ html(lang="en")
 					console.log("c");
 					if ($("input[name=method]").attr("value") == "deliver") {
 						if ($("input[name=address]").attr("value") == "") {
+							console.log("pay later, no address")
 							$("#errors").text("Enter an address");
 						} else if ($("input[name=postal]").attr("value") == "") {
 							$("#errors").text("Enter a postal code");
