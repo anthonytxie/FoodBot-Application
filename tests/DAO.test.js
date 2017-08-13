@@ -1,18 +1,24 @@
 const mongoose = require("mongoose");
 const config = require("./../config/config");
-mongoose.connect(process.env.MONGODB_URI);
-mongoose.Promise = global.Promise;
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
-chai.use(chaiAsPromised);
-chai.should();
-chai.use(require("chai-things"));
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
 const itemDAO = require("./../db/DAO/itemDAO");
 const userDAO = require("./../db/DAO/userDAO");
 const sessionDAO = require("./../db/DAO/sessionDAO");
 const orderDAO = require("./../db/DAO/orderDAO");
-
 const { User, Session, Order } = require("./../db/models/index");
+const {app} = require('./../server/index');
+const supertestChai = require('supertest-chai');
+const request = supertestChai.request;
+
+
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.Promise = global.Promise;
+chai.use(chaiAsPromised);
+chai.should();
+chai.use(require("chai-things"));
+chai.use(supertestChai.httpAsserts);
+
 
 let userId;
 let firstSessionId;
@@ -345,3 +351,15 @@ describe("ITEM DAO", () => {
     ]);
   });
 });
+
+
+describe('ROUTES', () => {
+  it('should get burger customize', () => {
+    request(app)
+    .get('/burgercustomize?order=${orderId}&name=Top+Bun&sender=${PSID}')
+    .end( function (res) {
+      res.should.have.status(400)
+    })
+  })
+})
+
