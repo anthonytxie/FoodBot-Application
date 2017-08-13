@@ -20,7 +20,7 @@ routes.post("/input", (req, res) => {
       return orderDAO.showIncompleteOrders();
     })
     .then(orders => {
-      res.render("cashier.pug", orders);
+      res.render("cashier.pug", {orders});
     });
 });
 
