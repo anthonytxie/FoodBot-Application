@@ -30,7 +30,7 @@ html(lang="en")
 									.number Order #{(display_id)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
-										.time.green Pickup @ #{(order.fulfillmentDate).substr(11, 2)}:#{(order.fulfillmentDate).substr(14, 2)}
+										.time.green Pickup @ #{strval(order.fulfillmentDate).substr(11, 2)}:#{strval(order.fulfillmentDate).substr(14, 2)}
 									else
 										//- throw some bold tags in here
 										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
