@@ -20,6 +20,8 @@ html(lang="en")
 							.overview
 								unless order.isPaid
 									img(src="money.png")
+								else
+									img(src="check.png")
 								.number_time
 									- var order_id = order._id;
 									- var display_id = order_id.toString().substr(-5);
