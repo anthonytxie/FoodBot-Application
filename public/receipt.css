@@ -309,12 +309,23 @@ button.view1button {
 	background-color: lightgrey;
 	height: 100%;
 	line-height: 70px;
-	font-size: 1.5em;
-	font-weight: 500;
+	font-size: 1.4em;
+	font-weight: 600;
+}
+
+.lightswitch div:nth-child(2) {
+	border-bottom: 2px solid grey;
+	border-left: 2px solid grey;
+}
+
+.lightswitch div:nth-child(1) {
+	border-bottom: 2px solid grey;
+	border-right: 2px solid grey;
 }
 
 .lightswitch div.selected {
 	background-color: white;
+	border: 0px solid white;
 }
 
 /*.quantity:nth-of-type(1) {
