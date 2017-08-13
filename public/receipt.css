@@ -306,7 +306,7 @@ button.view1button {
 	letter-spacing: .1em;
 	display: inline-block;
 	width: 50%;
-	background-color: grey;
+	background-color: lightgrey;
 	height: 100%;
 	line-height: 70px;
 	font-size: 1.5em;
@@ -325,6 +325,9 @@ button.view1button {
 	border-radius: 0 20px 20px 0;
 }*/
 
+#view2container {
+	background: white;
+}
 
 
 
