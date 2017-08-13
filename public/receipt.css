@@ -409,10 +409,14 @@ p.label:nth-child(4) {
 }
 
 .pay_row input {
+	height: 50px;
+	font-size: 1.4em;
+	font-weight: 500;
+	letter-spacing: .1em;
+
 	border: 0px;
 	background-color: #0080ff;
 	color: white;
-	height: 50px;
 	display: inline-block;
 	width: 49%;
 }
