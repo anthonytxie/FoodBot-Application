@@ -103,9 +103,11 @@ html(lang="en")
 			input(type="hidden", name="orderId", value=order._id)
 
 			.lightswitch(style="height: 70px")
-				input(type="hidden", name="method", value="pickup")
+				input(type="hidden", name="method", value="delivery")
 				div.lightswitch_option Pickup
 				div.lightswitch_option.selected Delivery
+
+			.errors(style="color: red; text-align: center; margin-top:10px; width: 100%;")
 
 			p#get_total
 
@@ -218,14 +220,36 @@ html(lang="en")
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-					$("#view2container").ajaxSubmit();
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-					});
+					if ($("input[name=method]").attr("value") == "delivery") {
+						if ($("input[name=address]").attr("value") == null) {
+							$(".errors").text("Enter an address");
+						} else if ($("input[name=postal]").attr("value") == null) {
+							$(".errors").text("Enter a postal code");
+						} else {
+							$("#time").attr("type", "hidden");
+							$('#time').val(json);
+							$("#view2container").hide();
+							$("#view2container").ajaxSubmit();
+							MessengerExtensions.requestCloseBrowser(function success() {
+								console.log("success");
+							}, function error(err) {
+								console.log(err);
+							});
+						}
+					} else {
+						$("#time").attr("type", "hidden");
+						$('#time').val(json);
+						$("#view2container").hide();
+						$("#view2container").ajaxSubmit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					}
 				}
 			});
+
 			// either closes the session or brings up the payment prompt
 			$(".doneview2").click(function(e){
 				// this was sending twice
@@ -244,9 +268,7 @@ html(lang="en")
 				var o = new Date(year, month, day, hour, minute);
 				var json = JSON.stringify(o);
 				console.log(json);
-				$("#time").attr("type", "hidden");
-				$('#time').val(json);
-				$("#view2container").hide();
+				
 				if ($(this).attr("value") == "Pay Now") {
 					console.log("b");
 					handler.open({
@@ -257,18 +279,40 @@ html(lang="en")
 					})
 					
 				} else {
-					console.log("c");
-					$("#view2container").ajaxSubmit();
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-					});
-					$
+					console.log("pay later");
+					console.log($("input[name=method]").attr("value"));
+					if ($("input[name=method]").attr("value") == "delivery") {
+						if ($("input[name=address]").attr("value") == null) {
+							console.log("pay later, no address")
+							$(".errors").text("Enter an address");
+						} else if ($("input[name=postal]").attr("value") == null) {
+							$(".errors").text("Enter a postal code");
+						} else {
+							$("#time").attr("type", "hidden");
+							$('#time').val(json);
+							$("#view2container").hide();
+							$("#view2container").ajaxSubmit();
+							MessengerExtensions.requestCloseBrowser(function success() {
+								console.log("success");
+							}, function error(err) {
+								console.log(err);
+							});
+						}
+					} else {
+						$("#time").attr("type", "hidden");
+						$('#time').val(json);
+						$("#view2container").hide();
+						$("#view2container").ajaxSubmit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					}
 				}
 			})
 
-			// deliver / pickup toggle
+			// delivery / pickup toggle
 			$(".lightswitch").on("click", ".lightswitch_option", function(){
 				$(".lightswitch").children("div").removeClass("selected");
 				$(this).addClass("selected");

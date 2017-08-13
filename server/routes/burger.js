@@ -21,8 +21,7 @@ routes.get("/burgercustomize", (req, res) => {
   let burgerName = req.query.name;
   let senderId = req.query.sender;
   let burger = findItem(burgerName);
-  console.log(burger);
-  res.render("burgercustomize", {
+  res.status(200).render("burgercustomize", {
     order_id: id,
     sender_id: senderId,
     burger: burger
@@ -30,6 +29,7 @@ routes.get("/burgercustomize", (req, res) => {
 });
 
 routes.post("/burger", (req, res) => {
+  console.log(req.body)
   const senderId = req.body.sender_id;
   const burgerFormat = function(body) {
     let standardToppings = [];
@@ -67,6 +67,7 @@ routes.post("/burger", (req, res) => {
     .postBurger(burger.foodObject, burger.orderId)
     .then(order => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, order);
+      res.status(200).send(order)
     })
     .catch(err => console.log(err));
 });
