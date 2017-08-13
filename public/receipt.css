@@ -302,11 +302,12 @@ button.view1button {
 }
 
 .lightswitch div {
+	color: #9b9b9b;
 	text-align: center;
 	letter-spacing: .1em;
 	display: inline-block;
 	width: 49.7%;
-	background-color: lightgrey;
+	background-color: #eee;
 	height: 100%;
 	line-height: 70px;
 	font-size: 1.4em;
