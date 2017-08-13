@@ -311,6 +311,7 @@ button.view1button {
 	line-height: 70px;
 	font-size: 1.4em;
 	font-weight: 600;
+	cursor: pointer;
 }
 
 .lightswitch div:nth-child(2) {
