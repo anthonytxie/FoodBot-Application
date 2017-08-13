@@ -16,6 +16,7 @@ html(lang="en")
 				div Cashier View
 			.flex
 				each order in orders
+					- console.log(order.fulfillmentDate)
 					.order
 						.left
 							.overview
