@@ -18,7 +18,7 @@ html, body {
 
 .name {
 	font-size: 1.25em;
-	margin-top: 5px;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
@@ -94,4 +94,5 @@ img {
 
 .overview {
 	border-bottom: 1px solid grey;
+	margin-bottom: 10px;
 }
