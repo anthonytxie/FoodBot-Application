@@ -25,7 +25,7 @@ html(lang="en")
 								else
 									img(src="check.png")
 								.number_time
-									- var date = new Date(!{order.fulfillmentDate});
+									- var date = new Date(order.fulfillmentDate);
 									- var order_id = order._id;
 									- var display_id = order_id.toString().substr(-5);
 									.number Order #{(display_id)}
