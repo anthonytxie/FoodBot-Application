@@ -23,7 +23,7 @@ html, body {
 
 .time {
 	position: relative;
-	bottom: 4px;
+	bottom: 5px;
 }
 
 .topping {
@@ -39,7 +39,7 @@ html, body {
 
 .number {
 	position: relative;
-	bottom: 8px;
+	bottom: 10px;
 	color: black;
 	font-weight: 600;
 }
