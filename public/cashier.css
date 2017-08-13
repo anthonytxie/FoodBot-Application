@@ -42,16 +42,21 @@ html, body {
 .navbar {
 	height: 60px;
 	color: white;
+	width: 95%;
+	max-width: 600px;
 }
 
 .navbar div {
 	display: inline-block;
 	font-size: 3em;
+	font-weight: 500;
 }
 
 .navbar div:nth-child(2) {
 	color: #455263;
 	font-size: 2em;
+	font-weight: 400;
+	float: right;
 }
 
 .green {
