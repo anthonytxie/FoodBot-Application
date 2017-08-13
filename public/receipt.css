@@ -338,12 +338,17 @@ button.view1button {
 	border-radius: 0 20px 20px 0;
 }*/
 
+.ui-input-text, .ui-input-search {
+	border-width: 0px;
+}
+
 #view2container {
 	background: white;
 }
 
 #view2container input {
 	border: 0px solid black;
+	background: white;
 }
 
 #get_total {
