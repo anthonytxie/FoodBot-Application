@@ -6,10 +6,10 @@ html(lang="en")
 		title Burger
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
-		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+		//- link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
-		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+		//- script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="dragend-master/dragend.js")
 		script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
@@ -104,28 +104,28 @@ html(lang="en")
 
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
-				div.selected(style="width: 50%; background: red; display: inline-block;") Pickup
-				div(style="width: 50%; background: blue; display: inline-block;") Delivery
+				div.lightswitch_option.selected Pickup
+				div.lightswitch_option Delivery
+
+			p#get_total
 
 			//- timestamp
-			input#time(name="time", type="time", style="height: 70px;")
+			input#time(name="time", type="time", placeholder="Delivery Time")
+			input(name="address", type="text", placeholder="Address")
+			input(name="postal", type="text", placeholder="Postal Code")
+			input(name="room", type="text", placeholder="Room Number (Optional)")
 
-			input(name="address", type="text", style="height: 70px")
-
-			input(name="postal", type="text", style="height: 70px")
-
-			p#get_order_price
-			br
-			p#get_tax
-			br
-			p#get_stripe
-			br
-			p#get_total
-			br
-
-			input.doneview2(type="submit", value="later", style="width:50%; background: red; display: inline-block; height: 70px;")
-			input.doneview2(type="submit", value="now", style="width:50%; background: blue; display: inline-block; height: 70px;")
-
+			//- p#get_order_price
+			//- br
+			//- p#get_tax
+			//- br
+			//- p#get_stripe
+			//- br
+			//- p#get_total
+			//- br
+			.pay_row
+				input.doneview2(type="submit", value="Pay Now")
+				input.doneview2(type="submit", value="Pay Later")
 		script.
 			$(document).ready(function(){
 				document.getElementById("time").value = "22:53";
@@ -162,7 +162,7 @@ html(lang="en")
 					$("#get_order_price").html(get_order_price);
 					$("#get_tax").html(get_tax);
 					$("#get_stripe").html(get_stripe);
-					$("#get_total").html(pay_total);
+					$("#get_total").html("Total: $" + pay_total);
 					$("#view2container").append("<input type='hidden' name='authorized_payment' value='" + pay_total * 100 + "'>")
 				}, "json");
 			}
@@ -249,6 +249,15 @@ html(lang="en")
 					});
 					$
 				}
+			})
+
+			// deliver / pickup toggle
+			$(".lightswitch").on("click", ".lightswitch_option", function(){
+				$(".lightswitch").children("div").removeClass("selected");
+				$(this).addClass("selected");
+				$(".lightswitch").children("input").attr("value", $(this).text().toLowerCase());
+
+				// toggle certain fields in or out
 			})
 
 			// view 3

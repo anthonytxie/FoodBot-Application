@@ -16,6 +16,7 @@ html, body {
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
 }
 
 section {
@@ -150,10 +151,10 @@ img {
 .toggle h3, .price {
 	height: 70px;
 	line-height: 70px;
+	color: #222;
 }
 
 .custom_check_on {
-	/*background-color: red;*/
 	margin-left: 20px;
 	width: 20px;
 	height: 20px;
@@ -206,10 +207,12 @@ img {
 }
 
 h3 {
-	font-size: .95em;
+	/*make bigger when 2 line works*/
+	font-size: .85em;
 	margin-top: 0px;
 	padding-left: 5px;
 	font-weight: 400;
+	color: darkgrey;
 }
 
 .toggle p {
@@ -298,8 +301,38 @@ button.view1button {
 #original_total {
 	width: 95%;
 	position: fixed;
-	bottom: 52px;
+	bottom: 58px;
 	text-align: right;
+}
+
+.lightswitch div {
+	color: #888;
+	text-align: center;
+	letter-spacing: .1em;
+	display: inline-block;
+	width: 49.7%;
+	background-color: #eee;
+	height: 100%;
+	line-height: 70px;
+	font-size: 1.4em;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+.lightswitch div:nth-child(3) {
+	border-bottom: 2px solid #ddd;
+	border-left: 2px solid #ddd;
+}
+
+.lightswitch div:nth-child(2) {
+	border-bottom: 2px solid #ddd;
+	border-right: 2px solid #ddd;
+}
+
+.lightswitch div.selected {
+	background-color: white;
+	border: 0px solid white;
+	color: #666;
 }
 
 /*.quantity:nth-of-type(1) {
@@ -309,6 +342,109 @@ button.view1button {
 .quantity:nth-of-type(3) {
 	border-radius: 0 20px 20px 0;
 }*/
+
+.ui-input-text, .ui-input-search {
+	border-width: 0px;
+}
+
+#view2container {
+	background: white;
+	position: relative;
+}
+
+#view2container input[type=text], #time {
+	border: 0px solid black !important;
+	color: #666 !important;
+	height: 50px !important;
+	border-bottom: 2px solid #ccc !important;
+	width: 90% !important;
+	margin-left: 5% !important;
+	border-radius: 0px !important;
+	font-size: 20px !important;
+	padding-left: 8px !important;
+	margin-bottom: 20px !important;
+	font-family: Arial !important;
+}
+
+#view2container input:focus {
+	outline: none;
+}
+
+#get_total {
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	color: #666;
+	font-size: 1.3em;
+	font-weight: 300;
+}
+
+.doneview1 {
+	width: 100%;
+	height: 50px;
+	font-size: 1.1em;
+	font-weight: 400;
+	letter-spacing: .06em;
+}
+
+p.label {
+	width: 90%;
+	margin-left: 5%;
+	color: rgb(120,120,120);
+	font-size: .7em;
+	letter-spacing: .1em;
+	font-weight: 500;
+	margin-bottom: 5px;
+	margin-top: 28px;
+}
+
+p.label:nth-child(4) {
+	margin-top: 0px;
+}
+
+.pay_row {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+.pay_row input {
+	height: 50px;
+	font-size: 1.1em;
+	font-weight: 400;
+
+	border: 0px;
+	background-color: #0080ff;
+	color: white;
+	display: inline-block;
+	width: 49%;
+}
+
+input::-webkit-input-placeholder {
+	color: #ddd !important;
+}
+ 
+input:-moz-placeholder { /* Firefox 18- */
+	color: #ddd !important;  
+}
+ 
+input::-moz-placeholder {  /* Firefox 19+ */
+	color: #ddd !important;  
+}
+ 
+input:-ms-input-placeholder {  
+	color: #ddd !important;  
+}
+
+input[type=time]::-webkit-inner-spin-button, 
+input[type=time]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+
+
 
 
 
