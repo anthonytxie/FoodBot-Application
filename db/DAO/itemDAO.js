@@ -1,4 +1,3 @@
-// delete this comment
 const { Order, Item, Burger, Drink, Side } = require("./../models/index");
 const mongoose = require("mongoose");
 var itemDAO = {};
@@ -33,7 +32,10 @@ return new Promise((resolve, reject) => {
     const drink = new Drink(data);
     if (data.itemCombo) {
       populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (order._items.slice(-1)[0].itemType ==='burger') {
+        if (!order._items[0]) {
+          resolve (false)
+        }
+        else if (order._items.slice(-1)[0].itemType ==='burger') {
           saveItemAndUpdateOrder(drink, orderId, resolve, reject);
         }
         else {
@@ -51,7 +53,10 @@ itemDAO.postSide = function(data, orderId) {
   return new Promise((resolve, reject) => {
     if (data.itemCombo) {
       populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (order._items.slice(-1)[0].itemCombo) {
+        if (!order._items[0]) {
+          resolve (false)
+        }
+        else if (order._items.slice(-1)[0].itemCombo) {
           saveItemAndUpdateOrder(side, orderId, resolve, reject);
         }
         else {
@@ -80,17 +85,5 @@ itemDAO.deleteItemById = function(itemId, orderId) {
       .catch(err => reject(err));
   });
 };
-
-    // burger.save().then(item => {
-    //   resolve(
-    //     populateOrder(
-    //       Order.findOneAndUpdate(
-    //         { _id: orderId },
-    //         { $push: { _items: item._id } },
-    //         { new: true }
-    //       )
-    //     )
-    //   );
-    // }).catch((err) => reject(err));
 
 module.exports = itemDAO;
