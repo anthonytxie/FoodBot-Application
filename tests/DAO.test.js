@@ -7,18 +7,15 @@ const userDAO = require("./../db/DAO/userDAO");
 const sessionDAO = require("./../db/DAO/sessionDAO");
 const orderDAO = require("./../db/DAO/orderDAO");
 const { User, Session, Order } = require("./../db/models/index");
-const {app} = require('./../server/index');
-const supertestChai = require('supertest-chai');
-const request = supertestChai.request;
-
-
+const { app } = require("./../server/index");
+const request = require("supertest-as-promised");
+const sinon = require('sinon');
+const pug = require('pug');
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
-chai.use(supertestChai.httpAsserts);
-
 
 let userId;
 let firstSessionId;
@@ -352,14 +349,23 @@ describe("ITEM DAO", () => {
   });
 });
 
+describe("ROUTES", () => {
+  it("should get burger customize", () => {
+  let spy = sinon.spy(pug, '__express');
+    return request(app)
+      .get("/burgercustomize?order=${orderId}&name=Top+Bun&sender=${PSID}")
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch((/\/burgercustomize\.pug$/)).should.be.true;
+        spy.restore();
+      })
+  });
 
-describe('ROUTES', () => {
-  it('should get burger customize', () => {
-    request(app)
-    .get('/burgercustomize?order=${orderId}&name=Top+Bun&sender=${PSID}')
-    .end( function (res) {
-      res.should.have.status(400)
-    })
-  })
-})
+  // it('should post a new burger', (done) => {
+  //   request(app)
+  //     .post('/todos')
+  //     .send({})
+  //     .expect(200)
+  // });
 
+});

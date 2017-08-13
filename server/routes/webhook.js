@@ -8,7 +8,7 @@ const {  handleReceiveMessage } = require("../../messenger-api-helpers/receive/r
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/", (req, res) => {
-  res.send("hello welcome to foodbot api");
+  res.status(200).send("hello welcome to foodbot api");
 });
 
 routes.get("/webhook", (req, res) => {
