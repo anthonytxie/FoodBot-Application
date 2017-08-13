@@ -151,7 +151,7 @@ img {
 .toggle h3, .price {
 	height: 70px;
 	line-height: 70px;
-	color: darkgrey;
+	color: #222;
 }
 
 .custom_check_on {
@@ -379,6 +379,9 @@ button.view1button {
  box-shadow: none !important;
 }
 
-
+.doneview1 {
+	width: 100%;
+	height: 70px;
+}
 
 
