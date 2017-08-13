@@ -128,7 +128,10 @@ html(lang="en")
 				input.doneview2(type="submit", value="Pay Later")
 		script.
 			$(document).ready(function(){
-				document.getElementById("time").value = "22:53";
+				var d = new Date();
+				var minutes = d.getMinutes();
+				var seconds = d.getSeconds();
+				document.getElementById("time").value = minutes + ":" + seconds;
 			})
 			
 			// TODO: get feedback once confirmation is done
