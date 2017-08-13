@@ -296,8 +296,9 @@ button.view1button {
 }
 
 #original_total {
+	width: 100%;
 	position: fixed;
-	bottom: 45px;
+	bottom: 52px;
 	text-align: right;
 	padding-right: 10px;
 }
