@@ -1,5 +1,6 @@
 const { User, Session } = require('./../models/index');
 const userDAO = {};
+const mongoose = require('mongoose')
 
 userDAO.createUser = function(PSID) {
   return new Promise((resolve, reject) => {
@@ -15,12 +16,11 @@ userDAO.createUser = function(PSID) {
           { PSID },
           { $push: { _sessions: session._id } },
           { new: true }
-        );
+        ).populate("_sessions");
       })
-      .catch(err => reject(err))
       .then(user => {
         resolve(user);
-      });
+      }).catch(err => reject(err))
   });
 };
 
@@ -55,8 +55,6 @@ userDAO.updateEmail = function(userId, email) {
       .catch(err => reject(err));
   });
 };
-
-
 
 
 module.exports = userDAO;
