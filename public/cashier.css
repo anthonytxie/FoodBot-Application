@@ -9,9 +9,9 @@ html, body {
 
 .order {
 	/* width: 100%; */
-	padding: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	padding: 18px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	background-color: white;
 }
 
@@ -34,16 +34,18 @@ html, body {
 }
 
 .navbar {
-	height: 100px;
+	height: 60px;
 	color: white;
 }
 
 .navbar div {
 	display: inline-block;
+	font-size: 2em;
 }
 
 .navbar div:nth-child(2) {
 	color: blue;
+	font-size: 1.2em;
 }
 
 .green {
@@ -51,5 +53,5 @@ html, body {
 }
 
 .overview {
-	border-bottom: 1px solid orange;
+	border-bottom: 1px solid grey;
 }
