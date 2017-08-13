@@ -104,8 +104,8 @@ html(lang="en")
 
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
-				div.lightswitch_option.selected Pickup
-				div.lightswitch_option Delivery
+				div.lightswitch_option Pickup
+				div.lightswitch_option.selected Delivery
 
 			p#get_total
 
@@ -128,7 +128,10 @@ html(lang="en")
 				input.doneview2(type="submit", value="Pay Later")
 		script.
 			$(document).ready(function(){
-				document.getElementById("time").value = "22:53";
+				var d = new Date();
+				var hours = d.getHours();
+				var minutes = d.getMinutes();
+				document.getElementById("time").value = hours.toString() + ":" + minutes.toString();
 			})
 			
 			// TODO: get feedback once confirmation is done
@@ -188,8 +191,6 @@ html(lang="en")
 			// amount they have to pay
 			let pay_total = null;
 
-			
-
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
@@ -217,9 +218,10 @@ html(lang="en")
 
 				// year month day hours seconds
 				var time = document.getElementById("time").value
-				var year = 2017;
-				var month = 7;
-				var day = 11;
+				var og_date = new Date();
+				var year = og_date.getFullYear();
+				var month = og_date.getMonth();
+				var day = og_date.getDate();
 				var hour = parseInt(time.substr(0,2));
 				var minute = parseInt(time.substr(3,2));
 				console.log(hour);
@@ -230,7 +232,7 @@ html(lang="en")
 				$("#time").attr("type", "hidden");
 				$('#time').val(json);
 				$("#view2container").hide();
-				if ($(this).attr("value") == "now") {
+				if ($(this).attr("value") == "Pay Now") {
 					console.log("b");
 					handler.open({
 						name: 'FoodBot',
@@ -256,8 +258,22 @@ html(lang="en")
 				$(".lightswitch").children("div").removeClass("selected");
 				$(this).addClass("selected");
 				$(".lightswitch").children("input").attr("value", $(this).text().toLowerCase());
+				if ($(this).text() == "Pickup") {
+					$("input[type=text]").hide();
+				} else {
+					$("input[type=text]").show();
+				}
 
 				// toggle certain fields in or out
+			})
+
+			// make time default to now
+			$(document).ready( function() {
+				var date = new Date();
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				console.log(hours);
+				console.log(minutes);
 			})
 
 			// view 3
