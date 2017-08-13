@@ -256,6 +256,11 @@ html(lang="en")
 				$(".lightswitch").children("div").removeClass("selected");
 				$(this).addClass("selected");
 				$(".lightswitch").children("input").attr("value", $(this).text().toLowerCase());
+				if ($(this).text() == "Pickup") {
+					$("input[type=text]").hide();
+				} else {
+					$("input[type=text]").show();
+				}
 
 				// toggle certain fields in or out
 			})
