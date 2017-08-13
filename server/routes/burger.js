@@ -17,7 +17,6 @@ const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/burgercustomize", (req, res) => {
-  console.log(req.body)
   let id = req.query.order;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
@@ -30,6 +29,7 @@ routes.get("/burgercustomize", (req, res) => {
 });
 
 routes.post("/burger", (req, res) => {
+  console.log(req.body)
   const senderId = req.body.sender_id;
   const burgerFormat = function(body) {
     let standardToppings = [];
