@@ -40,7 +40,7 @@ html, body {
 }
 
 .navbar {
-	height: 60px;
+	height: 55px;
 	color: white;
 	width: 95%;
 	max-width: 600px;
@@ -51,11 +51,12 @@ html, body {
 	display: inline-block;
 	font-size: 3em;
 	font-weight: 600;
+	line-height: 55px;
 }
 
 .navbar div:nth-child(2) {
 	color: #455263;
-	font-size: 2em;
+	font-size: 1.8em;
 	font-weight: 400;
 	float: right;
 }
