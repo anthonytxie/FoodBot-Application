@@ -104,8 +104,8 @@ html(lang="en")
 
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="pickup")
-				div.selected Pickup
-				div Delivery
+				div.lightswitch_option.selected Pickup
+				div.lightswitch_option Delivery
 
 			p#get_total
 
@@ -254,10 +254,10 @@ html(lang="en")
 			})
 
 			// deliver / pickup toggle
-			$(".lightbox").on("click", "div", function(){
-				$(".lightbox").children("div").removeClass("selected");
+			$(".lightswitch").on("click", ".lightswitch_option", function(){
+				$(".lightswitch").children("div").removeClass("selected");
 				$(this).addClass("selected");
-				$(".lightbox").children("input").attr("value", $(this).text().toLowerCase());
+				$(".lightswitch").children("input").attr("value", $(this).text().toLowerCase());
 
 				// toggle certain fields in or out
 			})
