@@ -309,7 +309,7 @@ button.view1button {
 	color: #888;
 	text-align: center;
 	display: inline-block;
-	width: 50%;
+	width: 49.7%;
 	background-color: #eee;
 	height: 100%;
 	line-height: 70px;
@@ -417,7 +417,7 @@ p.label:nth-child(4) {
 	background-color: #0080ff;
 	color: white;
 	display: inline-block;
-	width: 49%;
+	width: 50%;
 }
 
 .pay_row input:nth-child(2) {
