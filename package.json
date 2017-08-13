@@ -33,6 +33,7 @@
     "pug": "^2.0.0-rc.2",
     "request": "^2.81.0",
     "stripe": "^4.23.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "supertest-chai": "0.0.8"
   }
 }
