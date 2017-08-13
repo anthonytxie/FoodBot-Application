@@ -129,9 +129,9 @@ html(lang="en")
 		script.
 			$(document).ready(function(){
 				var d = new Date();
+				var hours = d.getHours();
 				var minutes = d.getMinutes();
-				var seconds = d.getSeconds();
-				document.getElementById("time").value = minutes.toString() + ":" + seconds.toString();
+				document.getElementById("time").value = hours.toString() + ":" + minutes.toString();
 			})
 			
 			// TODO: get feedback once confirmation is done
