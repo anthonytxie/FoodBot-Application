@@ -21,7 +21,7 @@ html(lang="en")
 								unless order.isPaid
 									img(src="money.png")
 								.number_time
-									.number Order #{order._id}
+									.number Order #{(order._id).substr(-5)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
 										.time.green Pickup @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
