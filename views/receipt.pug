@@ -131,7 +131,7 @@ html(lang="en")
 				var d = new Date();
 				var minutes = d.getMinutes();
 				var seconds = d.getSeconds();
-				document.getElementById("time").value = minutes + ":" + seconds;
+				document.getElementById("time").value = minutes.toString() + ":" + seconds.toString();
 			})
 			
 			// TODO: get feedback once confirmation is done
