@@ -302,6 +302,8 @@ button.view1button {
 }
 
 .lightswitch div {
+	text-align: center;
+	letter-spacing: .1em;
 	display: inline-block;
 	width: 50%;
 	background-color: grey;
