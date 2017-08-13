@@ -21,6 +21,10 @@ html, body {
 	margin-bottom: 10px;
 }
 
+.time {
+	margin-bottom: 4px;
+}
+
 .topping {
 	margin-bottom: 3px;
 }
@@ -34,6 +38,8 @@ html, body {
 
 .number {
 	color: black;
+	font-weight: 600;
+	margin-bottom: 4px;
 }
 
 .flex {
