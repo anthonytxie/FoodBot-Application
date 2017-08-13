@@ -9,7 +9,7 @@ html(lang="en")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
 		link(rel ='stylesheet', href="cashier.css", type='text/css')
-	- var date = new Date(order.fulfillmentDate);
+	- var date = new Date(!{order.fulfillmentDate});
 	body
 		.container
 			.navbar 
