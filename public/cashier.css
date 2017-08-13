@@ -96,6 +96,10 @@ img {
 	margin-right: 15px;
 }
 
+button {
+	background-color: #33a7b7;
+}
+
 .overview {
 	border-bottom: 1px solid grey;
 	padding-bottom: 10px;
