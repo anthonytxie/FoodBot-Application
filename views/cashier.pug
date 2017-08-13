@@ -17,35 +17,35 @@ html(lang="en")
 			.flex
 				each order in orders
 					.order
-						.left
-							.overview
-								unless order.isPaid
-									img(src="money.png")
-								else
-									img(src="check.png")
-								.number_time
-									- var order_id = order._id;
-									- var display_id = order_id.toString().substr(-5);
-									.number Order #{(display_id)}
-									if order.methodFulfillment == "pickup"
-										//- do countdown / up
-										.time.green Pickup @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
-									else
-										//- throw some bold tags in here
-										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
-							.details
-								each item in order._items
-									//- combo logic here
-									.name= item.itemName
-									if item.itemName == "burger"
-									.toppings
-										each topping in item.standardToppings
-											.topping= topping
-										each topping in item.premiumToppings
-											.topping= topping
-						.center
-						.right
-							unless order.isInputted
-								form.option(action="input", method="POST")
-									input(type="hidden", name="orderId", value=order._id) 
-									button READ
+						//- .left
+						//- 	.overview
+						//- 		unless order.isPaid
+						//- 			img(src="money.png")
+						//- 		else
+						//- 			img(src="check.png")
+						//- 		.number_time
+						//- 			- var order_id = order._id;
+						//- 			- var display_id = order_id.toString().substr(-5);
+						//- 			.number Order #{(display_id)}
+						//- 			if order.methodFulfillment == "pickup"
+						//- 				//- do countdown / up
+						//- 				.time.green Pickup @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
+						//- 			else
+						//- 				//- throw some bold tags in here
+						//- 				.time.green Delivery to #{order.address}, #{order.postalCode} @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
+						//- 	.details
+						//- 		each item in order._items
+						//- 			//- combo logic here
+						//- 			.name= item.itemName
+						//- 			if item.itemName == "burger"
+						//- 			.toppings
+						//- 				each topping in item.standardToppings
+						//- 					.topping= topping
+						//- 				each topping in item.premiumToppings
+						//- 					.topping= topping
+						//- .center
+						//- .right
+						//- 	unless order.isInputted
+						//- 		form.option(action="input", method="POST")
+						//- 			input(type="hidden", name="orderId", value=order._id) 
+						//- 			button READ
