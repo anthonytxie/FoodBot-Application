@@ -316,13 +316,13 @@ button.view1button {
 }
 
 .lightswitch div:nth-child(3) {
-	border-bottom: 2px solid #9b9b9b;
-	border-left: 2px solid #9b9b9b;
+	border-bottom: 2px solid #ddd;
+	border-left: 2px solid #ddd;
 }
 
 .lightswitch div:nth-child(2) {
-	border-bottom: 2px solid #9b9b9b;
-	border-right: 2px solid #9b9b9b;
+	border-bottom: 2px solid #ddd;
+	border-right: 2px solid #ddd;
 }
 
 .lightswitch div.selected {
