@@ -276,6 +276,7 @@ html(lang="en")
 					
 				} else {
 					console.log("pay later");
+					console.log($("input[name=method]").attr("value"));
 					if ($("input[name=method]").attr("value") == "delivery") {
 						if ($("input[name=address]").attr("value") == "") {
 							console.log("pay later, no address")
