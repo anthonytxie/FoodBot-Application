@@ -143,8 +143,13 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: white;
-	top: 20px;
+	top: 17px;
 	right: 10px;
+}
+
+.toggle h3, .price {
+	height: 70px;
+	line-height: 70px;
 }
 
 .custom_check_on {
@@ -157,7 +162,7 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: #0080ff;
-	top: 20px;
+	top: 17px;
 	right: 10px;
 }
 
