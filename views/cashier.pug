@@ -31,10 +31,10 @@ html(lang="en")
 									.number Order #{(display_id)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
-										.time.green Pickup @ #{date.getHours():date.getMinutes()}
+										.time.green Pickup @ #{date.getHours()}:#{date.getMinutes()}
 									else
 										//- throw some bold tags in here
-										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours():date.getMinutes()}
+										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours()}:#{date.getMinutes()}
 							.details
 								each item in order._items
 									//- combo logic here
