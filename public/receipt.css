@@ -358,8 +358,9 @@ button.view1button {
 	width: 90%;
 	margin-left: 5%;
 	border-radius: 0px;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	padding-left: 8px;
+	margin-bottom: 20px;
 }
 
 #view2container input:focus {
@@ -409,19 +410,19 @@ p.label:nth-child(4) {
 }
 
 input::-webkit-input-placeholder {
-	color: #aaa !important;
+	color: #ddd !important;
 }
  
 input:-moz-placeholder { /* Firefox 18- */
-	color: #aaa !important;  
+	color: #ddd !important;  
 }
  
 input::-moz-placeholder {  /* Firefox 19+ */
-	color: #aaa !important;  
+	color: #ddd !important;  
 }
  
 input:-ms-input-placeholder {  
-	color: #aaa !important;  
+	color: #ddd !important;  
 }
 
 
