@@ -17,12 +17,12 @@ const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/burgercustomize", (req, res) => {
+  console.log(req.body)
   let id = req.query.order;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
   let burger = findItem(burgerName);
-  console.log(burger);
-  res.render("burgercustomize", {
+  res.status(200).render("burgercustomize", {
     order_id: id,
     sender_id: senderId,
     burger: burger
@@ -67,6 +67,7 @@ routes.post("/burger", (req, res) => {
     .postBurger(burger.foodObject, burger.orderId)
     .then(order => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, order);
+      res.status(200).send(order)
     })
     .catch(err => console.log(err));
 });
