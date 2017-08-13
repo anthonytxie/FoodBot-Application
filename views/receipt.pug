@@ -220,7 +220,7 @@ html(lang="en")
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-					if ($("input[name=method]").attr("value") == "deliver") {
+					if ($("input[name=method]").attr("value") == "delivery") {
 						if ($("input[name=address]").attr("value") == "") {
 							$("#errors").text("Enter an address");
 						} else if ($("input[name=postal]").attr("value") == "") {
@@ -275,8 +275,8 @@ html(lang="en")
 					})
 					
 				} else {
-					console.log("c");
-					if ($("input[name=method]").attr("value") == "deliver") {
+					console.log("pay later");
+					if ($("input[name=method]").attr("value") == "delivery") {
 						if ($("input[name=address]").attr("value") == "") {
 							console.log("pay later, no address")
 							$("#errors").text("Enter an address");
@@ -301,7 +301,7 @@ html(lang="en")
 				}
 			})
 
-			// deliver / pickup toggle
+			// delivery / pickup toggle
 			$(".lightswitch").on("click", ".lightswitch_option", function(){
 				$(".lightswitch").children("div").removeClass("selected");
 				$(this).addClass("selected");
