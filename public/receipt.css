@@ -306,7 +306,9 @@ button.view1button {
 	width: 50%;
 	background-color: grey;
 	height: 100%;
-	line-height: 50px;
+	line-height: 70px;
+	font-size: 1.5em;
+	font-weight: 500;
 }
 
 .lightswitch div.selected {
