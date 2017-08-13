@@ -9,7 +9,7 @@ html, body {
 
 .order {
 	/* width: 100%; */
-	padding: 18px;
+	padding: 20px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background-color: white;
@@ -18,8 +18,13 @@ html, body {
 .container {
 }
 
+.number_time {
+	display: inline-block;
+}
+
 .flex {
-	max-width: 95%;
+	width: 95%;
+	max-width: 600px;
 	margin: 0 auto;
 }
 
