@@ -222,9 +222,9 @@ html(lang="en")
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
 					if ($("input[name=method]").attr("value") == "delivery") {
 						if ($("input[name=address]").attr("value") == null) {
-							$("#errors").text("Enter an address");
+							$(".errors").text("Enter an address");
 						} else if ($("input[name=postal]").attr("value") == null) {
-							$("#errors").text("Enter a postal code");
+							$(".errors").text("Enter a postal code");
 						} else {
 							$("#view2container").hide();
 							$("#view2container").ajaxSubmit();
@@ -281,9 +281,9 @@ html(lang="en")
 					if ($("input[name=method]").attr("value") == "delivery") {
 						if ($("input[name=address]").attr("value") == null) {
 							console.log("pay later, no address")
-							$("#errors").text("Enter an address");
+							$(".errors").text("Enter an address");
 						} else if ($("input[name=postal]").attr("value") == null) {
-							$("#errors").text("Enter a postal code");
+							$(".errors").text("Enter a postal code");
 						} else {
 							$("#view2container").hide();
 							$("#view2container").ajaxSubmit();
