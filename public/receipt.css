@@ -352,12 +352,9 @@ button.view1button {
 
 #view2container input[type="text"], #view2container input[type="time"] {
 	border: 0px solid black;
-	background: #e1e1e1;
 	color: #444;
 	height: 50px;
-	border-left: 4px solid #0080ff;
-	border-top: 4px solid lightgrey;
-	border-bottom: 4px solid lightgrey;
+	border-bottom: 2px solid #e1e1e1;
 	width: 90%;
 	margin-left: 5%;
 	border-radius: 0px;
