@@ -45,6 +45,8 @@ html(lang="en")
 											.topping= topping
 						.right
 							unless order.isPaid
-								.option Mark as Paid
+								.option 
+									button Mark as Paid
 							unless order.isInputted
-								.option Mark as Read
+								.option 
+									button Mark as Read
