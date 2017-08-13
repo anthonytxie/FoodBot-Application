@@ -151,6 +151,7 @@ img {
 .toggle h3, .price {
 	height: 70px;
 	line-height: 70px;
+	color: darkgrey;
 }
 
 .custom_check_on {
