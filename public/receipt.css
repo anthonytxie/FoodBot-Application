@@ -302,12 +302,14 @@ button.view1button {
 }
 
 .lightswitch div {
+	display: inline-block;
 	width: 50%;
 	background-color: grey;
 	height: 100%;
+	line-height: 50px;
 }
 
-.lightswitch fiv.selected {
+.lightswitch div.selected {
 	background-color: white;
 }
 
