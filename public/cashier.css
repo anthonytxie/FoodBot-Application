@@ -17,6 +17,7 @@ html, body {
 }
 
 .name {
+	font-size: 1em;
 	margin-top: 5px;
 	margin-bottom: 10px;
 }
@@ -39,7 +40,7 @@ html, body {
 
 .number {
 	position: relative;
-	bottom: 10px;
+	bottom: 11px;
 	color: black;
 	font-weight: 600;
 }
