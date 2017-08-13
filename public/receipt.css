@@ -296,11 +296,10 @@ button.view1button {
 }
 
 #original_total {
-	width: 100%;
+	width: 95%;
 	position: fixed;
 	bottom: 52px;
 	text-align: right;
-	padding-right: 10px;
 }
 
 /*.quantity:nth-of-type(1) {
