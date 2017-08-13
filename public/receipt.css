@@ -409,6 +409,10 @@ p.label:nth-child(4) {
 .pay_row input {
 	border: 0px;
 	background-color: #0080ff;
+	color: white;
+	height: 50px;
+	display: inline-block;
+	width: 49%;
 }
 
 input::-webkit-input-placeholder {
