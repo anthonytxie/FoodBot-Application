@@ -226,6 +226,8 @@ html(lang="en")
 						} else if ($("input[name=postal]").attr("value") == null) {
 							$(".errors").text("Enter a postal code");
 						} else {
+							$("#time").attr("type", "hidden");
+							$('#time').val(json);
 							$("#view2container").hide();
 							$("#view2container").ajaxSubmit();
 							MessengerExtensions.requestCloseBrowser(function success() {
@@ -235,6 +237,8 @@ html(lang="en")
 							});
 						}
 					} else {
+						$("#time").attr("type", "hidden");
+						$('#time').val(json);
 						$("#view2container").hide();
 						$("#view2container").ajaxSubmit();
 						MessengerExtensions.requestCloseBrowser(function success() {
@@ -264,8 +268,7 @@ html(lang="en")
 				var o = new Date(year, month, day, hour, minute);
 				var json = JSON.stringify(o);
 				console.log(json);
-				$("#time").attr("type", "hidden");
-				$('#time').val(json);
+				
 				if ($(this).attr("value") == "Pay Now") {
 					console.log("b");
 					handler.open({
@@ -285,6 +288,8 @@ html(lang="en")
 						} else if ($("input[name=postal]").attr("value") == null) {
 							$(".errors").text("Enter a postal code");
 						} else {
+							$("#time").attr("type", "hidden");
+							$('#time').val(json);
 							$("#view2container").hide();
 							$("#view2container").ajaxSubmit();
 							MessengerExtensions.requestCloseBrowser(function success() {
@@ -294,6 +299,8 @@ html(lang="en")
 							});
 						}
 					} else {
+						$("#time").attr("type", "hidden");
+						$('#time').val(json);
 						$("#view2container").hide();
 						$("#view2container").ajaxSubmit();
 						MessengerExtensions.requestCloseBrowser(function success() {
