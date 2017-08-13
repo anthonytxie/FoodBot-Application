@@ -15,7 +15,6 @@ html, body {
 }
 
 .container {
-	background-color: purple;
 }
 
 .flex {
@@ -31,4 +30,25 @@ html, body {
 .right {
 	width: 10%;
 	display: inline-block;
+}
+
+.navbar {
+	height: 100px;
+	color: white;
+}
+
+.navbar div {
+	display: inline-block;
+}
+
+.navbar div:nth-child(2) {
+	color: blue;
+}
+
+.green {
+	color: green;
+}
+
+.overview {
+	border-bottom: 1px solid orange;
 }
