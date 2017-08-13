@@ -37,7 +37,7 @@ html(lang="en")
 								each item in order._items
 									//- combo logic here
 									.name= item.itemName
-									if item.itemName == "burger"
+									if item.itemType == "burger"
 										.toppings
 											each topping in item.standardToppings
 												.topping= topping
