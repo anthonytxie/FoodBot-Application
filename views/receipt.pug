@@ -215,9 +215,10 @@ html(lang="en")
 
 				// year month day hours seconds
 				var time = document.getElementById("time").value
-				var year = 2017;
-				var month = 7;
-				var day = 11;
+				var og_date = new Date();
+				var year = og_date.getFullYear();
+				var month = og_date.getMonth();
+				var day = og_date.getDate();
 				var hour = parseInt(time.substr(0,2));
 				var minute = parseInt(time.substr(3,2));
 				console.log(hour);
@@ -265,7 +266,11 @@ html(lang="en")
 
 			// make time default to now
 			$(document).ready( function() {
-				$('#time').val(new Date().toDateInputValue());
+				var date = new Date();
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				console.log(hours);
+				console.log(minutes);
 			});​
 
 			// view 3
