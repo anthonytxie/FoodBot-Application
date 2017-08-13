@@ -53,9 +53,13 @@ html, body {
 }
 
 .left {
-	flex: 9;
+	flex: 24;
 	height: 100%;
 	display: inline-block;
+}
+
+.center {
+	flex: 3;
 }
 
 .right {
