@@ -408,6 +408,7 @@ p.label:nth-child(4) {
 	bottom: 0;
 }
 
+	
 .pay_row input {
 	height: 50px;
 	font-size: 1.1em;
@@ -418,6 +419,10 @@ p.label:nth-child(4) {
 	color: white;
 	display: inline-block;
 	width: 49%;
+}
+
+.pay_row input:nth-child(2) {
+	background-color: #3eae48;
 }
 
 input::-webkit-input-placeholder {
