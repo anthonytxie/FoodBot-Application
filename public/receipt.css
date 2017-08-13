@@ -355,9 +355,9 @@ button.view1button {
 	background: #e1e1e1;
 	color: #444;
 	height: 50px;
-	border-left: 3px solid #0080ff;
-	border-top: 2px solid lightgrey;
-	border-bottom: 2px solid lightgrey;
+	border-left: 4px solid #0080ff;
+	border-top: 4px solid lightgrey;
+	border-bottom: 4px solid lightgrey;
 	width: 90%;
 	margin-left: 5%;
 	border-radius: 0px;
@@ -412,19 +412,19 @@ p.label:nth-child(4) {
 }
 
 input::-webkit-input-placeholder {
-	color: #888 !important;
+	color: #aaa !important;
 }
  
 input:-moz-placeholder { /* Firefox 18- */
-	color: #888 !important;  
+	color: #aaa !important;  
 }
  
 input::-moz-placeholder {  /* Firefox 19+ */
-	color: #888 !important;  
+	color: #aaa !important;  
 }
  
 input:-ms-input-placeholder {  
-	color: #888 !important;  
+	color: #aaa !important;  
 }
 
 
