@@ -302,6 +302,7 @@ button.view1button {
 }
 
 .lightswitch div {
+	width: 50%;
 	background-color: grey;
 	height: 100%;
 }
