@@ -302,7 +302,12 @@ button.view1button {
 }
 
 .lightswitch div {
+	background-color: grey;
 	height: 100%;
+}
+
+.lightswitch fiv.selected {
+	background-color: white;
 }
 
 /*.quantity:nth-of-type(1) {
