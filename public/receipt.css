@@ -353,7 +353,7 @@ button.view1button {
 #view2container input[type="text"], #view2container input[type="time"] {
 	border: 0px solid black;
 	background: #e1e1e1;
-	color: #9b9b9b;
+	color: #333;
 	height: 50px;
 	border-left: 5px solid #0080ff;
 	width: 90%;
@@ -409,7 +409,21 @@ p.label:nth-child(4) {
 	border: 0px;
 }
 
-
+input::-webkit-input-placeholder {
+	color: red !important;
+}
+ 
+input:-moz-placeholder { /* Firefox 18- */
+	color: red !important;  
+}
+ 
+input::-moz-placeholder {  /* Firefox 19+ */
+	color: red !important;  
+}
+ 
+input:-ms-input-placeholder {  
+	color: red !important;  
+}
 
 
 
