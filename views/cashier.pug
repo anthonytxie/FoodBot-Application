@@ -38,7 +38,7 @@ html(lang="en")
 							.details
 								each item in order._items
 									//- combo logic here
-									.name= displayName2(item)
+									.name #{displayName2(item)}
 									if item.itemType == "burger"
 										.toppings
 											each topping in item.standardToppings
@@ -69,106 +69,106 @@ html(lang="en")
 				return name
 			}
 
-			function displayName(item) {
-				switch(item.itemName) {
-					case 'lettuceBun':
-						return 'Lettuce Bun';
-					case 'standardBun':
-						return 'Standard Bun';
-					case 'pickles':
-						return 'Pickles';
-					case 'lettuce':
-						return 'Lettuce';
-					case 'tomatoes':
-						return 'Tomatoes';
-					case 'onions':
-						return 'Onions';
-					case 'ketchup':
-						return 'Ketchup';
-					case 'mustard':
-						return 'Mustard';
-					case 'mayo':
-						return 'Mayonnaise';
-					case 'relish':
-						return 'Relish';
-					case 'fancySauce':
-						return 'Fancy Sauce';
-					case 'hotSauce':
-						return 'Hot Sauce';
-					case 'tomato':
-						return 'Tomatoes';
-					case 'pickle':
-						return 'Pickles';
-					case 'hotPepper':
-						return 'Hot Peppers';
-					case 'friedEgg':
-						return 'Fried Egg';
-					case 'glutenFreeBun':
-						return 'Gluten Free Bun';
-					case 'grilledCheeseBun':
-						return 'Grilled Cheese Bun';
-					case 'threePartBun':
-						return 'Three Part Bun';
-					case 'chickenPatty':
-						return 'Chiken Patty';
-					case 'soyPatty':
-						return 'Soy Patty';
-					case 'stuffedPortobello':
-						return 'Stuffed Portobello';
-					case 'bacon':
-						return 'Bacon';
-					case 'caramelizedOnions':
-						return 'Caramelized Onions';
-					case 'americanCheese':
-						return 'AmericanCheese';
-					case 'blueCheese':
-						return 'Blue Cheese';
-					case 'cheeseSauce':
-						return 'Cheese Sauce';
-					case 'gravySide':
-						return 'Side of Gravy';
-					case 'sauteedMushrooms':
-						return 'Sauteed Mushrooms';
-					case 'blueCheese':
-						return 'Blue Cheese';
-					case 'swissCheese':
-						return 'Swiss Cheese';
-					case 'standardCheese':
-						return 'Standard Cheese';
-					case 'pepsi':
-						return 'Pepsi';
-					case 'dietPepsi':
-						return 'Diet Pepsi';
-					case '7-up':
-						return '7 Up';
-					case 'orangeCrush':
-						return 'Orange Crush';
-					case 'drpepper':
-						return 'Dr Pepper';
-					case 'icedTea':
-						return 'Iced Tea';
-					case 'gingerAle':
-						return 'Ginger Ale';
-					case 'rootBeer':
-						return 'Root Beer';
-					case 'waterBottle':
-						return 'Bottled Water';
-					case 'mountainDew':
-						return 'Mountain Dew';
-					case 'vanillaMilkshake':
-						return 'Vanilla Milkshake';
-					case 'chocolateMilkshake':
-						return 'Chocolate Milkshake';
-					case 'strawberryMilkshake':
-						return 'StrawberryMilkshake';
-					case 'fries':
-						return '';
-					case 'poutine':
-						return '';
-					case 'cheesyFries':
-						return '';
-				}
-			}
+			//- function displayName(item) {
+			//- 	switch(item.itemName) {
+			//- 		case 'lettuceBun':
+			//- 			return 'Lettuce Bun';
+			//- 		case 'standardBun':
+			//- 			return 'Standard Bun';
+			//- 		case 'pickles':
+			//- 			return 'Pickles';
+			//- 		case 'lettuce':
+			//- 			return 'Lettuce';
+			//- 		case 'tomatoes':
+			//- 			return 'Tomatoes';
+			//- 		case 'onions':
+			//- 			return 'Onions';
+			//- 		case 'ketchup':
+			//- 			return 'Ketchup';
+			//- 		case 'mustard':
+			//- 			return 'Mustard';
+			//- 		case 'mayo':
+			//- 			return 'Mayonnaise';
+			//- 		case 'relish':
+			//- 			return 'Relish';
+			//- 		case 'fancySauce':
+			//- 			return 'Fancy Sauce';
+			//- 		case 'hotSauce':
+			//- 			return 'Hot Sauce';
+			//- 		case 'tomato':
+			//- 			return 'Tomatoes';
+			//- 		case 'pickle':
+			//- 			return 'Pickles';
+			//- 		case 'hotPepper':
+			//- 			return 'Hot Peppers';
+			//- 		case 'friedEgg':
+			//- 			return 'Fried Egg';
+			//- 		case 'glutenFreeBun':
+			//- 			return 'Gluten Free Bun';
+			//- 		case 'grilledCheeseBun':
+			//- 			return 'Grilled Cheese Bun';
+			//- 		case 'threePartBun':
+			//- 			return 'Three Part Bun';
+			//- 		case 'chickenPatty':
+			//- 			return 'Chiken Patty';
+			//- 		case 'soyPatty':
+			//- 			return 'Soy Patty';
+			//- 		case 'stuffedPortobello':
+			//- 			return 'Stuffed Portobello';
+			//- 		case 'bacon':
+			//- 			return 'Bacon';
+			//- 		case 'caramelizedOnions':
+			//- 			return 'Caramelized Onions';
+			//- 		case 'americanCheese':
+			//- 			return 'AmericanCheese';
+			//- 		case 'blueCheese':
+			//- 			return 'Blue Cheese';
+			//- 		case 'cheeseSauce':
+			//- 			return 'Cheese Sauce';
+			//- 		case 'gravySide':
+			//- 			return 'Side of Gravy';
+			//- 		case 'sauteedMushrooms':
+			//- 			return 'Sauteed Mushrooms';
+			//- 		case 'blueCheese':
+			//- 			return 'Blue Cheese';
+			//- 		case 'swissCheese':
+			//- 			return 'Swiss Cheese';
+			//- 		case 'standardCheese':
+			//- 			return 'Standard Cheese';
+			//- 		case 'pepsi':
+			//- 			return 'Pepsi';
+			//- 		case 'dietPepsi':
+			//- 			return 'Diet Pepsi';
+			//- 		case '7-up':
+			//- 			return '7 Up';
+			//- 		case 'orangeCrush':
+			//- 			return 'Orange Crush';
+			//- 		case 'drpepper':
+			//- 			return 'Dr Pepper';
+			//- 		case 'icedTea':
+			//- 			return 'Iced Tea';
+			//- 		case 'gingerAle':
+			//- 			return 'Ginger Ale';
+			//- 		case 'rootBeer':
+			//- 			return 'Root Beer';
+			//- 		case 'waterBottle':
+			//- 			return 'Bottled Water';
+			//- 		case 'mountainDew':
+			//- 			return 'Mountain Dew';
+			//- 		case 'vanillaMilkshake':
+			//- 			return 'Vanilla Milkshake';
+			//- 		case 'chocolateMilkshake':
+			//- 			return 'Chocolate Milkshake';
+			//- 		case 'strawberryMilkshake':
+			//- 			return 'StrawberryMilkshake';
+			//- 		case 'fries':
+			//- 			return '';
+			//- 		case 'poutine':
+			//- 			return '';
+			//- 		case 'cheesyFries':
+			//- 			return '';
+			//- 	}
+			//- }
 
 
 
