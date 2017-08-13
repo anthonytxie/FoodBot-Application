@@ -101,8 +101,10 @@ img {
 }
 
 button {
-	height: 50px;
-	line-height: 50px;
+	font-size: 1.1em;
+	font-weight: 500;
+	height: 35px;
+	line-height: 35px;
 	width: 100%;
 	background-color: #337ab7;
 	color: white;
