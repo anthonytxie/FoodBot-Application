@@ -300,7 +300,7 @@ button.view1button {
 #original_total {
 	width: 95%;
 	position: fixed;
-	bottom: 52px;
+	bottom: 58px;
 	text-align: right;
 }
 
@@ -331,6 +331,7 @@ button.view1button {
 .lightswitch div.selected {
 	background-color: white;
 	border: 0px solid white;
+	color: #666;
 }
 
 /*.quantity:nth-of-type(1) {
@@ -352,7 +353,7 @@ button.view1button {
 
 #view2container input[type="text"], #view2container input[type="time"] {
 	border: 0px solid black;
-	color: #444;
+	color: #666;
 	height: 50px;
 	border-bottom: 2px solid #ccc;
 	width: 90%;
@@ -371,7 +372,7 @@ button.view1button {
 	height: 70px;
 	line-height: 70px;
 	text-align: center;
-	color: #9b9b9b;
+	color: #666;
 	font-size: 1.3em;
 	font-weight: 300;
 }
@@ -407,6 +408,7 @@ p.label:nth-child(4) {
 
 .pay_row input {
 	border: 0px;
+	background-color: #0080ff;
 }
 
 input::-webkit-input-placeholder {
