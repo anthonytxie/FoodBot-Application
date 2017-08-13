@@ -11,4 +11,9 @@ routes.get("/cashier", (req, res) => {
   });
 });
 
+
+routes.post("/input", (req, res) => {
+  console.log(req.body);
+})
+
 module.exports = routes
