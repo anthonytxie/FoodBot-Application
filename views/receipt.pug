@@ -107,6 +107,8 @@ html(lang="en")
 				div.lightswitch_option Pickup
 				div.lightswitch_option.selected Delivery
 
+			.errors
+
 			p#get_total
 
 			//- timestamp
@@ -218,12 +220,19 @@ html(lang="en")
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-					$("#view2container").ajaxSubmit();
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-					});
+					if ($("input[name=method]").attr("value") == "deliver") {
+						if ($("input[name=address]").attr("value") == "") {
+							$("#errors").text("Enter an address");
+						} else if ($("input[name=postal]").attr("value") == "") {
+							$("#errors").text("Enter a postal code");
+						} else {
+							$("#view2container").ajaxSubmit();
+							MessengerExtensions.requestCloseBrowser(function success() {
+								console.log("success");
+							}, function error(err) {
+								console.log(err);
+							});
+						}
 				}
 			});
 			// either closes the session or brings up the payment prompt
@@ -258,13 +267,27 @@ html(lang="en")
 					
 				} else {
 					console.log("c");
-					$("#view2container").ajaxSubmit();
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-					});
-					$
+					if ($("input[name=method]").attr("value") == "deliver") {
+						if ($("input[name=address]").attr("value") == "") {
+							$("#errors").text("Enter an address");
+						} else if ($("input[name=postal]").attr("value") == "") {
+							$("#errors").text("Enter a postal code");
+						} else {
+							$("#view2container").ajaxSubmit();
+							MessengerExtensions.requestCloseBrowser(function success() {
+								console.log("success");
+							}, function error(err) {
+								console.log(err);
+							});
+						}
+					} else {
+						$("#view2container").ajaxSubmit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					}
 				}
 			})
 
