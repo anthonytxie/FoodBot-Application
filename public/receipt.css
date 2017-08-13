@@ -347,6 +347,7 @@ button.view1button {
 
 #view2container {
 	background: white;
+	position: relative;
 }
 
 #view2container input[type="text"], #view2container input[type="time"] {
@@ -377,8 +378,8 @@ button.view1button {
 
 .doneview1 {
 	width: 100%;
-	height: 70px;
-	font-size: 1.7em;
+	height: 50px;
+	font-size: 1.4em;
 	font-weight: 500;
 	letter-spacing: .1em;
 }
@@ -397,5 +398,27 @@ p.label {
 p.label:nth-child(4) {
 	margin-top: 0px;
 }
+
+.pay_row {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+.pay_row input {
+	border: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
