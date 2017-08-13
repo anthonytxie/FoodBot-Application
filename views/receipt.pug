@@ -188,8 +188,6 @@ html(lang="en")
 			// amount they have to pay
 			let pay_total = null;
 
-			
-
 			var handler = StripeCheckout.configure({
 				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
@@ -264,6 +262,11 @@ html(lang="en")
 
 				// toggle certain fields in or out
 			})
+
+			// make time default to now
+			$(document).ready( function() {
+				$('#time').val(new Date().toDateInputValue());
+			});​
 
 			// view 3
 			window.addEventListener('popstate', function() { // close checkout on page navigation
