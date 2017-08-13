@@ -45,9 +45,7 @@ html(lang="en")
 											.topping= topping
 						.center
 						.right
-							unless order.isPaid
-								form.option 
-									button PAID
 							unless order.isInputted
-								form.option 
+								form.option(action="input", method="POST")
+									input(type="hidden", name="orderId", value=order._id) 
 									button READ
