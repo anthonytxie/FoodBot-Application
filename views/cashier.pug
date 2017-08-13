@@ -3,6 +3,7 @@ html(lang="en")
 	//- ipad: 1024 x 768 px
 	//- add delivery address and time
 	//- add pickup and time
+	//- add ajax
 	head
 		title Cashier
 		meta(name="viewport", content="width=device-width, initial-scale=1")
@@ -11,8 +12,8 @@ html(lang="en")
 	body
 		.container
 			.navbar 
-				div Foodbot
-				div Cashier
+				div Foodbot.
+				div Cashier View
 			.flex
 				each order in orders
 					.order
@@ -20,14 +21,18 @@ html(lang="en")
 							.overview
 								unless order.isPaid
 									img(src="money.png")
+								else
+									img(src="check.png")
 								.number_time
-									.number Order #{order._id}
+									- var order_id = order._id;
+									- var display_id = order_id.toString().substr(-5);
+									.number Order #{(display_id)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
-										.time Pickup @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
+										.time.green Pickup @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
 									else
 										//- throw some bold tags in here
-										.time Delivery to #{order.address}, #{order.postalCode} @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
+										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{order.fulfillmentDate.getHours()}:#{order.fulfillmentDate.getMinutes()}
 							.details
 								each item in order._items
 									//- combo logic here
@@ -38,8 +43,9 @@ html(lang="en")
 											.topping= topping
 										each topping in item.premiumToppings
 											.topping= topping
+						.center
 						.right
-							unless order.isPaid
-								.option Mark as Paid
 							unless order.isInputted
-								.option Mark as Read
+								form.option(action="input", method="POST")
+									input(type="hidden", name="orderId", value=order._id) 
+									button READ
