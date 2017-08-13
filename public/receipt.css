@@ -364,6 +364,12 @@ button.view1button {
 	font-weight: 300;
 }
 
+.ui-focus {
+ -moz-box-shadow: none !important;
+ -webkit-box-shadow: none !important;
+ box-shadow: none !important;
+}
+
 
 
 
