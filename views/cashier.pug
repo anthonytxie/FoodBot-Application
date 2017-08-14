@@ -11,7 +11,7 @@ html(lang="en")
 		link(rel ='stylesheet', href="cashier.css", type='text/css')
 	body
 
-		- function displayName2(item) { if (typeof(item) === 'object' && item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var itemName = (typeof(item) === 'object') ? item.itemName : item; var name = itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries1') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
+		- function displayName2(item) { if (typeof(item) === 'object' && item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var itemName = (typeof(item) === 'object') ? item.itemName : item; var name = itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
 
 		- // function displayName2(item) { if (item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var name = item.itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1);  console.log(name); return name; }
 		- // add when item.itemType is not null:     if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; }
