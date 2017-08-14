@@ -20,7 +20,7 @@ html, body {
 .name {
 	font-size: 1.25em;
 	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 3px;
 }
 
 .time {
@@ -28,8 +28,14 @@ html, body {
 	bottom: 5px;
 }
 
+.toppings {
+	padding-left: 15px;
+	color: grey;
+}
+
 .topping {
 	margin-bottom: 3px;
+	margin-left: 10px;
 }
 
 .number_time {
