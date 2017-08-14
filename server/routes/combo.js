@@ -16,7 +16,6 @@ routes.get("/burgercombo", (req, res) => {
 });
 
 routes.post("/combo", (req, res) => {
-  console.log(req.body);
   let orderId = mongoose.Types.ObjectId(req.body.order_id);
   let senderId = req.body.sender_id;
 
@@ -49,6 +48,7 @@ routes.post("/combo", (req, res) => {
 
   let side = {
     itemName: sideObject(req.body),
+    itemSize: "medium",
     itemCombo: true
   };
 
@@ -70,6 +70,9 @@ routes.post("/combo", (req, res) => {
       if (order) {
         send.sendOrderedMessage(senderId, order);
       }
+    })
+    .then(() => {
+      res.status(200).send()
     })
     .catch(err => console.log(err));
 });

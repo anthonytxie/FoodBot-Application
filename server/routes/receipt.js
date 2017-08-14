@@ -14,25 +14,12 @@ const stripe = require("stripe")("sk_test_wGIrSvj5T4LPKJe603wPoLhw");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-// move this to own routes .js file
-routes.get("/checkout", (req, res) => {
-  res.render("checkout.pug", {
-    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-  });
-});
-
-routes.get("/stripe", (req, res) => {
-  res.render("stripe.pug", {
-    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-  });
-});
-
 routes.get("/getorder/:orderid", (req, res) => {
   let orderId = req.params.orderid;
   orderDAO
     .findOrderById(orderId)
     .then(order => {
-      res.send(order);
+      res.status(200).send(order);
     })
     .catch(err => res.send(err));
 });
@@ -42,7 +29,7 @@ routes.get("/receipt", (req, res) => {
   orderDAO
     .findOrderById(orderId)
     .then(order => {
-      res.render("receipt", {
+      res.status(200).render("receipt", {
         order,
         keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
       });
@@ -66,7 +53,7 @@ routes.post("/delete", (req, res) => {
     itemDAO
       .deleteItemById(itemId, orderId)
       .then(item => {
-        res.status(200);
+        res.status(200).send();
       })
       .catch(err => console.log(err));
   });
@@ -112,7 +99,11 @@ routes.post("/confirm", (req, res) => {
           })
         })
           .then(order => {
+            //send success message here
             return userDAO.updateEmail(order._user._id, token_email)
+          })
+          .then(() => {
+            res.status(200).send();
           })
           .catch((err) => {
             // payment didn't go through send message back to user
@@ -128,7 +119,8 @@ routes.post("/confirm", (req, res) => {
         isPaid: false
       })
       .then(order => {
-        res.send(order);
+        send.sendConfirmUnpaidMessage(order._user.PSID)
+        res.status(200).send(order);
       });
   }
 });

@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
-const config = require("./../config/config");
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
 const itemDAO = require("./../db/DAO/itemDAO");
 const userDAO = require("./../db/DAO/userDAO");
 const sessionDAO = require("./../db/DAO/sessionDAO");
 const orderDAO = require("./../db/DAO/orderDAO");
-const { User, Session, Order } = require("./../db/models/index");
+const { Item, User, Session, Order } = require("./../db/models/index");
 const { app } = require("./../server/index");
-const request = require("supertest-as-promised");
-const sinon = require('sinon');
-const pug = require('pug');
+const request = require("supertest");
+const sinon = require("sinon");
+const pug = require("pug");
+const send = require("./../messenger-api-helpers/send");
+
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);
@@ -44,7 +45,8 @@ let testComboDrink = {
 };
 let testComboSide = {
   itemName: "poutine",
-  itemCombo: true
+  itemCombo: true,
+  itemSize: "medium"
 };
 beforeEach(done => {
   User.remove({})
@@ -53,6 +55,9 @@ beforeEach(done => {
     })
     .then(() => {
       return Order.remove({});
+    })
+    .then(() => {
+      return Item.remove({});
     })
     .then(() => {
       return userDAO.createUser(12345);
@@ -311,6 +316,11 @@ describe("ITEM DAO", () => {
           .postDrink(testComboDrink, orderId)
           .should.eventually.have.property("_items")
           .that.has.property([2])
+          .that.has.property("itemCombo", testComboDrink.itemCombo),
+        itemDAO
+          .postDrink(testComboDrink, orderId)
+          .should.eventually.have.property("_items")
+          .that.has.property([2])
           .that.has.property("itemCombo", testComboDrink.itemCombo)
       ]);
     });
@@ -351,21 +361,235 @@ describe("ITEM DAO", () => {
 
 describe("ROUTES", () => {
   it("should get burger customize", () => {
-  let spy = sinon.spy(pug, '__express');
+    let spy = sinon.spy(pug, "__express");
     return request(app)
       .get("/burgercustomize?order=${orderId}&name=Top+Bun&sender=${PSID}")
       .expect(200)
       .then(() => {
-        spy.calledWithMatch((/\/burgercustomize\.pug$/)).should.be.true;
+        spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
         spy.restore();
-      })
+      });
   });
 
-  // it('should post a new burger', (done) => {
-  //   request(app)
-  //     .post('/todos')
-  //     .send({})
-  //     .expect(200)
-  // });
+  it("should post a new burger", () => {
+    let postBody = {
+      order_id: orderId,
+      title: "Swiss Bank Account",
+      sender_id: PSID,
+      patties: "2",
+      beef: "true",
+      chickenPatty: "",
+      standardBun: "true",
+      lettuceBun: "",
+      glutenFreeBun: "",
+      grilledCheeseBun: "",
+      ketchup: "",
+      mayo: "",
+      mustard: "",
+      relish: "",
+      fancySauce: "",
+      hotSauce: "",
+      lettuce: "",
+      tomatoes: "",
+      pickles: "",
+      onions: "",
+      hotPepper: "",
+      bacon: "",
+      standardCheese: "",
+      americanCheese: "",
+      blueCheese: "",
+      caramelizedOnions: "",
+      sauteedMushrooms: "true",
+      stuffedPortobello: "",
+      cheeseSauce: "",
+      gravySide: ""
+    };
+    let stub = sinon.stub(send, "sendOrderedBurgerUpsizeMessage");
+    return request(app)
+      .post("/burger")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(res => {
+        return orderDAO
+          .findOrderById(orderId)
+          .should.eventually.have.property("_items")
+          .that.has.property([1])
+          .that.has.property("itemName")
+          .that.equals("Swiss Bank Account");
+      });
+  });
+  it("should get render customize", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get("/burgercombo?order=${orderId}&sender=${senderId}")
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/burgercombopage\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
+  it("should post to /combo and send error message", () => {
+    let stub = sinon.stub(send, "sendComboError");
+    let postBody = {
+      order_id: orderId,
+      sender_id: PSID,
+      food_type: "fries",
+      drink_type: "milkshake",
+      milkshake_flavor: "strawberry",
+      soda_flavor: ""
+    };
+    return request(app).post("/combo").send(postBody).then(res => {
+      res.status.should.equal(200);
+      stub.called.should.be.true;
+      stub.restore();
+    });
+  });
+
+  it("should post to /combo and send confirm message", () => {
+    let stub = sinon.stub(send, "sendOrderedMessage");
+    let postBody = {
+      order_id: orderId,
+      sender_id: PSID,
+      food_type: "fries",
+      drink_type: "milkshake",
+      milkshake_flavor: "strawberry",
+      soda_flavor: ""
+    };
+    return itemDAO.postBurger(testBurger, orderId).then(() => {
+      return request(app)
+        .post("/combo")
+        .send(postBody)
+        .then(res => {
+          res.status.should.equal(200);
+          stub.called.should.be.true;
+          stub.restore();
+        })
+        .then(() => {
+          return Promise.all([
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.length(4),
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.property([2])
+              .that.has.property("itemName", "strawberryMilkshake"),
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.property([3])
+              .that.has.property("itemName", "fries"),
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.property([3])
+              .that.has.property("itemSize", "medium")
+          ]);
+        });
+    });
+  });
+
+  it("should get render receipt", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(`/receipt?order=${orderId}`)
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/receipt\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
+  it("should confirm order without pay for pick-up", () => {
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessage");
+    let postBody = {
+      orderId: orderId,
+      method: "pickup",
+      address: "",
+      postal: "",
+      time: '"2017-08-14T01:18:00.000Z"',
+      room: "",
+      authorized_payment: "1192"
+    };
+    return request(app)
+      .post("/confirm")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("methodFulfillment", "pickup"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isPaid", false),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
+      });
+  });
+
+  it("should confirm order with pay for delivery", () => {
+
+
+  });
+
+
+
+
+  it("should delete items when posting to /delete", () => {
+    let postBody = {
+      orderId: orderId,
+      removeIds: [itemId]
+    };
+    return request(app)
+      .post("/delete")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("_items")
+            .that.has.length(0)
+        ]);
+      });
+  });
+
+  it("should render cashier view", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(`/cashier`)
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
+
+  it('should get orderId', () => {
+    return request(app)
+      .get(`/getorder/${orderId}`)
+      .then((res) => {
+        res.status.should.equal(200)
+      })
+  })
 
 });

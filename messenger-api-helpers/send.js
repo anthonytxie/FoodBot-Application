@@ -45,6 +45,13 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, order));
 };
 
+const sendConfirmPaidMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.messageTemplate("Awesome. The payment has been processed and we sent your order to the restaurant. We'll see you soon!"));
+};
+
+const sendConfirmUnpaidMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.messageTemplate("Awesome. We sent your order to the restaurant. We'll see you soon!"));
+};
 
 // ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
@@ -152,6 +159,8 @@ module.exports = {
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
+  sendConfirmUnpaidMessage,
+  sendConfirmPaidMessage,
   sendMessageGeneric,
   askFriesSize,
   askMilkshakeFlavor,
