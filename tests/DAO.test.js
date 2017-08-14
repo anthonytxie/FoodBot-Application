@@ -19,7 +19,6 @@ chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
 
-
 let userId;
 let firstSessionId;
 let secondSessionId;
@@ -47,7 +46,8 @@ let testComboDrink = {
 };
 let testComboSide = {
   itemName: "poutine",
-  itemCombo: true
+  itemCombo: true,
+  itemSize: "medium"
 };
 beforeEach(done => {
   User.remove({})
@@ -317,6 +317,11 @@ describe("ITEM DAO", () => {
           .postDrink(testComboDrink, orderId)
           .should.eventually.have.property("_items")
           .that.has.property([2])
+          .that.has.property("itemCombo", testComboDrink.itemCombo),
+        itemDAO
+          .postDrink(testComboDrink, orderId)
+          .should.eventually.have.property("_items")
+          .that.has.property([2])
           .that.has.property("itemCombo", testComboDrink.itemCombo)
       ]);
     });
@@ -400,19 +405,24 @@ describe("ROUTES", () => {
       cheeseSauce: "",
       gravySide: ""
     };
-    let stub = sinon.stub(send, "sendOrderedBurgerUpsizeMessage")
-    return request(app).post("/burger").send(postBody)
-    .then((res) => {
-      res.status.should.equal(200)
-      stub.called.should.be.true
-      stub.restore()
-    })
-    .then((res) => {
-      return orderDAO.findOrderById(orderId).should.eventually.have.property("_items").that.has.property([1]).that.has.property("itemName").that.equals("Swiss Bank Account")
-    })
-  }),
-
-
+    let stub = sinon.stub(send, "sendOrderedBurgerUpsizeMessage");
+    return request(app)
+      .post("/burger")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(res => {
+        return orderDAO
+          .findOrderById(orderId)
+          .should.eventually.have.property("_items")
+          .that.has.property([1])
+          .that.has.property("itemName")
+          .that.equals("Swiss Bank Account");
+      });
+  });
   it("should get combo customize", () => {
     let spy = sinon.spy(pug, "__express");
     return request(app)
@@ -423,7 +433,43 @@ describe("ROUTES", () => {
         spy.restore();
       });
   });
+  it("should post to /combo and send error message", () => {
+    let stub = sinon.stub(send, "sendComboError");
+    let postBody = {
+      order_id: orderId,
+      sender_id: PSID,
+      food_type: "fries",
+      drink_type: "milkshake",
+      milkshake_flavor: "strawberry",
+      soda_flavor: ""
+    };
+    return request(app).post("/combo").send(postBody).then(res => {
+      res.status.should.equal(200);
+      stub.called.should.be.true;
+      stub.restore();
+    });
+  });
+
+  it("should post to /combo and send confirm message", () => {
+    let stub = sinon.stub(send, "sendOrderedMessage");
+    let postBody = {
+      order_id: orderId,
+      sender_id: PSID,
+      food_type: "fries",
+      drink_type: "milkshake",
+      milkshake_flavor: "strawberry",
+      soda_flavor: ""
+    };
+    return itemDAO.postBurger(testBurger, orderId).then(() => {
+      return request(app).post("/combo").send(postBody).then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      }).then(() => {
+        return orderDAO.findOrderById(orderId).should.eventually.have.property("_items").that.has.length(4)
+
+
+      })
+    });
+  });
 });
-
-
-
