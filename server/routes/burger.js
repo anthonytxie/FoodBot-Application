@@ -67,7 +67,9 @@ routes.post("/burger", (req, res) => {
     .postBurger(burger.foodObject, burger.orderId)
     .then(order => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, order);
-      res.status(200).send(order)
+    })
+    .then(() => {
+      return res.status(200).send()
     })
     .catch(err => console.log(err));
 });

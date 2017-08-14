@@ -35,7 +35,6 @@
     "sinon": "^3.2.0",
     "stripe": "^4.23.2",
     "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2",
-    "supertest-chai": "0.0.8"
+    "supertest-as-promised": "^4.0.2"
   }
 }
