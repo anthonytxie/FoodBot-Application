@@ -309,7 +309,7 @@ button.view1button {
 	color: #888;
 	text-align: center;
 	display: inline-block;
-	width: 49.7%;
+	width: 50%;
 	background-color: #eee;
 	height: 100%;
 	line-height: 70px;
@@ -319,13 +319,9 @@ button.view1button {
 }
 
 .lightswitch div:nth-child(3) {
-	border-bottom: 2px solid #ddd;
-	border-left: 2px solid #ddd;
 }
 
 .lightswitch div:nth-child(2) {
-	border-bottom: 2px solid #ddd;
-	border-right: 2px solid #ddd;
 }
 
 .lightswitch div.selected {
