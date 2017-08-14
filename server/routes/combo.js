@@ -49,6 +49,7 @@ routes.post("/combo", (req, res) => {
 
   let side = {
     itemName: sideObject(req.body),
+    itemSize: "medium",
     itemCombo: true
   };
 
