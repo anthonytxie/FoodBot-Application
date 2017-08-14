@@ -60,7 +60,7 @@ routes.post("/delete", (req, res) => {
 });
 
 routes.post("/confirm", (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   let {
     orderId,
     method,
