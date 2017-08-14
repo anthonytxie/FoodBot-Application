@@ -113,8 +113,8 @@ html(lang="en")
 
 			//- timestamp
 			input#time(name="time", type="time", placeholder="Delivery Time")
-			input(name="address", type="text", placeholder="Address")
-			input(name="postal", type="text", placeholder="Postal Code")
+			input#address(name="address", type="text", placeholder="Address")
+			input#postal(name="postal", type="text", placeholder="Postal Code")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
 
 			//- p#get_order_price
@@ -221,9 +221,9 @@ html(lang="en")
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
 					if ($("input[name=method]").attr("value") == "delivery") {
-						if ($("input[name=address]").attr("value") == null) {
+						if ($("#address").attr("value") == null) {
 							$(".errors").text("Enter an address");
-						} else if ($("input[name=postal]").attr("value") == null) {
+						} else if ($("#postal").attr("value") == null) {
 							$(".errors").text("Enter a postal code");
 						} else {
 							$("#time").attr("type", "hidden");
@@ -282,10 +282,10 @@ html(lang="en")
 					console.log("pay later");
 					console.log($("input[name=method]").attr("value"));
 					if ($("input[name=method]").attr("value") == "delivery") {
-						if ($("input[name=address]").attr("value") == null) {
+						if ($("#address").attr("value") == null) {
 							console.log("pay later, no address")
 							$(".errors").text("Enter an address");
-						} else if ($("input[name=postal]").attr("value") == null) {
+						} else if ($("#postal").attr("value") == null) {
 							$(".errors").text("Enter a postal code");
 						} else {
 							$("#time").attr("type", "hidden");
