@@ -220,10 +220,10 @@ html(lang="en")
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-					if ($("input[name=method]").attr("value") == "delivery") {
-						if ($("#address").attr("value") == null) {
+					if ($("input[name=method]").val() == "delivery") {
+						if ($("#address").val() == null) {
 							$(".errors").text("Enter an address");
-						} else if ($("#postal").attr("value") == null) {
+						} else if ($("#postal").val() == null) {
 							$(".errors").text("Enter a postal code");
 						} else {
 							$("#time").attr("type", "hidden");
@@ -269,7 +269,7 @@ html(lang="en")
 				var json = JSON.stringify(o);
 				console.log(json);
 				
-				if ($(this).attr("value") == "Pay Now") {
+				if ($(this).val() == "Pay Now") {
 					console.log("b");
 					handler.open({
 						name: 'FoodBot',
@@ -280,12 +280,12 @@ html(lang="en")
 					
 				} else {
 					console.log("pay later");
-					console.log($("input[name=method]").attr("value"));
-					if ($("input[name=method]").attr("value") == "delivery") {
-						if ($("#address").attr("value") == null) {
+					console.log($("input[name=method]").val());
+					if ($("input[name=method]").val() == "delivery") {
+						if ($("#address").val() == null) {
 							console.log("pay later, no address")
 							$(".errors").text("Enter an address");
-						} else if ($("#postal").attr("value") == null) {
+						} else if ($("#postal").val() == null) {
 							$(".errors").text("Enter a postal code");
 						} else {
 							$("#time").attr("type", "hidden");
