@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const config = require("./../config/config");
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
 const itemDAO = require("./../db/DAO/itemDAO");
@@ -522,7 +521,7 @@ describe("ROUTES", () => {
       .then(res => {
         res.status.should.equal(200);
         stub.called.should.be.true;
-        stub.restore();       
+        stub.restore();
       })
       .then(() => {
         return Promise.all([
@@ -547,19 +546,50 @@ describe("ROUTES", () => {
 
   it("should confirm order with pay for delivery", () => {
 
+
   });
 
+
+
+
   it("should delete items when posting to /delete", () => {
+    let postBody = {
+      orderId: orderId,
+      removeIds: [itemId]
+    };
+    return request(app)
+      .post("/delete")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("_items")
+            .that.has.length(0)
+        ]);
+      });
+  });
 
+  it("should render cashier view", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(`/cashier`)
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
 
-
-    
+  it('should get orderId', () => {
+    return request(app)
+      .get(`/getorder/${orderId}`)
+      .then((res) => {
+        res.status.should.equal(200)
+      })
   })
-
-
-
-
-
-
 
 });

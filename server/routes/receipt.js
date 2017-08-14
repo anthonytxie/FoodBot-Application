@@ -19,7 +19,7 @@ routes.get("/getorder/:orderid", (req, res) => {
   orderDAO
     .findOrderById(orderId)
     .then(order => {
-      res.send(order);
+      res.status(200).send(order);
     })
     .catch(err => res.send(err));
 });
@@ -47,21 +47,20 @@ routes.get("/orders", (req, res) => {
 });
 
 routes.post("/delete", (req, res) => {
-  console.log(req.body);
   let orderId = req.body.orderId;
   let itemIds = req.body.removeIds;
   async.each(itemIds, itemId => {
     itemDAO
       .deleteItemById(itemId, orderId)
       .then(item => {
-        res.status(200);
+        res.status(200).send();
       })
       .catch(err => console.log(err));
   });
 });
 
 routes.post("/confirm", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   let {
     orderId,
     method,
