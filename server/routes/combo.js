@@ -72,6 +72,9 @@ routes.post("/combo", (req, res) => {
         send.sendOrderedMessage(senderId, order);
       }
     })
+    .then(() => {
+      res.status(200).send()
+    })
     .catch(err => console.log(err));
 });
 
