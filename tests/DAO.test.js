@@ -423,7 +423,7 @@ describe("ROUTES", () => {
           .that.equals("Swiss Bank Account");
       });
   });
-  it("should get combo customize", () => {
+  it("should get render customize", () => {
     let spy = sinon.spy(pug, "__express");
     return request(app)
       .get("/burgercombo?order=${orderId}&sender=${senderId}")
@@ -461,15 +461,105 @@ describe("ROUTES", () => {
       soda_flavor: ""
     };
     return itemDAO.postBurger(testBurger, orderId).then(() => {
-      return request(app).post("/combo").send(postBody).then(res => {
-        res.status.should.equal(200);
-        stub.called.should.be.true;
-        stub.restore();
-      }).then(() => {
-        return orderDAO.findOrderById(orderId).should.eventually.have.property("_items").that.has.length(4)
-
-
-      })
+      return request(app)
+        .post("/combo")
+        .send(postBody)
+        .then(res => {
+          res.status.should.equal(200);
+          stub.called.should.be.true;
+          stub.restore();
+        })
+        .then(() => {
+          return Promise.all([
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.length(4),
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.property([2])
+              .that.has.property("itemName", "strawberryMilkshake"),
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.property([3])
+              .that.has.property("itemName", "fries"),
+            orderDAO
+              .findOrderById(orderId)
+              .should.eventually.have.property("_items")
+              .that.has.property([3])
+              .that.has.property("itemSize", "medium")
+          ]);
+        });
     });
   });
+
+  it("should get render receipt", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(`/receipt?order=${orderId}`)
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/receipt\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
+  it("should confirm order without pay for pick-up", () => {
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessage");
+    let postBody = {
+      orderId: orderId,
+      method: "pickup",
+      address: "",
+      postal: "",
+      time: '"2017-08-14T01:18:00.000Z"',
+      room: "",
+      authorized_payment: "1192"
+    };
+    return request(app)
+      .post("/confirm")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();       
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("methodFulfillment", "pickup"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isPaid", false),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
+      });
+  });
+
+  it("should confirm order with pay for delivery", () => {
+
+  });
+
+  it("should delete items when posting to /delete", () => {
+
+
+
+    
+  })
+
+
+
+
+
+
+
 });

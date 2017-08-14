@@ -29,7 +29,6 @@ routes.get("/burgercustomize", (req, res) => {
 });
 
 routes.post("/burger", (req, res) => {
-  console.log(req.body)
   const senderId = req.body.sender_id;
   const burgerFormat = function(body) {
     let standardToppings = [];
