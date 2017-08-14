@@ -51,7 +51,7 @@ html(lang="en")
 											each topping in item.standardToppings
 												.topping #{displayName2({itemName: topping})}
 											each topping in item.premiumToppings
-												.topping= topping
+												.topping #{displayName2({itemName: topping})}
 
 						.center
 						.right
