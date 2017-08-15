@@ -214,6 +214,18 @@ html(lang="en")
 				locale: 'auto',
 				currency: "CAD",
 				token: function(token) {
+					// year month day hours seconds
+					var time = document.getElementById("time").value
+					var og_date = new Date();
+					var year = og_date.getFullYear();
+					var month = og_date.getMonth();
+					var day = og_date.getDate();
+					var hour = parseInt(time.substr(0,2));
+					var minute = parseInt(time.substr(3,2));
+					console.log(hour);
+					console.log(minute);
+					var o = new Date(year, month, day, hour, minute);
+					var json = JSON.stringify(o);
 					// You can access the token ID with `token.id`.
 					// Get the token ID to your server-side code for use.
 					console.log(token.id);
@@ -267,7 +279,6 @@ html(lang="en")
 				console.log(minute);
 				var o = new Date(year, month, day, hour, minute);
 				var json = JSON.stringify(o);
-				console.log(json);
 				
 				if ($(this).val() == "Pay Now") {
 					console.log("b");
