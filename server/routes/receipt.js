@@ -3,6 +3,7 @@ const express = require("express");
 const routes = express();
 const async = require("async");
 const mongoose = require("mongoose");
+const moment = require("moment")
 
 //DAO
 const sessionDAO = require("./../../db/DAO/sessionDAO");
@@ -102,12 +103,8 @@ routes.post("/confirm", (req, res) => {
             return userDAO.updateEmail(order._user._id, token_email)
           })
           .then((user) => {
-            // if (method === 'delivery') {
-              send.sendConfirmPaidMessageDelivery(user.PSID, {time, address})
-            // }
-            // else {
-            //   send.sendConfirmPaidMessagePickup(user.PSID, {time})
-            // }
+            send.sendConfirmPaidMessageDelivery(user.PSID, {time: moment(time).tz("America/New_York").format("YYYY-MM-DD HH:mm"), address})
+
             return sessionDAO.closeSession(user._sessions.slice(-1).pop())
           })
           .then((session) => {
