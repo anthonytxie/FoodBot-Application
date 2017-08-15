@@ -99,13 +99,11 @@ routes.post("/confirm", (req, res) => {
           })
         })
           .then(order => {
-            //send success message here
+            send.sendConfirmPaidMessage(order._user.PSID)
             return userDAO.updateEmail(order._user._id, token_email)
           })
           .then(() => {
-            send.sendConfirmPaidMessage(order._user.PSID)
             res.status(200).send();
-
           })
           .catch((err) => {
             // payment didn't go through send message back to user
