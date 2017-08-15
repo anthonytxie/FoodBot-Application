@@ -45,9 +45,14 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, order));
 };
 
-const sendConfirmPaidMessage = (recipientId, order) => {
-  sendMessage(recipientId, messages.messageTemplate("Awesome. The payment has been processed and we sent your order to the restaurant. We'll see you soon!"));
+const sendConfirmPaidMessageDelivery = (recipientId, data) => {
+  sendMessage(recipientId, messages.messageTemplate(`Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at ${data.time}`));
 };
+
+const sendConfirmPaidMessagePickup = (recipientId, data) => {
+  sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.time}`));
+};
+
 
 const sendConfirmUnpaidMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.messageTemplate("Awesome. We sent your order to the restaurant. We'll see you soon!"));
@@ -160,7 +165,8 @@ module.exports = {
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
   sendConfirmUnpaidMessage,
-  sendConfirmPaidMessage,
+  sendConfirmPaidMessagePickup,
+  sendConfirmPaidMessageDelivery,
   sendMessageGeneric,
   askFriesSize,
   askMilkshakeFlavor,
