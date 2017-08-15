@@ -102,7 +102,7 @@ routes.post("/confirm", (req, res) => {
             return userDAO.updateEmail(order._user._id, token_email)
           })
           .then((user) => {
-            send.sendConfirmUnpaidMessage(user.PSID)
+            send.sendConfirmPaidMessage(user.PSID)
             return sessionDAO.closeSession(user._sessions.slice(-1).pop())
           })
           .then((session) => {
