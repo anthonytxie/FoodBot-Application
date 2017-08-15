@@ -112,19 +112,11 @@ html(lang="en")
 			p#get_total
 
 			//- timestamp
-			input#time(name="time", type="time", placeholder="Delivery Time")
+			input#time(name="time", type="time")
 			input#address(name="address", type="text", placeholder="Address")
 			input#postal(name="postal", type="text", placeholder="Postal Code")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
 
-			//- p#get_order_price
-			//- br
-			//- p#get_tax
-			//- br
-			//- p#get_stripe
-			//- br
-			//- p#get_total
-			//- br
 			.pay_row
 				input.doneview2(type="submit", value="Pay Now")
 				input.doneview2(type="submit", value="Pay Later")
@@ -134,12 +126,12 @@ html(lang="en")
 				var d = new Date();
 				var hours = d.getHours();
 				var minutes = d.getMinutes();
+				console.log(hours.toString() + ":" + minutes.toString());
 				document.getElementById("time").value = hours.toString() + ":" + minutes.toString();
 			})
 			
 			// TODO: get feedback once confirmation is done
 
-			//- console.log(order);
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
 				const toggle = $(this).attr("toggle");
@@ -156,6 +148,7 @@ html(lang="en")
 				$(this).addClass("custom_check_on");
 			})
 
+			// does a get request on the otder, does stuff with the price
 			const get_price = (order) => {
 				const order_id = order._id;
 				console.log("get_price triggered");
@@ -164,6 +157,7 @@ html(lang="en")
 					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
 					const get_stripe = parseFloat((get_order.orderPrice * 1.13) * .029 + .3).toFixed(2);
 					pay_total = parseFloat((get_order.orderPrice * 1.13) * 1.029 + .3).toFixed(2);
+
 					// close window if order is now empty
 					if (Math.round(get_order_price) == 0) {
 						MessengerExtensions.requestCloseBrowser(function success() {
@@ -193,17 +187,11 @@ html(lang="en")
 
 			// view 2
 			// all payment stuff
-			// produces a length 4 list:
+			// produces a length 4 list: 
 			// Order
 			// HST
 			// Stripe
 			// Total
-
-			// tony things
-			//     close window if the ajax get total is zero
-			//     close window if is confirmed
-			//         should send them something
-			//     
 
 			// amount they have to pay
 			let pay_total = null;
