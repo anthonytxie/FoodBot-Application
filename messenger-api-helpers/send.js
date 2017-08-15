@@ -53,7 +53,6 @@ const sendConfirmPaidMessagePickup = (recipientId, data) => {
   sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.time}`));
 };
 
-
 const sendConfirmUnpaidMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.messageTemplate("Awesome. We sent your order to the restaurant. We'll see you soon!"));
 };

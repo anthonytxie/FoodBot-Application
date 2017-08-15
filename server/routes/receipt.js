@@ -102,12 +102,12 @@ routes.post("/confirm", (req, res) => {
             return userDAO.updateEmail(order._user._id, token_email)
           })
           .then((user) => {
-            if (method === 'delivery') {
+            // if (method === 'delivery') {
               send.sendConfirmPaidMessageDelivery(user.PSID, {time, address})
-            }
-            else {
-              send.sendConfirmPaidMessagePickup(user.PSID, {time})
-            }
+            // }
+            // else {
+            //   send.sendConfirmPaidMessagePickup(user.PSID, {time})
+            // }
             return sessionDAO.closeSession(user._sessions.slice(-1).pop())
           })
           .then((session) => {
