@@ -129,7 +129,10 @@ routes.post("/confirm", (req, res) => {
       .then(order => {
         send.sendConfirmUnpaidMessage(order._user.PSID)
         return sessionDAO.closeSession(order._session)
-      });
+      })
+      .then(() => {
+        return res.status(200).send();
+      })
   }
 });
 // if there is no items in the delete request, return just the order... else loop through delete everything. at the end get the order and send it

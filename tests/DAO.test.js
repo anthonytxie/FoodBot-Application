@@ -12,11 +12,18 @@ const sinon = require("sinon");
 const pug = require("pug");
 const send = require("./../messenger-api-helpers/send");
 
-mongoose.connect(process.env.MONGODB_URI);
-mongoose.Promise = global.Promise;
+
+
+
+mongoose.connect(process.env.MONGODB_URI, {
+  keepAlive: true,
+  reconnectTries: Number.MAX_VALUE,
+  useMongoClient: true
+});mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
+
 
 let userId;
 let firstSessionId;
@@ -545,12 +552,87 @@ describe("ROUTES", () => {
   });
 
   it("should confirm order with pay for delivery", () => {
-
-
+    let stub = sinon.stub(send, "sendConfirmPaidMessageDelivery");
+    let postBody = {
+      orderId: orderId,
+      method: "delivery",
+      address: "330 phillip street",
+      time: '"2017-08-15T18:00:00.000Z"',
+      postal: "l9t2x5",
+      room: "1234",
+      authorized_payment: "1192",
+      token_id: "tok_visa",
+      token_email: "anthony112244@hotmail.com"
+    };
+    return request(app)
+      .post("/confirm")
+      .send(postBody)
+      .then(res => {
+        return res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("methodFulfillment", "delivery"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isPaid", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
+      });
   });
 
 
 
+  it("should confirm order with pay for pick-up", () => {
+    let stub = sinon.stub(send, "sendConfirmPaidMessagePickup");
+    let postBody = {
+      orderId: orderId,
+      method: "pickup",
+      time: '"2017-08-15T18:00:00.000Z"',
+      authorized_payment: "1192",
+      token_id: "tok_visa",
+      token_email: "anthony112244@hotmail.com"
+    };
+    return request(app)
+      .post("/confirm")
+      .send(postBody)
+      .then(res => {
+        return res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("methodFulfillment", "pickup"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isPaid", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
+      });
+  });
 
   it("should delete items when posting to /delete", () => {
     let postBody = {
@@ -575,21 +657,17 @@ describe("ROUTES", () => {
 
   it("should render cashier view", () => {
     let spy = sinon.spy(pug, "__express");
-    return request(app)
-      .get(`/cashier`)
-      .expect(200)
-      .then(() => {
-        spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
-        spy.restore();
-      });
+    return request(app).get(`/cashier`).expect(200).then(() => {
+      spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
+      spy.restore();
+    });
   });
 
-  it('should get orderId', () => {
-    return request(app)
-      .get(`/getorder/${orderId}`)
-      .then((res) => {
-        res.status.should.equal(200)
-      })
-  })
-
+  it("should get orderId", () => {
+    return request(app).get(`/getorder/${orderId}`).then(res => {
+      res.status.should.equal(200);
+    });
+  });
 });
+
+
