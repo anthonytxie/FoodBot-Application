@@ -99,10 +99,13 @@ routes.post("/confirm", (req, res) => {
           })
         })
           .then(order => {
-            send.sendConfirmPaidMessage(order._user.PSID)
             return userDAO.updateEmail(order._user._id, token_email)
           })
-          .then(() => {
+          .then((user) => {
+            send.sendConfirmUnpaidMessage(user.PSID)
+            return sessionDAO.closeSession(user._sessions.slice(-1).pop())
+          })
+          .then((session) => {
             res.status(200).send();
           })
           .catch((err) => {
@@ -120,7 +123,7 @@ routes.post("/confirm", (req, res) => {
       })
       .then(order => {
         send.sendConfirmUnpaidMessage(order._user.PSID)
-        res.status(200).send(order);
+        return sessionDAO.closeSession(order._session)
       });
   }
 });
