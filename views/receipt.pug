@@ -8,10 +8,6 @@ html(lang="en")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
 		link(rel="stylesheet",href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css", type='text/css')
-		script.
-		    $(document).on('mobileinit', function () {
-		        $.mobile.ignoreContentEnabled = true;
-		    });
 		script(src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js")  
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="dragend-master/dragend.js")
@@ -19,6 +15,7 @@ html(lang="en")
 		script(src='https://checkout.stripe.com/checkout.js')
 	body
 		script.
+			// code to connect to the extension necessary to close this view
 			(function(d, s, id){
 				var js, fjs = d.getElementsByTagName(s)[0];
 				if (d.getElementById(id)) {return;}
