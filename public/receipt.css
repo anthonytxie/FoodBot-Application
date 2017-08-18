@@ -326,7 +326,7 @@ button.view1button {
 }
 
 .lightswitch div.selected {
-	background-color: rgba(0,0,0,0.5);
+	background-color: #f7f7f7;
 	color: #666;
 	border: 1px solid #e2e2e2;
 	box-shadow: 0.001px 0.001px 0.001px 0.001px;
@@ -421,6 +421,14 @@ p.label:nth-child(4) {
 	margin: 5px 10px;
 	box-shadow: 4px 5px 13px -2px rgba(0, 0, 0, 0.3);
 	border-radius: 7px;
+}
+
+.pay_row input:active {
+	background-color:#0073e0;
+}
+
+.pay_row input:nth-child(2):active {
+    border: 1px solid #0073e0;
 }
 
 .pay_row input:nth-child(2) {
