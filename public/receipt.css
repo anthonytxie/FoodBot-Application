@@ -306,15 +306,15 @@ button.view1button {
 }
 
 .lightswitch div {
-	color: #888;
+	color: rgba(0,0,0,0.2);
 	text-align: center;
 	display: inline-block;
 	width: 50%;
 	background-color: #eee;
 	height: 100%;
 	line-height: 70px;
-	font-size: 1.4em;
-	font-weight: 400;
+	font-size: 1.2em;
+	font-weight: 200;
 	cursor: pointer;
 	box-sizing: border-box;
 }
@@ -326,7 +326,7 @@ button.view1button {
 }
 
 .lightswitch div.selected {
-	background-color: #f7f7f7;
+	background-color: rgba(0,0,0,0.5);
 	color: #666;
 	border: 1px solid #e2e2e2;
 	box-shadow: 0.001px 0.001px 0.001px 0.001px;
@@ -352,7 +352,7 @@ button.view1button {
 
 #view2container input[type=text], #time {
 	border: 0px solid black !important;
-	color: #666 !important;
+	color: rgba(0,0,0,0.5);
 	height: 50px !important;
 	border-bottom: 1px solid #ccc !important;	
 	width: 90% !important;
@@ -362,6 +362,7 @@ button.view1button {
 	padding-left: 8px !important;
 	margin-bottom: 20px !important;
 	font-family: Arial !important;
+	background-color: rgba(249, 249, 249, 0.51);
 }
 
 #view2container input:focus {
