@@ -291,6 +291,17 @@ button {
 	border: 0px solid white!important;
 }
 
+button .done {
+	width: 85%;
+	height: 45px;
+	font-size: 1.1em;
+	font-weight: 350 !important;
+	letter-spacing: .06em;
+	margin: 15px 15px 15px 17px !important;
+    box-sizing: content-box;
+    border-radius: 7px !important;
+}
+
 button:active {
 	background-color: #1E847B!important;
 }
