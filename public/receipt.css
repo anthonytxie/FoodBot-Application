@@ -316,6 +316,7 @@ button.view1button {
 	font-size: 1.4em;
 	font-weight: 400;
 	cursor: pointer;
+	box-sizing: border-box;
 }
 
 .lightswitch div:nth-child(3) {
@@ -414,7 +415,7 @@ p.label:nth-child(4) {
 	background-color: #0084ff;
 	color: white;
 	display: inline-block;
-	width: 45%;
+	width: 44%;
 	box-sizing: border-box;
 	margin: 5px 10px;
 	box-shadow: 4px 5px 13px -2px rgba(0, 0, 0, 0.3);
