@@ -318,7 +318,7 @@ button {
 	border: 0px solid white!important;
 }
 
-button .done {
+.done {
 	width: 85%;
 	height: 45px;
 	font-size: 1.1em;
