@@ -446,9 +446,9 @@ p.label:nth-child(4) {
 	background-color:#0073e0;
 }
 
-.pay_row input:nth-child(2):active {
-    border: 1px solid #0073e0;
-    color: #0073e0;
+.pay_row input:active:nth-child(2) {
+    border: 1px solid #0073e0 !important;
+    color: #0073e0!important;
 }
 
 .pay_row input:nth-child(2) {

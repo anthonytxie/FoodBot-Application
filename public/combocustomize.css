@@ -307,19 +307,26 @@ p.price {
 
 button {
     font-family: BlinkMacSystemFont, San Francisco, Roboto, Helvetica, Arial, sans-serif;
-	background-color: #0080ff !important;
+	background-color: #0084ff !important;
 	color: white !important;
 	text-decoration: none!important;
 	text-shadow: 0 0 0 #f3f3f3!important;
-	font-weight: 350!important;
+	font-weight: 300!important;
 	letter-spacing: .1em;
 	border-radius: 0 !important;
 	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
-	border: 0px solid white!important;
+	width: 85%;
+	height: 45px;
+	font-size: 1.1em;
+	font-weight: 350 !important;
+	letter-spacing: .06em;
+	margin: 15px 15px 15px 17px !important;
+    box-sizing: content-box;
+    border-radius: 7px !important;
 }
 
 button:active {
-	background-color: #1E847B!important;
+	background-color: #0073e0!important;
 }
 
 /*.quantity:nth-of-type(1) {
