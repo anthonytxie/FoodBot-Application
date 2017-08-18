@@ -396,7 +396,7 @@ button.view1button {
 	font-size: 1.1em;
 	font-weight: 350 !important;
 	letter-spacing: .06em;
-	margin: 15px 15px 15px 17px !important;
+	margin: 15px 15px 15px 5% !important;
     box-sizing: content-box;
     border-radius: 7px !important;
 }
