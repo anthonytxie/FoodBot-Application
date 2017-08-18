@@ -391,11 +391,18 @@ button.view1button {
 }
 
 .doneview1 {
-	width: 100%;
+	width: 90%;
 	height: 50px;
 	font-size: 1.1em;
-	font-weight: 400;
+	font-weight: 400 !important;
 	letter-spacing: .06em;
+	margin: 10px 10px !important;
+    box-sizing: content-box;
+    border-radius: 7px !important;
+}
+
+.doneview1:active {
+  background-color: #0073e0 !important;
 }
 
 p.label {
@@ -441,6 +448,7 @@ p.label:nth-child(4) {
 
 .pay_row input:nth-child(2):active {
     border: 1px solid #0073e0;
+    color: #0073e0;
 }
 
 .pay_row input:nth-child(2) {
