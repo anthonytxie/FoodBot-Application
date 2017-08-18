@@ -1,12 +1,12 @@
 @font-face {
   font-family: "San Francisco";
-  font-weight: 300;
+  font-weight: 350;
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
 @font-face {
   font-family: "Roboto";
-  font-weight: 300;
+  font-weight: 350;
   src: url("https://fonts.googleapis.com/css?family=Roboto");
 }
 
