@@ -25,7 +25,7 @@ html, body {
 	background-color: #f7f7f7;
 	color: rgba(0,0,0,0.4);
     font-family: BlinkMacSystemFont, San Francisco, Roboto, Helvetica, Arial, sans-serif;
-	font-weight: 400;
+	font-weight: 300;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
@@ -49,7 +49,7 @@ h4 {
 }
 
 h3, h4 {
-	font-weight: 400;
+	font-weight: 300;
 	margin: 0;
 }
 
@@ -223,7 +223,7 @@ h3 {
 	font-size: .85em;
 	margin-top: 0px;
 	padding-left: 5px;
-	font-weight: 400;
+	font-weight: 300;
 	color: darkgrey;
 }
 
@@ -295,7 +295,7 @@ button {
 	color: white !important;
 	text-decoration: none!important;
 	text-shadow: 0 0 0 #f3f3f3!important;
-	font-weight: 400!important;
+	font-weight: 300!important;
 	letter-spacing: .1em;
 	border-radius: 0 !important;
 	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
@@ -313,7 +313,7 @@ button.view1button {
 #original_total {
 	width: 95%;
 	position: fixed;
-	bottom: 58px;
+	bottom: 15%;
 	text-align: right;
 }
 
@@ -391,12 +391,12 @@ button.view1button {
 }
 
 .doneview1 {
-	width: 90%;
-	height: 50px;
+	width: 85%;
+	height: 45px;
 	font-size: 1.1em;
-	font-weight: 400 !important;
+	font-weight: 300 !important;
 	letter-spacing: .06em;
-	margin: 10px 10px !important;
+	margin: 15px 15px 15px 17px !important;
     box-sizing: content-box;
     border-radius: 7px !important;
 }
