@@ -328,6 +328,7 @@ button.view1button {
 	background-color: #f7f7f7;
 	color: #666;
 	border: 1px solid #e2e2e2;
+	box-shadow: 0.001px 0.001px 0.001px 0.001px;
 
 }
 
