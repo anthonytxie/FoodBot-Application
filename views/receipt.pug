@@ -63,7 +63,7 @@ html(lang="en")
 						.custom_check_on(toggle=index)
 						.toggle
 							h3 #{item.itemName} #{combo}
-						p.price #{combo_price}
+						p.price #{combo_price.toFixed(2)}
 
 					if item.itemType === "burger"
 						.zoom(value=item._id, style="display:none")
