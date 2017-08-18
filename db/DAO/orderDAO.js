@@ -79,7 +79,7 @@ orderDAO.getOrderBySessionId = function(sessionId) {
 
 orderDAO.showIncompleteOrders = function() {
   return new Promise((resolve, reject) => {
-    populateOrder(Order.find({isInputted: false}))
+    populateOrder(Order.find({isInputted: false, isConfirmed: true}))
       .then((orders) => {
         resolve(orders);
       }).catch((err) => reject(err));
