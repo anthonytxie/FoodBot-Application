@@ -71,7 +71,7 @@ routes.post("/confirm", (req, res) => {
     token_email,
     authorized_payment
   } = req.body;
-  let parsedDate = Date.parse(newDate.split('"')[1])
+  let parsedDate = Date.parse(time.split('"')[1])
   time = moment(parsedDate).format("YYYY-MM-HH-MM-SS")
   if (token_id) {
     let amount = parseFloat(authorized_payment);
