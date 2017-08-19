@@ -71,8 +71,9 @@ routes.post("/confirm", (req, res) => {
     token_email,
     authorized_payment
   } = req.body;
-  let parsedDate = Date.parse(time.split('"')[1])
-  time = moment(parsedDate).format("YYYY-MM-HH-MM-SS")
+  time = Date(time)
+  let parsedDate = Date.parse(time.split('"')[1]);
+  let fulfillmentDate = moment(parsedDate).format("YYYY-MM-HH-MM-SS");
   if (token_id) {
     let amount = parseFloat(authorized_payment);
     stripe.customers
@@ -104,10 +105,10 @@ routes.post("/confirm", (req, res) => {
           })
           .then((user) => {
             if (method === 'delivery') {
-              send.sendConfirmPaidMessageDelivery(user.PSID, {time, address})
+              send.sendConfirmPaidMessageDelivery(user.PSID, {fulfillmentDate, address})
             }
             else {
-              send.sendConfirmPaidMessagePickup(user.PSID, {time})
+              send.sendConfirmPaidMessagePickup(user.PSID, {fulfillmentDate})
             }
             return sessionDAO.closeSession(user._sessions.slice(-1).pop())
           })
