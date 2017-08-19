@@ -1,7 +1,7 @@
 //MODULES
 const express = require("express");
 const routes = express();
-
+const moment = require('moment')
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
 
@@ -25,3 +25,8 @@ routes.post("/input", (req, res) => {
 });
 
 module.exports = routes;
+
+let date = Date.now()
+
+const momentObj = moment(date, "America/Toronto")
+console.log(momentObj)
