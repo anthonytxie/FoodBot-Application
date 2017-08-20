@@ -3,7 +3,7 @@ const express = require("express");
 const routes = express();
 const async = require("async");
 const mongoose = require("mongoose");
-const moment = require('moment');
+const moment = require('moment-timezone');
 //DAO
 const sessionDAO = require("./../../db/DAO/sessionDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
@@ -73,7 +73,7 @@ routes.post("/confirm", (req, res) => {
   } = req.body;
   time = new Date((time).split('"')[1])
   let parsedDate = Date.parse(time);
-  let fulfillmentDate = moment(parsedDate).format("YYYY-MM-DD HH:mm:ss");
+  let fulfillmentDate = moment(parsedDate).tz('America/Toronto').format("YYYY-MM-DD HH:mm:ss")
   if (token_id) {
     let amount = parseFloat(authorized_payment);
     stripe.customers
