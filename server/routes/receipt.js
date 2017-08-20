@@ -105,10 +105,10 @@ routes.post("/confirm", (req, res) => {
           })
           .then((user) => {
             if (method === 'delivery') {
-              send.sendConfirmPaidMessageDelivery(user.PSID, {fulfillmentDate, address})
+              send.sendConfirmPaidMessageDelivery(user.PSID, {fulfillmentDate, address, orderId})
             }
             else {
-              send.sendConfirmPaidMessagePickup(user.PSID, {fulfillmentDate})
+              send.sendConfirmPaidMessagePickup(user.PSID, {fulfillmentDate, orderId}, )
             }
             return sessionDAO.closeSession(user._sessions.slice(-1).pop())
           })

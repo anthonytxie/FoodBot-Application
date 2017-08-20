@@ -45,11 +45,11 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
 };
 
 const sendConfirmPaidMessageDelivery = (recipientId, data) => {
-  sendMessage(recipientId, messages.messageTemplate(`Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at ${data.time}`));
+  sendMessage(recipientId, messages.messageTemplate(`Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId}.`));
 };
 
 const sendConfirmPaidMessagePickup = (recipientId, data) => {
-  sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.time}`));
+  sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId}.`));
 };
 
 const sendConfirmUnpaidMessage = (recipientId, order) => {

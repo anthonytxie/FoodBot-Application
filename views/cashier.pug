@@ -30,16 +30,16 @@ html(lang="en")
 								else
 									img(src="check.png")
 								.number_time
-									- var date = new Date(order.fulfillmentDate);
+									- var date = Date(order.fulfillmentDate);
 									- var order_id = order._id;
 									- var display_id = order_id.toString().substr(-5);
 									.number Order #{(display_id)}
 									if order.methodFulfillment == "pickup"
 										//- do countdown / up
-										.time.green Pickup @ #{date.getHours() - 4}:#{date.getMinutes()}
+										.time.green Pickup @ #{date.getHours()}:#{date.getMinutes()}
 									else
 										//- throw some bold tags in here
-										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours() - 4}:#{date.getMinutes()}
+										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours()}:#{date.getMinutes()}
 							.details
 								each item in order._items
 									//- combo logic here

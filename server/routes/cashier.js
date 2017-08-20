@@ -26,7 +26,3 @@ routes.post("/input", (req, res) => {
 
 module.exports = routes;
 
-let date = Date.now()
-
-const momentObj = moment(date, "America/Toronto")
-console.log(momentObj)
