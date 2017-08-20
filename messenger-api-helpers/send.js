@@ -52,10 +52,14 @@ const sendConfirmPaidMessagePickup = (recipientId, data) => {
   sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId}.`));
 };
 
-const sendConfirmUnpaidMessage = (recipientId, order) => {
-  sendMessage(recipientId, messages.messageTemplate("Awesome. We sent your order to the restaurant. We'll see you soon!"));
+const sendConfirmUnpaidMessagePickup = (recipientId, data) => {
+  sendMessage(recipientId, messages.messageTemplate(`Awesome. We sent your order to the restaurant. It should be ready around ${data.fulfillmentDate}. Tell the cashier your order Id is ${data.orderId}`));
+
 };
 
+const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
+  sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered. It should be ready around ${data.fulfillmentDate}.`));
+};
 // ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
@@ -162,7 +166,8 @@ module.exports = {
   sendBurgerOrderPrompt,
   sendOrderedBurgerUpsizeMessage,
   sendOrderedMessage,
-  sendConfirmUnpaidMessage,
+  sendConfirmUnpaidMessagePickup,
+  sendConfirmUnpaidMessageDelivery,
   sendConfirmPaidMessagePickup,
   sendConfirmPaidMessageDelivery,
   sendMessageGeneric,
