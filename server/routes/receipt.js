@@ -73,7 +73,7 @@ routes.post("/confirm", (req, res) => {
   } = req.body;
   time = new Date((time).split('"')[1])
   let parsedDate = Date.parse(time);
-  let fulfillmentDate = moment(parsedDate).format("YYYY-MM-HH-MM-SS");
+  let fulfillmentDate = moment(parsedDate).format("YYYY-MM-DD HH:mm:ss");
   if (token_id) {
     let amount = parseFloat(authorized_payment);
     stripe.customers
@@ -140,6 +140,4 @@ routes.post("/confirm", (req, res) => {
 // if there is no items in the delete request, return just the order... else loop through delete everything. at the end get the order and send it
 
 module.exports = routes;
-
-
 
