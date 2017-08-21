@@ -1,5 +1,3 @@
-
-
 doctype html
 html(lang="en")
 	head
@@ -112,14 +110,14 @@ html(lang="en")
 			p#get_total
 
 			//- timestamp
-			input#time(name="time", type="time")
+			input#time(style="-webkit-appearance: none;", name="time", type="time")
 			input#address(name="address", type="text", placeholder="Address")
 			input#postal(name="postal", type="text", placeholder="Postal Code")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
 
 			.pay_row
-				input.doneview2(type="submit", value="Pay Now")
-				input.doneview2(type="submit", value="Pay Later")
+				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Now")
+				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Later")
 
 		script.
 			$(document).ready(function(){
