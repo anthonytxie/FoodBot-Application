@@ -202,7 +202,7 @@ describe("ORDER DAO", () => {
 
   it("should find all incomplete orders", () => {
     let result = orderDAO.showIncompleteOrders();
-    return Promise.all([result.should.eventually.have.length(1)]);
+    return Promise.all([result.should.eventually.have.length(0)]);
   });
 
   it("should confirm order", () => {
@@ -512,7 +512,7 @@ describe("ROUTES", () => {
       });
   });
   it("should confirm order without pay for pick-up", () => {
-    let stub = sinon.stub(send, "sendConfirmUnpaidMessage");
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
     let postBody = {
       orderId: orderId,
       method: "pickup",
@@ -601,6 +601,8 @@ describe("ROUTES", () => {
       orderId: orderId,
       method: "pickup",
       time: '"2017-08-15T18:00:00.000Z"',
+      address: "330 phillip street",
+      postal: "l9t2x5",
       authorized_payment: "1192",
       token_id: "tok_visa",
       token_email: "anthony112244@hotmail.com"
