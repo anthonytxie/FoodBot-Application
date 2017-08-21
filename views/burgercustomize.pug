@@ -439,6 +439,8 @@ html(lang="en")
 			})
 
 			$(document).ready(function(){
+				console.log(toppings)
+				console.log((toppings.includes('chickenPatty')))
 				if(($(".section1").find(".custom_check_on").length >= 1 || (toppings.includes('chickenPatty'))) && $(".section2").find(".custom_check_on").length >= 1) {
 					$("button").prop('disabled', false);
 				}
