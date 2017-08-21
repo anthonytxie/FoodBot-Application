@@ -383,7 +383,7 @@ button.view1button {
 }
 
 #get_total {
-	height: 70px;
+	height: 60px;
 	line-height: 70px;
 	text-align: center;
 	color: rgba(0,0,0, 0.5);
@@ -424,7 +424,7 @@ p.label:nth-child(4) {
 
 .pay_row {
 	width: 100%;
-	position: absolute;
+	position: relative;
 	bottom: 0;
 }
 

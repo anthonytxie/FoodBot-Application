@@ -7,13 +7,16 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {
-    res.render("cashier.pug", { orders });
+    res.status(200).render("cashier.pug", { orders });
   });
 });
 
 routes.get("/history", (req, res) => {
   orderDAO.showInputtedOrderHistory().then(orders => {
-    res.render("cashierHistory.pug", { orders });
+    orders = orders.sort(function(a, b) {
+      return parseFloat(a.inputDate) - parseFloat(b.inputDate);
+    });
+    res.status(200).render("cashierHistory.pug", { orders });
   });
 });
 

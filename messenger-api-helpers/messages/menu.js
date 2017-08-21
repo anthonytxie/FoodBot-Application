@@ -53,7 +53,6 @@ const specialBurgerMenuTemplate = burgerObject => {
     };
 };
 
-
 const normalBurgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
@@ -106,11 +105,19 @@ const normalBurgerMenuMessageOne = {
                 normalBurgerMenuTemplate(menuItems[5]),
                 normalBurgerMenuTemplate(menuItems[6]),
                 normalBurgerMenuTemplate(menuItems[7])
+            ],
+            buttons: [
+                {
+                    title: "View More",
+                    type: "postback",
+                    payload: JSON.stringify({
+                        type: "see-menu"
+                    })
+                }
             ]
         }
     }
 };
-
 
 const specialBurgerMenuMessageOne = {
     attachment: {
