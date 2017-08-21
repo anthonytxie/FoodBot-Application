@@ -92,7 +92,7 @@ html(lang="en")
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 
-			- const subTotal = parseFloat(order_price)toFixed(2)
+			- const subTotal = parseFloat(order_price).toFixed(2)
 			- const tax = (subTotal * 0.13).toFixed(2)
 			- const stripeFees = (((subTotal + tax) * 0.029) + 0.3).toFixed(2)
 			- const total = subTotal + tax + stripeFees
