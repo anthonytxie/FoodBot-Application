@@ -324,7 +324,7 @@ button.view1button {
 	display: inline-block;
 	width: 50%;
 	background-color: #eee;
-	height: 100%;
+	height: 90%;
 	line-height: 70px;
 	font-size: 1.2em;
 	font-weight: 350;
@@ -383,12 +383,13 @@ button.view1button {
 }
 
 #get_total {
-	height: 60px;
+	height: 11%;
 	line-height: 70px;
 	text-align: center;
 	color: rgba(0,0,0, 0.5);
 	font-size: 1.3em;
 	font-weight: 350;
+	margin-top: -6%;
 }
 
 .doneview1 {
