@@ -13,6 +13,9 @@ routes.get("/cashier", (req, res) => {
 
 routes.get("/history", (req, res) => {
   orderDAO.showInputtedOrderHistory().then(orders => {
+    orders = orders.sort(function(a, b) {
+      return parseFloat(a.inputDate) - parseFloat(b.inputDate);
+    });
     res.render("cashierHistory.pug", { orders });
   });
 });
