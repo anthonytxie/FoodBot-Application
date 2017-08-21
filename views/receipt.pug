@@ -93,9 +93,9 @@ html(lang="en")
 				- index++;
 
 			- const subTotal = parseFloat(order_price).toFixed(2)
-			- const tax = (subTotal * 0.13).toFixed(2)
-			- const stripeFees = (((subTotal + tax) * 0.029) + 0.3).toFixed(2)
-			- const total = subTotal + tax + stripeFees
+			- const tax = parseFloat((subTotal * 0.13)).toFixed(2)
+			- const stripeFees = parseFloat((((subTotal + tax) * 0.029) + 0.3)).toFixed(2)
+			- const total = parseFloat(subTotal + tax + stripeFees)
 				
 			p#original_total Order Total: #{subTotal}
 			p#tax_total Tax: #{tax}
