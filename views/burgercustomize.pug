@@ -27,48 +27,33 @@ html(lang="en")
 			input(type="hidden" name="order_id", value=order_id)
 			input(type="hidden" name="title" value=burger.title)
 			input(type="hidden" name="sender_id" value=sender_id)
-				
-			h4 PATTIES
-			section.radio.section1.required
-				if burger.patties == 3
-					input(type="hidden", name="patties", value=3)
-					.quantity#one 1
-					.quantity#two 2
-					.quantity.patty_selected#three 3
-				else if burger.patties == 2
-					input(type="hidden", name="patties", value=2)
-					.quantity#one 1
-					.quantity.patty_selected#two 2
-					.quantity#three 3
-				else
-					input(type="hidden", name="patties", value=1)
-					.quantity.patty_selected#one 1
-					.quantity#two 2
-					.quantity#three 3
-				
-				.wide_checkbox
-					if !(toppings.includes('chickenPatty'))
+
+			if !(toppings.includes('chickenPatty'))
+				h4 PATTIES
+				section.radio.section1.required
+					if burger.patties == 3
+						input(type="hidden", name="patties", value=3)
+						.quantity#one 1
+						.quantity#two 2
+						.quantity.patty_selected#three 3
+					else if burger.patties == 2
+						input(type="hidden", name="patties", value=2)
+						.quantity#one 1
+						.quantity.patty_selected#two 2
+						.quantity#three 3
+					else
+						input(type="hidden", name="patties", value=1)
+						.quantity.patty_selected#one 1
+						.quantity#two 2
+						.quantity#three 3
+					
+					.wide_checkbox
 						.custom_check_on
 						input(type="hidden", name="beef", value="true")
-					else
-						.custom_check_off
-						input(type="hidden", name="beef", value="")
-					.toggle
-						h3 Beef
-						p Moo
-					p.price $2.00
-
-				.wide_checkbox
-					if toppings.includes('chickenPatty')
-						.custom_check_on
-						input(type="hidden", name="chickenPatty", value="true")
-					else
-						.custom_check_off
-						input(type="hidden", name="chickenPatty", value="")
-					.toggle
-						h3 Chicken
-						p Not Moo
-					p.price $5.00
+						.toggle
+							h3 Beef
+							p Moo
+						p.price $2.00
 				
 			br
 			h4 BUN
@@ -201,6 +186,18 @@ html(lang="en")
 			br
 			h4 TOPPINGS
 			section
+				.wide_checkbox
+					if toppings.includes('chickenPatty')
+						.custom_check_on
+						input(type="hidden", name="chickenPatty", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='chickenPatty', value="")
+					.toggle
+						h3 Chicken Patty
+						p bok bok boooooookkkkk
+					p.price $5.00
+
 				// FREE
 				.wide_checkbox
 					if toppings.includes('lettuce')
