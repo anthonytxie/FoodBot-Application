@@ -97,10 +97,11 @@ html(lang="en")
 			- const stripeFees = (((parseFloat(subTotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
 			- const total = (parseFloat(subTotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
 				
-			p#original_total Order Total: #{subTotal}
-			p#tax_total Tax: #{tax}
-			p#stripe_fees Processing Fee (if paying online): #{stripeFees}
-			p#order_total Total: #{total}
+			div.list_prices
+				p#original_total Order Total: #{subTotal}
+				p#tax_total Tax: #{tax}
+				p#stripe_fees Processing Fee (if paying online): #{stripeFees}
+				p#order_total Total: #{total}
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2

@@ -311,7 +311,14 @@ button.view1button {
 	margin: 0;
 }
 
-#original_total {
+/*#original_total {
+	width: 95%;
+	position: fixed;
+	bottom: 15%;
+	text-align: right;
+}
+*/
+.list_prices {
 	width: 95%;
 	position: fixed;
 	bottom: 15%;
