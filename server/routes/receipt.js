@@ -137,10 +137,10 @@ routes.post("/confirm", (req, res) => {
       })
       .then(order => {
         if (method === "delivery") {
-          send.sendConfirmUnpaidMessageDelivery(order._user.PSID);
+          send.sendConfirmUnpaidMessageDelivery(order._user.PSID, {fulfillmentDate} );
         } 
         else {
-          send.sendConfirmUnpaidMessagePickup(order._user.PSID);
+          send.sendConfirmUnpaidMessagePickup(order._user.PSID, {fulfillmentDate ,orderId});
         }
         return sessionDAO.closeSession(order._session);
       })

@@ -1,4 +1,4 @@
-const { Order, User } = require('./../models/index');
+const { Order, User } = require("./../models/index");
 const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder } = require("./helperFunctions");
@@ -18,23 +18,23 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
   });
 };
 
-orderDAO.findOrderById = (orderId) => {
-  return new Promise ((resolve ,reject) => {
-    populateOrder(Order.findOne({_id: orderId}))
-      .then((order) => {
-        resolve(order)
-      }).catch((err) => reject(err))
+orderDAO.findOrderById = orderId => {
+  return new Promise((resolve, reject) => {
+    populateOrder(Order.findOne({ _id: orderId }))
+      .then(order => {
+        resolve(order);
+      })
+      .catch(err => reject(err));
   });
 };
-
 
 orderDAO.getAllOrders = () => {
   return new Promise((resolve, reject) => {
     populateOrder(Order.find({}))
-      .then((orders) => {
+      .then(orders => {
         resolve(orders);
       })
-      .catch((err) => reject(err));
+      .catch(err => reject(err));
   });
 };
 orderDAO.confirmOrder = function(data) {
@@ -63,7 +63,6 @@ orderDAO.confirmOrder = function(data) {
   });
 };
 
-
 orderDAO.getOrderBySessionId = function(sessionId) {
   return new Promise((resolve, reject) => {
     populateOrder(Order.findOne({ _session: sessionId }))
@@ -79,13 +78,23 @@ orderDAO.getOrderBySessionId = function(sessionId) {
 
 orderDAO.showIncompleteOrders = function() {
   return new Promise((resolve, reject) => {
-    populateOrder(Order.find({isInputted: false, isConfirmed: true}))
-      .then((orders) => {
+    populateOrder(Order.find({ isInputted: false, isConfirmed: true }))
+      .then(orders => {
         resolve(orders);
-      }).catch((err) => reject(err));
+      })
+      .catch(err => reject(err));
   });
 };
 
+orderDAO.showInputtedOrderHistory = function() {
+  return new Promise((resolve, reject) => {
+    populateOrder(Order.find({ isInputted: true, isConfirmed: true }))
+      .then(orders => {
+        resolve(orders);
+      })
+      .catch(err => reject(err));
+  });
+};
 
 orderDAO.updateInputtedOrder = function(orderId) {
   return new Promise((resolve, reject) => {
@@ -107,4 +116,5 @@ orderDAO.updateInputtedOrder = function(orderId) {
       .catch(err => reject(err));
   });
 };
+
 module.exports = orderDAO;
