@@ -424,7 +424,7 @@ p.label:nth-child(4) {
 
 .pay_row {
 	width: 100%;
-	position: absolute;
+	position: relative;
 	bottom: 0;
 }
 
