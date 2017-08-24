@@ -50,7 +50,7 @@ html(lang="en")
 				- let combo = "";
 				if item.itemType === "burger"
 					if index <= items.length - 3
-						if typeof itemCombo in items[index + 1] !== "undefined"
+						if items[index + 1].itemCombo === true
 							- combo = "(Combo)"
 							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
 
@@ -69,7 +69,7 @@ html(lang="en")
 							each topping in toppings
 								.topping= topping
 							
-							if combo
+							if combo == "(Combo)"
 								- let combo_drink = undefined; // find the drink and side that are part of this combo
 								- let combo_side = undefined;
 								if items[index + 1] === "drink"
@@ -142,6 +142,20 @@ html(lang="en")
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
 				const toggle = $(this).attr("toggle");
+
+				// get the cost so that we can remove it from the total
+				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
+				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
+				const new_subtotal = (parseFloat(old_subtotal) - parseFloat(price)).toFixed(2);
+				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
+				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+
+				$("#original_total").text("Order Total: " + new_subtotal);
+				$("#tax_total").text("Tax: " + tax);
+				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
+				$("#order_total").text("Total: " + total);
+
 				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
@@ -150,6 +164,20 @@ html(lang="en")
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
 				const toggle = $(this).attr("toggle");
+
+				// get the cost so that we can remove it from the total
+				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
+				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
+				const new_subtotal = (parseFloat(old_subtotal) + parseFloat(price)).toFixed(2);
+				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
+				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+
+				$("#original_total").text("Order Total: " + new_subtotal);
+				$("#tax_total").text("Tax: " + tax);
+				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
+				$("#order_total").text("Total: " + total);
+
 				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
