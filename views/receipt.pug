@@ -50,7 +50,7 @@ html(lang="en")
 				- let combo = "";
 				if item.itemType === "burger"
 					if index <= items.length - 3
-						if typeof itemCombo in items[index + 1] === true
+						if items[index + 1].itemCombo === true
 							- combo = "(Combo)"
 							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
 
