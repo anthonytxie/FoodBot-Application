@@ -172,6 +172,12 @@ html(lang="en")
 				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
 				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
 				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+				console.log(price);
+				console.log(old_subtotal);
+				console.log(new_subtotal);
+				console.log(tax);
+				console.log(stripeFees);
+				console.log(total);
 
 				$("#original_total").text("Order Total: " + new_subtotal);
 				$("#tax_total").text("Tax: " + tax);
