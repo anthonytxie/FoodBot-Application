@@ -142,6 +142,12 @@ html(lang="en")
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
 				const toggle = $(this).attr("toggle");
+
+				// get the cost so that we can remove it from the total
+				const price = $(this).parent().find(".price").text();
+				let old_subtotal = parseFloat($("#original_total").text()).toFixed(2);
+				console.log(old_subtotal);
+
 				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
 				$(this).addClass("custom_check_off");
@@ -150,6 +156,10 @@ html(lang="en")
 			// remove from deleteIds
 			$("form").on("click", ".custom_check_off", function(){
 				const toggle = $(this).attr("toggle");
+
+				// get the cost so that we can add it to the total
+				const price = $(this).parent().find(".price").text();
+
 				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
 				$(this).removeClass("custom_check_off");
 				$(this).addClass("custom_check_on");
