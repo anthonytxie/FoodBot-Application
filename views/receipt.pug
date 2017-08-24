@@ -144,9 +144,17 @@ html(lang="en")
 				const toggle = $(this).attr("toggle");
 
 				// get the cost so that we can remove it from the total
-				const price = $(this).parent().find(".price").text();
-				let old_subtotal = parseFloat($("#original_total").text()).toFixed(2);
-				console.log(old_subtotal);
+				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
+				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
+				const new_subtotal = parseFloat(old_subtotal - price).toFixed(2);
+				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
+				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+
+				$("#original_total").text("Order Total: " + new_subtotal);
+				$("#tax_total").text("Tax: " + tax);
+				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
+				$("#order_total").text("Total: " + total);
 
 				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
 				$(this).removeClass("custom_check_on");
@@ -157,8 +165,18 @@ html(lang="en")
 			$("form").on("click", ".custom_check_off", function(){
 				const toggle = $(this).attr("toggle");
 
-				// get the cost so that we can add it to the total
-				const price = $(this).parent().find(".price").text();
+				// get the cost so that we can remove it from the total
+				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
+				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
+				const new_subtotal = parseFloat(old_subtotal + price).toFixed(2);
+				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
+				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+
+				$("#original_total").text("Order Total: " + new_subtotal);
+				$("#tax_total").text("Tax: " + tax);
+				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
+				$("#order_total").text("Total: " + total);
 
 				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
 				$(this).removeClass("custom_check_off");
