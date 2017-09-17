@@ -301,6 +301,7 @@ module.exports = {
   burgerTemplate,
   upsizeOrderMessage,
   orderAskContinue,
+  editOrder,
   askFriesSizeMessage,
   askMilkshakeFlavorMessage,
   comboErrorMessage
