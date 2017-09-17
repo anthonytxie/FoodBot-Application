@@ -18,8 +18,10 @@ routes.get("/editorder", (req, res) => {
 });
 
 routes.post("/editorder", (req, res) => {
+  console.log("request received");
   let orderId = req.body.orderId;
   let itemIds = req.body.removeIds;
+  console.log(req.body);
   async.each(itemIds, itemId => {
     itemDAO
       .deleteItemById(itemId, orderId)
