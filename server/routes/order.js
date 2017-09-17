@@ -2,6 +2,7 @@
 const express = require("express");
 const routes = express();
 const mongoose = require("mongoose");
+const async = require("async");
 
 // DAOS
 const itemDAO = require("./../../db/DAO/itemDAO");
