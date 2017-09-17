@@ -15,4 +15,16 @@ routes.get("/editorder", (req, res) => {
   });
 });
 
+routes.post("/editorder", (req, res) => {
+  let orderId = req.body.orderId;
+  let itemIds = req.body.removeIds;
+  async.each(itemIds, itemId => {
+    itemDAO
+      .deleteItemById(itemId, orderId)
+      .then(item => {
+        res.status(200).send();
+      })
+      .catch(err => console.log(err));
+  });
+});
 module.exports = routes;
