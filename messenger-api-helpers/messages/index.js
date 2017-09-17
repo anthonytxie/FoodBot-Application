@@ -34,7 +34,7 @@ const newOrderButton = {
 
 const editOrderButton = {
   type: "postback",
-  title: "New Order",
+  title: "Edit Order",
   payload: JSON.stringify({
     type: "edit-order"
   })

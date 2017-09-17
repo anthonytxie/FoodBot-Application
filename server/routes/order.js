@@ -7,12 +7,12 @@ const mongoose = require("mongoose");
 const itemDAO = require("./../../db/DAO/itemDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 
-
 routes.get("/editorder", (req, res) => {
   let orderId = req.query.order;
   let senderId = req.query.sender;
-  res.send({orderId, senderId})
+  orderDAO.findOrderById(orderId).then(order => {
+    res.status(200).send(order);
+  });
 });
-
 
 module.exports = routes;
