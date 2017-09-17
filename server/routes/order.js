@@ -11,7 +11,7 @@ routes.get("/editorder", (req, res) => {
   let orderId = req.query.order;
   let senderId = req.query.sender;
   orderDAO.findOrderById(orderId).then(order => {
-    res.status(200).send(order);
+    res.send(order)
   });
 });
 
