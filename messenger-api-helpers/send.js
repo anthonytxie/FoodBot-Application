@@ -62,7 +62,7 @@ const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
 };
 
 const sendEditOrderMessage = (recipientId, order) => {
-  sendMessage(recipientId, messages.editOrder(order, recipientId))
+  sendMessage(recipientId, messages.editOrder(recipientId, order))
 }
 
 // ===== ITEMS ===============================================================
