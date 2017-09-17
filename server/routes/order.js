@@ -10,9 +10,7 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 routes.get("/editorder", (req, res) => {
   let orderId = req.query.order;
   let senderId = req.query.sender;
-  orderDAO.findOrderById(orderId).then(order => {
-    res.send(order)
-  });
+  res.send(orderId)
 });
 
 module.exports = routes;
