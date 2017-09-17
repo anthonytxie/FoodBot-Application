@@ -60,6 +60,11 @@ const sendConfirmUnpaidMessagePickup = (recipientId, data) => {
 const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
   sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered. It should be ready around ${data.fulfillmentDate}.`));
 };
+
+const sendEditOrderMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.editOrder(order, recipientId))
+}
+
 // ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
   sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
@@ -170,6 +175,7 @@ module.exports = {
   sendConfirmUnpaidMessageDelivery,
   sendConfirmPaidMessagePickup,
   sendConfirmPaidMessageDelivery,
+  sendEditOrderMessage,
   sendMessageGeneric,
   askFriesSize,
   askMilkshakeFlavor,

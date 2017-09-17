@@ -21,7 +21,7 @@ const handleReceivePostback = messagingEvent => {
             send.sendMenuMessage(senderId);
           });
           break;
-        case "create_new_order":
+        case "create-new-order":
           runner.createNewOrder(senderId).then(order => {
             send.sendMenuMessage(senderId);
           });
@@ -70,6 +70,16 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
+        case "edit-order":
+          runner
+            .renewSessionAndReturnOrder(senderId)
+            .then(order => {
+              send.sendEditOrderMessage(senderId, order);
+            })
+            .catch(err => console.log(err));
+          break;
+
+          
         default:
           console.log(`unknown postback called ${type}`);
           break;
