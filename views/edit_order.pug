@@ -1,0 +1,172 @@
+doctype html
+html(lang="en")
+	head
+		title Burger
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+		//- link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+		link(rel ='stylesheet', href="receipt.css", type='text/css')
+		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+		//- script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+		script(src="dragend-master/dragend.js")
+		script(src="form.js")
+		script(src='https://checkout.stripe.com/checkout.js')
+	body
+		script.
+			// code to connect to the extension necessary to close this view
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'Messenger'));
+
+		- // this page is going to broken up into several phases
+		- // 1: see receipt, remove / restore items
+		- // 2: ajax/get_order, see pickup or delivery, time, pay button
+		- // 3: payment
+
+		- // TODO: security
+		- // TODO: style
+		
+		- // VIEW 1
+
+		- const items = order._items; // all items in the order
+		- let index = 0;
+
+		form#view1container(style="position:relative;", method="post", action="editorder")
+
+			h4 RECEIPT
+			input(type="hidden", name="orderId", value=order._id)
+
+			- let order_price = 0;
+
+			while index < items.length
+				- let item = items[index];  // loop through each item in the list
+				- let name = item.itemName; // name of current item
+				- let combo_price = item.price; // equal to the price of the item or combo, if applicable
+
+				- let combo = "";
+				if item.itemType === "burger"
+					if index <= items.length - 3
+						if items[index + 1].itemCombo === true
+							- combo = "(Combo)"
+							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
+
+				- order_price += combo_price;
+				span
+					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
+					.wide_checkbox
+						.custom_check_on(toggle=index)
+						.toggle
+							h3 #{item.itemName} #{combo}
+						p.price #{combo_price.toFixed(2)}
+
+					if item.itemType === "burger"
+						.zoom(value=item._id, style="display:none")
+							- let toppings = item.standardToppings.concat(item.premiumToppings)
+							each topping in toppings
+								.topping= topping
+							
+							if combo == "(Combo)"
+								- let combo_drink = undefined; // find the drink and side that are part of this combo
+								- let combo_side = undefined;
+								if items[index + 1] === "drink"
+									- combo_drink = items[index + 1];
+									- combo_side = items[index + 2];
+								else
+									- combo_side = items[index + 1];
+									- combo_drink = items[index + 2];
+
+									- price	+= combo_drink.price; // add the drink to the delete id list
+									.drink= combo_drink.itemName
+									.price= combo_drink.price
+									input(toggle_input=index, name="keepIds[]", value=combo_drink._id)
+
+									- price	+= combo_side.price; // add the side to the delete id list
+									.side= combo_side.itemName
+									.price= combo_side.price
+									input(toggle_input=index, name="keepIds[]", value=combo_side._id)
+
+								- index += 2; // this is so we don't enter drinks and sides twice
+				- index++;
+
+			- const subTotal = parseFloat(order_price).toFixed(2)
+			- const tax = parseFloat((subTotal * 0.13)).toFixed(2)
+			- const stripeFees = (((parseFloat(subTotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+			- const total = (parseFloat(subTotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+				
+			div.list_prices
+				p#original_total Order Total: #{subTotal}
+				p#tax_total Tax: #{tax}
+				p#stripe_fees Stripe Fee: #{stripeFees}
+				p#order_total Total: #{total}
+			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
+
+		script.
+			
+			// TODO: get feedback once confirmation is done
+
+			// add to deleteIds
+			$("form").on("click", ".custom_check_on", function() {
+				const toggle = $(this).attr("toggle");
+
+				// get the cost so that we can remove it from the total
+				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
+				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
+				const new_subtotal = (parseFloat(old_subtotal) - parseFloat(price)).toFixed(2);
+				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
+				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+
+				$("#original_total").text("Order Total: " + new_subtotal);
+				$("#tax_total").text("Tax: " + tax);
+				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
+				$("#order_total").text("Total: " + total);
+
+				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
+				$(this).removeClass("custom_check_on");
+				$(this).addClass("custom_check_off");
+			})
+
+			// remove from deleteIds
+			$("form").on("click", ".custom_check_off", function(){
+				const toggle = $(this).attr("toggle");
+
+				// get the cost so that we can remove it from the total
+				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
+				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
+				const new_subtotal = (parseFloat(old_subtotal) + parseFloat(price)).toFixed(2);
+				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
+				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
+				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+
+				$("#original_total").text("Order Total: " + new_subtotal);
+				$("#tax_total").text("Tax: " + tax);
+				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
+				$("#order_total").text("Total: " + total);
+
+				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
+				$(this).removeClass("custom_check_off");
+				$(this).addClass("custom_check_on");
+			})
+
+			// click confirm button
+			$(".doneview1").click(function(e){
+				e.preventDefault();
+				$("#view1container").ajaxSubmit();
+				$("#view1container").hide();
+				MessengerExtensions.requestCloseBrowser(function success() {
+					console.log("success");
+				}, function error(err) {
+					console.log(err);
+				});
+			})
+
+			// view 2
+			// all payment stuff
+			// produces a length 4 list: 
+			// Order
+			// HST
+			// Stripe
