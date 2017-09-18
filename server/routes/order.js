@@ -8,6 +8,10 @@ const async = require("async");
 const itemDAO = require("./../../db/DAO/itemDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 
+//SEND FUNCTIONS
+const send = require("../../messenger-api-helpers/send");
+
+
 routes.get("/editorder", (req, res) => {
   let orderId = req.query.order;
   let senderId = req.query.sender;
@@ -22,12 +26,14 @@ routes.post("/editorder", (req, res) => {
   console.log("request received");
   let orderId = req.body.orderId;
   let itemIds = req.body.removeIds;
+  let senderId = req.body.senderId;
   console.log(req.body);
   async.each(itemIds, itemId => {
     itemDAO
       .deleteItemById(itemId, orderId)
       .then(item => {
-        res.status(200).send();
+        send.sendOrderedMessage(senderId, {_id: orderId});
+        res.status(200);
       })
       .catch(err => console.log(err));
   });
