@@ -1,6 +1,6 @@
 const { Session, User } = require("./../models/index");
 const sessionDAO = {};
-const sessionTimeOutTime = 180000; // change this to half an hour later
+const sessionTimeOutTime = 1800000; // change this to half an hour later
 
 sessionDAO.isSessionActive = function(PSID) {
     return new Promise((resolve, reject) => {
