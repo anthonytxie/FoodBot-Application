@@ -1,17 +1,25 @@
 //MODULES
 const express = require("express");
 const routes = express();
-
+const moment = require("moment");
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
 
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {
-    res.render("cashier.pug", { orders });
+    res.status(200).render("cashier.pug", { orders });
   });
 });
 
-// need to fix this so it's not sending all the orders
+routes.get("/history", (req, res) => {
+  orderDAO.showInputtedOrderHistory().then(orders => {
+    orders = orders.sort(function(a, b) {
+      return parseFloat(a.inputDate) - parseFloat(b.inputDate);
+    });
+    res.status(200).render("cashierHistory.pug", { orders });
+  });
+});
+
 routes.post("/input", (req, res) => {
   let { orderId } = req.body;
   orderDAO
@@ -20,7 +28,7 @@ routes.post("/input", (req, res) => {
       return orderDAO.showIncompleteOrders();
     })
     .then(orders => {
-      res.render("cashier.pug", {orders});
+      res.render("cashier.pug", { orders });
     });
 });
 

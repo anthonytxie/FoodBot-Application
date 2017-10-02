@@ -102,7 +102,7 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Chicken burger with mayo.",
-
+		patties: 1,
 		premiumToppings: ["chickenPatty"],
 		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
 		basePrice: 9.99
@@ -202,6 +202,7 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/m4IQMAD.jpg",
 		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
+		patties: 1,
 		premiumToppings: ["chickenPatty"],
 		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
 		basePrice: 9.99

@@ -11,6 +11,7 @@ const combo = require('./routes/combo');
 const receipt = require('./routes/receipt');
 const webhook = require('./routes/webhook');
 const cashier = require('./routes/cashier');
+const order = require('./routes/order');
 
 // APP
 const app = express();
@@ -34,7 +35,7 @@ app.use(combo);
 app.use(receipt);
 app.use(webhook);
 app.use(cashier);
-
+app.use(order);
 
 
 

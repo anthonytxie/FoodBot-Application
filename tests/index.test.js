@@ -202,7 +202,7 @@ describe("ORDER DAO", () => {
 
   it("should find all incomplete orders", () => {
     let result = orderDAO.showIncompleteOrders();
-    return Promise.all([result.should.eventually.have.length(1)]);
+    return Promise.all([result.should.eventually.have.length(0)]);
   });
 
   it("should confirm order", () => {
@@ -512,7 +512,7 @@ describe("ROUTES", () => {
       });
   });
   it("should confirm order without pay for pick-up", () => {
-    let stub = sinon.stub(send, "sendConfirmUnpaidMessage");
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
     let postBody = {
       orderId: orderId,
       method: "pickup",
@@ -538,6 +538,46 @@ describe("ROUTES", () => {
           orderDAO
             .findOrderById(orderId)
             .should.eventually.have.property("methodFulfillment", "pickup"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isPaid", false),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
+      });
+  });
+
+    it("should confirm order without pay for pick-up", () => {
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessageDelivery");
+    let postBody = {
+      orderId: orderId,
+      method: "delivery",
+      address: "",
+      postal: "",
+      time: '"2017-08-14T01:18:00.000Z"',
+      room: "",
+      authorized_payment: "1192"
+    };
+    return request(app)
+      .post("/confirm")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(orderId)
+            .should.eventually.have.property("methodFulfillment", "delivery"),
           orderDAO
             .findOrderById(orderId)
             .should.eventually.have.property("isPaid", false),
@@ -601,6 +641,8 @@ describe("ROUTES", () => {
       orderId: orderId,
       method: "pickup",
       time: '"2017-08-15T18:00:00.000Z"',
+      address: "330 phillip street",
+      postal: "l9t2x5",
       authorized_payment: "1192",
       token_id: "tok_visa",
       token_email: "anthony112244@hotmail.com"
@@ -662,6 +704,11 @@ describe("ROUTES", () => {
       spy.restore();
     });
   });
+
+  it("should render cashier history view", () => {
+    return request(app).get(`/history`).expect(200).then(() => {
+    });
+  })
 
   it("should get orderId", () => {
     return request(app).get(`/getorder/${orderId}`).then(res => {

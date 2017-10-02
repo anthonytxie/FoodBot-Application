@@ -3,7 +3,7 @@ const express = require("express");
 const routes = express();
 const async = require("async");
 const mongoose = require("mongoose");
-
+const moment = require("moment-timezone");
 //DAO
 const sessionDAO = require("./../../db/DAO/sessionDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
@@ -71,7 +71,11 @@ routes.post("/confirm", (req, res) => {
     token_email,
     authorized_payment
   } = req.body;
-  time = Date(time);
+  time = new Date(time.split('"')[1]);
+  let parsedDate = Date.parse(time);
+  let fulfillmentDate = moment(parsedDate)
+    .tz("America/Toronto")
+    .format("YYYY-MM-DD HH:mm:ss");
   if (token_id) {
     let amount = parseFloat(authorized_payment);
     stripe.customers
@@ -88,34 +92,39 @@ routes.post("/confirm", (req, res) => {
         })
       )
       .then(() => {
-        return orderDAO
-          .confirmOrder({
-            orderId,
-            method,
-            time,
+        return orderDAO.confirmOrder({
+          orderId,
+          method,
+          time,
+          address,
+          postal,
+          isPaid: true
+        });
+      })
+      .then(order => {
+        return userDAO.updateEmail(order._user._id, token_email);
+      })
+      .then(user => {
+        if (method === "delivery") {
+          send.sendConfirmPaidMessageDelivery(user.PSID, {
+            fulfillmentDate,
             address,
-            postal,
-            isPaid: true
-          })
-        })
-          .then(order => {
-            return userDAO.updateEmail(order._user._id, token_email)
-          })
-          .then((user) => {
-            if (method === 'delivery') {
-              send.sendConfirmPaidMessageDelivery(user.PSID, {time, address})
-            }
-            else {
-              send.sendConfirmPaidMessagePickup(user.PSID, {time})
-            }
-            return sessionDAO.closeSession(user._sessions.slice(-1).pop())
-          })
-          .then((session) => {
-            res.status(200).send();
-          })
-          .catch((err) => {
-            // payment didn't go through send message back to user
-          })
+            orderId
+          });
+        } else {
+          send.sendConfirmPaidMessagePickup(user.PSID, {
+            fulfillmentDate,
+            orderId
+          });
+        }
+        return sessionDAO.closeSession(user._sessions.slice(-1).pop());
+      })
+      .then(session => {
+        res.status(200).send();
+      })
+      .catch(err => {
+        // payment didn't go through send message back to user
+      });
   } else {
     orderDAO
       .confirmOrder({
@@ -127,17 +136,19 @@ routes.post("/confirm", (req, res) => {
         isPaid: false
       })
       .then(order => {
-        send.sendConfirmUnpaidMessage(order._user.PSID)
-        return sessionDAO.closeSession(order._session)
+        if (method === "delivery") {
+          send.sendConfirmUnpaidMessageDelivery(order._user.PSID, {fulfillmentDate} );
+        } 
+        else {
+          send.sendConfirmUnpaidMessagePickup(order._user.PSID, {fulfillmentDate ,orderId});
+        }
+        return sessionDAO.closeSession(order._session);
       })
       .then(() => {
         return res.status(200).send();
-      })
+      });
   }
 });
 // if there is no items in the delete request, return just the order... else loop through delete everything. at the end get the order and send it
 
 module.exports = routes;
-
-
-

@@ -28,16 +28,25 @@ const newOrderButton = {
   type: "postback",
   title: "New Order",
   payload: JSON.stringify({
-    type: "create_new_order"
+    type: "create-new-order"
   })
 };
+
+const editOrderButton = {
+  type: "postback",
+  title: "Edit Order",
+  payload: JSON.stringify({
+    type: "edit-order"
+  })
+};
+
 
 const persistentMenu = {
   persistent_menu: [
     {
       locale: "default",
-      composer_input_disabled: false,
-      call_to_actions: [seeMenuButton, newOrderButton]
+      composer_input_disabled: true,
+      call_to_actions: [seeMenuButton, newOrderButton, editOrderButton]
     }
   ]
 };
@@ -109,7 +118,7 @@ const orderAskContinue = function(order) {
       payload: {
         template_type: "button",
         text:
-          "Alright! We added that to your order. Are you done or would you like to order more?",
+          "Alright, that sounds great! Are you done or would you like to order more?",
         buttons: [
           {
             type: "postback",
@@ -131,6 +140,36 @@ const orderAskContinue = function(order) {
   };
   return attachment;
 };
+
+const editOrder = function(recipientId, order) {
+  const attachment = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "button",
+        text: "Would you like to remove a few items from your order?",
+        buttons: [
+          {
+            type: "web_url",
+            url: `https://foodbotstaging.herokuapp.com/editorder?order=${order._id}&sender=${recipientId}`,
+            title: "Yes",
+            webview_height_ratio: "full",
+            messenger_extensions: true
+          },
+          {
+            type: "postback",
+            title: "No",
+            payload: JSON.stringify({
+              type: "order-continue"
+            })
+          }
+        ]
+      }
+    }
+  };
+  return attachment;
+};
+
 
 // ===== ITEMS ===============================================================
 
@@ -262,6 +301,7 @@ module.exports = {
   burgerTemplate,
   upsizeOrderMessage,
   orderAskContinue,
+  editOrder,
   askFriesSizeMessage,
   askMilkshakeFlavorMessage,
   comboErrorMessage
