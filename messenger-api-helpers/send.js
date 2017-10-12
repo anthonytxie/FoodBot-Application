@@ -66,7 +66,7 @@ const sendEditOrderMessage = (recipientId, order) => {
 };
 
 const sendEmptyOrderMessage = (recipientId, order) => {
-  sendMessage(recipientId, messages.emptyOrderMessage)
+  sendMessage(recipientId, messages.emptyOrderMessage())
 };
 
 // ===== ITEMS ===============================================================
