@@ -31,11 +31,15 @@ routes.get("/receipt", (req, res) => {
         .then(order => {
             if (order._items.length === 0) {
                 send.sendEmptyOrderMessage(order._user.PSID)
-                res.status(200).render("receipt", {
-                    order,
-                    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-                });
-            } else {
+                res.status(200)
+            } else if (order.isConfirmed) {
+
+                send.sendNewOrderMessage(order._user.PSID)
+                res.status(200)
+
+            } else
+
+            {
                 res.status(200).render("receipt", {
                     order,
                     keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
@@ -121,13 +125,11 @@ routes.post("/confirm", (req, res) => {
                         address,
                         orderId,
                     });
-                    send.sendNextOrderMessage(user.PSID)
                 } else {
                     send.sendConfirmPaidMessagePickup(user.PSID, {
                         fulfillmentDate,
                         orderId
                     });
-                    send.sendNextOrderMessage(user.PSID)
                 }
                 return sessionDAO.closeSession(user._sessions.slice(-1).pop());
             })
@@ -150,11 +152,10 @@ routes.post("/confirm", (req, res) => {
             .then(order => {
                 if (method === "delivery") {
                     send.sendConfirmUnpaidMessageDelivery(order._user.PSID, { fulfillmentDate });
-                    send.sendNextOrderMessage(user.PSID)
                 } else {
                     send.sendConfirmUnpaidMessagePickup(order._user.PSID, { fulfillmentDate, orderId });
-                    send.sendNextOrderMessage(user.PSID)
                 }
+                send.sendNextOrderMessage(user.PSID)
                 return sessionDAO.closeSession(order._session);
             })
             .then(() => {

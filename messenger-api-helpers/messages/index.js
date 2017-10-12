@@ -203,6 +203,27 @@ const nextOrderMessage = (recipientId) => {
     return attachment;
 }
 
+const newOrderMessage = (recipientId) => {
+    const attachment = {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "button",
+                text: "That order has already been confirmed. Hit the button to create a new order!",
+                buttons: [{
+                    type: "postback",
+                    title: "New Order",
+                    payload: JSON.stringify({
+                        type: "create-new-order"
+                    })
+                }, ]
+            }
+        }
+    };
+    return attachment;
+}
+
+
 
 // ===== ITEMS ===============================================================
 
@@ -333,6 +354,7 @@ module.exports = {
     editOrder,
     emptyOrderMessage,
     nextOrderMessage,
+    newOrderMessage,
     askFriesSizeMessage,
     askMilkshakeFlavorMessage,
     comboErrorMessage

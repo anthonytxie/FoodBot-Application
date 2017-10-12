@@ -45,23 +45,26 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
 };
 
 const sendConfirmPaidMessageDelivery = (recipientId, data) => {
-    sendMessage(recipientId, messages.confirmOrderTemplate(``))
-
-
     sendMessage(recipientId, messages.messageTemplate(`Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId.substr(-5)}.`));
+    sendMessage(recipientId, messages.nextOrderMessage())
+
 };
 
 const sendConfirmPaidMessagePickup = (recipientId, data) => {
     sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId.substr(-5)}.`));
+    sendMessage(recipientId, messages.nextOrderMessage())
+
 };
 
 const sendConfirmUnpaidMessagePickup = (recipientId, data) => {
     sendMessage(recipientId, messages.messageTemplate(`Awesome. We sent your order to the restaurant. It should be ready around ${data.fulfillmentDate}. Tell the cashier your order Id is ${data.orderId.substr(-5)}`));
-
+    sendMessage(recipientId, messages.nextOrderMessage())
 };
 
 const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
     sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered. It should be ready around ${data.fulfillmentDate}.`));
+    sendMessage(recipientId, messages.nextOrderMessage())
+
 };
 
 const sendEditOrderMessage = (recipientId, order) => {
@@ -74,6 +77,10 @@ const sendEmptyOrderMessage = (recipientId, order) => {
 
 const sendNextOrderMessage = (recipientId) => {
     sendMessage(recipientId, messages.nextOrderMessage())
+};
+
+const sendNewOrderMessage = recipientId => {
+  sendMessage(recipientId, messages.newOrderMessage())
 };
 
 // ===== ITEMS ===============================================================
@@ -189,6 +196,7 @@ module.exports = {
     sendEditOrderMessage,
     sendEmptyOrderMessage,
     sendNextOrderMessage,
+    sendNewOrderMessage,
     sendMessageGeneric,
     askFriesSize,
     askMilkshakeFlavor,
