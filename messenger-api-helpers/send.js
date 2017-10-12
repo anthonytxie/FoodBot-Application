@@ -63,7 +63,11 @@ const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
 
 const sendEditOrderMessage = (recipientId, order) => {
   sendMessage(recipientId, messages.editOrder(recipientId, order))
-}
+};
+
+const sendEmptyOrderMessage = (recipientId, order) => {
+  sendMessage(recipientId, messages.emptyOrderMessage)
+};
 
 // ===== ITEMS ===============================================================
 const sendBurgerOrderPrompt = (recipientId, data, order) => {
@@ -176,6 +180,7 @@ module.exports = {
   sendConfirmPaidMessagePickup,
   sendConfirmPaidMessageDelivery,
   sendEditOrderMessage,
+  sendEmptyOrderMessage,
   sendMessageGeneric,
   askFriesSize,
   askMilkshakeFlavor,

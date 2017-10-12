@@ -171,6 +171,28 @@ const editOrder = function(recipientId, order) {
 };
 
 
+const emptyOrderMessage = function(recipientId) {
+  const attachment = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "button",
+        text: "Hey! You haven't ordered anything yet. Tap the button to see the menu.",
+        buttons: [
+          {
+            type: "postback",
+            title: "See Menu",
+            payload: JSON.stringify({
+              type: "see-menu"
+            })
+          },
+        ]
+      }
+    }
+  };
+  return attachment;
+};
+
 // ===== ITEMS ===============================================================
 
 const askFriesSizeMessage = function(order) {
@@ -302,6 +324,7 @@ module.exports = {
   upsizeOrderMessage,
   orderAskContinue,
   editOrder,
+  emptyOrderMessage,
   askFriesSizeMessage,
   askMilkshakeFlavorMessage,
   comboErrorMessage
