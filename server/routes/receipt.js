@@ -29,23 +29,22 @@ routes.get("/receipt", (req, res) => {
     orderDAO
         .findOrderById(orderId)
         .then(order => {
-                if (order._items.length === 0) {
-                    send.sendEmptyOrderMessage(order._user.PSID)
-                    res.status(200).render("receipt", {
-                        order,
-                        keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-                    });
-                } else {
-                    res.status(200).render("receipt", {
-                        order,
-                        keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
-                    });
-                }
-
-
+            if (order._items.length === 0) {
+                send.sendEmptyOrderMessage(order._user.PSID)
+                res.status(200).render("receipt", {
+                    order,
+                    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
+                });
+            } else {
+                res.status(200).render("receipt", {
+                    order,
+                    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
+                });
             }
-        )
-    .catch(err => res.send(err));
+
+
+        })
+        .catch(err => res.send(err));
 });
 
 routes.get("/orders", (req, res) => {
@@ -120,13 +119,16 @@ routes.post("/confirm", (req, res) => {
                     send.sendConfirmPaidMessageDelivery(user.PSID, {
                         fulfillmentDate,
                         address,
-                        orderId
+                        orderId,
                     });
                 } else {
                     send.sendConfirmPaidMessagePickup(user.PSID, {
                         fulfillmentDate,
                         orderId
                     });
+                    setTimeout(() => {
+                        send.sendNextOrderMessage(user.PSID)
+                    }, 1000)
                 }
                 return sessionDAO.closeSession(user._sessions.slice(-1).pop());
             })
@@ -152,6 +154,9 @@ routes.post("/confirm", (req, res) => {
                 } else {
                     send.sendConfirmUnpaidMessagePickup(order._user.PSID, { fulfillmentDate, orderId });
                 }
+                setTimeout(() => {
+                    send.sendNextOrderMessage(user.PSID)
+                }, 1000)
                 return sessionDAO.closeSession(order._session);
             })
             .then(() => {
