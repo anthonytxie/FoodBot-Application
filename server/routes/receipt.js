@@ -126,10 +126,8 @@ routes.post("/confirm", (req, res) => {
                         fulfillmentDate,
                         orderId
                     });
-                    setTimeout(() => {
-                        send.sendNextOrderMessage(user.PSID)
-                    }, 1000)
                 }
+                send.sendNextOrderMessage(user.PSID)
                 return sessionDAO.closeSession(user._sessions.slice(-1).pop());
             })
             .then(session => {
@@ -154,9 +152,7 @@ routes.post("/confirm", (req, res) => {
                 } else {
                     send.sendConfirmUnpaidMessagePickup(order._user.PSID, { fulfillmentDate, orderId });
                 }
-                setTimeout(() => {
-                    send.sendNextOrderMessage(user.PSID)
-                }, 1000)
+                send.sendNextOrderMessage(user.PSID)
                 return sessionDAO.closeSession(order._session);
             })
             .then(() => {
