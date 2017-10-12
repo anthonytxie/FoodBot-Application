@@ -155,7 +155,6 @@ routes.post("/confirm", (req, res) => {
                 } else {
                     send.sendConfirmUnpaidMessagePickup(order._user.PSID, { fulfillmentDate, orderId });
                 }
-                send.sendNextOrderMessage(user.PSID)
                 return sessionDAO.closeSession(order._session);
             })
             .then(() => {
