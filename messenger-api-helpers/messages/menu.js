@@ -59,31 +59,31 @@ const normalBurgerMenuTemplate = burgerObject => {
         subtitle: burgerObject.subtitle,
         quick_replies: [{
                 content_type: "text",
-                title: "1",
+                title: "Medium",
                 payload: JSON.stringify({
                     type: "order-fries",
                     data: {
                         orderId: order._id,
 
-                        // foodObject: {
-                        //     itemName: "fries",
-                        //     itemSize: "medium"
-                        // }
+                        foodObject: {
+                            itemName: "fries",
+                            itemSize: "medium"
+                        }
                     }
                 })
             },
             {
                 content_type: "text",
-                title: "2",
+                title: "Large",
                 payload: JSON.stringify({
-                    type: "show-burger",
+                    type: "order-fries",
                     data: {
                         orderId: order._id,
 
-                        // foodObject: {
-                        //     itemName: "fries",
-                        //     itemSize: "large"
-                        // }
+                        foodObject: {
+                            itemName: "fries",
+                            itemSize: "large"
+                        }
                     }
                 })
             }
@@ -123,7 +123,7 @@ const normalBurgerMenuMessageOne = {
                 normalBurgerMenuTemplate(menuItems[1]),
                 normalBurgerMenuTemplate(menuItems[2]),
                 normalBurgerMenuTemplate(menuItems[3])
-            ]
+            ],
             buttons: [
                 {
                     title: "View More",
