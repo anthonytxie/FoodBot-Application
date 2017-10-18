@@ -57,15 +57,33 @@ const normalBurgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
         subtitle: burgerObject.subtitle,
-        buttons: [
+        quick_replies: [{
+                content_type: "text",
+                title: "1",
+                payload: JSON.stringify({
+                    type: "order-fries",
+                    data: {
+                        orderId: order._id,
+
+                        // foodObject: {
+                        //     itemName: "fries",
+                        //     itemSize: "medium"
+                        // }
+                    }
+                })
+            },
             {
-                type: "postback",
-                title: "Order Burger",
+                content_type: "text",
+                title: "2",
                 payload: JSON.stringify({
                     type: "show-burger",
                     data: {
-                        foodType: "burger",
-                        title: burgerObject.title
+                        orderId: order._id,
+
+                        // foodObject: {
+                        //     itemName: "fries",
+                        //     itemSize: "large"
+                        // }
                     }
                 })
             }
@@ -101,11 +119,11 @@ const normalBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                normalBurgerMenuTemplate(menuItems[4]),
-                normalBurgerMenuTemplate(menuItems[5]),
-                normalBurgerMenuTemplate(menuItems[6]),
-                normalBurgerMenuTemplate(menuItems[7])
-            ],
+                normalBurgerMenuTemplate(menuItems[0]),
+                normalBurgerMenuTemplate(menuItems[1]),
+                normalBurgerMenuTemplate(menuItems[2]),
+                normalBurgerMenuTemplate(menuItems[3])
+            ]
             buttons: [
                 {
                     title: "View More",

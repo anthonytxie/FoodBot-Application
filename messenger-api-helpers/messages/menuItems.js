@@ -1,6 +1,6 @@
 const menuItems = [
 	{
-		title: "Single Hamburger (No Cheese)",
+		title: "Single Hamburger",
 		type: "burger",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty, on a sesame bun.",
