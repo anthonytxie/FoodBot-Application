@@ -57,24 +57,15 @@ const normalBurgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
         subtitle: burgerObject.subtitle,
-        quick_replies: [{
-                content_type: "text",
-                title: "Medium",
-                payload: JSON.stringify({
-                    type: "order-fries",
-                    data: {
-
-        
-                    }
-                })
-            },
+        buttons: [
             {
-                content_type: "text",
-                title: "Large",
+                type: "postback",
+                title: "Order Burger",
                 payload: JSON.stringify({
-                    type: "order-fries",
+                    type: "show-burger",
                     data: {
-                       
+                        foodType: "burger",
+                        title: burgerObject.title
                     }
                 })
             }
