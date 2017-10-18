@@ -63,12 +63,8 @@ const normalBurgerMenuTemplate = burgerObject => {
                 payload: JSON.stringify({
                     type: "order-fries",
                     data: {
-                        orderId: order._id,
 
-                        foodObject: {
-                            itemName: "fries",
-                            itemSize: "medium"
-                        }
+        
                     }
                 })
             },
@@ -78,12 +74,7 @@ const normalBurgerMenuTemplate = burgerObject => {
                 payload: JSON.stringify({
                     type: "order-fries",
                     data: {
-                        orderId: order._id,
-
-                        foodObject: {
-                            itemName: "fries",
-                            itemSize: "large"
-                        }
+                       
                     }
                 })
             }
