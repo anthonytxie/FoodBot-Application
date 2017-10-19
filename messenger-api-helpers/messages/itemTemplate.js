@@ -10,7 +10,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
         elements: [
           {
             title: `Okay so, ${burger.title}, the usual way or customized?`,
-            image_url: burger.image_url,
+            // image_url: burger.image_url,
             buttons: [
               {
                 type: "postback",

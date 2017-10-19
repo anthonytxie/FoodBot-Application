@@ -35,7 +35,7 @@ const menuMessage = {
 const specialBurgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
-        // image_url: burgerObject.image_url,
+        image_url: burgerObject.image_url,
         subtitle: burgerObject.subtitle,
         buttons: [
             {
