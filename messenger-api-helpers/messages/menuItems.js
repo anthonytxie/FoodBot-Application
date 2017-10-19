@@ -200,7 +200,7 @@ const menuItems = [
 		title: "Chicken Chicken",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/ZF0uYiN.jpg",
+		image_url: "https://i.imgur.com/N2IhDVG.jpg",
 		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
 		patties: 1,
 		premiumToppings: ["chickenPatty"],
@@ -211,7 +211,7 @@ const menuItems = [
 		title: "Swiss Bank Account",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/cBeuQqB.jpg",
+		image_url: "https://i.imgur.com/cF4L5ZD.jpg",
 		subtitle: "Two beef patties, grilled mushrooms and swiss cheese.",
 
 		patties: 2,
