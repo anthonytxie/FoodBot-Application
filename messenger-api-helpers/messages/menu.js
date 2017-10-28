@@ -35,7 +35,7 @@ const menuMessage = {
 const specialBurgerMenuTemplate = burgerObject => {
     return {
         title: burgerObject.title,
-        // image_url: burgerObject.image_url,
+        image_url: burgerObject.image_url,
         subtitle: burgerObject.subtitle,
         buttons: [
             {
@@ -101,10 +101,10 @@ const normalBurgerMenuMessageOne = {
             template_type: "list",
             top_element_style: "compact",
             elements: [
-                normalBurgerMenuTemplate(menuItems[4]),
-                normalBurgerMenuTemplate(menuItems[5]),
-                normalBurgerMenuTemplate(menuItems[6]),
-                normalBurgerMenuTemplate(menuItems[7])
+                normalBurgerMenuTemplate(menuItems[0]),
+                normalBurgerMenuTemplate(menuItems[1]),
+                normalBurgerMenuTemplate(menuItems[2]),
+                normalBurgerMenuTemplate(menuItems[3])
             ],
             buttons: [
                 {

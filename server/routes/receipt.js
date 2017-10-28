@@ -31,11 +31,17 @@ routes.get("/receipt", (req, res) => {
         .then(order => {
             if (order._items.length === 0) {
                 send.sendEmptyOrderMessage(order._user.PSID)
-                res.status(200)
+                res.status(200).render("receipt", {
+                    order,
+                    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
+                });
             } else if (order.isConfirmed) {
 
                 send.sendNewOrderMessage(order._user.PSID)
-                res.status(200)
+                res.status(200).render("receipt", {
+                    order,
+                    keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
+                });
 
             } else
 

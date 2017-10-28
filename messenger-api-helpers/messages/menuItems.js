@@ -1,8 +1,8 @@
 const menuItems = [
 	{
-		title: "Single Hamburger (No Cheese)",
+		title: "Single Hamburger",
 		type: "burger",
-		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -13,7 +13,7 @@ const menuItems = [
 		title: "Single Cheeseburger",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with cheese, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -25,7 +25,7 @@ const menuItems = [
 		title: "Single Baconburger",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with bacon, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -37,7 +37,7 @@ const menuItems = [
 		title: "Single Bacon Cheeseburger",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with cheese and bacon, on a sesame bun.",
 		patties: 1,
 		standardToppings: ["standardBun"],
@@ -49,7 +49,7 @@ const menuItems = [
 		title: "Double Hamburger (No Cheese)",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Two beef patties, on a sesame bun.",
 		patties: 2,
 		standardToppings: ["standardBun"],
@@ -61,7 +61,7 @@ const menuItems = [
 		title: "Double Cheeseburger",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/z7ANC0C.jpg",
+		// image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Double cheese burger with caramelized onions.",
 
 		patties: 2,
@@ -74,7 +74,7 @@ const menuItems = [
 		title: "Double Baconburger (No Cheese)",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/aUB3Mrd.jpg",
+		// image_url: "https://i.imgur.com/aUB3Mrd.jpg",
 		subtitle: "Two patties with bacon on a burger.",
 
 		patties: 2,
@@ -87,7 +87,7 @@ const menuItems = [
 		title: "Double Bacon Cheeseburger",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/wySPVNs.jpg",
+		// image_url: "https://i.imgur.com/wySPVNs.jpg",
 		subtitle: "Two patties with bacon & cheese.",
 
 		patties: 2,
@@ -100,7 +100,7 @@ const menuItems = [
 		title: "Chicken Burger",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Chicken burger with mayo.",
 		patties: 1,
 		premiumToppings: ["chickenPatty"],
@@ -200,7 +200,7 @@ const menuItems = [
 		title: "Chicken Chicken",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/m4IQMAD.jpg",
+		image_url: "https://i.imgur.com/N2IhDVG.jpg",
 		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
 		patties: 1,
 		premiumToppings: ["chickenPatty"],
@@ -211,7 +211,7 @@ const menuItems = [
 		title: "Swiss Bank Account",
 		type: "burger",
 
-		image_url: "https://i.imgur.com/m4IQMAD.jpg",
+		image_url: "https://i.imgur.com/cF4L5ZD.jpg",
 		subtitle: "Two beef patties, grilled mushrooms and swiss cheese.",
 
 		patties: 2,

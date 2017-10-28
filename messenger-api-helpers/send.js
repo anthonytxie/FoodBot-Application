@@ -62,7 +62,7 @@ const sendConfirmUnpaidMessagePickup = (recipientId, data) => {
 };
 
 const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
-    sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered. It should be ready around ${data.fulfillmentDate}.`));
+    sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered. It should be ready around ${data.fulfillmentDate}. Your confirmation code is ${data.orderId.substr(-5)}.`));
     sendMessage(recipientId, messages.nextOrderMessage())
 
 };
