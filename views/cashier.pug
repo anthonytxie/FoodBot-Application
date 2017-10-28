@@ -1,63 +1,3 @@
-//- doctype html
-//- html(lang="en")
-//- 	//- ipad: 1024 x 768 px
-//- 	//- add delivery address and time
-//- 	//- add pickup and time
-//- 	//- add ajax
-//- 	head
-//- 		title Cashier
-//- 		meta(name="viewport", content="width=device-width, initial-scale=1")
-//- 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
-//- 		link(rel ='stylesheet', href="cashier.css", type='text/css')
-//- 	body
-
-//- 		- function displayName(item) { if (item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var name = item.itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
-
-//- 		.container
-//- 			.navbar 
-//- 				div Foodbot.
-//- 				div Cashier View
-//- 			.flex
-//- 				each order in orders
-//- 					- console.log(order.fulfillmentDate)
-//- 					- console.log("ORDER:")
-//- 					- console.log(order)
-//- 					.order
-//- 						.left
-//- 							.overview
-//- 								unless order.isPaid
-//- 									img(src="money.png")
-//- 								else
-//- 									img(src="check.png")
-//- 								.number_time
-//- 									- var date = new Date(order.fulfillmentDate);
-//- 									- var order_id = order._id;
-//- 									- var display_id = order_id.toString().substr(-5);
-//- 									.number Order #{(display_id)}
-//- 									if order.methodFulfillment == "pickup"
-//- 										//- do countdown / up
-//- 										.time.green Pickup @ #{(date.getHours() + 20) % 24}:#{date.getMinutes()}
-//- 									else
-//- 										//- throw some bold tags in here
-//- 										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours() - 4}:#{date.getMinutes()}
-//- 							.details
-//- 								each item in order._items
-//- 									//- combo logic here
-//- 									.name #{displayName(item)}
-//- 									if item.itemType == "burger"
-//- 										.toppings
-//- 											each topping in item.standardToppings
-//- 												.topping #{displayName({itemName: topping})}
-//- 											each topping in item.premiumToppings
-//- 												.topping #{displayName({itemName: topping})}
-
-//- 						.center
-//- 						.right
-//- 							unless order.isInputted
-//- 								form.option(action="input", method="POST")
-//- 									input(type="hidden", name="orderId", value=order._id) 
-//- 									button READ
-
 doctype html
 html(lang="en")
 	//- ipad: 1024 x 768 px
@@ -68,59 +8,48 @@ html(lang="en")
 		title Cashier
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
-		link(rel='stylesheet', href="cashier.css", type='text/css')
+		link(rel ='stylesheet', href="cashier.css", type='text/css')
 	body
 
 		- function displayName(item) { if (item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var name = item.itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
 
 		.container
-
-			nav
-				div Burger Burger
-				.tabs 
-					div.selected(val="active") Active
-					div(val="history") History
-
-			section
+			.navbar 
+				div Foodbot.
+				div Cashier View
+			.flex
 				each order in orders
+					- console.log(order.fulfillmentDate)
+					- console.log("ORDER:")
+					- console.log(order)
 					.order
-						.overview
-
-							- var date = new Date(order.fulfillmentDate);
-
-							- var sentence = "Order ";
-							- sentence += order_id.toString().substr(-5);
-							- sentence += " | ";
-							- sentence += "Pickup @ ";
-							- sentence += date.getHours() - 4;
-							- sentence += ":";
-							- sentence += date.getMinutes();
-							- sentence += " | ";
-							- sentence += "Paid"
-
-							.random Order #{(display_id)} | _ in _ minutes | Paid or Unpaid
-
-							.number_time
-								- var date = new Date(order.fulfillmentDate);
-								- var order_id = order._id;
-								- var display_id = order_id.toString().substr(-5);
-								.number Order #{(display_id)}
-								if order.methodFulfillment == "pickup"
-									//- do countdown / up
-									.time.green Pickup @ #{(date.getHours() + 20) % 24}:#{date.getMinutes()}
+						.left
+							.overview
+								unless order.isPaid
+									img(src="money.png")
 								else
-									//- throw some bold tags in here
-									.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours() - 4}:#{date.getMinutes()}
-						.details
-							each item in order._items
-								//- combo logic here
-								.name #{displayName(item)}
-								if item.itemType == "burger"
-									.toppings
-										each topping in item.standardToppings
-											.topping #{displayName({itemName: topping})}
-										each topping in item.premiumToppings
-											.topping #{displayName({itemName: topping})}
+									img(src="check.png")
+								.number_time
+									- var date = new Date(order.fulfillmentDate);
+									- var order_id = order._id;
+									- var display_id = order_id.toString().substr(-5);
+									.number Order #{(display_id)}
+									if order.methodFulfillment == "pickup"
+										//- do countdown / up
+										.time.green Pickup @ #{(date.getHours() + 20) % 24}:#{date.getMinutes()}
+									else
+										//- throw some bold tags in here
+										.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours() - 4}:#{date.getMinutes()}
+							.details
+								each item in order._items
+									//- combo logic here
+									.name #{displayName(item)}
+									if item.itemType == "burger"
+										.toppings
+											each topping in item.standardToppings
+												.topping #{displayName({itemName: topping})}
+											each topping in item.premiumToppings
+												.topping #{displayName({itemName: topping})}
 
 						.center
 						.right
@@ -128,3 +57,76 @@ html(lang="en")
 								form.option(action="input", method="POST")
 									input(type="hidden", name="orderId", value=order._id) 
 									button READ
+
+//- below is an unfinished cashier view overhaul
+
+//- doctype html
+//- html(lang="en")
+//- 	//- ipad: 1024 x 768 px
+//- 	//- add delivery address and time
+//- 	//- add pickup and time
+//- 	//- add ajax
+//- 	head
+//- 		title Cashier
+//- 		meta(name="viewport", content="width=device-width, initial-scale=1")
+//- 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+//- 		link(rel='stylesheet', href="cashier.css", type='text/css')
+//- 	body
+
+//- 		- function displayName(item) { if (item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var name = item.itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
+
+//- 		.container
+
+//- 			nav
+//- 				div Burger Burger
+//- 				.tabs 
+//- 					div.selected(val="active") Active
+//- 					div(val="history") History
+
+//- 			section
+//- 				each order in orders
+//- 					.order
+//- 						.overview
+
+//- 							- var date = new Date(order.fulfillmentDate);
+
+//- 							- var sentence = "Order ";
+//- 							- sentence += order_id.toString().substr(-5);
+//- 							- sentence += " | ";
+//- 							- sentence += "Pickup @ ";
+//- 							- sentence += date.getHours() - 4;
+//- 							- sentence += ":";
+//- 							- sentence += date.getMinutes();
+//- 							- sentence += " | ";
+//- 							- sentence += "Paid"
+
+//- 							.random Order #{(display_id)} | _ in _ minutes | Paid or Unpaid
+
+//- 							.number_time
+//- 								- var date = new Date(order.fulfillmentDate);
+//- 								- var order_id = order._id;
+//- 								- var display_id = order_id.toString().substr(-5);
+//- 								.number Order #{(display_id)}
+//- 								if order.methodFulfillment == "pickup"
+//- 									//- do countdown / up
+//- 									.time.green Pickup @ #{(date.getHours() + 20) % 24}:#{date.getMinutes()}
+//- 								else
+//- 									//- throw some bold tags in here
+//- 									.time.green Delivery to #{order.address}, #{order.postalCode} @ #{date.getHours() - 4}:#{date.getMinutes()}
+//- 						.details
+//- 							each item in order._items
+//- 								//- combo logic here
+//- 								.name #{displayName(item)}
+//- 								if item.itemType == "burger"
+//- 									.toppings
+//- 										each topping in item.standardToppings
+//- 											.topping #{displayName({itemName: topping})}
+//- 										each topping in item.premiumToppings
+//- 											.topping #{displayName({itemName: topping})}
+
+//- 						.center
+//- 						.right
+//- 							unless order.isInputted
+//- 								form.option(action="input", method="POST")
+//- 									input(type="hidden", name="orderId", value=order._id) 
+//- 									button READ
