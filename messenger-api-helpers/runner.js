@@ -56,7 +56,7 @@ const addBurgerToOrder = (senderId, data) => {
   return sessionDAO
     .renewSession(senderId)
     .then(session => {
-      return itemDAO.postBurger(data.foodObject, data.orderId);
+      return itemDAO.postBurger(data, senderId);
     })
     .catch(err => console.log(err));
 };
