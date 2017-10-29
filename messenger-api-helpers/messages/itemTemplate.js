@@ -1,7 +1,7 @@
 const { menuItems, findItem } = require("./menuItems");
 
-const burgerTemplate = function(payloadData, order, senderId) {
-  const burger = findItem(payloadData.title);
+const burgerTemplate = function(data, package, recipientId) {
+  const burger = findItem(data.title);
   const attachment = {
     attachment: {
       type: "template",
@@ -18,9 +18,9 @@ const burgerTemplate = function(payloadData, order, senderId) {
                 payload: JSON.stringify({
                   type: "order-burger",
                   data: {
-                    orderId: order._id,
+                    orderId: data.orderId,
                     foodObject: {
-                      _order: order._id,
+                      _order: data.orderId,
                       itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
@@ -31,7 +31,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
+                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${data.orderId}&name=${burger.title}&sender=${senderId}&linkId=${package.linkId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true

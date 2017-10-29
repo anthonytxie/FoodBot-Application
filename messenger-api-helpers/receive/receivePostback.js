@@ -27,10 +27,9 @@ const handleReceivePostback = messagingEvent => {
           });
           break;
         case "show-burger":
-          runner
-            .renewSessionAndReturnOrder(senderId)
-            .then(order => {
-              send.sendBurgerOrderPrompt(senderId, data, order);
+          runner.createNewLinkAndReturnLinkAndOrderIds(senderId)
+            .then(package => {
+              send.sendBurgerOrderPrompt(senderId, data, package);
             }).catch(err => console.log(err));
           break;
         case "order-side":
