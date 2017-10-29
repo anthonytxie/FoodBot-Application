@@ -46,3 +46,10 @@ section {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+/*each row*/
+.container > div div {
+	height: 20px;
+	background: #efefe6;
+	color: #191a1a;
+}
