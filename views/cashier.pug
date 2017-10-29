@@ -12,6 +12,7 @@ html(lang="en")
 				.title New
 				.container
 					each order in orders
+						- console.log(order.isInputted)
 						unless order.isInputted
 							div
 								- const display_id = order._id.toString().substr(-5);
@@ -48,7 +49,7 @@ html(lang="en")
 								.bottom
 									button New
 									button Ready
-									
+
 			section
 				.title Ready
 				.container
