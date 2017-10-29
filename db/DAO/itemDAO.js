@@ -32,7 +32,8 @@ itemDAO.postBurger = function(data, senderId) {
           _link: data._link,
           _order: order._id
         }).then(burger => {
-          if (!burger) {
+          if (burger) {
+          } else {
             const newBurger = new Burger({
               _order: order._id,
               _link: data._link,
