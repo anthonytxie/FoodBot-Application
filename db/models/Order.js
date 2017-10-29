@@ -64,7 +64,7 @@ const orderSchema = new Schema({
   isReady: {
     type: Boolean,
     default: false
-  }
+  },
 
   inputDate: {
     type: Date
