@@ -7,60 +7,64 @@ html(lang="en")
 		link(rel ='stylesheet', href="cashier.css", type='text/css')
 	body
 		- function displayName(item) { if (item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var name = item.itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
-		section
-			.title New
-			.container
-				each order in orders
-					unless order.isInputted
-						div
-							- const display_id = order._id.toString().substr(-5);
-							.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
-							.middle
-								each item in order._items
-									.item #{displayName(item)}
-									if item.itemType == "burger"
-										//- weird notation here
-										each topping in item.standardToppings
-											.topping #{displayName({itemName: topping})}
-										each topping in item.premiumToppings
-											.topping #{displayName({itemName: topping})}
-							.bottom
-								button Cooking
-		section
-			.title Cooking
-			.container
-				each order in orders
-					if (order.isInputted && (!order.isReady))
-						div
-							- const display_id = order._id.toString().substr(-5);
-							.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
-							.middle
-								each item in order._items
-									.item #{displayName(item)}
-									if item.itemType == "burger"
-										//- weird notation here
-										each topping in item.standardToppings
-											.topping #{displayName({itemName: topping})}
-										each topping in item.premiumToppings
-											.topping #{displayName({itemName: topping})}
-							.bottom
-								button Cooking
-		section
-			.title Ready
-			.container
-				each order in orders
-					if order.isReady
-						div
-							- const display_id = order._id.toString().substr(-5);
-							.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
-							.middle
-								each item in order._items
-									.item #{displayName(item)}
-									if item.itemType == "burger"
-										//- weird notation here
-										each topping in item.standardToppings
-											.topping #{displayName({itemName: topping})}
-										each topping in item.premiumToppings
-											.topping #{displayName({itemName: topping})}
-							.bottom
-								button Cooking
+		div
+			section
+				.title New
+				.container
+					each order in orders
+						unless order.isInputted
+							div
+								- const display_id = order._id.toString().substr(-5);
+								.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
+								.middle
+									each item in order._items
+										.item #{displayName(item)}
+										if item.itemType == "burger"
+											//- weird notation here
+											each topping in item.standardToppings
+												.topping #{displayName({itemName: topping})}
+											each topping in item.premiumToppings
+												.topping #{displayName({itemName: topping})}
+								.bottom
+									button Cooking
+
+			section
+				.title Cooking
+				.container
+					each order in orders
+						if (order.isInputted && (!order.isReady))
+							div
+								- const display_id = order._id.toString().substr(-5);
+								.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
+								.middle
+									each item in order._items
+										.item #{displayName(item)}
+										if item.itemType == "burger"
+											//- weird notation here
+											each topping in item.standardToppings
+												.topping #{displayName({itemName: topping})}
+											each topping in item.premiumToppings
+												.topping #{displayName({itemName: topping})}
+								.bottom
+									button New
+									button Ready
+									
+			section
+				.title Ready
+				.container
+					each order in orders
+						if order.isReady
+							div
+								- const display_id = order._id.toString().substr(-5);
+								.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
+								.middle
+									each item in order._items
+										.item #{displayName(item)}
+										if item.itemType == "burger"
+											//- weird notation here
+											each topping in item.standardToppings
+												.topping #{displayName({itemName: topping})}
+											each topping in item.premiumToppings
+												.topping #{displayName({itemName: topping})}
+								.bottom
+									button Cooking
