@@ -27,8 +27,8 @@ section {
 /*top of column*/
 .title {
 	text-align: center;
-	padding-top: 110px;
-	padding-bottom: 20px;
+	padding-top: 120px;
+	padding-bottom: 10px;
 	font-size: 1.3em;
 	height: 20px;
 	line-height: 20px;
@@ -36,7 +36,6 @@ section {
 
 /*all orders*/
 .container {
-	background: purple;
 	display: flex;
 	flex-direction: column;
 }
@@ -44,6 +43,13 @@ section {
 /*each order*/
 .container > div {
 	background: red;
-	margin-top: 25px;
-	margin-bottom: 25px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/*each row*/
+.top, .bottom, .middle div {
+	height: 20px;
+	background: #efefe6;
+	color: #191a1a;
 }
