@@ -1,5 +1,5 @@
 const { Order, Item, Burger, Drink, Side } = require("./../models/index");
-const orderDAO = require('./orderDAO');
+const orderDAO = require("./orderDAO");
 const mongoose = require("mongoose");
 var itemDAO = {};
 const { populateOrder } = require("./helperFunctions");
@@ -21,13 +21,6 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
     .catch(err => reject(err));
 };
 
-itemDAO.postBurger = function(data, orderId) {
-  return new Promise((resolve, reject) => {
-    const burger = new Burger(data);
-    saveItemAndUpdateOrder(burger, orderId, resolve, reject);
-  });
-};
-
 itemDAO.postBurger = function(data, senderId) {
   let orderId;
   return new Promise((resolve, reject) => {
@@ -39,7 +32,14 @@ itemDAO.postBurger = function(data, senderId) {
       })
       .then(burger => {
         if (!burger) {
-          const burger = new Burger(data.foodObject);
+          const burger = new Burger({
+            _order: orderId,
+            _link: data._link,
+            patties: data.foodObject.patties,
+            standardToppings: data.foodObject.standardToppings,
+            premiumToppings: data.foodObject.premiumToppings,
+            itemName: data.foodObject.itemName
+          });
           saveItemAndUpdateOrder(burger, orderId, resolve, reject);
         } else {
           Burger.findOneAndUpdate(
