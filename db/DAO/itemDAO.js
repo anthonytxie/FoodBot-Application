@@ -28,7 +28,7 @@ itemDAO.postBurger = function(data, senderId) {
       .getLastOrderBySender(senderId)
       .then(order => {
         orderId = order._id;
-        return Burger.FindOne({ _link: data._link, _order: orderId });
+        return Burger.FindOne({ _link: data._link, _order: order._id });
       })
       .then(burger => {
         if (!burger) {
