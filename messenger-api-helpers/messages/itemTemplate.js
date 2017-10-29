@@ -31,7 +31,7 @@ const burgerTemplate = function(data, package, recipientId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${data.orderId}&name=${burger.title}&sender=${recipientId}&linkId=${package.linkId}`,
+                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${package.orderId}&name=${burger.title}&sender=${recipientId}&linkId=${package.linkId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true
