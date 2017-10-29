@@ -10,12 +10,13 @@ html, body {
 
 /*all content on page*/
 body > div {
+	margin: 0 auto;
 	max-width: 1200px;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	/*is evenly a thing*/
-	justify-content: space-around;
+	justify-content: space-evenly;
 }
 
 /*column*/
@@ -25,8 +26,11 @@ section {
 
 /*top of column*/
 .title {
-	height: 150px;
-	line-height: 150px;
+	text-align: center;
+	padding-top: 130px;
+	font-size: 1.3em;
+	height: 20px;
+	line-height: 20px;
 	background: darkgrey;
 }
 
