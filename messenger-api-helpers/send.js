@@ -84,8 +84,8 @@ const sendNewOrderMessage = recipientId => {
 };
 
 // ===== ITEMS ===============================================================
-const sendBurgerOrderPrompt = (recipientId, data, order) => {
-    sendMessage(recipientId, messages.burgerTemplate(data, order, recipientId));
+const sendBurgerOrderPrompt = (recipientId, data, package) => {
+    sendMessage(recipientId, messages.burgerTemplate(data, package, recipientId));
 };
 
 const askFriesSize = (recipientId, order) => {

@@ -2,49 +2,46 @@
 const userDAO = require("./../db/DAO/userDAO");
 const sessionDAO = require("./../db/DAO/sessionDAO");
 const orderDAO = require("./../db/DAO/orderDAO");
-const itemDAO = require('./../db/DAO/itemDAO');
+const itemDAO = require("./../db/DAO/itemDAO");
 
 // ===== USERS ===============================================================
 
-const initialize = (senderId) => {
-  return userDAO.isUserCreated(senderId)
-    .then((isCreated) => {
+const initialize = senderId => {
+  return userDAO
+    .isUserCreated(senderId)
+    .then(isCreated => {
       if (isCreated) {
-        return sessionDAO.renewSession(senderId)
-          .then((session) => {
-            return orderDAO.initializeOrder(senderId, session._id)
-          })
+        return sessionDAO.renewSession(senderId).then(session => {
+          return orderDAO.initializeOrder(senderId, session._id);
+        });
+      } else {
+        return userDAO.createUser(senderId).then(user => {
+          return orderDAO.initializeOrder(senderId, user._sessions[0]);
+        });
       }
-      else {
-        return userDAO.createUser(senderId)
-          .then((user) => {
-            return orderDAO.initializeOrder(senderId, user._sessions[0])
-          })
-      }
-    }).catch((err) => console.log(err));
+    })
+    .catch(err => console.log(err));
 };
 
 // ===== SESSION ===============================================================
 
-const renewSession = (senderId) => {
-  return sessionDAO.renewSession(senderId)
+const renewSession = senderId => {
+  return sessionDAO.renewSession(senderId);
 };
 
-const renewSessionAndReturnOrder = (senderId) => {
-  return sessionDAO.renewSession(senderId)
-    .then((session) => {
-      return orderDAO.getOrderBySessionId(session._id)
-    })
+const renewSessionAndReturnOrder = senderId => {
+  return sessionDAO.renewSession(senderId).then(session => {
+    return orderDAO.getOrderBySessionId(session._id);
+  });
 };
 
-
-const isSessionActive = (senderId) => {
-  return sessionDAO.isSessionActive(senderId)
+const isSessionActive = senderId => {
+  return sessionDAO.isSessionActive(senderId);
 };
 
 // ===== ORDERS ===============================================================
 
-const createNewOrder = (senderId) => {
+const createNewOrder = senderId => {
   return sessionDAO
     .renewSession(senderId)
     .then(session => {
@@ -55,7 +52,6 @@ const createNewOrder = (senderId) => {
 
 // ===== Items ===============================================================
 
-
 const addBurgerToOrder = (senderId, data) => {
   return sessionDAO
     .renewSession(senderId)
@@ -64,7 +60,6 @@ const addBurgerToOrder = (senderId, data) => {
     })
     .catch(err => console.log(err));
 };
-
 
 const addSideToOrder = (senderId, data) => {
   return sessionDAO
@@ -84,6 +79,28 @@ const addDrinkToOrder = (senderId, data) => {
     .catch(err => console.log(err));
 };
 
+// ===== LINK ===============================================================
+
+const createNewLinkAndReturnLinkAndOrderIds = (senderId) => {
+  let linkId;
+  let orderId;
+  return sessionDAO
+    .renewSession(senderId)
+    .then(session => {
+      return orderDAO.getOrderBySessionId(session._id);
+    })
+    .then((order) => {
+      orderId = order._id;
+      return linkDAO.createNewLink();
+    })
+    .then(link => {
+      linkId = link._id;
+    })
+    .then(() => {
+      return {linkId, orderId}
+    })
+    .catch(err => console.log(err));
+};
 
 module.exports = {
   initialize,

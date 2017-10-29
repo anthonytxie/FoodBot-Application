@@ -26,11 +26,6 @@ userDAO.createUser = function(PSID) {
 
 
 
-
-
-
-
-
 userDAO.isUserCreated = function(PSID) {
   return new Promise((resolve, reject) => {
     User.findOne({PSID})
