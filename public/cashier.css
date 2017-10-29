@@ -48,7 +48,7 @@ section {
 }
 
 /*each row*/
-.container > div div {
+.top, .bottom, .middle div {
 	height: 20px;
 	background: #efefe6;
 	color: #191a1a;
