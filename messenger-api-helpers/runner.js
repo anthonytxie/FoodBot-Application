@@ -110,5 +110,6 @@ module.exports = {
   addDrinkToOrder,
   renewSession,
   isSessionActive,
-  renewSessionAndReturnOrder
+  renewSessionAndReturnOrder,
+  createNewLinkAndReturnLinkAndOrderIds
 };
