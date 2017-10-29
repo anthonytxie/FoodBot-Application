@@ -22,19 +22,28 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
 };
 
 itemDAO.postBurger = function(data, senderId) {
+  let orderId;
   return new Promise((resolve, reject) => {
     orderDAO
       .getLastOrderBySender(senderId)
       .then(order => {
-        const burger = new Burger({
-          _order: order._id,
+        orderId = order._id;
+        Burger.findOne({
           _link: data._link,
-          patties: data.foodObject.patties,
-          standardToppings: data.foodObject.standardToppings,
-          premiumToppings: data.foodObject.premiumToppings,
-          itemName: data.foodObject.itemName
+          _order: order._id
+        }).then(burger => {
+          if (!burger) {
+            const newBurger = new Burger({
+              _order: order._id,
+              _link: data._link,
+              patties: data.foodObject.patties,
+              standardToppings: data.foodObject.standardToppings,
+              premiumToppings: data.foodObject.premiumToppings,
+              itemName: data.foodObject.itemName
+            });
+            return newBurger.save();
+          }
         });
-        return burger.save();
       })
       .then(burger => {
         resolve(burger);
