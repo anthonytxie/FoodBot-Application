@@ -76,6 +76,21 @@ orderDAO.getOrderBySessionId = function(sessionId) {
   });
 };
 
+orderDAO.getLastOrderBySender = function(senderId) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ PSID: senderId }).then(user => {
+      return Order.findOne({ _user: user._id })
+        .sort({
+          createdAt: -1
+        })
+        .then(order => {
+          resolve(order);
+        })
+        .catch(err => reject(err));
+    });
+  });
+};
+
 orderDAO.showIncompleteOrders = function() {
   return new Promise((resolve, reject) => {
     populateOrder(Order.find({ isInputted: false, isConfirmed: true }))

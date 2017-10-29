@@ -18,9 +18,10 @@ const burgerTemplate = function(data, package, recipientId) {
                 payload: JSON.stringify({
                   type: "order-burger",
                   data: {
-                    orderId: data.orderId,
+                    senderId: recipientId,
+                    _link: package.linkId,
                     foodObject: {
-                      _order: data.orderId,
+                      _link: package.linkId,
                       itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
@@ -31,7 +32,7 @@ const burgerTemplate = function(data, package, recipientId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${package.orderId}&name=${burger.title}&sender=${recipientId}&linkId=${package.linkId}`,
+                url: `https://foodbotstaging.herokuapp.com/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${package.linkId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true

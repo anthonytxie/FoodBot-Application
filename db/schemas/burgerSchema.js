@@ -31,7 +31,17 @@ const burgerSchema = new Schema(
     standardToppings: [{
       type: String,
       enum: ['lettuceBun', 'standardBun', 'pickles', 'lettuce', 'tomatoes', 'onions', 'ketchup', 'mustard', 'mayo', 'relish', 'fancySauce', 'hotSauce', 'tomato', 'pickle', 'hotPepper']
-    }]  
+    }],
+
+    _link: {
+      type: Schema.ObjectId,
+      ref: "Link"
+    },
+
+    _order: {
+      type: Schema.ObjectId,
+      ref: "Order"
+    }
 
   },
   disciminatorOptions
