@@ -27,11 +27,11 @@ section {
 /*top of column*/
 .title {
 	text-align: center;
-	padding-top: 130px;
+	padding-top: 110px;
+	padding-bottom: 20px;
 	font-size: 1.3em;
 	height: 20px;
 	line-height: 20px;
-	background: darkgrey;
 }
 
 /*all orders*/
@@ -44,4 +44,6 @@ section {
 /*each order*/
 .container > div {
 	background: red;
+	margin-top: 25px;
+	margin-bottom: 25px;
 }
