@@ -3,7 +3,7 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #191a1a;
+	background: #191a1a;
 	font-family: Arial;
 	color: #efefe6;
 }
@@ -12,7 +12,6 @@ html, body {
 body > div {
 	max-width: 1200px;
 	width: 100%;
-	background-color: yellow;
 	display: flex;
 	flex-direction: row;
 	/*is evenly a thing*/
@@ -22,18 +21,23 @@ body > div {
 /*column*/
 section {
 	width: 30%;
-	display: flex;
-	flex-direction: column;
 }
 
 /*top of column*/
 .title {
 	height: 150px;
 	line-height: 150px;
-	background-color: yellow;
+	background: darkgrey;
 }
 
-/*each order in column*/
+/*all orders*/
 .container {
-	background-color: orange;
+	background: purple;
+	display: flex;
+	flex-direction: column;
+}
+
+/*each order*/
+.container > div {
+	background: red;
 }
