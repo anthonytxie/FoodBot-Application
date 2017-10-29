@@ -28,7 +28,10 @@ itemDAO.postBurger = function(data, senderId) {
       .getLastOrderBySender(senderId)
       .then(order => {
         orderId = order._id;
-        return Burger.FindOne({ _link: data._link, _order: order._id });
+        return order._id;
+      })
+      .then(orderId => {
+        return Burger.FindOne({ _link: data._link, _order: orderId });
       })
       .then(burger => {
         if (!burger) {
@@ -40,7 +43,12 @@ itemDAO.postBurger = function(data, senderId) {
             premiumToppings: data.foodObject.premiumToppings,
             itemName: data.foodObject.itemName
           });
-          saveItemAndUpdateOrder(burger, orderId, resolve, reject);
+          burger
+            .save()
+            .then(burger => {
+              resolve(burger);
+            })
+            .catch(err => reject(err));
         } else {
           Burger.findOneAndUpdate(
             { _link: data._link, _order: orderId },
@@ -51,7 +59,11 @@ itemDAO.postBurger = function(data, senderId) {
                 premiumToppings: data.foodObject.premiumToppings
               }
             }
-          );
+          )
+            .then(burger => {
+              resolve(burger);
+            })
+            .catch(err => reject(err));
         }
       });
   });
