@@ -57,7 +57,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .addBurgerToOrder(senderId, data)
             .then(burger => {
-              console.log(burger)
+              send.sendOrderedBurgerUpsizeMessage(senderId, burger);
             })
             .catch(err => console.log(err));
           break;

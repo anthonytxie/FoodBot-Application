@@ -24,14 +24,13 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
 itemDAO.postBurger = function(data, senderId) {
   let orderId;
   return new Promise((resolve, reject) => {
-    orderDAO
-      .getLastOrderBySender(senderId)
-      .then(order => {
-        orderId = order._id;
-        Burger.findOne({
-          _link: data._link,
-          _order: order._id
-        }).then(burger => {
+    orderDAO.getLastOrderBySender(senderId).then(order => {
+      orderId = order._id;
+      Burger.findOne({
+        _link: data._link,
+        _order: order._id
+      })
+        .then(burger => {
           if (burger) {
             return Burger.findOneAndUpdate(
               {
@@ -58,13 +57,13 @@ itemDAO.postBurger = function(data, senderId) {
             });
             return newBurger.save();
           }
-        });
-      })
-      .then(burger => {
-        console.log(burger)
-        resolve(burger)
-      })
-      .catch(err => reject(err));
+        })
+        .then(burger => {
+          console.log(burger);
+          resolve(burger);
+        })
+        .catch(err => reject(err));
+    });
   });
 };
 
