@@ -61,7 +61,8 @@ itemDAO.postBurger = function(data, senderId) {
         });
       })
       .then(burger => {
-        resolve(burger);
+        console.log(burger)
+        resolve(burger)
       })
       .catch(err => reject(err));
   });

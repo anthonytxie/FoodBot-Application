@@ -41,7 +41,6 @@ const sendOrderedMessage = (recipientId, order) => {
 };
 
 const sendOrderedBurgerUpsizeMessage = (recipientId, burger) => {
-    console.log(burger)
     sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, burger));
 };
 
