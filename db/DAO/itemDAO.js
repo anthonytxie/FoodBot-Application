@@ -44,7 +44,8 @@ itemDAO.postBurger = function(data, senderId) {
                   standardToppings: data.foodObject.standardToppings,
                   premiumToppings: data.foodObject.premiumToppings
                 }
-              }
+              },
+              { new: true }
             );
           } else {
             const newBurger = new Burger({
