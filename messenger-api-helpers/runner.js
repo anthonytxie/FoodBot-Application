@@ -54,7 +54,6 @@ const createNewOrder = senderId => {
 
 const addBurgerToOrder = (senderId, data) => {
     return itemDAO.postBurger(data, senderId)
-    .catch(err => console.log(err));
 };
 
 const addSideToOrder = (senderId, data) => {
