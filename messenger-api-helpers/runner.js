@@ -54,9 +54,6 @@ const createNewOrder = senderId => {
 
 const addBurgerToOrder = (senderId, data) => {
     return itemDAO.postBurger(data, senderId)
-      .then((burger) => {
-        return burger
-      })
 };
 
 const addSideToOrder = (senderId, data) => {
