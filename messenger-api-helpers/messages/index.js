@@ -78,7 +78,7 @@ const welcomeMessage = {
 
 // ===== ORDERS ===============================================================
 
-const upsizeOrderMessage = (senderId, burger) => {
+const upsizeOrderMessage = (senderId, linkId) => {
     const attachment = {
         attachment: {
             type: "template",
@@ -87,7 +87,7 @@ const upsizeOrderMessage = (senderId, burger) => {
                 text: "Would you like to make that a combo? (Fries & Drink)",
                 buttons: [{
                         type: "web_url",
-                        url: `https://foodbotstaging.herokuapp.com/burgercombo?order=${burger._order}&sender=${senderId}`,
+                        url: `https://foodbotstaging.herokuapp.com/burgercombo?linkId=${linkId}&sender=${senderId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true

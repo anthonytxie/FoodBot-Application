@@ -67,50 +67,6 @@ itemDAO.postBurger = function(data, senderId) {
   });
 };
 
-// return new Promise((resolve, reject) => {
-//     orderDAO
-//       .getLastOrderBySender(senderId)
-//       .then(order => {
-//         orderId = order._id;
-//         return order._id;
-//       })
-//       .then(orderId => {
-//         return Burger.FindOne({ _link: data._link, _order: orderId });
-//       })
-//       .then(burger => {
-//         if (!burger) {
-//           const burger = new Burger({
-//             _order: orderId,
-//             _link: data._link,
-//             patties: data.foodObject.patties,
-//             standardToppings: data.foodObject.standardToppings,
-//             premiumToppings: data.foodObject.premiumToppings,
-//             itemName: data.foodObject.itemName
-//           });
-//           burger
-//             .save()
-//             .then(burger => {
-//               resolve(burger);
-//             })
-//             .catch(err => reject(err));
-//         } else {
-//           Burger.findOneAndUpdate(
-//             { _link: data._link, _order: orderId },
-//             {
-//               $set: {
-//                 patties: data.foodObject.patties,
-//                 standardToppings: data.foodObject.standardToppings,
-//                 premiumToppings: data.foodObject.premiumToppings
-//               }
-//             }
-//           )
-//             .then(burger => {
-//               resolve(burger);
-//             })
-//             .catch(err => reject(err));
-//         }
-//       });
-//   });
 
 itemDAO.postDrink = function(data, orderId) {
   return new Promise((resolve, reject) => {

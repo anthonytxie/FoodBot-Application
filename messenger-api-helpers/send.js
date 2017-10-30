@@ -40,8 +40,8 @@ const sendOrderedMessage = (recipientId, order) => {
     sendMessage(recipientId, messages.orderAskContinue(order))
 };
 
-const sendOrderedBurgerUpsizeMessage = (recipientId, burger) => {
-    sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, burger));
+const sendOrderedBurgerUpsizeMessage = (recipientId, linkId) => {
+    sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, linkId));
 };
 
 const sendConfirmPaidMessageDelivery = (recipientId, data) => {
@@ -84,8 +84,8 @@ const sendNewOrderMessage = recipientId => {
 };
 
 // ===== ITEMS ===============================================================
-const sendBurgerOrderPrompt = (recipientId, data, package) => {
-    sendMessage(recipientId, messages.burgerTemplate(data, package, recipientId));
+const sendBurgerOrderPrompt = (recipientId, data, linkId) => {
+    sendMessage(recipientId, messages.burgerTemplate(data, linkId, recipientId));
 };
 
 const askFriesSize = (recipientId, order) => {

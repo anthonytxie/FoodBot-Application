@@ -76,23 +76,14 @@ const addDrinkToOrder = (senderId, data) => {
 
 // ===== LINK ===============================================================
 
-const createNewLinkAndReturnLinkAndOrderIds = (senderId) => {
-  let linkId;
-  let orderId;
+const createNewLink = (senderId) => {
   return sessionDAO
     .renewSession(senderId)
-    .then(session => {
-      return orderDAO.getOrderBySessionId(session._id);
-    })
-    .then((order) => {
-      orderId = order._id;
+    .then(() => {
       return linkDAO.createNewLink();
     })
-    .then(link => {
-      linkId = link._id;
-    })
-    .then(() => {
-      return {linkId, orderId}
+    .then(linkId => {
+      return linkId
     })
     .catch(err => console.log(err));
 };
@@ -106,5 +97,5 @@ module.exports = {
   renewSession,
   isSessionActive,
   renewSessionAndReturnOrder,
-  createNewLinkAndReturnLinkAndOrderIds
+  createNewLink
 };

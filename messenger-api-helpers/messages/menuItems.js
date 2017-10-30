@@ -102,7 +102,7 @@ const menuItems = [
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Chicken burger with mayo.",
-		patties: 1,
+		patties: 0,
 		premiumToppings: ["chickenPatty"],
 		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
 		basePrice: 9.99
@@ -190,7 +190,7 @@ const menuItems = [
 		image_url: "https://i.imgur.com/m4IQMAD.jpg",
 		subtitle:
 			"A Portobello stuffed with herbed cheese, rolled in panko crumbs & fried.",
-
+		patties: 0,
 		premiumToppings: ["stuffedPortobello"],
 		standardToppings: ["standardBun"],
 		basePrice: 7.99
@@ -202,7 +202,7 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/N2IhDVG.jpg",
 		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
-		patties: 1,
+		patties: 0,
 		premiumToppings: ["chickenPatty"],
 		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
 		basePrice: 9.99

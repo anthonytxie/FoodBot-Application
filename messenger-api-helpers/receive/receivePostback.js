@@ -27,9 +27,9 @@ const handleReceivePostback = messagingEvent => {
           });
           break;
         case "show-burger":
-          runner.createNewLinkAndReturnLinkAndOrderIds(senderId)
-            .then(package => {
-              send.sendBurgerOrderPrompt(senderId, data, package);
+          runner.createNewLink(senderId)
+            .then(linkId => {
+              send.sendBurgerOrderPrompt(senderId, data, linkId);
             }).catch(err => console.log(err));
           break;
         case "order-side":
@@ -56,8 +56,11 @@ const handleReceivePostback = messagingEvent => {
         case "order-burger":
           runner
             .addBurgerToOrder(senderId, data)
-            .then(burger => {
-              send.sendOrderedBurgerUpsizeMessage(senderId, burger);
+            .then(() => {
+              return runner.createNewLink(senderId)
+            })
+            .then((linkId) => {
+              send.sendOrderedBurgerUpsizeMessage(senderId, linkId)
             })
             .catch(err => console.log(err));
           break;
