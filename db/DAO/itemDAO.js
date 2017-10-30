@@ -33,6 +33,19 @@ itemDAO.postBurger = function(data, senderId) {
           _order: order._id
         }).then(burger => {
           if (burger) {
+            Burger.findOneAndUpdate(
+              {
+                _order: order._id,
+                _link: data._link
+              },
+              {
+                $set: {
+                  patties: data.foodObject.patties,
+                  standardToppings: data.foodObject.standardToppings,
+                  premiumToppings: data.foodObject.premiumToppings
+                }
+              }
+            );
           } else {
             const newBurger = new Burger({
               _order: order._id,
