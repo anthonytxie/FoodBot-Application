@@ -40,8 +40,8 @@ const sendOrderedMessage = (recipientId, order) => {
     sendMessage(recipientId, messages.orderAskContinue(order))
 };
 
-const sendOrderedBurgerUpsizeMessage = (recipientId, order) => {
-    sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, order));
+const sendOrderedBurgerUpsizeMessage = (recipientId, burger) => {
+    sendMessage(recipientId, messages.upsizeOrderMessage(recipientId, burger));
 };
 
 const sendConfirmPaidMessageDelivery = (recipientId, data) => {

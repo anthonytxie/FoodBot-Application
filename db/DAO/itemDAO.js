@@ -33,7 +33,7 @@ itemDAO.postBurger = function(data, senderId) {
           _order: order._id
         }).then(burger => {
           if (burger) {
-            Burger.findOneAndUpdate(
+            return Burger.findOneAndUpdate(
               {
                 _order: order._id,
                 _link: data._link
