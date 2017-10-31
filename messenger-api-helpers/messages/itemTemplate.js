@@ -1,4 +1,5 @@
 const { menuItems, findItem } = require("./menuItems");
+const websiteURL = process.env.websiteURL;
 
 const burgerTemplate = function(data, linkId, recipientId) {
   const burger = findItem(data.title);

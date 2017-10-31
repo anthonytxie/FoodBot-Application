@@ -8,6 +8,8 @@ const {
     sideMenuMessage
 } = require("./menu");
 
+const websiteURL = process.env.websiteURL;
+
 const { burgerTemplate } = require("./itemTemplate");
 
 const messageTemplate = message => {
