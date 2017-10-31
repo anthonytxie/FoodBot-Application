@@ -1,4 +1,5 @@
 const { menuItems, findItem } = require("./menuItems");
+const websiteURL = process.env.websiteURL;
 
 const burgerTemplate = function(payloadData, order, senderId) {
   const burger = findItem(payloadData.title);
@@ -31,7 +32,7 @@ const burgerTemplate = function(payloadData, order, senderId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotstaging.herokuapp.com/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
+                url: `${websiteURL}/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true

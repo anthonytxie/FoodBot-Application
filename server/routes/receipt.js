@@ -9,7 +9,7 @@ const sessionDAO = require("./../../db/DAO/sessionDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 const itemDAO = require("./../../db/DAO/itemDAO");
 const userDAO = require("./../../db/DAO/userDAO");
-const stripe = require("stripe")("sk_test_wGIrSvj5T4LPKJe603wPoLhw");
+const stripe = require("stripe")(process.env.stripe_test_key);
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");

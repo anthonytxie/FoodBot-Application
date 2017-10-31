@@ -8,6 +8,8 @@ const {
     sideMenuMessage
 } = require("./menu");
 
+const websiteURL = process.env.websiteURL;
+
 const { burgerTemplate } = require("./itemTemplate");
 
 const messageTemplate = message => {
@@ -87,7 +89,7 @@ const upsizeOrderMessage = (senderId, order) => {
                 text: "Would you like to make that a combo? (Fries & Drink)",
                 buttons: [{
                         type: "web_url",
-                        url: `https://foodbotstaging.herokuapp.com/burgercombo?order=${order._id}&sender=${senderId}`,
+                        url: `${websiteURL}/burgercombo?order=${order._id}&sender=${senderId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -122,7 +124,7 @@ const orderAskContinue = (order) => {
                     },
                     {
                         type: "web_url",
-                        url: `https://foodbotstaging.herokuapp.com/receipt?order=${order._id}`,
+                        url: `${websiteURL}/receipt?order=${order._id}`,
                         title: "Done",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -143,7 +145,7 @@ const editOrder = (recipientId, order) => {
                 text: "Would you like to remove a few items from your order?",
                 buttons: [{
                         type: "web_url",
-                        url: `https://foodbotstaging.herokuapp.com/editorder?order=${order._id}&sender=${recipientId}`,
+                        url: `${websiteURL}/editorder?order=${order._id}&sender=${recipientId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true
