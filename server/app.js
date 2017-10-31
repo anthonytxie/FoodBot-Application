@@ -3,7 +3,8 @@ const express = require('express');
 const pug = require('pug');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const stripe = require('stripe')("sk_test_wGIrSvj5T4LPKJe603wPoLhw")
+const stripe_test_key = process.env.stripe_test_key;
+const stripe = require('stripe')(stripe_test_key);
 
 // ROUTES
 const burger = require('./routes/burger');
