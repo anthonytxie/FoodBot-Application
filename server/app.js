@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const stripe_test_key = process.env.stripe_test_key;
 const stripe = require('stripe')(stripe_test_key);
+const websiteURL = process.env.websiteURL;
 
 // ROUTES
 const burger = require('./routes/burger');

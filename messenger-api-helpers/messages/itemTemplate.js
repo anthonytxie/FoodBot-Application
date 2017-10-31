@@ -32,7 +32,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
               },
               {
                 type: "web_url",
-                url: `https://foodbotstaging.herokuapp.com/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${linkId}`,
+                url: `${websiteURL}/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${linkId}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true
