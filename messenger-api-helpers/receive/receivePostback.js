@@ -28,27 +28,27 @@ const handleReceivePostback = messagingEvent => {
           break;
         case "show-burger":
           runner.createNewLink(senderId)
-            .then(linkId => {
-              send.sendBurgerOrderPrompt(senderId, data, linkId);
+            .then(link => {
+              send.sendBurgerOrderPrompt(senderId, data, link._id);
             }).catch(err => console.log(err));
           break;
         case "order-side":
           if (data.foodObject.itemName === "cheesyFries" || data.foodObject.itemName === "poutine" ) {
             runner.renewSessionAndReturnOrder(senderId)
               .then((order) => {
-                return runner.addSideToOrder(senderId, {foodObject: { itemName: data.foodObject.itemName}, orderId: order._id})
+                return runner.addSideToOrder(senderId, { itemName: data.foodObject.itemName})
               })
-              .then((order) => {
-                send.sendOrderedMessage(senderId, order);
+              .then((item) => {
+                send.sendOrderedMessage(senderId, item);
               })
           } 
             else if (data.foodObject.itemName === "fries") {
-              runner.renewSessionAndReturnOrder(senderId).then(order => {
-                send.askFriesSize(senderId, order);
+              runner.renewSessionAndReturnOrder(senderId).then(() => {
+                send.askFriesSize(senderId);
               });
             } else if (data.foodObject.itemName === "milkshake") {
-              runner.renewSessionAndReturnOrder(senderId).then(order => {
-                send.askMilkshakeFlavor(senderId, order);
+              runner.renewSessionAndReturnOrder(senderId).then(() => {
+                send.askMilkshakeFlavor(senderId);
               });
             }
           
@@ -56,11 +56,8 @@ const handleReceivePostback = messagingEvent => {
         case "order-burger":
           runner
             .addBurgerToOrder(senderId, data)
-            .then(() => {
-              return runner.createNewLink(senderId)
-            })
-            .then((linkId) => {
-              send.sendOrderedBurgerUpsizeMessage(senderId, linkId)
+            .then((burger) => {
+              send.sendOrderedBurgerUpsizeMessage(senderId, burger._link)
             })
             .catch(err => console.log(err));
           break;
@@ -68,7 +65,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .renewSessionAndReturnOrder(senderId)
             .then(order => {
-              send.sendOrderedMessage(senderId, order);
+              send.sendOrderedMessage(senderId, {_order: order._id});
             })
             .catch(err => console.log(err));
           break;

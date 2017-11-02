@@ -108,7 +108,7 @@ const upsizeOrderMessage = (senderId, linkId) => {
     return attachment;
 };
 
-const orderAskContinue = (order) => {
+const orderAskContinue = (package) => {
     const attachment = {
         attachment: {
             type: "template",
@@ -124,7 +124,7 @@ const orderAskContinue = (order) => {
                     },
                     {
                         type: "web_url",
-                        url: `${websiteURL}/receipt?order=${order._id}`,
+                        url: `${websiteURL}/receipt?order=${package._order}`,
                         title: "Done",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -229,7 +229,7 @@ const newOrderMessage = (recipientId) => {
 
 // ===== ITEMS ===============================================================
 
-const askFriesSizeMessage = (order) => {
+const askFriesSizeMessage = () => {
     return {
         text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
         quick_replies: [{
@@ -238,8 +238,6 @@ const askFriesSizeMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-fries",
                     data: {
-                        orderId: order._id,
-
                         foodObject: {
                             itemName: "fries",
                             itemSize: "medium"
@@ -253,8 +251,6 @@ const askFriesSizeMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-fries",
                     data: {
-                        orderId: order._id,
-
                         foodObject: {
                             itemName: "fries",
                             itemSize: "large"
@@ -266,7 +262,7 @@ const askFriesSizeMessage = (order) => {
     };
 };
 
-const askMilkshakeFlavorMessage = (order) => {
+const askMilkshakeFlavorMessage = () => {
     return {
         text: "Would you like vanilla, chocolate, or strawberry?",
         quick_replies: [{
@@ -275,7 +271,6 @@ const askMilkshakeFlavorMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-shake",
                     data: {
-                        orderId: order._id,
                         foodObject: {
                             itemName: "vanillaMilkshake"
                         }
@@ -288,7 +283,6 @@ const askMilkshakeFlavorMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-shake",
                     data: {
-                        orderId: order._id,
 
                         foodObject: {
                             itemName: "chocolateMilkshake"
@@ -302,7 +296,6 @@ const askMilkshakeFlavorMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-shake",
                     data: {
-                        orderId: order._id,
 
                         foodObject: {
                             itemName: "strawberryMilkshake"
