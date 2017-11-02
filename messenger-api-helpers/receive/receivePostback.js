@@ -33,7 +33,7 @@ const handleReceivePostback = messagingEvent => {
             }).catch(err => console.log(err));
           break;
         case "order-side":
-          if (data.foodObject.itemName === "cheesyFries" || data.foodObject.itemName === "poutine" ) {
+          if (data.foodObject.itemName === "Cheesy Fries" || data.foodObject.itemName === "Poutine" ) {
             runner.renewSessionAndReturnOrder(senderId)
               .then((order) => {
                 return runner.addSideToOrder(senderId, { itemName: data.foodObject.itemName})
@@ -42,7 +42,7 @@ const handleReceivePostback = messagingEvent => {
                 send.sendOrderedMessage(senderId, item);
               })
           } 
-            else if (data.foodObject.itemName === "fries") {
+            else if (data.foodObject.itemName === "Fries") {
               runner.renewSessionAndReturnOrder(senderId).then(() => {
                 send.askFriesSize(senderId);
               });

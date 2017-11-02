@@ -18,19 +18,19 @@ const burgerSchema = new Schema(
       default: "burger"
     },
 
-    patties: {
+    Patties: {
       type: Number
     },
 
     // ===== Premium Items ===============================================================
     premiumToppings: [{
       type: String,
-      enum: ['friedEgg','glutenFreeBun', 'grilledCheeseBun', 'threePartBun', 'chickenPatty', 'soyPatty', 'stuffedPortobello', 'bacon', 'caramelizedOnions', 'americanCheese', 'blueCheese', 'cheeseSauce', 'gravySide', 'sauteedMushrooms', 'blueCheese', 'swissCheese', 'standardCheese']
+      enum: ['Fried Egg','Gluten Free Bun', 'Grilled Cheese Bun', 'Three Part Bun', 'Chicken Patty', 'Soy Patty', 'Stuffed Portobello', 'Bacon', 'Caramelized Onions', 'American Cheese', 'Blue Cheese', 'Cheese Sauce', 'Side of Gravy', 'Sauteed Mushrooms', 'Blue Cheese', 'Swiss Cheese', 'Standard Cheese']
     }],
     // ===== Standard Items ===============================================================
     standardToppings: [{
       type: String,
-      enum: ['lettuceBun', 'standardBun', 'pickles', 'lettuce', 'tomatoes', 'onions', 'ketchup', 'mustard', 'mayo', 'relish', 'fancySauce', 'hotSauce', 'tomato', 'pickle', 'hotPepper']
+      enum: ['Lettuce Bun', 'Standard Bun', 'Pickles', 'Lettuce', 'Tomatoes', 'Onions', 'Ketchup', 'Mustard', 'Mayo', 'Relish', 'Fancy Sauce', 'Hot Sauce', 'Hot Peppers']
     }]
 
   },

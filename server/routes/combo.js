@@ -23,18 +23,18 @@ routes.post("/combo", (req, res) => {
   const parseDrink = function(body) {
     switch (body.drink_type) {
       case "water":
-        return "waterBottle";
+        return "Water Bottle";
         break;
       case "soda":
         return body.soda_flavor;
         break;
       case "milkshake":
         if (body.milkshake_flavor === "strawberry") {
-          return "strawberryMilkshake";
+          return "Strawberry Milkshake";
         } else if (body.milkshake_flavor === "vanilla") {
-          return "vanillaMilkshake";
+          return "Vanilla Milkshake";
         } else if (body.milkshake_flavor === "chocolate") {
-          return "chocolateMilkshake";
+          return "Chocolate Milkshake";
         }
         break;
       default:
@@ -50,7 +50,7 @@ routes.post("/combo", (req, res) => {
   let sideObject = {
     linkId: linkId,
     itemName: parseSide(req.body),
-    itemSize: "medium",
+    itemSize: "Medium",
     itemCombo: true
   };
 

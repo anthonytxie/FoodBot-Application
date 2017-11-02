@@ -36,7 +36,7 @@ const handleReceiveMessage = messagingEvent => {
               send.sendSideMenu(senderId);
             });
             break;
-          case "order-fries":
+          case "order-Fries":
             runner.addSideToOrder(senderId, data.foodObject).then(item => {
               send.sendOrderedMessage(senderId, item);
             });

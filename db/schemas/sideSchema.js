@@ -10,12 +10,12 @@ const sideSchema = new Schema(
     },
     itemName: {
       type: String,
-      enum: ["fries", "poutine", "cheesyFries"]
+      enum: ["Fries", "Poutine", "Cheesy Fries"]
     },
 
     itemSize: {
       type: String,
-      enum: ["small", "medium", "large"]
+      enum: ["Small", "Medium", "Large"]
     },
 
     itemCombo: {
@@ -28,26 +28,26 @@ const sideSchema = new Schema(
 
 sideSchema.virtual("price").get(function() {
   if (this.itemCombo) {
-    if (this.itemName === "poutine") {
+    if (this.itemName === "Poutine") {
       return 6.0;
-    } else if (this.itemName === "cheesyFries") {
+    } else if (this.itemName === "Cheesy Fries") {
       return 4.5;
-    } else if (this.itemName === "fries") {
+    } else if (this.itemName === "Fries") {
       return 2.0;
     } 
   }
   else {
-    if (this.itemName ==="cheesyFries") {
+    if (this.itemName ==="Cheesy Fries") {
       return 6.49;
     }
-    else if (this.itemName ==="poutine") {
+    else if (this.itemName ==="Poutine") {
       return 7.99;
     }
-    else if (this.itemName ==="fries") {
-      if (this.itemSize ==="medium") {
+    else if (this.itemName ==="Fries") {
+      if (this.itemSize ==="Medium") {
         return 3.99;
       }
-      else if (this.itemSize ==="large") {
+      else if (this.itemSize ==="Large") {
         return 4.99;
       }
     }
