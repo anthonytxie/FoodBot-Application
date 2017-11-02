@@ -4,8 +4,8 @@ const menuItems = [
 		type: "burger",
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty, on a sesame bun.",
-		patties: 1,
-		standardToppings: ["standardBun"],
+		Patties: 1,
+		standardToppings: ["Standard Bun"],
 		premiumToppings: [],
 		basePrice: 5.99
 	},
@@ -15,9 +15,9 @@ const menuItems = [
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "One beef patty with cheese, on a sesame bun.",
-		patties: 1,
-		standardToppings: ["standardBun"],
-		premiumToppings: ["standardCheese"],
+		Patties: 1,
+		standardToppings: ["Standard Bun"],
+		premiumToppings: ["Standard Cheese"],
 		basePrice: 6.99
 	},
 
@@ -26,10 +26,10 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "One beef patty with bacon, on a sesame bun.",
-		patties: 1,
-		standardToppings: ["standardBun"],
-		premiumToppings: ["bacon"],
+		subtitle: "One beef patty with Bacon, on a sesame bun.",
+		Patties: 1,
+		standardToppings: ["Standard Bun"],
+		premiumToppings: ["Bacon"],
 		basePrice: 7.49
 	},
 
@@ -38,10 +38,10 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "One beef patty with cheese and bacon, on a sesame bun.",
-		patties: 1,
-		standardToppings: ["standardBun"],
-		premiumToppings: ["standardCheese", "bacon"],
+		subtitle: "One beef patty with cheese and Bacon, on a sesame bun.",
+		Patties: 1,
+		standardToppings: ["Standard Bun"],
+		premiumToppings: ["Standard Cheese", "Bacon"],
 		basePrice: 8.49
 	},
 
@@ -50,9 +50,9 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Two beef patties, on a sesame bun.",
-		patties: 2,
-		standardToppings: ["standardBun"],
+		subtitle: "Two beef Patties, on a sesame bun.",
+		Patties: 2,
+		standardToppings: ["Standard Bun"],
 		premiumToppings: [],
 		basePrice: 7.99
 	},
@@ -62,11 +62,11 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/z7ANC0C.jpg",
-		subtitle: "Double cheese burger with caramelized onions.",
+		subtitle: "Double cheese burger with caramelized Onions.",
 
-		patties: 2,
-		standardToppings: ["standardBun"],
-		premiumToppings: ["standardCheese"],
+		Patties: 2,
+		standardToppings: ["Standard Bun"],
+		premiumToppings: ["Standard Cheese"],
 		basePrice: 8.99
 	},
 
@@ -75,11 +75,11 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/aUB3Mrd.jpg",
-		subtitle: "Two patties with bacon on a burger.",
+		subtitle: "Two Patties with Bacon on a burger.",
 
-		patties: 2,
-		standardToppings: ["standardBun"],
-		premiumToppings: ["bacon"],
+		Patties: 2,
+		standardToppings: ["Standard Bun"],
+		premiumToppings: ["Bacon"],
 		basePrice: 9.49
 	},
 
@@ -88,11 +88,11 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/wySPVNs.jpg",
-		subtitle: "Two patties with bacon & cheese.",
+		subtitle: "Two Patties with Bacon & cheese.",
 
-		patties: 2,
-		standardToppings: ["standardBun"],
-		premiumToppings: ["bacon", "standardCheese"],
+		Patties: 2,
+		standardToppings: ["Standard Bun"],
+		premiumToppings: ["Bacon", "Standard Cheese"],
 		basePrice: 9.49
 	},
 
@@ -101,10 +101,10 @@ const menuItems = [
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Chicken burger with mayo.",
-		patties: 0,
-		premiumToppings: ["chickenPatty"],
-		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
+		subtitle: "Chicken burger with Mayo.",
+		Patties: 0,
+		premiumToppings: ["Chicken Patty"],
+		standardToppings: ["Lettuce", "Pickles", "Standard Bun", "Mayo"],
 		basePrice: 9.99
 	},
 
@@ -114,8 +114,8 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		subtitle: "Veggie burger with soy pattie.",
-		premiumToppings: ["soyPatty"],
-		standardToppings: ["standardBun"],
+		premiumToppings: ["Soy Patty"],
+		standardToppings: ["Standard Bun"],
 		basePrice: 7.99
 	},
 
@@ -125,10 +125,10 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle:
-			"Two beef patties, fancy sauce, cheese, pickles, chopped lettuce, diced onion, served on a three part bun.",
-		patties: 2,
-		premiumToppings: ["threePartBun", "standardCheese"],
-		standardToppings: ["fancySauce", "pickles", "lettuce", "onions"],
+			"Two beef Patties, fancy sauce, cheese, Pickles, chopped Lettuce, diced onion, served on a three part bun.",
+		Patties: 2,
+		premiumToppings: ["Three Part Bun", "Standard Cheese"],
+		standardToppings: ["Fancy Sauce", "Pickles", "Lettuce", "Onions"],
 		basePrice: 9.99
 	},
 	{
@@ -136,11 +136,11 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
-		subtitle: "Double cheese burger with bacon & caramelized onions.",
+		subtitle: "Double cheese burger with Bacon & caramelized Onions.",
 
-		patties: 2,
-		standardToppings: ["standardBun", "fancySauce"],
-		premiumToppings: ["standardCheese", "caramelizedOnions", "bacon"],
+		Patties: 2,
+		standardToppings: ["Standard Bun", "Fancy Sauce"],
+		premiumToppings: ["Standard Cheese", "Caramelized Onions", "Bacon"],
 		basePrice: 9.99
 	},
 
@@ -150,11 +150,11 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/aUB3Mrd.jpg",
 		subtitle:
-			"Double cheese burger with bacon, caramelized onions & a friend egg.",
+			"Double cheese burger with Bacon, caramelized Onions & a friend egg.",
 
-		patties: 2,
-		premiumToppings: ["friedEgg", "bacon", "standardCheese"],
-		standardToppings: ["onions", "standardBun"],
+		Patties: 2,
+		premiumToppings: ["Fried Egg", "Bacon", "Standard Cheese"],
+		standardToppings: ["Onions", "Standard Bun"],
 		basePrice: 10.99
 	},
 
@@ -163,11 +163,11 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/wySPVNs.jpg",
-		subtitle: "Two beef patties, bacon, & blue cheese.",
+		subtitle: "Two beef Patties, Bacon, & blue cheese.",
 
-		patties: 2,
-		premiumToppings: ["blueCheese", "caramelizedOnions", "bacon"],
-		standardToppings: ["standardBun"],
+		Patties: 2,
+		premiumToppings: ["Blue Cheese", "Caramelized Onions", "Bacon"],
+		standardToppings: ["Standard Bun"],
 		basePrice: 9.99
 	},
 
@@ -177,9 +177,9 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/Jq4kO7S.jpg",
 		subtitle: "Double cheeseburger, stuffed between two grilled cheese buns.",
-		patties: 2,
+		Patties: 2,
 		standardToppings: [],
-		premiumToppings: ["grilledCheeseBun", "standardCheese"],
+		premiumToppings: ["Grilled Cheese Bun", "Standard Cheese"],
 		basePrice: 10.99
 	},
 
@@ -190,9 +190,9 @@ const menuItems = [
 		image_url: "https://i.imgur.com/m4IQMAD.jpg",
 		subtitle:
 			"A Portobello stuffed with herbed cheese, rolled in panko crumbs & fried.",
-		patties: 0,
-		premiumToppings: ["stuffedPortobello"],
-		standardToppings: ["standardBun"],
+		Patties: 0,
+		premiumToppings: ["Stuffed Portobello"],
+		standardToppings: ["Standard Bun"],
 		basePrice: 7.99
 	},
 
@@ -201,10 +201,10 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/N2IhDVG.jpg",
-		subtitle: "Breaded chicken breast mayo, chopped lettuce and pickles.",
-		patties: 0,
-		premiumToppings: ["chickenPatty"],
-		standardToppings: ["lettuce", "pickles", "standardBun", "mayo"],
+		subtitle: "Breaded chicken breast Mayo, chopped Lettuce and Pickles.",
+		Patties: 0,
+		premiumToppings: ["Chicken Patty"],
+		standardToppings: ["Lettuce", "Pickles", "Standard Bun", "Mayo"],
 		basePrice: 9.99
 	},
 	{
@@ -212,11 +212,11 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/cF4L5ZD.jpg",
-		subtitle: "Two beef patties, grilled mushrooms and swiss cheese.",
+		subtitle: "Two beef Patties, grilled mushrooms and swiss cheese.",
 
-		patties: 2,
-		premiumToppings: ["swissCheese", "sauteedMushrooms"],
-		standardToppings: ["standardBun"],
+		Patties: 2,
+		premiumToppings: ["Swiss Cheese", "Sauteed Mushrooms"],
+		standardToppings: ["Standard Bun"],
 		basePrice: 9.99
 	},
 	{
@@ -224,8 +224,8 @@ const menuItems = [
 		type: "side",
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Perfectly cut, golden cripsy, potato fries.",
-		itemName: "fries"
+		subtitle: "Perfectly cut, golden cripsy, potato Fries.",
+		itemName: "Fries"
 
 	},
 	{
@@ -233,7 +233,7 @@ const menuItems = [
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
-		itemName: "poutine"
+		itemName: "Poutine"
 
 	},
 
@@ -241,8 +241,8 @@ const menuItems = [
 		title: "Cheesy Fries",
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
-		subtitle: "Cheesy fries.",
-		itemName: "cheesyFries"
+		subtitle: "Cheesy Fries.",
+		itemName: "Cheesy Fries"
 	},
 
 	{

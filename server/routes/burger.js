@@ -37,9 +37,9 @@ routes.post("/burger", (req, res) => {
                     foodObject: {
                       _link: 1234,
                       itemName: 'Single Burger',
-                      patties: 2,
-                      standardToppings: ['tomato', 'lettuce'],
-                      premiumToppings: ['bacon']
+                      Patties: 2,
+                      standardToppings: ['tomato', 'Lettuce'],
+                      premiumToppings: ['Bacon']
                     }
                   
 
@@ -47,7 +47,7 @@ routes.post("/burger", (req, res) => {
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
-    let patties = parseFloat(body.patties);
+    let Patties = parseFloat(body.Patties);
     let itemName = body.title;
 
     for (var key in body) {
@@ -65,7 +65,7 @@ routes.post("/burger", (req, res) => {
     }
     return {
         _link: body._link,
-        patties: patties,
+        Patties: Patties,
         itemName: itemName,
         premiumToppings: [...premiumToppings],
         standardToppings: [...standardToppings]

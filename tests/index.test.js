@@ -32,28 +32,28 @@ let PSID;
 let orderId;
 let itemId;
 let testBurger = {
-  patties: 2,
+  Patties: 2,
   itemName: "Top Bun",
-  premiumToppings: ["threePartBun", "standardCheese"],
-  standardToppings: ["fancySauce", "pickles", "lettuce", "onions"]
+  premiumToppings: ["Three Part Bun", "Standard Cheese"],
+  standardToppings: ["Fancy Sauce", "Pickles", "Lettuce", "Onions"]
 };
 
 let testDrink = {
-  itemName: "vanillaMilkshake",
+  itemName: "Vanilla Milkshake",
   itemCombo: false
 };
 let testSide = {
-  itemName: "poutine",
+  itemName: "Poutine",
   itemCombo: false
 };
 let testComboDrink = {
-  itemName: "vanillaMilkshake",
+  itemName: "Vanilla Milkshake",
   itemCombo: true
 };
 let testComboSide = {
-  itemName: "poutine",
+  itemName: "Poutine",
   itemCombo: true,
-  itemSize: "medium"
+  itemSize: "Medium"
 };
 beforeEach(done => {
   User.remove({})
@@ -247,7 +247,7 @@ describe("ITEM DAO", () => {
       result.should.eventually.have
         .property("_items")
         .that.has.property([1])
-        .that.has.property("patties", 2),
+        .that.has.property("Patties", 2),
       result.should.eventually.have
         .property("_items")
         .that.has.property([1])
@@ -383,33 +383,33 @@ describe("ROUTES", () => {
       order_id: orderId,
       title: "Swiss Bank Account",
       sender_id: PSID,
-      patties: "2",
+      Patties: "2",
       beef: "true",
-      chickenPatty: "",
-      standardBun: "true",
-      lettuceBun: "",
-      glutenFreeBun: "",
-      grilledCheeseBun: "",
-      ketchup: "",
-      mayo: "",
-      mustard: "",
-      relish: "",
-      fancySauce: "",
-      hotSauce: "",
-      lettuce: "",
-      tomatoes: "",
-      pickles: "",
-      onions: "",
-      hotPepper: "",
-      bacon: "",
-      standardCheese: "",
-      americanCheese: "",
-      blueCheese: "",
-      caramelizedOnions: "",
-      sauteedMushrooms: "true",
-      stuffedPortobello: "",
-      cheeseSauce: "",
-      gravySide: ""
+      Chicken Patty: "",
+      Standard Bun: "true",
+      Lettuce Bun: "",
+      Gluten Free Bun: "",
+      Grilled Cheese Bun: "",
+      Ketchup: "",
+      Mayo: "",
+      Mustard: "",
+      Relish: "",
+      Fancy Sauce: "",
+      Hot Sauce: "",
+      Lettuce: "",
+      Tomatoes: "",
+      Pickles: "",
+      Onions: "",
+      Hot Peppers: "",
+      Bacon: "",
+      Standard Cheese: "",
+      American Cheese: "",
+      Blue Cheese: "",
+      Caramelized Onions: "",
+      Sauteed Mushrooms: "true",
+      Stuffed Portobello: "",
+      Cheese Sauce: "",
+      Side of Gravy: ""
     };
     let stub = sinon.stub(send, "sendOrderedBurgerUpsizeMessage");
     return request(app)
@@ -444,7 +444,7 @@ describe("ROUTES", () => {
     let postBody = {
       order_id: orderId,
       sender_id: PSID,
-      food_type: "fries",
+      food_type: "Fries",
       drink_type: "milkshake",
       milkshake_flavor: "strawberry",
       soda_flavor: ""
@@ -461,7 +461,7 @@ describe("ROUTES", () => {
     let postBody = {
       order_id: orderId,
       sender_id: PSID,
-      food_type: "fries",
+      food_type: "Fries",
       drink_type: "milkshake",
       milkshake_flavor: "strawberry",
       soda_flavor: ""
@@ -485,17 +485,17 @@ describe("ROUTES", () => {
               .findOrderById(orderId)
               .should.eventually.have.property("_items")
               .that.has.property([2])
-              .that.has.property("itemName", "strawberryMilkshake"),
+              .that.has.property("itemName", "Strawberry Milkshake"),
             orderDAO
               .findOrderById(orderId)
               .should.eventually.have.property("_items")
               .that.has.property([3])
-              .that.has.property("itemName", "fries"),
+              .that.has.property("itemName", "Fries"),
             orderDAO
               .findOrderById(orderId)
               .should.eventually.have.property("_items")
               .that.has.property([3])
-              .that.has.property("itemSize", "medium")
+              .that.has.property("itemSize", "Medium")
           ]);
         });
     });

@@ -25,9 +25,9 @@ itemDAO.postBurger = function(foodObject, senderId) {
                     foodObject: {
                       _link: 1234,
                       itemName: 'Single Burger',
-                      patties: 2,
-                      standardToppings: ['tomato', 'lettuce'],
-                      premiumToppings: ['bacon']
+                      Patties: 2,
+                      standardToppings: ['tomato', 'Lettuce'],
+                      premiumToppings: ['Bacon']
                     }
                   
 
@@ -49,7 +49,7 @@ itemDAO.postBurger = function(foodObject, senderId) {
               },
               {
                 $set: {
-                  patties: foodObject.patties,
+                  Patties: foodObject.Patties,
                   standardToppings: foodObject.standardToppings,
                   premiumToppings: foodObject.premiumToppings
                 }
@@ -62,7 +62,7 @@ itemDAO.postBurger = function(foodObject, senderId) {
           const newBurger = new Burger({
             _order: order._id,
             _link: foodObject._link,
-            patties: foodObject.patties,
+            Patties: foodObject.Patties,
             standardToppings: foodObject.standardToppings,
             premiumToppings: foodObject.premiumToppings,
             itemName: foodObject.itemName

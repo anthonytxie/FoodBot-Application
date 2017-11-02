@@ -231,16 +231,16 @@ const newOrderMessage = (recipientId) => {
 
 const askFriesSizeMessage = () => {
     return {
-        text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
+        text: "Would you like Medium Fries ($3.99) or Large Fries ($4.99)?",
         quick_replies: [{
                 content_type: "text",
                 title: "Medium",
                 payload: JSON.stringify({
-                    type: "order-fries",
+                    type: "order-Fries",
                     data: {
                         foodObject: {
-                            itemName: "fries",
-                            itemSize: "medium"
+                            itemName: "Fries",
+                            itemSize: "Medium"
                         }
                     }
                 })
@@ -249,11 +249,11 @@ const askFriesSizeMessage = () => {
                 content_type: "text",
                 title: "Large",
                 payload: JSON.stringify({
-                    type: "order-fries",
+                    type: "order-Fries",
                     data: {
                         foodObject: {
-                            itemName: "fries",
-                            itemSize: "large"
+                            itemName: "Fries",
+                            itemSize: "Large"
                         }
                     }
                 })
@@ -272,7 +272,7 @@ const askMilkshakeFlavorMessage = () => {
                     type: "order-shake",
                     data: {
                         foodObject: {
-                            itemName: "vanillaMilkshake"
+                            itemName: "Vanilla Milkshake"
                         }
                     }
                 })
@@ -285,7 +285,7 @@ const askMilkshakeFlavorMessage = () => {
                     data: {
 
                         foodObject: {
-                            itemName: "chocolateMilkshake"
+                            itemName: "Chocolate Milkshake"
                         }
                     }
                 })
@@ -298,7 +298,7 @@ const askMilkshakeFlavorMessage = () => {
                     data: {
 
                         foodObject: {
-                            itemName: "strawberryMilkshake"
+                            itemName: "Strawberry Milkshake"
                         }
                     }
                 })
