@@ -25,7 +25,7 @@ module.exports = { setPersistentMenu, setGetStarted };
 /*
 curl -X POST -H "Content-Type: application/json" -d '{
   "setting_type" : "domain_whitelisting",
-  "whitelisted_domains" : ["https://ebc1c1e8.ngrok.io"],
+  "whitelisted_domains" : ["https://735460cf.ngrok.io"],
   "domain_action_type": "add"
 }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAACH5pouINQBAHIX0LDyAZCr5ZAzf20ZC5Nm6VZAeL1pLBEzOPxLq0V7ozmrT9NLIhZCMPISZA7RDYRoscJhXB6p956JGsTSrILMPxPNkixYuTEdBdshPmxKITZAzegZASmNyNXjM1C3obfqFjsECiFR5LqykXB4JUnL7rsUcmsoggZDZD"
 */

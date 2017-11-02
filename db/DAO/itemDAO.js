@@ -15,7 +15,7 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
       ).populate("_items")
     })
     .then(order => {
-      resolve({_order: orderId})
+      resolve(order._items.slice(-1).pop())
     })
     .catch(err => reject(err));
 };
