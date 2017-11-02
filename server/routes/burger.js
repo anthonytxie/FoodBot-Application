@@ -17,26 +17,39 @@ const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/burgercustomize", (req, res) => {
-  let id = req.query.order;
+  let _link = req.query.linkId;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
+
   let burger = findItem(burgerName);
   console.log(burger);
   res.status(200).render("burgercustomize", {
-    order_id: id,
     sender_id: senderId,
-    burger: burger
+    burger: burger,
+    _link: _link
   });
 });
 
-routes.post("/burger", (req, res) => {
-  const senderId = req.body.sender_id;
+routes.post("/burger", (req, res) => {  
+
+  // postBurger(foodObject,senderId)
+ /*
+                    foodObject: {
+                      _link: 1234,
+                      itemName: 'Single Burger',
+                      patties: 2,
+                      standardToppings: ['tomato', 'lettuce'],
+                      premiumToppings: ['bacon']
+                    }
+                  
+
+  */
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
     let patties = parseFloat(body.patties);
     let itemName = body.title;
-    let _order = mongoose.Types.ObjectId(body.order_id);
+
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
         if (body[key] == "true") {
@@ -50,28 +63,27 @@ routes.post("/burger", (req, res) => {
         }
       }
     }
-
     return {
-      orderId: _order,
-      foodObject: {
+        _link: body._link,
         patties: patties,
         itemName: itemName,
         premiumToppings: [...premiumToppings],
         standardToppings: [...standardToppings]
       }
-    };
   };
-  
-  const burger = burgerFormat(req.body);
+  const senderId = req.body.sender_id;
+  const linkId = req.body._link;
+  const foodObject = burgerFormat(req.body);
   itemDAO
-    .postBurger(burger.foodObject, burger.orderId)
-    .then(order => {
-      return send.sendOrderedBurgerUpsizeMessage(senderId, order);
+    .postBurger(foodObject, senderId)
+    .then(() => {
+      return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
     })
     .then(() => {
       return res.status(200).send()
     })
     .catch(err => console.log(err));
 });
+
 
 module.exports = routes;

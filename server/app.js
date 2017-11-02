@@ -1,4 +1,5 @@
 // MODULES
+require('dotenv').config();
 const express = require('express');
 const pug = require('pug');
 const bodyParser = require('body-parser');
@@ -37,8 +38,6 @@ app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
-
-
 
 
 module.exports = app

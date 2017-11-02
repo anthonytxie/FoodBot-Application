@@ -36,8 +36,8 @@ const sendSideMenu = (recipientId, data) => {
 
 
 // ===== ORDER ===============================================================
-const sendOrderedMessage = (recipientId, order) => {
-    sendMessage(recipientId, messages.orderAskContinue(order))
+const sendOrderedMessage = (recipientId, package) => {
+    sendMessage(recipientId, messages.orderAskContinue(package))
 };
 
 const sendOrderedBurgerUpsizeMessage = (recipientId, linkId) => {
@@ -88,12 +88,12 @@ const sendBurgerOrderPrompt = (recipientId, data, linkId) => {
     sendMessage(recipientId, messages.burgerTemplate(data, linkId, recipientId));
 };
 
-const askFriesSize = (recipientId, order) => {
-    sendMessage(recipientId, messages.askFriesSizeMessage(order));
+const askFriesSize = (recipientId) => {
+    sendMessage(recipientId, messages.askFriesSizeMessage());
 };
 
-const askMilkshakeFlavor = (recipientId, order) => {
-    sendMessage(recipientId, messages.askMilkshakeFlavorMessage(order));
+const askMilkshakeFlavor = (recipientId) => {
+    sendMessage(recipientId, messages.askMilkshakeFlavorMessage());
 };
 
 const sendComboError = (recipientId, order) => {

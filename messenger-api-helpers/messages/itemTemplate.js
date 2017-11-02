@@ -18,22 +18,19 @@ const burgerTemplate = function(data, linkId, recipientId) {
                 title: "The Usual",
                 payload: JSON.stringify({
                   type: "order-burger",
-                  data: {
-                    senderId: recipientId,
-                    _link: linkId,
-                    foodObject: {
+                  data:  {
                       _link: linkId,
                       itemName: burger.title,
                       patties: burger.patties,
                       standardToppings: burger.standardToppings,
                       premiumToppings: burger.premiumToppings
-                    }
+                    
                   }
                 })
               },
               {
                 type: "web_url",
-                url: `${websiteURL}/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${linkId}`,
+                url: `${websiteURL}/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${linkId.toString()}`,
                 title: "Customize",
                 webview_height_ratio: "full",
                 messenger_extensions: true

@@ -10,16 +10,17 @@ const itemDAO = require("./../../db/DAO/itemDAO");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/burgercombo", (req, res) => {
-  let orderId = req.query.order;
+  let linkId = req.query.linkId;
   let senderId = req.query.sender;
-  res.render("burgercombopage", { order_id: orderId, sender_id: senderId }); //send back pug file
+  res.render("burgercombopage", { _link: linkId, sender_id: senderId }); //send back pug file
 });
 
 routes.post("/combo", (req, res) => {
-  let orderId = mongoose.Types.ObjectId(req.body.order_id);
+  console.log(JSON.stringify(req.body));
   let senderId = req.body.sender_id;
+  let linkId = req.body._link;
 
-  const drinkObject = function(body) {
+  const parseDrink = function(body) {
     switch (body.drink_type) {
       case "water":
         return "waterBottle";
@@ -42,37 +43,33 @@ routes.post("/combo", (req, res) => {
     }
   };
 
-  const sideObject = function(body) {
+  const parseSide = function(body) {
     return body.food_type;
   };
 
-  let side = {
-    itemName: sideObject(req.body),
+  let sideObject = {
+    linkId: linkId,
+    itemName: parseSide(req.body),
     itemSize: "medium",
     itemCombo: true
   };
 
-  let drink = {
-    itemName: drinkObject(req.body),
+  let drinkObject = {
+    linkId: linkId,
+    itemName: parseDrink(req.body),
     itemCombo: true
   };
 
   itemDAO
-    .postDrink(drink, orderId)
-    .then(order => {
-      if (!order) {
-        send.sendComboError(senderId);
-      } else {
-        return itemDAO.postSide(side, orderId);
-      }
+    .postDrink(drinkObject, senderId)
+    .then(() => {
+      return itemDAO.postSide(sideObject, senderId);
     })
-    .then(order => {
-      if (order) {
-        send.sendOrderedMessage(senderId, order);
-      }
+    .then(side => {
+      send.sendOrderedMessage(senderId, side);
     })
     .then(() => {
-      res.status(200).send()
+      res.status(200).send();
     })
     .catch(err => console.log(err));
 });

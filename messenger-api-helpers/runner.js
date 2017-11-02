@@ -56,20 +56,20 @@ const addBurgerToOrder = (senderId, data) => {
     return itemDAO.postBurger(data, senderId)
 };
 
-const addSideToOrder = (senderId, data) => {
+const addSideToOrder = (senderId, foodObject) => {
   return sessionDAO
     .renewSession(senderId)
     .then(session => {
-      return itemDAO.postSide(data.foodObject, data.orderId);
+      return itemDAO.postSide(foodObject, senderId);
     })
     .catch(err => console.log(err));
 };
 
-const addDrinkToOrder = (senderId, data) => {
+const addDrinkToOrder = (senderId, foodObject) => {
   return sessionDAO
     .renewSession(senderId)
     .then(session => {
-      return itemDAO.postDrink(data.foodObject, data.orderId);
+      return itemDAO.postDrink(foodObject, senderId);
     })
     .catch(err => console.log(err));
 };
