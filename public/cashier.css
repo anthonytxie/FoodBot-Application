@@ -3,9 +3,10 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	background: #191a1a;
-	font-family: Arial;
-	color: white;
+	background: #e4e6ea;
+	font-family: Roboto;
+	color: rgb(75, 79, 86);
+	letter-spacing: .04em;
 }
 
 /*all content on page*/
@@ -19,19 +20,73 @@ body > div {
 	justify-content: space-evenly;
 }
 
+/*navbar*/
+
+nav {
+	height: 60px;
+	background-color: white;
+	box-shadow: 0 1px 1px rgba(0,0,0,.14);
+}
+
+nav > .client_name {
+	background-color: rgb(78, 86, 101); /*greyish blue*/
+	color: white;
+	line-height: 60px;
+	width: 190px;
+	padding: 0 20px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+nav > .client_name:hover {
+	background-color: #646e82;
+	cursor: pointer;
+}
+
+nav > div {
+	height: 100%;
+	display: inline-block;
+}
+
+nav img {
+	position: relative;
+	top: 12px;
+	width: 32px;
+	border-radius: 12%;
+}
+
+nav span {
+	padding-left: 15px;
+}
+
+nav > .tab {
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 14px;
+}
+
+nav > .vr {
+	background: grey;
+	width: 1px;
+	height: 20px;
+	position: relative;
+	top: 6px;
+}
+
 /*column*/
 section {
 	width: 30%;
 }
 
 /*top of column*/
-.title {
+section > .title {
 	text-align: center;
-	padding-top: 120px;
-	padding-bottom: 10px;
+	padding-top: 20px;
 	font-size: 1.3em;
+	font-weight: bold;
 	height: 20px;
 	line-height: 20px;
+	padding-top: 40px;
 }
 
 /*all orders*/
@@ -42,16 +97,57 @@ section {
 
 /*each order*/
 .container > div {
-	background: red;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border: 2px solid yellow;
+	background-color: rgb(246, 247, 249); /*light grey*/
+	margin-top: 20px;
+	border: 1px solid rgb(208, 209, 213);
+	border-radius: 3px;
 }
 
-/*each row*/
-.top, .bottom, .middle div {
+.top {
+	line-height: 48px;
+	font-size: 18px;
+	padding-left: 12px;
+}
+
+.id, .address {
+	display: inline-block;
+}
+
+.address {
+	float: right;
+	padding-right: 20px;
+}
+
+.heavy {
+	font-weight: bold;
+}
+
+.middle {
+	background-color: white;
+}
+
+ol {
+	margin: 0px;
+	padding-left: 30px;
+}
+
+.item {
+	height: 30px;
+	line-height: 30px;
+	padding-left: 12px;
+	font-weight: 700;
+}
+
+.topping {
+	padding-left: 43px;
+	height: 36px;
+	line-height: 36px;
+	font-weight: 300;
+}
+
+/*each section in the order*/
+.top, .bottom {
 	min-height: 45px;
-	background: white;
 	color: #191a1a;
 }
 
