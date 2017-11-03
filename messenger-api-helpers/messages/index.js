@@ -1,10 +1,7 @@
 const {
     menuMessage,
-    specialBurgerMenuMessageOne,
-    specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo,
-    normalBurgerMenuMessageThree,
+    specialBurgerMenuMessage,
+    normalBurgerMenuMessage,
     sideMenuMessage
 } = require("./menu");
 
@@ -337,11 +334,8 @@ module.exports = {
     getStarted,
     welcomeMessage,
     menuMessage,
-    specialBurgerMenuMessageOne,
-    specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo,
-    normalBurgerMenuMessageThree,
+    specialBurgerMenuMessage,
+    normalBurgerMenuMessage,
     sideMenuMessage,
     burgerTemplate,
     upsizeOrderMessage,

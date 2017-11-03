@@ -1,7 +1,7 @@
 const { Order, User } = require("./../models/index");
 const mongoose = require("mongoose");
 const orderDAO = {};
-const { populateOrder } = require("./helperFunctions");
+const { populateOrder, pad } = require("./helperFunctions");
 
 orderDAO.initializeOrder = function(PSID, sessionId) {
   return new Promise((resolve, reject) => {
@@ -131,5 +131,16 @@ orderDAO.updateInputtedOrder = function(orderId) {
       .catch(err => reject(err));
   });
 };
+
+orderDAO.returnPaidOrderNumber = () => {
+  return new Promise((resolve, reject) => {
+    Order.count({ isPaid: true })
+      .then(count => {
+        resolve(pad(count+1,5));
+      })
+      .catch(err => reject(err));
+  });
+};
+
 
 module.exports = orderDAO;

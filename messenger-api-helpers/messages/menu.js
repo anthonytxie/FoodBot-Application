@@ -48,6 +48,13 @@ const specialBurgerMenuTemplate = burgerObject => {
                         title: burgerObject.title
                     }
                 })
+            },
+            {
+                title: "Back to Menu",
+                type: "postback",
+                payload: JSON.stringify({
+                    type: "see-menu"
+                })
             }
         ]
     };
@@ -94,7 +101,7 @@ const sideMenuTemplate = sideObject => {
     };
 };
 
-const normalBurgerMenuMessageOne = {
+const normalBurgerMenuMessage = {
     attachment: {
         type: "template",
         payload: {
@@ -119,46 +126,66 @@ const normalBurgerMenuMessageOne = {
     }
 };
 
-const specialBurgerMenuMessageOne = {
+const specialBurgerMenuMessage = {
     attachment: {
         type: "template",
         payload: {
-            template_type: "list",
-            top_element_style: "compact",
+            template_type: "generic",
+
             elements: [
                 specialBurgerMenuTemplate(menuItems[10]),
                 specialBurgerMenuTemplate(menuItems[11]),
                 specialBurgerMenuTemplate(menuItems[12]),
-                specialBurgerMenuTemplate(menuItems[13])
+                specialBurgerMenuTemplate(menuItems[13]),
+                specialBurgerMenuTemplate(menuItems[14]),
+                specialBurgerMenuTemplate(menuItems[15]),
+                specialBurgerMenuTemplate(menuItems[16]),
+                specialBurgerMenuTemplate(menuItems[17])
             ]
         }
     }
 };
 
-const specialBurgerMenuMessageTwo = {
-    attachment: {
-        type: "template",
-        payload: {
-            template_type: "list",
-            top_element_style: "compact",
-            elements: [
-                specialBurgerMenuTemplate(menuItems[14]),
-                specialBurgerMenuTemplate(menuItems[15]),
-                specialBurgerMenuTemplate(menuItems[16]),
-                specialBurgerMenuTemplate(menuItems[17])
-            ],
-            buttons: [
-                {
-                    title: "View More",
-                    type: "postback",
-                    payload: JSON.stringify({
-                        type: "see-menu"
-                    })
-                }
-            ]
-        }
-    }
-};
+// const specialBurgerMenuMessageOne = {
+//     attachment: {
+//         type: "template",
+//         payload: {
+//             template_type: "list",
+//             top_element_style: "compact",
+//             elements: [
+//                 specialBurgerMenuTemplate(menuItems[10]),
+//                 specialBurgerMenuTemplate(menuItems[11]),
+//                 specialBurgerMenuTemplate(menuItems[12]),
+//                 specialBurgerMenuTemplate(menuItems[13])
+//             ]
+//         }
+//     }
+// };
+
+// const specialBurgerMenuMessageTwo = {
+//     attachment: {
+//         type: "template",
+//         payload: {
+//             template_type: "list",
+//             top_element_style: "compact",
+//             elements: [
+//                 specialBurgerMenuTemplate(menuItems[14]),
+//                 specialBurgerMenuTemplate(menuItems[15]),
+//                 specialBurgerMenuTemplate(menuItems[16]),
+//                 specialBurgerMenuTemplate(menuItems[17])
+//             ],
+//             buttons: [
+//                 {
+//                     title: "View More",
+//                     type: "postback",
+//                     payload: JSON.stringify({
+//                         type: "see-menu"
+//                     })
+//                 }
+//             ]
+//         }
+//     }
+// };
 
 const sideMenuMessage = {
     attachment: {
@@ -187,8 +214,7 @@ const sideMenuMessage = {
 
 module.exports = {
     menuMessage,
-    specialBurgerMenuMessageOne,
-    specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
+    specialBurgerMenuMessage,
+    normalBurgerMenuMessage,
     sideMenuMessage
 };
