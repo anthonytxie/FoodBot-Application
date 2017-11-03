@@ -30,7 +30,7 @@ const burgerSchema = new Schema(
     // ===== Standard Items ===============================================================
     standardToppings: [{
       type: String,
-      enum: ['Lettuce Bun', 'Standard Bun', 'Pickles', 'Lettuce', 'Tomatoes', 'Onions', 'Ketchup', 'Mustard', 'Mayo', 'Relish', 'Fancy Sauce', 'Hot Sauce', 'Hot Peppers']
+      enum: ['Lettuce Bun', 'Sesame Bun', 'Pickles', 'Lettuce', 'Tomatoes', 'Onions', 'Ketchup', 'Mustard', 'Mayo', 'Relish', 'Fancy Sauce', 'Hot Sauce', 'Hot Peppers']
     }]
 
   },

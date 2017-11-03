@@ -20,14 +20,12 @@ const sendMenuMessage = (recipientId) => {
 };
 
 const sendSpecialBurgerMenu = (recipientId, data) => {
-    sendMessage(recipientId, messages.specialBurgerMenuMessageOne);
-    setTimeout(() => {
-        sendMessage(recipientId, messages.specialBurgerMenuMessageTwo);
-    }, 400);
+    sendMessage(recipientId, messages.specialBurgerMenuMessage);
+
 };
 
 const sendNormalBurgerMenu = (recipientId, data) => {
-    sendMessage(recipientId, messages.normalBurgerMenuMessageOne);
+    sendMessage(recipientId, messages.normalBurgerMenuMessage);
 };
 
 const sendSideMenu = (recipientId, data) => {

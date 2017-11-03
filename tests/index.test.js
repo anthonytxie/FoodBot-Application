@@ -386,7 +386,7 @@ describe("ROUTES", () => {
       Patties: "2",
       beef: "true",
       Chicken Patty: "",
-      Standard Bun: "true",
+      Sesame Bun: "true",
       Lettuce Bun: "",
       Gluten Free Bun: "",
       Grilled Cheese Bun: "",

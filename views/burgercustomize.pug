@@ -61,14 +61,14 @@ html(lang="en")
 			section.radio.section2.required
 
 				.wide_checkbox
-					if toppings.includes('Standard Bun') || (!toppings.includes('Lettuce Bun') && !toppings.includes('Gluten Free Bun') && !toppings.includes('Grilled Cheese Bun'))
+					if toppings.includes('Sesame Bun') || (!toppings.includes('Lettuce Bun') && !toppings.includes('Gluten Free Bun') && !toppings.includes('Grilled Cheese Bun'))
 						.custom_check_on
-						input(type="hidden", name="Standard Bun", value="true")
+						input(type="hidden", name="Sesame Bun", value="true")
 					else
 						.custom_check_off
-						input(type="hidden", name='Standard Bun', value="")
+						input(type="hidden", name='Sesame Bun', value="")
 					.toggle
-						h3 Standard Bun
+						h3 Sesame Bun
 						p Solid choice
 					p.price FREE
 
