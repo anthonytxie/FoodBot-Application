@@ -3,13 +3,17 @@ html(lang="en")
 	head
 		title Cashier
 		meta(name="viewport", content="width=device-width, initial-scale=1")
-		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700" rel="stylesheet")
 		link(rel ='stylesheet', href="cashier.css", type='text/css')
 	body
 		- function displayName(item) { if (item.itemType === 'burger') { console.log(item.itemName); return item.itemName; } console.log(item.itemName); var name = item.itemName.replace( /([A-Z])/g, " $1" ); name = name.charAt(0).toUpperCase() + name.slice(1); if (item.itemName === 'fries') { var size = item.itemSize.charAt(0).toUpperCase() + item.itemSize.slice(1); name = size + ' ' + name; } console.log(name); return name; }
-		- orders = [{"_id": "59f62797ec44880012a3beda","_user": {"_id": "59f62797ec44880012a3bed8","PSID": "1244266349030252","__v": 0,"_sessions": ["59f62797ec44880012a3bed9","59f634451e9cfa00122aa058","59f63f359093a30012c34a27"],"createdAt": "2017-10-29T19:10:15.803Z","emails": []},"_session": {"_id": "59f62797ec44880012a3bed9","_user": "59f62797ec44880012a3bed8","__v": 0,"isActive": false,"lastActiveDate": "2017-10-29T19:12:43.515Z","createdAt": "2017-10-29T19:10:15.832Z"},"isPaid": false,"__v": 0,"isReady": false,"isInputted": false,"isConfirmed": false,"createdAt": "2017-10-29T19:10:15.847Z","_items": [],"id": "59f62797ec44880012a3beda","orderPrice": "0.00"},{"_id": "59f634451e9cfa00122aa059","_user": {"_id": "59f62797ec44880012a3bed8","PSID": "1244266349030252","__v": 0,"_sessions": ["59f62797ec44880012a3bed9","59f634451e9cfa00122aa058","59f63f359093a30012c34a27"],"createdAt": "2017-10-29T19:10:15.803Z","emails": []},"_session": {"_id": "59f634451e9cfa00122aa058","_user": "59f62797ec44880012a3bed8","__v": 0,"isActive": false,"lastActiveDate": "2017-10-29T20:11:47.636Z","createdAt": "2017-10-29T20:04:21.368Z"},"isPaid": false,"__v": 0,"isReady": false,"isInputted": false,"isConfirmed": false,"createdAt": "2017-10-29T20:04:21.404Z","_items": [{"_id": "59f6359f1e9cfa00122aa05a","itemName": "Swiss Bank Account","patties": 2,"isPhantom": false,"__v": 0,"kind": "Burger","createdDate": "2017-10-29T20:10:07.978Z","standardToppings": ["standardBun"],"premiumToppings": ["swissCheese","sauteedMushrooms"],"itemType": "burger","id": "59f6359f1e9cfa00122aa05a","price": 9.99},{"_id": "59f636121e9cfa00122aa05b","itemName": "strawberryMilkshake","itemCombo": true,"__v": 0,"kind": "Drink","createdDate": "2017-10-29T20:12:02.245Z","itemType": "drink","id": "59f636121e9cfa00122aa05b","price": 2.99},{"_id": "59f636121e9cfa00122aa05c","itemName": "fries","itemSize": "medium","__v": 0,"kind": "Sides","createdDate": "2017-10-29T20:12:02.291Z","itemCombo": true,"itemType": "side","id": "59f636121e9cfa00122aa05c","price": 2}],"id": "59f634451e9cfa00122aa059","orderPrice": "14.98"},{"_id": "59f63f359093a30012c34a28","_user": {"_id": "59f62797ec44880012a3bed8","PSID": "1244266349030252","__v": 0,"_sessions": ["59f62797ec44880012a3bed9","59f634451e9cfa00122aa058","59f63f359093a30012c34a27"],"createdAt": "2017-10-29T19:10:15.803Z","emails": []},"_session": {"_id": "59f63f359093a30012c34a27","_user": "59f62797ec44880012a3bed8","__v": 0,"isActive": true,"lastActiveDate": "2017-10-29T20:59:30.127Z","createdAt": "2017-10-29T20:51:01.525Z"},"__v": 0,"isReady": false,"isInputted": false,"isConfirmed": false,"createdAt": "2017-10-29T20:51:01.586Z","_items": [],"id": "59f63f359093a30012c34a28","orderPrice": "0.00"},{"_id": "59f640dcdff6ec00129ef988","_user": {"_id": "59f640dcdff6ec00129ef986","PSID": "1441375662582291","__v": 0,"_sessions": ["59f640dcdff6ec00129ef987"],"createdAt": "2017-10-29T20:58:04.669Z","emails": []},"_session": {"_id": "59f640dcdff6ec00129ef987","_user": "59f640dcdff6ec00129ef986","__v": 0,"isActive": true,"lastActiveDate": "2017-10-29T20:58:15.453Z","createdAt": "2017-10-29T20:58:04.696Z"},"__v": 0,"isReady": false,"isInputted": false,"isConfirmed": false,"createdAt": "2017-10-29T20:58:04.781Z","_items": [],"id": "59f640dcdff6ec00129ef988","orderPrice": "0.00"},{"_id": "59f6410d53d69a00128ee323","_user": {"_id": "59f6410d53d69a00128ee321","PSID": "1510338869049299","__v": 0,"_sessions": ["59f6410d53d69a00128ee322"],"createdAt": "2017-10-29T20:58:53.210Z","emails": [  ]},"_session": {"_id": "59f6410d53d69a00128ee322","_user": "59f6410d53d69a00128ee321","__v": 0,"isActive": true,"lastActiveDate": "2017-10-29T21:00:37.485Z","createdAt": "2017-10-29T20:58:53.230Z"},"__v": 0,"isReady": false,"isInputted": false,"isConfirmed": false,"createdAt": "2017-10-29T20:58:53.252Z","_items": [{"_id": "59f6412c53d69a00128ee324","itemName": "cheesyFries","__v": 0,"kind": "Sides","createdDate": "2017-10-29T20:59:24.894Z","itemCombo": false,"itemType": "side","id": "59f6412c53d69a00128ee324","price": 6.49}],"id": "59f6410d53d69a00128ee323","orderPrice": "6.49"},{"_id": "59f6428f1062ab001262834f","_user": {"_id": "59f6428f1062ab001262834d","PSID": "1407494482660660","__v": 0,"_sessions": ["59f6428f1062ab001262834e"],"createdAt": "2017-10-29T21:05:19.221Z","emails": []},"_session": {"_id": "59f6428f1062ab001262834e","_user": "59f6428f1062ab001262834d","__v": 0,"isActive": true,"lastActiveDate": "2017-10-29T21:05:30.676Z","createdAt": "2017-10-29T21:05:19.243Z"},"__v": 0,"isReady": false,"isInputted": false,"isConfirmed": false,"createdAt": "2017-10-29T21:05:19.278Z","_items": [{"_id": "59f642a51062ab0012628351","patties": 2,"itemName": "Swiss Bank Account","__v": 0,"kind": "Burger","createdDate": "2017-10-29T21:05:41.432Z","standardToppings": ["standardBun","mustard","relish","lettuce"],"premiumToppings": ["blueCheese","sauteedMushrooms","gravySide"],"itemType": "burger","id": "59f642a51062ab0012628351","price": 12.99},{"_id": "59f642ad1062ab0012628352","itemName": "waterBottle","itemCombo": true,"__v": 0,"kind": "Drink","createdDate": "2017-10-29T21:05:49.967Z","itemType": "drink","id": "59f642ad1062ab0012628352","price": 1.29},{"_id": "59f642ad1062ab0012628353","itemName": "cheesyFries","itemSize": "medium","__v": 0,"kind": "Sides","createdDate": "2017-10-29T21:05:49.989Z","itemCombo": true,"itemType": "side","id": "59f642ad1062ab0012628353","price": 4.5}],"id": "59f6428f1062ab001262834f","orderPrice": "18.78"}]
-		- console.log("orders length:");
-		- console.log(orders.length);
+		nav(style="height: 60px, background-color: rgb(78, 86, 101)")
+			.client_name
+				img(src="logo.jpg")
+				span burger burger
+			.tab COMING SOON
+			.vr
+			.tab COMING SOON
 		div
 			section
 				.title New
@@ -18,16 +22,24 @@ html(lang="en")
 						unless order.isInputted
 							div
 								- const display_id = order._id.toString().substr(-5);
-								.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
+								.top 
+									.id
+										span.heavy ID: 
+										span.light #{display_id} 
+									.address(style="display: none;")
+										span.heavy Address:
+										span.light #{order.address}, #{order.postalCode}
 								.middle
+									- let counter = 0;
 									each item in order._items
-										.item #{displayName(item)}
+										- counter++;
+										.item #{counter}. #{displayName(item)}
 										if item.itemType == "burger"
 											//- weird notation here
 											each topping in item.standardToppings
-												.topping #{displayName({itemName: topping})}
+												.topping + #{displayName({itemName: topping})}
 											each topping in item.premiumToppings
-												.topping #{displayName({itemName: topping})}
+												.topping + #{displayName({itemName: topping})}
 								.bottom
 									button Cooking
 
