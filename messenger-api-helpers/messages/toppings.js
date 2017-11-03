@@ -1,21 +1,21 @@
 const premiumToppings = {
-  glutenFreeBun: 1.5,
-  grilledCheeseBun: 2.99,
-  stuffedPortobello: 5.95,
-  patties: 2,
-  bacon: 1.5,
-  chickenPatty: 4.99,
-  caramelizedOnions: 1,
-  americanCheese: 1,
-  blueCheese: 1.5,
-  cheeseSauce: 2.5,
-  gravySide: 1.5,
-  sauteedMushrooms: 1,
-  friedEgg: 0,
-  standardCheese: 0
+  "Gluten Free Bun": 1.5,
+  "Grilled Cheese Bun": 2.99,
+  "Stuffed Portobello": 5.95,
+  "Patties": 2,
+  "Bacon": 1.5,
+  "Chicken Patty": 4.99,
+  "Caramelized Onions": 1,
+  "American Cheese": 1,
+  "Blue Cheese": 1.5,
+  "Cheese Sauce": 2.5,
+  "Side of Gravy": 1.5,
+  "Sauteed Mushrooms": 1,
+  "Fried Egg": 0,
+  "Standard Cheese": 0
 };
 
-const premiumToppingsArray = ['friedEgg','glutenFreeBun', 'grilledCheeseBun', 'threePartBun', 'chickenPatty', 'soyPatty', 'stuffedPortobello', 'bacon', 'caramelizedOnions', 'americanCheese', 'gravySide', 'sauteedMushrooms', 'blueCheese', 'swissCheese', 'standardCheese', 'cheeseSauce'];
+const premiumToppingsArray = ['Fried Egg','Gluten Free Bun', 'Grilled Cheese Bun', 'Three Part Bun', 'Chicken Patty', 'Soy Patty', 'Stuffed Portobello', 'Bacon', 'Caramelized Onions', 'American Cheese', 'Side of Gravy', 'Sauteed Mushrooms', 'Blue Cheese', 'Swiss Cheese', 'Standard Cheese', 'Cheese Sauce'];
 
 
 module.exports = { premiumToppings, premiumToppingsArray };

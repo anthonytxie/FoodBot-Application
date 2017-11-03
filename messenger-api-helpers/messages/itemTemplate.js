@@ -21,7 +21,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
                   data:  {
                       _link: linkId,
                       itemName: burger.title,
-                      patties: burger.patties,
+                      Patties: burger.Patties,
                       standardToppings: burger.standardToppings,
                       premiumToppings: burger.premiumToppings
                     
