@@ -19,5 +19,19 @@ const getDistance = destination => {
 };
 
 
+const isStoreOpen = () => {
+  currentHour = new Date().getHours()
+  if (currentHour < 11 || currentHour >= 23) {
+    return false
+  }
+  else {
+    return true 
+  }
 
-module.exports = {getDistance};
+}
+
+
+
+
+
+module.exports = {getDistance, isStoreOpen};

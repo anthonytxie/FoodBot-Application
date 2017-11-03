@@ -1,12 +1,15 @@
 const send = require("./../send");
 const runner = require("./../runner");
-
+const { isStoreOpen } = require('./../utility/helperFunctions');
 const handleReceivePostback = messagingEvent => {
   //assuming payload is an object that has type and data
   const { type, data } = JSON.parse(messagingEvent.postback.payload);
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
   const senderId = messagingEvent.sender.id.toString();
   // runner does stuff with API.ai and webhook
+
+
+  if (isStoreOpen()) {
 
   runner.isSessionActive(senderId).then(isSessionActive => {
     if (isSessionActive) {
@@ -89,6 +92,15 @@ const handleReceivePostback = messagingEvent => {
       });
     }
   });
+
+
+
+  }
+  else {
+    send.sendMessageGeneric(senderId, 'Sorry we are closed! Our hours for delivery are between 11 AM and 11 PM Monday to Sunday. Check back tomorrow for some fresh burgers :)')
+
+  }
+
 };
 
 module.exports = { handleReceivePostback };

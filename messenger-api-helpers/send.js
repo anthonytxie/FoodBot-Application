@@ -14,6 +14,7 @@ const sendMessageGeneric = (recipientId, message) => {
 };
 
 
+
 // ===== MENU ===============================================================
 const sendMenuMessage = (recipientId) => {
     sendMessage(recipientId, messages.menuMessage);
