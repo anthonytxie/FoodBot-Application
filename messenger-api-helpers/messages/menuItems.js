@@ -123,6 +123,7 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
+		horizontal_image_url: "https://i.imgur.com/GhK3zW6.png",
 		subtitle:
 			"2 Beef Patties, Cheese, Pickles, Lettuce, Fancy Sauce, Onions",
 		Patties: 2,
@@ -135,7 +136,9 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
-		subtitle: "2 Beef Patties, Bacon, Cheese, Caramelized Onions, Fancy Sauce",
+		horizontal_image_url: "https://i.imgur.com/WFBXYpd.png",
+		subtitle:
+			"2 Beef Patties, Bacon, Cheese, Caramelized Onions, Fancy Sauce",
 
 		Patties: 2,
 		standardToppings: ["Sesame Bun", "Fancy Sauce"],
@@ -148,8 +151,8 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/aUB3Mrd.jpg",
-		subtitle:
-			"2 Beef Patties, Cheese, Bacon, Fried Egg, Onions",
+		horizontal_image_url: "https://i.imgur.com/HxrnbXZ.png",
+		subtitle: "2 Beef Patties, Cheese, Bacon, Fried Egg, Onions",
 
 		Patties: 2,
 		premiumToppings: ["Fried Egg", "Bacon", "Standard Cheese"],
@@ -163,7 +166,7 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/wySPVNs.jpg",
 		subtitle: "2 Beef Patties, Bacon, Caramelized Onions, Blue Cheese",
-
+		horizontal_image_url: "https://i.imgur.com/OlX0cBr.png",
 		Patties: 2,
 		premiumToppings: ["Blue Cheese", "Caramelized Onions", "Bacon"],
 		standardToppings: ["Sesame Bun"],
@@ -175,6 +178,7 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/Jq4kO7S.jpg",
+		horizontal_image_url: "https://i.imgur.com/0m48gFd.png",
 		subtitle: "2 Beef Patties, Grilled Cheese Bun, Cheese",
 		Patties: 2,
 		standardToppings: [],
@@ -187,10 +191,11 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/m4IQMAD.jpg",
-		subtitle:
-			"Stuffed Portobello Burger",
+		horizontal_image_url: "https://i.imgur.com/3kQ6hQf.png",
+
+		subtitle: "Stuffed Portobello, Tomatoes, Onions, Pickles",
 		Patties: 0,
-		premiumToppings: ["Stuffed Portobello"],
+		premiumToppings: ["Stuffed Portobello, Tomatoes, Onions, Pickles"],
 		standardToppings: ["Sesame Bun"],
 		basePrice: 7.99
 	},
@@ -200,17 +205,22 @@ const menuItems = [
 		type: "burger",
 
 		image_url: "https://i.imgur.com/N2IhDVG.jpg",
+		horizontal_image_url: "https://i.imgur.com/gNpNg1c.png",
+
 		subtitle: "Chicken Patty, Mayo, Lettuce, Pickles",
 		Patties: 0,
 		premiumToppings: ["Chicken Patty"],
 		standardToppings: ["Lettuce", "Pickles", "Sesame Bun", "Mayo"],
 		basePrice: 9.99
 	},
+
 	{
 		title: "Swiss Bank Account",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/cF4L5ZD.jpg",
+		horizontal_image_url: "https://i.imgur.com/IaLrkat.png",
+
 		subtitle: "2 Beef Patties, Grilled Mushrooms, Swiss Cheese",
 
 		Patties: 2,
@@ -224,16 +234,16 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Perfectly cut, golden cripsy, potato Fries.",
-		itemName: "Fries"
-
+		itemName: "Fries",
+		basePrice: 3.99
 	},
 	{
 		title: "Poutine",
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
-		itemName: "Poutine"
-
+		itemName: "Poutine",
+		basePrice: 7.99
 	},
 
 	{
@@ -241,7 +251,8 @@ const menuItems = [
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Cheesy Fries.",
-		itemName: "Cheesy Fries"
+		itemName: "Cheesy Fries",
+		basePrice: 6.49
 	},
 
 	{
@@ -249,7 +260,8 @@ const menuItems = [
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Delicious ice-cream milkshake",
-		itemName: "milkshake"
+		itemName: "milkshake",
+		basePrice: 3.99
 	}
 ];
 

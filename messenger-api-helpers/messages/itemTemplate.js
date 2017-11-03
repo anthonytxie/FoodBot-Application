@@ -10,12 +10,13 @@ const burgerTemplate = function(data, linkId, recipientId) {
         template_type: "generic",
         elements: [
           {
-            title: `Okay so, ${burger.title}, the usual way or customized?`,
-            image_url: burger.image_url,
+            title: `${burger.title} ($${burger.basePrice})`,
+            subtitle: burger.subtitle,
+            image_url: burger.horizontal_image_url,
             buttons: [
               {
                 type: "postback",
-                title: "The Usual",
+                title: "Standard Burger",
                 payload: JSON.stringify({
                   type: "order-burger",
                   data:  {
@@ -31,7 +32,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
               {
                 type: "web_url",
                 url: `${websiteURL}/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${linkId.toString()}`,
-                title: "Customize",
+                title: "Customize Burger",
                 webview_height_ratio: "full",
                 messenger_extensions: true
               }
