@@ -24,21 +24,21 @@ html(lang="en")
 			h4 FRIES
 			section.section1.radio.required
 				input(type="hidden" name="food_type", value="")
-				.wide_checkbox#Fries
+				.wide_checkbox(val="Fries")
 					.custom_check_off
 					.toggle
-						h3 Regular
+						h3 Regular Fries
 						p Basic Fries
 					p.price $2.00
 
-				.wide_checkbox#Cheesy Fries
+				.wide_checkbox(val="Cheesy Fries")
 					.custom_check_off
 					.toggle
-						h3 Cheesy
+						h3 Cheesy Fries
 						p Add cheese
 					p.price $4.50
 
-				.wide_checkbox#Poutine
+				.wide_checkbox(val="Poutine")
 					.custom_check_off
 					.toggle
 						h3 Poutine
@@ -49,21 +49,21 @@ html(lang="en")
 			h4 DRINKS
 			section.section2.radio.required
 				input(type="hidden" name="drink_type", value="")
-				.wide_checkbox.milkshake#milkshake
+				.wide_checkbox.milkshake(val="milkshake")
 					.custom_check_off
 					.toggle
-						h3 Milkshakes
+						h3 Milkshake
 						p Dairy for days
 					p.price $2.99
 
-				.wide_checkbox.soda#soda
+				.wide_checkbox.soda(val="soda")
 					.custom_check_off
 					.toggle
 						h3 Soda
 						p So many options
 					p.price $1.29
 
-				.wide_checkbox.water#water
+				.wide_checkbox.water(val="water")
 					.custom_check_off
 					.toggle
 						h3 Water
@@ -76,21 +76,21 @@ html(lang="en")
 				section.section3.radio.required
 					input(type="hidden" name="milkshake_flavor", value="")
 					// vanilla
-					.wide_checkbox#vanilla
+					.wide_checkbox(val="vanilla")
 						.custom_check_off
 						.toggle
 							h3 Vanilla
 							p Back to the basics
 
 					// chocolate
-					.wide_checkbox#chocolate
+					.wide_checkbox(val="chocolate")
 						.custom_check_off
 						.toggle
 							h3 Chocolate
 							p Made from cocoa
 
 					// strawberry
-					.wide_checkbox#strawberry
+					.wide_checkbox(val="strawberry")
 						.custom_check_off
 						.toggle
 							h3 Strawberry
@@ -101,55 +101,55 @@ html(lang="en")
 				h4 SODA
 				section.section4.radio.required
 					input(type="hidden" name="soda_flavor", value="")
-					.wide_checkbox#Pepsi
+					.wide_checkbox(val="Pepsi")
 						.custom_check_off
 						.toggle
 							h3 Pepsi
 							p Tastes like Coke
 
-					.wide_checkbox#Diet Pepsi
+					.wide_checkbox(val="Diet Pepsi")
 						.custom_check_off
 						.toggle
 							h3 Diet Pepsi
 							p Pepsi for healthy people
 
-					.wide_checkbox#Rootbeer
+					.wide_checkbox(val="Rootbeer")
 						.custom_check_off
 						.toggle
 							h3 Root Beer
 							p (Root Beer)^2 = Beer
 
-					.wide_checkbox#Dr Pepper
+					.wide_checkbox(val="Dr Pepper")
 						.custom_check_off
 						.toggle
 							h3 Dr Pepper
 							p That's Mr Pepper to you
 
-					.wide_checkbox#7-Up
+					.wide_checkbox(val="7-Up")
 						.custom_check_off
 						.toggle
 							h3 7-Up
 							p Seven down
 
-					.wide_checkbox#Mountain Dew
+					.wide_checkbox(val="Mountain Dew")
 						.custom_check_off
 						.toggle
 							h3 Mountain Dew
 							p Fresh from the mountain
 
-					.wide_checkbox#Ginger Ale
+					.wide_checkbox(val="Ginger Ale")
 						.custom_check_off
 						.toggle
 							h3 Ginger Ale
 							p Good for the tummy
 
-					.wide_checkbox#Orange Crush
+					.wide_checkbox(val="Orange Crush")
 						.custom_check_off
 						.toggle
 							h3 Orange Crush
 							p Crushes all competition
 
-					.wide_checkbox#Iced Tea
+					.wide_checkbox(val="Iced Tea")
 						.custom_check_off
 						.toggle
 							h3 Iced Tea
@@ -162,8 +162,8 @@ html(lang="en")
 		script.
 
 			$(".wide_checkbox").click(function(){
-				var id = $(this).attr("id");
-				$(this).parent().children("input").attr("value", id);
+				var val = $(this).attr("val");
+				$(this).parent().children("input").attr("value", val);
 			})
 
 			// called when MessengerExtensions is done loading

@@ -107,17 +107,10 @@ html(lang="en")
 
 			input(type="hidden", name="orderId", value=order._id)
 
-			.lightswitch(style="height: 70px")
-				input(type="hidden", name="method", value="delivery")
-				//- div.lightswitch_option Pickup
-				div.lightswitch_option.selected Delivery
-
 			.errors(style="color: red; text-align: center; margin-top:10px; width: 100%;")
 
 			p#get_total
 
-			//- timestamp
-			//- input#time(style="-webkit-appearance: none;", name="time", type="time")
 			input#address(name="address", type="text", placeholder="Address")
 			input#postal(name="postal", type="text", placeholder="Postal Code")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
@@ -126,15 +119,6 @@ html(lang="en")
 				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Now")
 
 		script.
-			$(document).ready(function(){
-				var d = new Date();
-				var hours = d.getHours();
-				var minutes = d.getMinutes();
-				console.log(hours.toString() + ":" + minutes.toString());
-				document.getElementById("time").value = hours.toString() + ":" + minutes.toString();
-			})
-			
-			// TODO: get feedback once confirmation is done
 
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
@@ -234,21 +218,6 @@ html(lang="en")
 				locale: 'auto',
 				currency: "CAD",
 				token: function(token) {
-					// year month day hours seconds
-					var time = document.getElementById("time").value
-					var og_date = new Date();
-					var year = og_date.getFullYear();
-					var month = og_date.getMonth();
-					var day = og_date.getDate();
-					var hour = parseInt(time.substr(0,2));
-					var minute = parseInt(time.substr(3,2));
-					console.log(hour);
-					console.log(minute);
-					var o = new Date(year, month, day, hour, minute);
-					var json = JSON.stringify(o);
-					// You can access the token ID with `token.id`.
-					// Get the token ID to your server-side code for use.
-					console.log(token.id);
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
@@ -258,8 +227,6 @@ html(lang="en")
 						} else if ($("#postal").val() == "") {
 							$(".errors").text("Enter a postal code");
 						} else {
-							$("#time").attr("type", "hidden");
-							$('#time').val(json);
 							$("#view2container").hide();
 							$("#view2container").ajaxSubmit();
 							MessengerExtensions.requestCloseBrowser(function success() {
@@ -269,8 +236,6 @@ html(lang="en")
 							});
 						}
 					} else {
-						$("#time").attr("type", "hidden");
-						$('#time').val(json);
 						$("#view2container").hide();
 						$("#view2container").ajaxSubmit();
 						MessengerExtensions.requestCloseBrowser(function success() {
@@ -286,19 +251,6 @@ html(lang="en")
 			$(".doneview2").click(function(e){
 				// this was sending twice
 				e.preventDefault();
-
-				// year month day hours seconds
-				var time = document.getElementById("time").value
-				var og_date = new Date();
-				var year = og_date.getFullYear();
-				var month = og_date.getMonth();
-				var day = og_date.getDate();
-				var hour = parseInt(time.substr(0,2));
-				var minute = parseInt(time.substr(3,2));
-				console.log(hour);
-				console.log(minute);
-				var o = new Date(year, month, day, hour, minute);
-				var json = JSON.stringify(o);
 				
 				if ($(this).val() == "Pay Now") {
 					console.log("b");
@@ -319,8 +271,6 @@ html(lang="en")
 						} else if ($("#postal").val() == "") {
 							$(".errors").text("Enter a postal code");
 						} else {
-							$("#time").attr("type", "hidden");
-							$('#time').val(json);
 							$("#view2container").hide();
 							$("#view2container").ajaxSubmit();
 							MessengerExtensions.requestCloseBrowser(function success() {
@@ -330,8 +280,6 @@ html(lang="en")
 							});
 						}
 					} else {
-						$("#time").attr("type", "hidden");
-						$('#time').val(json);
 						$("#view2container").hide();
 						$("#view2container").ajaxSubmit();
 						MessengerExtensions.requestCloseBrowser(function success() {
@@ -353,17 +301,6 @@ html(lang="en")
 				} else {
 					$("input[type=text]").show();
 				}
-
-				// toggle certain fields in or out
-			})
-
-			// make time default to now
-			$(document).ready( function() {
-				var date = new Date();
-				var hours = date.getHours();
-				var minutes = date.getMinutes();
-				console.log(hours);
-				console.log(minutes);
 			})
 
 			// view 3
@@ -373,7 +310,6 @@ html(lang="en")
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
 				$("#view3button").click(function(){
-					// document.getElementById("only_form").submit();
 					MessengerExtensions.requestCloseBrowser(function success() {
 						console.log("success");
 					}, function error(err) {
