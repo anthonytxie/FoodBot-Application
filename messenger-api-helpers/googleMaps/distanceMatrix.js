@@ -1,6 +1,7 @@
 const distance = require("google-distance");
+const maxDeliveryRange = 7;
 
-const getDistance = destination => {
+const isInDeliveryRange = destination => {
   return new Promise((resolve, reject) => {
     distance.get(
       {
@@ -11,7 +12,12 @@ const getDistance = destination => {
         if (err) {
           reject(err);
         } else {
-          resolve(data.distance);
+          if (parseFloat(data.distance[0]) < 7) {
+            resolve(true)
+          }
+          else {
+            resolve(false)
+          }
         }
       }
     );
@@ -19,5 +25,4 @@ const getDistance = destination => {
 };
 
 
-
-module.exports = {getDistance};
+module.exports = {isInDeliveryRange};

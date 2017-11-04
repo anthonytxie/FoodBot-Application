@@ -1,6 +1,6 @@
 const menuItems = [
 	{
-		title: "Single Hamburger",
+		itemName: "Single Hamburger",
 		type: "burger",
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "1 Beef Patty",
@@ -10,7 +10,7 @@ const menuItems = [
 		basePrice: 5.99
 	},
 	{
-		title: "Single Cheeseburger",
+		itemName: "Single Cheeseburger",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -22,7 +22,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Single Baconburger",
+		itemName: "Single Baconburger",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -34,7 +34,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Single Bacon Cheeseburger",
+		itemName: "Single Bacon Cheeseburger",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -46,7 +46,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Double Hamburger (No Cheese)",
+		itemName: "Double Hamburger (No Cheese)",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -58,7 +58,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Double Cheeseburger",
+		itemName: "Double Cheeseburger",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/z7ANC0C.jpg",
@@ -71,7 +71,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Double Baconburger (No Cheese)",
+		itemName: "Double Baconburger (No Cheese)",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/aUB3Mrd.jpg",
@@ -84,7 +84,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Double Bacon Cheeseburger",
+		itemName: "Double Bacon Cheeseburger",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/wySPVNs.jpg",
@@ -96,7 +96,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Chicken Burger",
+		itemName: "Chicken Burger",
 		type: "burger",
 
 		// image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -108,7 +108,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Veggie Burger",
+		itemName: "Veggie Burger",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
@@ -119,7 +119,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Top Bun",
+		itemName: "Top Bun",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -132,7 +132,7 @@ const menuItems = [
 		basePrice: 9.99
 	},
 	{
-		title: "The Richmond",
+		itemName: "The Richmond",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
@@ -147,7 +147,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Breakfast At Tiffany's",
+		itemName: "Breakfast At Tiffany's",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/aUB3Mrd.jpg",
@@ -161,7 +161,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Varsity Blues",
+		itemName: "Varsity Blues",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/wySPVNs.jpg",
@@ -174,7 +174,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Say Cheese",
+		itemName: "Say Cheese",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/Jq4kO7S.jpg",
@@ -187,7 +187,7 @@ const menuItems = [
 	},
 
 	{
-		title: "The Portobello",
+		itemName: "The Portobello",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/m4IQMAD.jpg",
@@ -195,13 +195,13 @@ const menuItems = [
 
 		subtitle: "Stuffed Portobello, Tomatoes, Onions, Pickles",
 		Patties: 0,
-		premiumToppings: ["Stuffed Portobello, Tomatoes, Onions, Pickles"],
+		premiumToppings: ["Stuffed Portobello", "Tomatoes", "Onions", "Pickles"],
 		standardToppings: ["Sesame Bun"],
 		basePrice: 7.99
 	},
 
 	{
-		title: "Chicken Chicken",
+		itemName: "Chicken Chicken",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/N2IhDVG.jpg",
@@ -215,7 +215,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Swiss Bank Account",
+		itemName: "Swiss Bank Account",
 		type: "burger",
 
 		image_url: "https://i.imgur.com/cF4L5ZD.jpg",
@@ -229,7 +229,7 @@ const menuItems = [
 		basePrice: 9.99
 	},
 	{
-		title: "Fries",
+		itemName: "Fries",
 		type: "side",
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
@@ -238,7 +238,7 @@ const menuItems = [
 		basePrice: 3.99
 	},
 	{
-		title: "Poutine",
+		itemName: "Poutine",
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
@@ -247,7 +247,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Cheesy Fries",
+		itemName: "Cheesy Fries",
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Cheesy Fries.",
@@ -256,7 +256,7 @@ const menuItems = [
 	},
 
 	{
-		title: "Milkshake",
+		itemName: "Milkshake",
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Delicious ice-cream milkshake",
@@ -268,9 +268,52 @@ const menuItems = [
 const findItem = function(name) {
 	return [...menuItems]
 		.filter(x => {
-			return x.title === name;
+			return x.itemName === name;
 		})
 		.pop();
 };
+
+const portobelloMushroom = {
+		itemName: "The Portobello",
+		type: "burger",
+
+		image_url: "https://i.imgur.com/m4IQMAD.jpg",
+		horizontal_image_url: "https://i.imgur.com/3kQ6hQf.png",
+
+		subtitle: "Stuffed Portobello, Tomatoes, Onions, Pickles",
+		Patties: 0,
+		premiumToppings: [ "Tomatoes", "Onions", "Pickles"],
+		standardToppings: ["Sesame Bun", "Ketchup"],
+		basePrice: 7.99
+	}
+
+
+const findAdditionalItemsOnBurger = (burgerObject) => {
+	
+	let normalBurgerToppings = [...findItem(burgerObject.itemName).standardToppings,...findItem(burgerObject.itemName).premiumToppings].sort();
+	
+	let customizedBurgerToppings = [...burgerObject.standardToppings, ...burgerObject.premiumToppings].sort();
+	let normalBurgerPatties = findItem(burgerObject.itemName).Patties
+	let customizedBurgerPatties = burgerObject.Patties
+
+
+	const plusToppings = customizedBurgerToppings.filter((x) => {
+		return !normalBurgerToppings.includes(x)
+	})
+	const minusToppings = normalBurgerToppings.filter((x) => {
+		return !customizedBurgerToppings.includes(x)
+	})
+	const pattyDifference = customizedBurgerPatties - normalBurgerPatties
+	return {
+		pattyDifference,
+		minusToppings,
+		plusToppings
+	}
+}
+
+console.log(findAdditionalItemsOnBurger(portobelloMushroom))
+
+
+
 
 module.exports = { menuItems, findItem };
