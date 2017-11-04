@@ -22,16 +22,6 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
-		- // this page is going to broken up into several phases
-		- // 1: see receipt, remove / restore items
-		- // 2: ajax/get_order, see pickup or delivery, time, pay button
-		- // 3: payment
-
-		- // TODO: security
-		- // TODO: style
-		
-		- // VIEW 1
-
 		- const items = order._items; // all items in the order
 		- let index = 0;
 
@@ -92,15 +82,23 @@ html(lang="en")
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
 
-			- const subTotal = parseFloat(order_price).toFixed(2)
-			- const tax = parseFloat((subTotal * 0.13)).toFixed(2)
-			- const stripeFees = (((parseFloat(subTotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
-			- const total = (parseFloat(subTotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
+			//- base, delivery, tax, stripe, total
+			- const base   = parseFloat(order_price).toFixed(2);
+			- let delivery = 7.00;
+			- if (subTotal >= 15) {  delivery = 3.00; }
+			- const tax    = parseFloat((parseFloat(base) + parseFloat(delivery)) * .13).toFixed(2);
+			- const stripe = parseFloat((parseFloat(base) + parseFloat(delivery) + parseFloat(tax)) * .029).toFixed(2);
+			- const temp   = parseFloat(parseFloat(delivery) + parseFloat(stripe)).toFixed(2);
+			- const total  = parseFloat(parseFloat(base) + parseFloat(delivery) + parseFloat(tax) + parseFloat(stripe)).toFixed(2)
+
+			- console.log(delivery);
+			- console.log(stripe);
 				
 			div.list_prices
-				p#original_total Order Total: #{subTotal}
+				p#original_total Order Total: #{base}
+				p#stripe_fees Delivery: #{temp}
 				p#tax_total Tax: #{tax}
-				p#stripe_fees Stripe Fee: #{stripeFees}
+				
 				p#order_total Total: #{total}
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
@@ -111,7 +109,7 @@ html(lang="en")
 
 			.lightswitch(style="height: 70px")
 				input(type="hidden", name="method", value="delivery")
-				div.lightswitch_option Pickup
+				//- div.lightswitch_option Pickup
 				div.lightswitch_option.selected Delivery
 
 			.errors(style="color: red; text-align: center; margin-top:10px; width: 100%;")
@@ -119,14 +117,13 @@ html(lang="en")
 			p#get_total
 
 			//- timestamp
-			input#time(style="-webkit-appearance: none;", name="time", type="time")
+			//- input#time(style="-webkit-appearance: none;", name="time", type="time")
 			input#address(name="address", type="text", placeholder="Address")
 			input#postal(name="postal", type="text", placeholder="Postal Code")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
 
 			.pay_row
 				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Now")
-				//- input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Later")
 
 		script.
 			$(document).ready(function(){
