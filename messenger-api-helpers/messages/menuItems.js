@@ -288,32 +288,39 @@ const portobelloMushroom = {
 	}
 
 
-const findAdditionalItemsOnBurger = (burgerObject) => {
-	
-	let normalBurgerToppings = [...findItem(burgerObject.itemName).standardToppings,...findItem(burgerObject.itemName).premiumToppings].sort();
-	
-	let customizedBurgerToppings = [...burgerObject.standardToppings, ...burgerObject.premiumToppings].sort();
-	let normalBurgerPatties = findItem(burgerObject.itemName).Patties
-	let customizedBurgerPatties = burgerObject.Patties
+const findDifferentItemsOnBurger = burgerObject => {
+	let normalBurgerToppings = [
+		...findItem(burgerObject.itemName).standardToppings,
+		...findItem(burgerObject.itemName).premiumToppings
+	].sort();
 
+	let customizedBurgerToppings = [
+		...burgerObject.standardToppings,
+		...burgerObject.premiumToppings
+	].sort();
+	let normalBurgerPatties = findItem(burgerObject.itemName).Patties;
+	let customizedBurgerPatties = burgerObject.Patties;
 
-	const plusToppings = customizedBurgerToppings.filter((x) => {
-		return !normalBurgerToppings.includes(x)
-	})
-	const minusToppings = normalBurgerToppings.filter((x) => {
-		return !customizedBurgerToppings.includes(x)
-	})
-	const pattyDifference = customizedBurgerPatties - normalBurgerPatties
+	const plusToppings = customizedBurgerToppings.filter(x => {
+		return !normalBurgerToppings.includes(x);
+	});
+	const minusToppings = normalBurgerToppings.filter(x => {
+		return !customizedBurgerToppings.includes(x);
+	});
+	const pattyDifference = customizedBurgerPatties - normalBurgerPatties;
 	return {
 		pattyDifference,
 		minusToppings,
 		plusToppings
-	}
-}
-
-console.log(findAdditionalItemsOnBurger(portobelloMushroom))
+	};
+};
 
 
+module.exports = { menuItems, findItem, findDifferentItemsOnBurger };
 
 
+
+<<<<<<< HEAD
 module.exports = { menuItems, findItem, findAdditionalItemsOnBurger };
+=======
+>>>>>>> 56ac2cf6e4c8ea04003730dc784879c1fab147cc

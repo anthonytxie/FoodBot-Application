@@ -25,4 +25,19 @@ const isInDeliveryRange = destination => {
 };
 
 
-module.exports = {isInDeliveryRange};
+const isStoreOpen = () => {
+  currentHour = new Date().getHours()
+  if (currentHour < 11 || currentHour >= 23) {
+    return false
+  }
+  else {
+    return true 
+  }
+
+}
+
+
+
+
+
+module.exports = {isInDeliveryRange, isStoreOpen};

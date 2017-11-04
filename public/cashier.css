@@ -132,7 +132,6 @@ ol {
 }
 
 .item {
-	height: 30px;
 	line-height: 30px;
 	padding-left: 12px;
 	font-weight: 700;
@@ -145,7 +144,7 @@ ol {
 	font-weight: 300;
 }
 
-.plus, .minus {
+.plus, .minus, .combo {
 	line-height: 24px;
 	padding-left: 30px;
 }
@@ -174,3 +173,9 @@ button {
 }
 
 button:focus {outline:0;}
+
+@media(max-width: 720px){
+	.tab, .vr {
+		display: none;
+	}
+}

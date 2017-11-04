@@ -25,34 +25,28 @@ routes.get("/getorder/:orderid", (req, res) => {
 });
 
 routes.get("/receipt", (req, res) => {
-    let orderId = req.query.order;
+    let senderId = req.query.senderId;
     orderDAO
-        .findOrderById(orderId)
+        .getLastOrderBySender(senderId)
         .then(order => {
             if (order._items.length === 0) {
-                send.sendEmptyOrderMessage(order._user.PSID)
+                send.sendEmptyOrderMessage(order._user.PSID);
                 res.status(200).render("receipt", {
                     order,
                     keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
                 });
             } else if (order.isConfirmed) {
-
-                send.sendNewOrderMessage(order._user.PSID)
+                send.sendNewOrderMessage(order._user.PSID);
                 res.status(200).render("receipt", {
                     order,
                     keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
                 });
-
-            } else
-
-            {
+            } else {
                 res.status(200).render("receipt", {
                     order,
                     keyPublishable: "pk_test_tetHRTsQOph2yuOSaHGZG3pZ"
                 });
             }
-
-
         })
         .catch(err => res.send(err));
 });
@@ -129,7 +123,7 @@ routes.post("/confirm", (req, res) => {
                     send.sendConfirmPaidMessageDelivery(user.PSID, {
                         fulfillmentDate,
                         address,
-                        orderId,
+                        orderId
                     });
                 } else {
                     send.sendConfirmPaidMessagePickup(user.PSID, {
@@ -157,9 +151,14 @@ routes.post("/confirm", (req, res) => {
             })
             .then(order => {
                 if (method === "delivery") {
-                    send.sendConfirmUnpaidMessageDelivery(order._user.PSID, { fulfillmentDate });
+                    send.sendConfirmUnpaidMessageDelivery(order._user.PSID, {
+                        fulfillmentDate
+                    });
                 } else {
-                    send.sendConfirmUnpaidMessagePickup(order._user.PSID, { fulfillmentDate, orderId });
+                    send.sendConfirmUnpaidMessagePickup(order._user.PSID, {
+                        fulfillmentDate,
+                        orderId
+                    });
                 }
                 return sessionDAO.closeSession(order._session);
             })

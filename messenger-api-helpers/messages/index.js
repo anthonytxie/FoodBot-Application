@@ -100,7 +100,10 @@ const upsizeOrderMessage = (senderId, linkId) => {
                         type: "postback",
                         title: "No",
                         payload: JSON.stringify({
-                            type: "order-continue"
+                            type: "order-no-combo",
+                            data: {
+                                linkId: linkId
+                            }
                         })
                     }
                 ]
@@ -110,7 +113,7 @@ const upsizeOrderMessage = (senderId, linkId) => {
     return attachment;
 };
 
-const orderAskContinue = package => {
+const orderAskContinue = senderId => {
     const attachment = {
         attachment: {
             type: "template",
@@ -128,7 +131,7 @@ const orderAskContinue = package => {
                     },
                     {
                         type: "web_url",
-                        url: `${websiteURL}/receipt?order=${package._order}`,
+                        url: `${websiteURL}/receipt?senderId=${senderId}`,
                         title: "Done",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -140,7 +143,7 @@ const orderAskContinue = package => {
     return attachment;
 };
 
-const editOrder = (recipientId, order) => {
+const editOrder = (recipientId) => {
     const attachment = {
         attachment: {
             type: "template",
@@ -150,7 +153,7 @@ const editOrder = (recipientId, order) => {
                 buttons: [
                     {
                         type: "web_url",
-                        url: `${websiteURL}/editorder?order=${order._id}&sender=${recipientId}`,
+                        url: `${websiteURL}/editorder?sender=${recipientId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true
