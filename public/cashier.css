@@ -151,12 +151,18 @@ ol {
 	color: #191a1a;
 }
 
+.bottom {
+	display: flex;
+}
+
 button {
 	width: 100%;
 	height: 45px;
-	background: #3d8478;
+	background: #4369ff;
 	margin: 0px;
 	border: 0px;
 	padding: 0px;
 	color: white;
+	font-size: 16px;
+	font-weight: 400;
 }
