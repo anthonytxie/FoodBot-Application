@@ -316,4 +316,4 @@ console.log(findAdditionalItemsOnBurger(portobelloMushroom))
 
 
 
-module.exports = { menuItems, findItem };
+module.exports = { menuItems, findItem, findAdditionalItemsOnBurger };

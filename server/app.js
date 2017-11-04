@@ -20,7 +20,8 @@ const app = express();
 
 // webview view engine
 app.set("views", __dirname + "/../views")
-app.use(express.static(__dirname +'/../public'));
+app.use(express.static(__dirname + '/../public'));
+app.use("/messenger-api-helpers", express.static(__dirname + "/../messenger-api-helpers"));
 app.set('view engine', 'pug');
 
 

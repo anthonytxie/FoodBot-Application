@@ -1,16 +1,16 @@
 doctype html
 html(lang="en")
+
 	head
 		title Burger
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
-		//- link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
-		//- script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="dragend-master/dragend.js")
 		script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
+
 	body
 		script.
 			// code to connect to the extension necessary to close this view
@@ -26,6 +26,8 @@ html(lang="en")
 		- let index = 0;
 
 		form#view1container(style="position:relative;", method="post", action="delete")
+
+		
 
 			h4 RECEIPT
 			input(type="hidden", name="orderId", value=order._id)
@@ -45,6 +47,7 @@ html(lang="en")
 							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
 
 				- order_price += combo_price;
+
 				span
 					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
 					.wide_checkbox
@@ -109,26 +112,29 @@ html(lang="en")
 		script.
 
 			// could just take in a single "cost object"
-			function update_cost(base, delivery_stripe, tax) {
+			function update_cost(base, delivery_stripe, tax, total) {
 				$("#base").html("Order Total: #{base}");
 				$("#delivery_stripe").html("Delivery: #{delivery_stripe}");
 				$("#tax").html("Tax: #{tax}");
-				$("#order_total").html("Order Total: #{}");
+				$("#order_total").html("Order Total: #{total}");
 			}
 
-			update_cost();
+			//- // add & remove handling for receipt view
+			//- $("form").on("click", ".wide_checkbox", function() {
 
-			// add & remove handling for receipt view
-			$("form").on("click", ".wide_checkbox", function() {
+			//- 	let on  = $(this).children(".custom_check_on");
+			//- 	let off = $(this).children(".custom_check_off");
 
-				let checkbox = $(this).children(".custom_check_on");
+			//- 	// remove
+			//- 	if (on.length) {
 
-				// removing from order
-				if (checkbox.length) {
+			//- 	// add
+			//- 	} else if (off.length) {
 
-					// get price of all active items and display it
-				}
-			})
+			//- 		checkbox = 
+
+			//- 	}
+			//- })
 
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
