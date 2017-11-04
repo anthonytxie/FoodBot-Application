@@ -181,18 +181,20 @@ itemDAO.postSide = function(foodObject, senderId) {
 itemDAO.removeComboItems = function(senderId, linkId) {
   return new Promise((resolve, reject) => {
     let orderId;
-    OrderDAO.getLastOrderBySender(senderId)
+    orderDAO.getLastOrderBySender(senderId)
       .then(order => {
         orderId = order._id;
-        return Drink.Remove({
+        return Drink.findOneAndRemove({
           _link: linkId,
-          _order: order._id
+          _order: order._id,
+          itemCombo: true
         });
       })
       .then(() => {
-        return Side.Remove({
+        return Side.findOneAndRemove({
           _link: linkId,
-          _order: orderId
+          _order: orderId,
+          itemCombo: true
         });
       })
       .then((deleteStatus) => {

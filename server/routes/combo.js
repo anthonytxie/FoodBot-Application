@@ -48,14 +48,14 @@ routes.post("/combo", (req, res) => {
   };
 
   let sideObject = {
-    linkId: linkId,
+    _link: linkId,
     itemName: parseSide(req.body),
     itemSize: "Medium",
     itemCombo: true
   };
 
   let drinkObject = {
-    linkId: linkId,
+    _link: linkId,
     itemName: parseDrink(req.body),
     itemCombo: true
   };
