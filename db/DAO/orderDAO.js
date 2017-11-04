@@ -79,10 +79,10 @@ orderDAO.getOrderBySessionId = function(sessionId) {
 orderDAO.getLastOrderBySender = function(senderId) {
   return new Promise((resolve, reject) => {
     User.findOne({ PSID: senderId }).then(user => {
-      return Order.findOne({ _user: user._id })
+      return populateOrder(Order.findOne({ _user: user._id })
         .sort({
           createdAt: -1
-        })
+        }))
         .then(order => {
           resolve(order);
         })

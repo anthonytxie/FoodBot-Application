@@ -37,13 +37,13 @@ const handleReceiveMessage = messagingEvent => {
             });
             break;
           case "order-Fries":
-            runner.addSideToOrder(senderId, data.foodObject).then(item => {
-              send.sendOrderedMessage(senderId, item);
+            runner.addSideToOrder(senderId, data.foodObject).then(() => {
+              send.sendOrderedMessage(senderId);
             });
             break;
           case "order-shake":
-            runner.addDrinkToOrder(senderId, data.foodObject).then(item => {
-              send.sendOrderedMessage(senderId, item);
+            runner.addDrinkToOrder(senderId, data.foodObject).then(() => {
+              send.sendOrderedMessage(senderId);
             });
             break;
           default:

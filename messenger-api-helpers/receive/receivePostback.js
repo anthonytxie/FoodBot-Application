@@ -1,12 +1,15 @@
 const send = require("./../send");
 const runner = require("./../runner");
-
+const { isStoreOpen } = require('./../utility/helperFunctions');
 const handleReceivePostback = messagingEvent => {
   //assuming payload is an object that has type and data
   const { type, data } = JSON.parse(messagingEvent.postback.payload);
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
   const senderId = messagingEvent.sender.id.toString();
   // runner does stuff with API.ai and webhook
+
+
+  if (!isStoreOpen()) {
 
   runner.isSessionActive(senderId).then(isSessionActive => {
     if (isSessionActive) {
@@ -38,8 +41,8 @@ const handleReceivePostback = messagingEvent => {
               .then((order) => {
                 return runner.addSideToOrder(senderId, { itemName: data.foodObject.itemName})
               })
-              .then((item) => {
-                send.sendOrderedMessage(senderId, item);
+              .then(() => {
+                send.sendOrderedMessage(senderId);
               })
           } 
             else if (data.foodObject.itemName === "Fries") {
@@ -61,11 +64,11 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
-        case "order-continue":
+        case "order-no-combo":
           runner
-            .renewSessionAndReturnOrder(senderId)
-            .then(order => {
-              send.sendOrderedMessage(senderId, {_order: order._id});
+            .removeComboItems(senderId, data.linkId)
+            .then(() => {
+              send.sendOrderedMessage(senderId);
             })
             .catch(err => console.log(err));
           break;
@@ -73,7 +76,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .renewSessionAndReturnOrder(senderId)
             .then(order => {
-              send.sendEditOrderMessage(senderId, order);
+              send.sendEditOrderMessage(senderId);
             })
             .catch(err => console.log(err));
           break;
@@ -89,6 +92,15 @@ const handleReceivePostback = messagingEvent => {
       });
     }
   });
+
+
+
+  }
+  else {
+    send.sendMessageGeneric(senderId, 'Sorry we are closed! Our hours for delivery are between 11 AM and 11 PM Monday to Sunday. Check back tomorrow for some fresh burgers :)')
+
+  }
+
 };
 
 module.exports = { handleReceivePostback };
