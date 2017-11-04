@@ -34,7 +34,7 @@ const menuMessage = {
 
 const specialBurgerMenuTemplate = burgerObject => {
     return {
-        title: burgerObject.title,
+        title: burgerObject.itemName,
         image_url: burgerObject.image_url,
         subtitle: burgerObject.subtitle,
         buttons: [
@@ -45,7 +45,7 @@ const specialBurgerMenuTemplate = burgerObject => {
                     type: "show-burger",
                     data: {
                         foodType: "burger",
-                        title: burgerObject.title
+                        itemName: burgerObject.itemName
                     }
                 })
             }
@@ -55,7 +55,7 @@ const specialBurgerMenuTemplate = burgerObject => {
 
 const normalBurgerMenuTemplate = burgerObject => {
     return {
-        title: burgerObject.title,
+        title: burgerObject.itemName,
         subtitle: burgerObject.subtitle,
         buttons: [
             {
@@ -65,7 +65,7 @@ const normalBurgerMenuTemplate = burgerObject => {
                     type: "show-burger",
                     data: {
                         foodType: "burger",
-                        title: burgerObject.title
+                        itemName: burgerObject.itemName
                     }
                 })
             }
@@ -189,7 +189,7 @@ const sideMenuMessage = {
 
 // const specialBurgerGenericTemplate = burgerObject => {
 //     return {
-//         title: burgerObject.title,
+//         title: burgerObject.itemName,
 //         image_url: burgerObject.image_url,
 //         subtitle: burgerObject.subtitle,
 //         buttons: [
@@ -200,7 +200,7 @@ const sideMenuMessage = {
 //                     type: "show-burger",
 //                     data: {
 //                         foodType: "burger",
-//                         title: burgerObject.title
+//                         title: burgerObject.itemName
 //                     }
 //                 })
 //             },

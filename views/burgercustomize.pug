@@ -24,7 +24,7 @@ html(lang="en")
 
 		form#only_form(method="post", action="burger")
 
-			input(type="hidden" name="title" value=burger.title)
+			input(type="hidden" name="itemName" value=burger.itemName)
 			input(type="hidden" name="sender_id" value=sender_id)
 			input(type="hidden" name="_link" value=_link)
 			- console.log(_link)
