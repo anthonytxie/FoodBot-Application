@@ -53,13 +53,18 @@ const createNewOrder = senderId => {
 // ===== Items ===============================================================
 
 const addBurgerToOrder = (senderId, data) => {
-    return itemDAO.postBurger(data, senderId)
+  return sessionDAO
+    .renewSession(senderId)
+    .then(() => {
+      return itemDAO.postBurger(data, senderId);
+    })
+    .catch(err => console.log(err));
 };
 
 const addSideToOrder = (senderId, foodObject) => {
   return sessionDAO
     .renewSession(senderId)
-    .then(session => {
+    .then(() => {
       return itemDAO.postSide(foodObject, senderId);
     })
     .catch(err => console.log(err));
@@ -68,22 +73,31 @@ const addSideToOrder = (senderId, foodObject) => {
 const addDrinkToOrder = (senderId, foodObject) => {
   return sessionDAO
     .renewSession(senderId)
-    .then(session => {
+    .then(() => {
       return itemDAO.postDrink(foodObject, senderId);
+    })
+    .catch(err => console.log(err));
+};
+
+const removeComboItems = (senderId, linkId) => {
+  return sessionDAO
+    .renewSession(senderId)
+    .then(() => {
+      return itemDAO.removeComboItems(senderId, linkId);
     })
     .catch(err => console.log(err));
 };
 
 // ===== LINK ===============================================================
 
-const createNewLink = (senderId) => {
+const createNewLink = senderId => {
   return sessionDAO
     .renewSession(senderId)
     .then(() => {
       return linkDAO.createNewLink();
     })
     .then(linkId => {
-      return linkId
+      return linkId;
     })
     .catch(err => console.log(err));
 };
@@ -94,6 +108,7 @@ module.exports = {
   addBurgerToOrder,
   addSideToOrder,
   addDrinkToOrder,
+  removeComboItems,
   renewSession,
   isSessionActive,
   renewSessionAndReturnOrder,

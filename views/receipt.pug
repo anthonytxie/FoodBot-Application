@@ -188,10 +188,11 @@ html(lang="en")
 				const order_id = order._id;
 				console.log("get_price triggered");
 				$.get("/getorder/" + order_id).done(function(get_order){
-					const get_order_price = parseFloat(get_order.orderPrice).toFixed(2);
-					const get_tax = parseFloat(get_order.orderPrice * .13).toFixed(2);
-					const get_stripe = parseFloat((get_order.orderPrice * 1.13) * .029 + .3).toFixed(2);
-					pay_total = parseFloat((get_order.orderPrice * 1.13) * 1.029 + .3).toFixed(2);
+					const get_order_price = parseFloat(get_order.basePrice)
+					const get_tax = parseFloat(get_order.tax)
+					const get_stripe = parseFloat(get_order.stripeFee)
+					const get_delivery = parseFloat(get_order.deliveryFee)
+					pay_total = get_order_price + get_tax + get_stripe + get_delivery
 
 					// close window if order is now empty
 					if (Math.round(get_order_price) == 0) {

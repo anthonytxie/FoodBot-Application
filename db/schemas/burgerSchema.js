@@ -52,8 +52,16 @@ burgerSchema.virtual("price").get(function() {
   additionalPremiumToppings.forEach((x) => {
     price += premiumToppings[x]
   })
+
+  let differencePatty = this.Patties - burgerList[0].Patties;
+  if (differencePatty > 0) {
+    price += (differencePatty *2)
+  }
   return parseFloat(price.toFixed(2))
 });
+
+
+
 
 
 

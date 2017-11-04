@@ -36,8 +36,8 @@ const sendSideMenu = (recipientId, data) => {
 
 
 // ===== ORDER ===============================================================
-const sendOrderedMessage = (recipientId, package) => {
-    sendMessage(recipientId, messages.orderAskContinue(package))
+const sendOrderedMessage = (recipientId) => {
+    sendMessage(recipientId, messages.orderAskContinue(recipientId))
 };
 
 const sendOrderedBurgerUpsizeMessage = (recipientId, linkId) => {
@@ -67,8 +67,8 @@ const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
 
 };
 
-const sendEditOrderMessage = (recipientId, order) => {
-    sendMessage(recipientId, messages.editOrder(recipientId, order))
+const sendEditOrderMessage = (recipientId) => {
+    sendMessage(recipientId, messages.editOrder(recipientId))
 };
 
 const sendEmptyOrderMessage = (recipientId, order) => {

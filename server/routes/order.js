@@ -13,9 +13,8 @@ const send = require("../../messenger-api-helpers/send");
 
 
 routes.get("/editorder", (req, res) => {
-  let orderId = req.query.order;
   let senderId = req.query.sender;
-  orderDAO.findOrderById(orderId).then(order => {
+  orderDAO.getLastOrderBySender(senderId).then(order => {
     res.status(200).render("edit_order", {
       order,
       senderId
@@ -32,8 +31,8 @@ routes.post("/editorder", (req, res) => {
   async.each(itemIds, itemId => {
     itemDAO
       .deleteItemById(itemId, orderId)
-      .then(item => {
-        send.sendOrderedMessage(senderId, {_id: orderId});
+      .then(() => {
+        send.sendOrderedMessage(senderId);
         res.status(200);
       })
       .catch(err => console.log(err));

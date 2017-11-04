@@ -12,10 +12,10 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
         { _id: orderId },
         { $push: { _items: item._id } },
         { new: true }
-      ).populate("_items")
+      ).populate("_items");
     })
     .then(order => {
-      resolve(order._items.slice(-1).pop())
+      resolve(order._items.slice(-1).pop());
     })
     .catch(err => reject(err));
 };
@@ -175,6 +175,30 @@ itemDAO.postSide = function(foodObject, senderId) {
         saveItemAndUpdateOrder(newSide, order._id, resolve, reject);
       });
     }
+  });
+};
+
+itemDAO.removeComboItems = function(senderId, linkId) {
+  return new Promise((resolve, reject) => {
+    let orderId;
+    OrderDAO.getLastOrderBySender(senderId)
+      .then(order => {
+        orderId = order._id;
+        return Drink.Remove({
+          _link: linkId,
+          _order: order._id
+        });
+      })
+      .then(() => {
+        return Side.Remove({
+          _link: linkId,
+          _order: orderId
+        });
+      })
+      .then((deleteStatus) => {
+        resolve(deleteStatus)
+      })
+      .catch((err) => reject(err))
   });
 };
 
