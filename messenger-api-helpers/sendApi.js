@@ -7,7 +7,7 @@ const request =  require('request');
 require('dotenv').config();
 
 
-const PAGE_ACCESS_TOKEN = process.env.page_access_token;
+const PAGE_ACCESS_TOKEN = "EAAVE0uGR6A4BAEDoL8rLiaFAruEcB5f1x7zGBlF74fiPkIKcH8AZBkJfqZC63rAldw8TJbuyRZCUNLTG9Wilr1lDqzvPK4n0QiYTSV1vcJ1w2XSKY9ZANEov2q4hRZBA6hKhFuwZCtfWsSi5gOf3dMLKq8PggBcTQEbZBGF8xbS0nyuS1UUcK5P"
 
 const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 5) => {
   // Error if developer forgot to specify an endpoint to send our request to
