@@ -9,7 +9,7 @@ const handleReceivePostback = messagingEvent => {
   // runner does stuff with API.ai and webhook
 
 
-  if (!isStoreOpen()) {
+  if (isStoreOpen()) {
 
   runner.isSessionActive(senderId).then(isSessionActive => {
     if (isSessionActive) {
