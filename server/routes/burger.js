@@ -30,25 +30,12 @@ routes.get("/burgercustomize", (req, res) => {
   });
 });
 
-routes.post("/burger", (req, res) => {  
-
-  // postBurger(foodObject,senderId)
- /*
-                    foodObject: {
-                      _link: 1234,
-                      itemName: 'Single Burger',
-                      Patties: 2,
-                      standardToppings: ['tomato', 'Lettuce'],
-                      premiumToppings: ['Bacon']
-                    }
-                  
-
-  */
+routes.post("/burger", (req, res) => {
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
     let Patties = parseFloat(body.Patties);
-    let itemName = body.title;
+    let itemName = body.itemName;
 
     for (var key in body) {
       if (body.hasOwnProperty(key)) {
@@ -64,12 +51,12 @@ routes.post("/burger", (req, res) => {
       }
     }
     return {
-        _link: body._link,
-        Patties: Patties,
-        itemName: itemName,
-        premiumToppings: [...premiumToppings],
-        standardToppings: [...standardToppings]
-      }
+      _link: body._link,
+      Patties: Patties,
+      itemName: itemName,
+      premiumToppings: [...premiumToppings],
+      standardToppings: [...standardToppings]
+    };
   };
   const senderId = req.body.sender_id;
   const linkId = req.body._link;
@@ -80,10 +67,9 @@ routes.post("/burger", (req, res) => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
     })
     .then(() => {
-      return res.status(200).send()
+      return res.status(200).send();
     })
     .catch(err => console.log(err));
 });
-
 
 module.exports = routes;

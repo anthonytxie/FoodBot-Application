@@ -2,7 +2,7 @@ const { menuItems, findItem } = require("./menuItems");
 const websiteURL = process.env.websiteURL;
 
 const burgerTemplate = function(data, linkId, recipientId) {
-  const burger = findItem(data.title);
+  const burger = findItem(data.itemName);
   const attachment = {
     attachment: {
       type: "template",
@@ -10,7 +10,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
         template_type: "generic",
         elements: [
           {
-            title: `${burger.title} ($${burger.basePrice})`,
+            title: `${burger.itemName} ($${burger.basePrice})`,
             subtitle: burger.subtitle,
             image_url: burger.horizontal_image_url,
             buttons: [
@@ -21,7 +21,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
                   type: "order-burger",
                   data:  {
                       _link: linkId,
-                      itemName: burger.title,
+                      itemName: burger.itemName,
                       Patties: burger.Patties,
                       standardToppings: burger.standardToppings,
                       premiumToppings: burger.premiumToppings
@@ -31,7 +31,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
               },
               {
                 type: "web_url",
-                url: `${websiteURL}/burgercustomize?name=${burger.title}&sender=${recipientId}&linkId=${linkId.toString()}`,
+                url: `${websiteURL}/burgercustomize?name=${burger.itemName}&sender=${recipientId}&linkId=${linkId.toString()}`,
                 title: "Customize Burger",
                 webview_height_ratio: "full",
                 messenger_extensions: true

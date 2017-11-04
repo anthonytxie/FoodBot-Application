@@ -41,8 +41,8 @@ const handleReceivePostback = messagingEvent => {
               .then((order) => {
                 return runner.addSideToOrder(senderId, { itemName: data.foodObject.itemName})
               })
-              .then((item) => {
-                send.sendOrderedMessage(senderId, item);
+              .then(() => {
+                send.sendOrderedMessage(senderId);
               })
           } 
             else if (data.foodObject.itemName === "Fries") {
@@ -64,11 +64,11 @@ const handleReceivePostback = messagingEvent => {
             })
             .catch(err => console.log(err));
           break;
-        case "order-continue":
+        case "order-no-combo":
           runner
-            .renewSessionAndReturnOrder(senderId)
-            .then(order => {
-              send.sendOrderedMessage(senderId, {_order: order._id});
+            .removeComboItems(senderId, data.linkId)
+            .then(() => {
+              send.sendOrderedMessage(senderId);
             })
             .catch(err => console.log(err));
           break;
@@ -76,7 +76,7 @@ const handleReceivePostback = messagingEvent => {
           runner
             .renewSessionAndReturnOrder(senderId)
             .then(order => {
-              send.sendEditOrderMessage(senderId, order);
+              send.sendEditOrderMessage(senderId);
             })
             .catch(err => console.log(err));
           break;
