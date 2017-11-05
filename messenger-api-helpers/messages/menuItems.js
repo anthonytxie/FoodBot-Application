@@ -124,8 +124,7 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		horizontal_image_url: "https://i.imgur.com/GhK3zW6.png",
-		subtitle:
-			"2 Beef Patties, Cheese, Pickles, Lettuce, Fancy Sauce, Onions",
+		subtitle: "2 Beef Patties, Cheese, Pickles, Lettuce, Fancy Sauce, Onions",
 		Patties: 2,
 		premiumToppings: ["Three Part Bun", "Standard Cheese"],
 		standardToppings: ["Fancy Sauce", "Pickles", "Lettuce", "Onions"],
@@ -137,8 +136,7 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		horizontal_image_url: "https://i.imgur.com/WFBXYpd.png",
-		subtitle:
-			"2 Beef Patties, Bacon, Cheese, Caramelized Onions, Fancy Sauce",
+		subtitle: "2 Beef Patties, Bacon, Cheese, Caramelized Onions, Fancy Sauce",
 
 		Patties: 2,
 		standardToppings: ["Sesame Bun", "Fancy Sauce"],
@@ -273,8 +271,6 @@ const findItem = function(name) {
 		.pop();
 };
 
-
-
 const findDifferentItemsOnBurger = burgerObject => {
 	let normalBurgerToppings = [
 		...findItem(burgerObject.itemName).standardToppings,
@@ -302,8 +298,10 @@ const findDifferentItemsOnBurger = burgerObject => {
 	};
 };
 
+const getCurrencyFromIntegerPrice = integerPrice => {
+	let dollars = integerPrice / 100;
+	dollars.toLocaleString("en-US", { style: "currency", currency: "CAD" });
+	return dollars;
+};
 
-module.exports = { menuItems, findItem, findDifferentItemsOnBurger };
-
-
-
+module.exports = { menuItems, findItem, findDifferentItemsOnBurger, getCurrencyFromIntegerPrice };

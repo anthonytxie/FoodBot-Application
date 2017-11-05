@@ -1,4 +1,4 @@
-const { menuItems } = require("./menuItems");
+const { menuItems, getCurrencyFromIntegerPrice } = require("./menuItems");
 
 // ===== GENERAL MENU ===============================================================
 
@@ -40,7 +40,7 @@ const specialBurgerMenuTemplate = burgerObject => {
         buttons: [
             {
                 type: "postback",
-                title: `Order $${burgerObject.basePrice}`,
+                title: `Order $${getCurrencyFromIntegerPrice(burgerObject.basePrice)}`,
                 payload: JSON.stringify({
                     type: "show-burger",
                     data: {
@@ -60,7 +60,7 @@ const normalBurgerMenuTemplate = burgerObject => {
         buttons: [
             {
                 type: "postback",
-                title: `Order $${burgerObject.basePrice}`,
+                title: `Order $${getCurrencyFromIntegerPrice(burgerObject.basePrice)}`,
                 payload: JSON.stringify({
                     type: "show-burger",
                     data: {
@@ -80,7 +80,7 @@ const sideMenuTemplate = sideObject => {
         buttons: [
             {
                 type: "postback",
-                title: `Order $${sideObject.basePrice}`,
+                title: `Order $${getCurrencyFromIntegerPrice(sideObject.basePrice)}`,
                 payload: JSON.stringify({
                     type: "order-side",
                     data: {
