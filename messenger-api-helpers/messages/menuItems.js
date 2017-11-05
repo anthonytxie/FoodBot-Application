@@ -317,10 +317,3 @@ const findDifferentItemsOnBurger = burgerObject => {
 
 
 module.exports = { menuItems, findItem, findDifferentItemsOnBurger };
-
-
-
-<<<<<<< HEAD
-module.exports = { menuItems, findItem, findAdditionalItemsOnBurger };
-=======
->>>>>>> 56ac2cf6e4c8ea04003730dc784879c1fab147cc

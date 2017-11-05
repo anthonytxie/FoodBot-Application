@@ -19,7 +19,7 @@ html(lang="en")
 			section
 				.title
 					span &nbspNew&nbsp
-					i(class="fa fa-chevron-right" aria-hidden="true")
+					i(class="fa fa-chevron-right" aria-hidden="true" tab="")
 				.container
 					each order in orders
 						unless order.isInputted
@@ -35,12 +35,14 @@ html(lang="en")
 								.middle
 									- let counter = 0;
 									each item in order._items
-										- const mods = findAdditionalItemsOnBurger(item);
+										
 										- counter++;
 
 										.item #{counter}. #{item.itemName}
 
 										if item.itemType == "burger"
+
+											- const mods = findDifferentItemsOnBurger(item);
 
 											//- burger modifications
 											each topping in mods.plusToppings

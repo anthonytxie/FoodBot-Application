@@ -4,13 +4,13 @@ const routes = express();
 const moment = require("moment");
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
-const { menuItems, findItem, findAdditionalItemsOnBurger } = require("./../../messenger-api-helpers/messages/menuItems.js");
+const { menuItems, findItem, findDifferentItemsOnBurger } = require("./../../messenger-api-helpers/messages/menuItems.js");
 
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {
     res.status(200).render("cashier.pug", { 
       orders,
-      findAdditionalItemsOnBurger
+      findDifferentItemsOnBurger
     });
   });
 });

@@ -77,15 +77,14 @@ routes.post("/confirm", (req, res) => {
     console.log(req.body);
     let {
         orderId,
-        method,
-        time,
         address,
         postal,
         token_id,
         token_email,
         authorized_payment
     } = req.body;
-    time = new Date(time.split('"')[1]);
+    time = new Date();
+    let method = "delivery";
     let parsedDate = Date.parse(time);
     let fulfillmentDate = moment(parsedDate)
         .tz("America/Toronto")
