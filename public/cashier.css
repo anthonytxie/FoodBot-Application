@@ -174,8 +174,24 @@ button {
 
 button:focus {outline:0;}
 
+.mobile {
+	display: none;
+}
+
 @media(max-width: 720px){
+
 	.tab, .vr {
 		display: none;
 	}
+
+	section {
+		display: none;
+	}
+
+	.mobile {
+		display: initial;
+	}
 }
+
+
+

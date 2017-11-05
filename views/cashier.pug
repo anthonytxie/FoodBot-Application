@@ -18,100 +18,179 @@ html(lang="en")
 		div
 			section
 				.title
-					span &nbspNew&nbsp
-					i(class="fa fa-chevron-right" aria-hidden="true" tab="")
+					span New
 				.container
 					each order in orders
 						unless order.isInputted
-							div
-								- const display_id = order._id.toString().substr(-5);
-								.top 
-									.id
-										span.heavy ID: 
-										span.light #{display_id} 
-									.address(style="display: none;")
-										span.heavy Address:
-										span.light #{order.address}, #{order.postalCode}
-								.middle
-									- let counter = 0;
-									each item in order._items
-										
-										- counter++;
+							if order.isPaid
+								div
+									- const display_id = order.orderNumber;
+									.top 
+										.id
+											span.heavy ID: 
+											span.light #{display_id} 
+										.address
+											- var total = ((order.basePrice + order.tax + order.stripeFee +  order.deliveryFee) / 100).toFixed(2);
+											span.heavy $#{total}
+									.middle
+										- let counter = 0;
+										each item in order._items
+											
+											- counter++;
 
-										.item #{counter}. #{item.itemName}
+											if item.itemType == "burger"
 
-										if item.itemType == "burger"
-
-											- const mods = findDifferentItemsOnBurger(item);
-
-											//- burger modifications
-											each topping in mods.plusToppings
-												.plus + #{topping}
-											if mods.pattyDifference > 0
-												- let counter = 0
-												while counter <= mods.pattyDifference 
-													.plus + Patty
-													- counter++
-											each topping in mods.minusToppings
-												.minus – #{topping}
-											if mods.pattyDifference < 0
-												- let counter = 0
-												while counter >= mods.pattyDifference
-													.minus – Patty
-													- counter--
-
-											//- get combo
-											if item.combo
-												each inner_item in order._items
-													if ((item._link == inner_item._link) && (item._order == inner_item._order))
-														.combo w/ #{inner_item.itemName}
-
-										else
-
-											//- if not part of combo
-											unless item._link
 												.item #{counter}. #{item.itemName}
+												- const mods = findDifferentItemsOnBurger(item);
 
-								.bottom
-									button Cooking
+												//- burger modifications
+												each topping in mods.plusToppings
+													.plus + #{topping}
+												if mods.pattyDifference > 0
+													- let counter = 1
+													while counter <= mods.pattyDifference 
+														.plus + Patty
+														- counter++
+												each topping in mods.minusToppings
+													.minus – #{topping}
+												if mods.pattyDifference < 0
+													- let counter = -1
+													while counter >= mods.pattyDifference
+														.minus – Patty
+														- counter--
+
+												//- get combo
+												if item.itemCombo
+													each inner_item in order._items
+														if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && !(item._id.equals(inner_item._id)))
+															.combo w/ #{inner_item.itemName}
+
+											else
+
+												//- if not part of combo
+												unless item.itemCombo
+													.item #{counter}. #{item.itemName}
+
+									.bottom
+										button Cooking
 
 			section
-				.title Cooking
+				.title
+					span Cooking
 				.container
 					each order in orders
-						if (order.isInputted && (!order.isReady))
-							div
-								- const display_id = order._id.toString().substr(-5);
-								.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
-								.middle
-									each item in order._items
-										.item #{displayName(item)}
-										if item.itemType == "burger"
-											//- weird notation here
-											each topping in item.standardToppings
-												.topping #{displayName({itemName: topping})}
-											each topping in item.premiumToppings
-												.topping #{displayName({itemName: topping})}
-								.bottom
-									button New
-									button Ready
+						if order.isInputted
+							unless order.isReady
+								if order.isPaid
+									div
+										- const display_id = order.orderNumber;
+										.top 
+											.id
+												span.heavy ID: 
+												span.light #{display_id} 
+											.address
+												- var total = ((order.basePrice + order.tax + order.stripeFee +  order.deliveryFee) / 100).toFixed(2);
+												span.heavy $#{total}
+										.middle
+											- let counter = 0;
+											each item in order._items
+												
+												- counter++;
+
+												if item.itemType == "burger"
+
+													.item #{counter}. #{item.itemName}
+													- const mods = findDifferentItemsOnBurger(item);
+
+													//- burger modifications
+													each topping in mods.plusToppings
+														.plus + #{topping}
+													if mods.pattyDifference > 0
+														- let counter = 0
+														while counter <= mods.pattyDifference 
+															.plus + Patty
+															- counter++
+													each topping in mods.minusToppings
+														.minus – #{topping}
+													if mods.pattyDifference < 0
+														- let counter = 0
+														while counter >= mods.pattyDifference
+															.minus – Patty
+															- counter--
+
+													//- get combo
+													if item.itemCombo
+														each inner_item in order._items
+															if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && !(item._id.equals(inner_item._id)))
+																.combo w/ #{inner_item.itemName}
+
+												else
+
+													//- if not part of combo
+													unless item.itemCombo
+														.item #{counter}. #{item.itemName}
+
+										.bottom
+											button New
+											button Ready
 
 			section
-				.title Ready
+				.title
+					span Ready
 				.container
 					each order in orders
 						if order.isReady
-							div
-								- const display_id = order._id.toString().substr(-5);
-								.top #{display_id} | Delivery to #{order.address}, #{order.postalCode}
-								.middle
-									each item in order._items
-										.item #{displayName(item)}
-										if item.itemType == "burger"
-											//- weird notation here
-											each topping in item.standardToppings
-												.topping #{displayName({itemName: topping})}
-											each topping in item.premiumToppings
-												.topping #{displayName({itemName: topping})}
-								.bottom
-									button Cooking 
+							if order.isPaid
+								div
+									- const display_id = order.orderNumber;
+									.top 
+										.id
+											span.heavy ID: 
+											span.light #{display_id} 
+										.address
+											- var total = ((order.basePrice + order.tax + order.stripeFee +  order.deliveryFee) / 100).toFixed(2);
+											span.heavy $#{total}
+									.middle
+										- let counter = 0;
+										each item in order._items
+											
+											- counter++;
+
+											if item.itemType == "burger"
+
+												.item #{counter}. #{item.itemName}
+												- const mods = findDifferentItemsOnBurger(item);
+
+												//- burger modifications
+												each topping in mods.plusToppings
+													.plus + #{topping}
+												if mods.pattyDifference > 0
+													- let counter = 0
+													while counter <= mods.pattyDifference 
+														.plus + Patty
+														- counter++
+												each topping in mods.minusToppings
+													.minus – #{topping}
+												if mods.pattyDifference < 0
+													- let counter = 0
+													while counter >= mods.pattyDifference
+														.minus – Patty
+														- counter--
+
+												//- get combo
+												if item.itemCombo
+													each inner_item in order._items
+														if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && !(item._id.equals(inner_item._id)))
+															.combo w/ #{inner_item.itemName}
+
+											else
+
+												//- if not part of combo
+												unless item.itemCombo
+													.item #{counter}. #{item.itemName}
+
+									.bottom
+										button New
+										button Ready
+
+			.mobile Mobile view still in development. Please use a tablet or computer.

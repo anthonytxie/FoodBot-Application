@@ -195,8 +195,8 @@ const menuItems = [
 
 		subtitle: "Stuffed Portobello, Tomatoes, Onions, Pickles",
 		Patties: 0,
-		premiumToppings: ["Stuffed Portobello", "Tomatoes", "Onions", "Pickles"],
-		standardToppings: ["Sesame Bun"],
+		premiumToppings: ["Stuffed Portobello"],
+		standardToppings: ["Sesame Bun", "Tomatoes", "Onions", "Pickles"],
 		basePrice: 7.99
 	},
 
@@ -273,19 +273,6 @@ const findItem = function(name) {
 		.pop();
 };
 
-const portobelloMushroom = {
-		itemName: "The Portobello",
-		type: "burger",
-
-		image_url: "https://i.imgur.com/m4IQMAD.jpg",
-		horizontal_image_url: "https://i.imgur.com/3kQ6hQf.png",
-
-		subtitle: "Stuffed Portobello, Tomatoes, Onions, Pickles",
-		Patties: 0,
-		premiumToppings: [ "Tomatoes", "Onions", "Pickles"],
-		standardToppings: ["Sesame Bun", "Ketchup"],
-		basePrice: 7.99
-	}
 
 
 const findDifferentItemsOnBurger = burgerObject => {

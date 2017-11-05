@@ -50,7 +50,8 @@ orderDAO.confirmOrder = function(data) {
             isPaid: data.isPaid,
             address: data.address,
             postalCode: data.postal,
-            orderConfirmDate: Date.now()
+            orderConfirmDate: Date.now(),
+            orderNumber: data.orderNumber
           }
         },
         { new: true }
@@ -142,5 +143,6 @@ orderDAO.returnPaidOrderNumber = () => {
   });
 };
 
+//worried about this... will this sometimes result in same number for two orders if they are happening concurrently?
 
 module.exports = orderDAO;

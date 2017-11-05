@@ -10,6 +10,8 @@ html(lang="en")
 		script(src="dragend-master/dragend.js")
 		script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js")
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.js')
 
 	body
 		script.
@@ -103,13 +105,17 @@ html(lang="en")
 			p#get_total
 
 			input#address(name="address", type="text", placeholder="Address")
-			input#postal(name="postal", type="text", placeholder="Postal Code")
+			input#postal(name="phone", type="text", placeholder="Phone")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
 
 			.pay_row
 				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Now")
 
 		script.
+
+			$(document).ready(function(){
+				$("#postal").inputmask("(999)999-9999");
+			})
 
 			// could just take in a single "cost object"
 			function update_cost(base, delivery_stripe, tax, total) {
