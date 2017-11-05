@@ -37,31 +37,31 @@ const drinkSchema = new Schema(
 drinkSchema.virtual("price").get(function() {
   if (this.itemCombo) {
     if (this.itemName.includes('Milkshake')) {
-      return 2.99
+      return 299
     }
     else {
-      return 1.29
+      return 129
     }
   } else {
     let price;
     switch (this.itemName) {
       case "Vanilla Milkshake":
-        return 3.99;
+        return 399;
         break;
       case "Chocolate Milkshake":
-        return 3.99;
+        return 399;
         break;
       case "Strawberry Milkshake":
-        return 3.99;
+        return 399;
         break;
       case "Mountain Dew":
-        return 2.47;
+        return 247;
         break;
       case "Water Bottle":
-        return 2.47;
+        return 247;
         break;
       default:
-        return 1.37;
+        return 137;
         break;
     }
   }
