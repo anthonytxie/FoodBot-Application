@@ -110,7 +110,33 @@ itemDAO.postDrink = function(foodObject, senderId) {
               itemName: foodObject.itemName,
               itemCombo: foodObject.itemCombo
             });
-            saveItemAndUpdateOrder(newDrink, orderId, resolve, reject);
+            newDrink
+              .save()
+              .then(item => {
+                return Order.findOneAndUpdate(
+                  { _id: orderId },
+                  { $push: { _items: item._id } },
+                  { new: true }
+                ).populate("_items");
+              })
+              .then(order => {
+                return Burger.findOneAndUpdate(
+                  {
+                    _order: orderId,
+                    _link: foodObject._link
+                  },
+                  {
+                    $set: {
+                      itemCombo: true
+                    }
+                  },
+                  { new: true }
+                );
+              })
+              .then(item => {
+                resolve(item);
+              })
+              .catch(err => reject(err));
           }
         });
     } else {
@@ -181,7 +207,8 @@ itemDAO.postSide = function(foodObject, senderId) {
 itemDAO.removeComboItems = function(senderId, linkId) {
   return new Promise((resolve, reject) => {
     let orderId;
-    orderDAO.getLastOrderBySender(senderId)
+    orderDAO
+      .getLastOrderBySender(senderId)
       .then(order => {
         orderId = order._id;
         return Drink.findOneAndRemove({
@@ -197,10 +224,24 @@ itemDAO.removeComboItems = function(senderId, linkId) {
           itemCombo: true
         });
       })
-      .then((deleteStatus) => {
-        resolve(deleteStatus)
+      .then(() => {
+        Burger.findOneAndUpdate(
+          {
+            _order: orderId,
+            _link: foodObject._link
+          },
+          {
+            $set: {
+              itemCombo: true
+            }
+          },
+          { new: true }
+        );
       })
-      .catch((err) => reject(err))
+      .then(burger => {
+        resolve(deleteStatus);
+      })
+      .catch(err => reject(err));
   });
 };
 
