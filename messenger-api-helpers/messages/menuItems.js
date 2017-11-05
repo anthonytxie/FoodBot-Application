@@ -7,7 +7,7 @@ const menuItems = [
 		Patties: 1,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: [],
-		basePrice: 5.99
+		basePrice: 599
 	},
 	{
 		itemName: "Single Cheeseburger",
@@ -18,7 +18,7 @@ const menuItems = [
 		Patties: 1,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: ["Standard Cheese"],
-		basePrice: 6.99
+		basePrice: 699
 	},
 
 	{
@@ -30,7 +30,7 @@ const menuItems = [
 		Patties: 1,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: ["Bacon"],
-		basePrice: 7.49
+		basePrice: 749
 	},
 
 	{
@@ -42,7 +42,7 @@ const menuItems = [
 		Patties: 1,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: ["Standard Cheese", "Bacon"],
-		basePrice: 8.49
+		basePrice: 849
 	},
 
 	{
@@ -54,7 +54,7 @@ const menuItems = [
 		Patties: 2,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: [],
-		basePrice: 7.99
+		basePrice: 799
 	},
 
 	{
@@ -67,7 +67,7 @@ const menuItems = [
 		Patties: 2,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: ["Standard Cheese"],
-		basePrice: 8.99
+		basePrice: 899
 	},
 
 	{
@@ -80,7 +80,7 @@ const menuItems = [
 		Patties: 2,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: ["Bacon"],
-		basePrice: 9.49
+		basePrice: 949
 	},
 
 	{
@@ -92,7 +92,7 @@ const menuItems = [
 		Patties: 2,
 		standardToppings: ["Sesame Bun"],
 		premiumToppings: ["Bacon", "Standard Cheese"],
-		basePrice: 9.49
+		basePrice: 949
 	},
 
 	{
@@ -104,7 +104,7 @@ const menuItems = [
 		Patties: 0,
 		premiumToppings: ["Chicken Patty"],
 		standardToppings: ["Lettuce", "Pickles", "Sesame Bun", "Mayo"],
-		basePrice: 9.99
+		basePrice: 999
 	},
 
 	{
@@ -115,7 +115,7 @@ const menuItems = [
 		subtitle: "Veggie Burger with Soy Patty",
 		premiumToppings: ["Soy Patty"],
 		standardToppings: ["Sesame Bun"],
-		basePrice: 7.99
+		basePrice: 799
 	},
 
 	{
@@ -124,12 +124,11 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		horizontal_image_url: "https://i.imgur.com/GhK3zW6.png",
-		subtitle:
-			"2 Beef Patties, Cheese, Pickles, Lettuce, Fancy Sauce, Onions",
+		subtitle: "2 Beef Patties, Cheese, Pickles, Lettuce, Fancy Sauce, Onions",
 		Patties: 2,
 		premiumToppings: ["Three Part Bun", "Standard Cheese"],
 		standardToppings: ["Fancy Sauce", "Pickles", "Lettuce", "Onions"],
-		basePrice: 9.99
+		basePrice: 999
 	},
 	{
 		itemName: "The Richmond",
@@ -137,13 +136,12 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/z7ANC0C.jpg",
 		horizontal_image_url: "https://i.imgur.com/WFBXYpd.png",
-		subtitle:
-			"2 Beef Patties, Bacon, Cheese, Caramelized Onions, Fancy Sauce",
+		subtitle: "2 Beef Patties, Bacon, Cheese, Caramelized Onions, Fancy Sauce",
 
 		Patties: 2,
 		standardToppings: ["Sesame Bun", "Fancy Sauce"],
 		premiumToppings: ["Standard Cheese", "Caramelized Onions", "Bacon"],
-		basePrice: 9.99
+		basePrice: 999
 	},
 
 	{
@@ -157,7 +155,7 @@ const menuItems = [
 		Patties: 2,
 		premiumToppings: ["Fried Egg", "Bacon", "Standard Cheese"],
 		standardToppings: ["Onions", "Sesame Bun"],
-		basePrice: 10.99
+		basePrice: 1099
 	},
 
 	{
@@ -170,7 +168,7 @@ const menuItems = [
 		Patties: 2,
 		premiumToppings: ["Blue Cheese", "Caramelized Onions", "Bacon"],
 		standardToppings: ["Sesame Bun"],
-		basePrice: 9.99
+		basePrice: 999
 	},
 
 	{
@@ -183,7 +181,7 @@ const menuItems = [
 		Patties: 2,
 		standardToppings: [],
 		premiumToppings: ["Grilled Cheese Bun", "Standard Cheese"],
-		basePrice: 10.99
+		basePrice: 1099
 	},
 
 	{
@@ -197,7 +195,7 @@ const menuItems = [
 		Patties: 0,
 		premiumToppings: ["Stuffed Portobello"],
 		standardToppings: ["Sesame Bun", "Tomatoes", "Onions", "Pickles"],
-		basePrice: 7.99
+		basePrice: 799
 	},
 
 	{
@@ -211,7 +209,7 @@ const menuItems = [
 		Patties: 0,
 		premiumToppings: ["Chicken Patty"],
 		standardToppings: ["Lettuce", "Pickles", "Sesame Bun", "Mayo"],
-		basePrice: 9.99
+		basePrice: 999
 	},
 
 	{
@@ -226,7 +224,7 @@ const menuItems = [
 		Patties: 2,
 		premiumToppings: ["Swiss Cheese", "Sauteed Mushrooms"],
 		standardToppings: ["Sesame Bun"],
-		basePrice: 9.99
+		basePrice: 999
 	},
 	{
 		itemName: "Fries",
@@ -235,7 +233,7 @@ const menuItems = [
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Perfectly cut, golden cripsy, potato Fries.",
 		itemName: "Fries",
-		basePrice: 3.99
+		basePrice: 399
 	},
 	{
 		itemName: "Poutine",
@@ -243,7 +241,7 @@ const menuItems = [
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
 		itemName: "Poutine",
-		basePrice: 7.99
+		basePrice: 799
 	},
 
 	{
@@ -252,7 +250,7 @@ const menuItems = [
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Cheesy Fries.",
 		itemName: "Cheesy Fries",
-		basePrice: 6.49
+		basePrice: 649
 	},
 
 	{
@@ -261,7 +259,7 @@ const menuItems = [
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Delicious ice-cream milkshake",
 		itemName: "milkshake",
-		basePrice: 3.99
+		basePrice: 399
 	}
 ];
 
@@ -272,8 +270,6 @@ const findItem = function(name) {
 		})
 		.pop();
 };
-
-
 
 const findDifferentItemsOnBurger = burgerObject => {
 	let normalBurgerToppings = [
@@ -302,5 +298,10 @@ const findDifferentItemsOnBurger = burgerObject => {
 	};
 };
 
+const getCurrencyFromIntegerPrice = integerPrice => {
+	let dollars = integerPrice / 100;
+	dollars.toLocaleString("en-US", { style: "currency", currency: "CAD" });
+	return dollars;
+};
 
-module.exports = { menuItems, findItem, findDifferentItemsOnBurger };
+module.exports = { menuItems, findItem, findDifferentItemsOnBurger, getCurrencyFromIntegerPrice };

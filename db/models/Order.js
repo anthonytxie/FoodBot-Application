@@ -90,7 +90,7 @@ orderSchema.virtual("basePrice").get(function() {
   for (let item of this._items) {
     price = price + item.price;
   }
-  return price.toFixed(2);
+  return Math.round(price);
 });
 
 orderSchema.virtual("tax").get(function() {
@@ -98,16 +98,15 @@ orderSchema.virtual("tax").get(function() {
   for (let item of this._items) {
     price = price + item.price;
   }
-  return (price*1.13).toFixed(2);
+  return Math.round(price * 0.13);
 });
-
 
 orderSchema.virtual("stripeFee").get(function() {
   let price = 0;
   for (let item of this._items) {
     price = price + item.price;
   }
-  return (((price*1.13)*0.029)+0.3).toFixed(2);
+  return Math.round(price * 1.13 * 0.029 + 30);
 });
 
 orderSchema.virtual("deliveryFee").get(function() {
@@ -115,18 +114,15 @@ orderSchema.virtual("deliveryFee").get(function() {
   for (let item of this._items) {
     price = price + item.price;
   }
-  let highDeliveryFee = 7;
-  let lowDeliveryFee = 3;
-  let orderThreshold = 15;
+  let highDeliveryFee = 700;
+  let lowDeliveryFee = 300;
+  let orderThreshold = 1500;
   if (price < orderThreshold) {
-    return highDeliveryFee
+    return highDeliveryFee;
+  } else {
+    return lowDeliveryFee;
   }
-  else {
-    return lowDeliveryFee
-  }
-
 });
-
 
 const Order = mongoose.model("Order", orderSchema);
 

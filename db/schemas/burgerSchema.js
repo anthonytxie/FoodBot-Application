@@ -96,9 +96,9 @@ burgerSchema.virtual("price").get(function() {
 
   let differencePatty = this.Patties - burgerList[0].Patties;
   if (differencePatty > 0) {
-    price += differencePatty * 2;
+    price += differencePatty * 200;
   }
-  return parseFloat(price.toFixed(2));
+  return Math.round(price)
 });
 
 module.exports = { burgerSchema };

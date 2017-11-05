@@ -29,26 +29,26 @@ const sideSchema = new Schema(
 sideSchema.virtual("price").get(function() {
   if (this.itemCombo) {
     if (this.itemName === "Poutine") {
-      return 6.0;
+      return 600;
     } else if (this.itemName === "Cheesy Fries") {
-      return 4.5;
+      return 450;
     } else if (this.itemName === "Fries") {
-      return 2.0;
+      return 200;
     } 
   }
   else {
     if (this.itemName ==="Cheesy Fries") {
-      return 6.49;
+      return 649;
     }
     else if (this.itemName ==="Poutine") {
-      return 7.99;
+      return 799;
     }
     else if (this.itemName ==="Fries") {
       if (this.itemSize ==="Medium") {
-        return 3.99;
+        return 399;
       }
       else if (this.itemSize ==="Large") {
-        return 4.99;
+        return 499;
       }
     }
   }

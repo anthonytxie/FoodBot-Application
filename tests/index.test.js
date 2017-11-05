@@ -132,10 +132,10 @@ beforeEach(done => {
       );
     })
     .then(drink => {
-      return linkDAO.createNewLink()
+      return linkDAO.createNewLink();
     })
-    .then((link) => {
-      secondLinkId = link._id
+    .then(link => {
+      secondLinkId = link._id;
       return itemDAO.postBurger(
         {
           _link: link._id,
@@ -148,13 +148,16 @@ beforeEach(done => {
         firstSenderId
       );
     })
-    .then((burger) => {
+    .then(burger => {
       firstBurgerNoComboId = burger._id;
-      return itemDAO.postDrink({
-        itemName: "Strawberry Milkshake",
-      },firstSenderId)
+      return itemDAO.postDrink(
+        {
+          itemName: "Strawberry Milkshake"
+        },
+        firstSenderId
+      );
     })
-    .then((side) => {
+    .then(side => {
       firstSideNoComboId = side._id;
       return done();
     })
@@ -340,25 +343,28 @@ describe("LINK DAO", () => {
 
 describe("ITEM DAO", () => {
   it("should add a new burger", () => {
-    let result = 
-    linkDAO.createNewLink()
-    .then(link => {
+    let result = linkDAO.createNewLink().then(link => {
       return itemDAO
-        .postBurger({
-          _link: link._id,
-          _order: secondOrderId,
-          itemName: "Single Burger",
-          Patties: 2,
-          standardToppings: ["Tomatoes", "Lettuce"],
-          premiumToppings: ["Bacon"]
-        }, firstSenderId)
+        .postBurger(
+          {
+            _link: link._id,
+            _order: secondOrderId,
+            itemName: "Single Burger",
+            Patties: 2,
+            standardToppings: ["Tomatoes", "Lettuce"],
+            premiumToppings: ["Bacon"]
+          },
+          firstSenderId
+        )
         .then(burger => {
           return burger;
         });
     });
     return Promise.all([
-      result.should.eventually.have.deep.property("_link").that.is.not.undefined,
-      result.should.eventually.have.deep.property("_order").that.is.not.undefined,
+      result.should.eventually.have.deep.property("_link").that.is.not
+        .undefined,
+      result.should.eventually.have.deep.property("_order").that.is.not
+        .undefined,
       result.should.eventually.have.deep.property("itemName", "Single Burger"),
       result.should.eventually.have.deep.property("itemCombo").that.is.false,
       result.should.eventually.have.deep.property("Patties", 2)
@@ -366,36 +372,159 @@ describe("ITEM DAO", () => {
   });
 
   it("should update a burger", () => {
+    let result = itemDAO
+      .postBurger(
+        {
+          _link: firstLinkId,
+          _order: secondOrderId,
+          Patties: 2,
+          standardToppings: ["Tomatoes", "Lettuce"],
+          premiumToppings: ["Stuffed Portobello"]
+        },
+        firstSenderId
+      )
+      .then(burger => {
+        return burger;
+      });
 
+    return Promise.all([
+      result.should.eventually.have.deep.property("itemName", "Single Burger"),
+      result.should.eventually.have.deep
+        .property("premiumToppings")
+        .that.has.property([0], "Stuffed Portobello")
+    ]);
+  });
 
+  it("should add combo items", () => {
+    let result = itemDAO
+      .postSide(
+        {
+          _link: secondLinkId,
+          _order: secondOrderId,
+          itemName: "Poutine",
+          itemSize: "Medium",
+          itemCombo: true
+        },
+        firstSenderId
+      )
+      .then(side => {
+        return itemDAO.postDrink(
+          {
+            _link: secondLinkId,
+            _order: secondOrderId,
+            itemName: "Strawberry Milkshake",
+            itemCombo: true
+          },
+          firstSenderId
+        );
+      })
+      .then(drink => {
+        return drink;
+      })
+      .then(() => {
+        return orderDAO.getLastOrderBySender(firstSenderId);
+      });
 
-  })
+    return Promise.all([
+      result.should.eventually.have.deep.property("_id", secondOrderId),
+      result.should.eventually.have.deep.property("_items").that.has.length(7),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([5])
+        .that.has.property("itemName", "Poutine"),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([6])
+        .that.has.property("itemName", "Strawberry Milkshake"),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([5])
+        .that.has.property("_link", secondLinkId),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([6])
+        .that.has.property("_link", secondLinkId),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([5])
+        .that.has.property("_order", secondOrderId),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([6])
+        .that.has.property("_order", secondOrderId)
+    ]);
+  });
 
+  it("should update combo items", () => {
+    let result = itemDAO
+      .postSide(
+        {
+          _link: firstLinkId,
+          _order: secondOrderId,
+          itemName: "Fries",
+          itemSize: "Medium",
+          itemCombo: true
+        },
+        firstSenderId
+      )
+      .then(side => {
+        return itemDAO.postDrink(
+          {
+            _link: firstLinkId,
+            _order: secondOrderId,
+            itemName: "Strawberry Milkshake",
+            itemCombo: true
+          },
+          firstSenderId
+        );
+      })
+      .then(drink => {
+        return drink;
+      })
+      .then(() => {
+        return orderDAO.getLastOrderBySender(firstSenderId);
+      });
 
+    return Promise.all([
+      result.should.eventually.have.deep.property("_id", secondOrderId),
+      result.should.eventually.have.deep.property("_items").that.has.length(5),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("itemName", "Fries"),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([2])
+        .that.has.property("itemName", "Strawberry Milkshake"),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("_link", firstLinkId),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([2])
+        .that.has.property("_link", firstLinkId),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([1])
+        .that.has.property("_order", secondOrderId),
+      result.should.eventually.have.deep
+        .property("_items")
+        .that.has.property([2])
+        .that.has.property("_order", secondOrderId)
+    ]);
+  });
 
-   it("should add combo items" ,() => {
-
-
-
-
-   })
-
-
-    it("should update combo items" ,() => {
-
-
-
-
-   })
-
-
-   it("should remove combo items", () => {
-
-
-
-   })
-
-
+  it("should remove combo items", () => {
+    result = itemDAO
+      .removeComboItems(senderId, firstLinkId)
+      .then(() => {
+        return orderDAO.getLastOrderBySender(firstSenderId);
+      })
+      .then(order => {
+        return order;
+      });
+  });
 });
 
 // describe("ROUTES", () => {

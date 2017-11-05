@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 //DAO
 const itemDAO = require("./../../db/DAO/itemDAO");
+const orderDAO = require("./../../db/DAO/orderDAO");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
@@ -12,7 +13,24 @@ const send = require("../../messenger-api-helpers/send");
 routes.get("/burgercombo", (req, res) => {
   let linkId = req.query.linkId;
   let senderId = req.query.sender;
-  res.render("burgercombopage", { _link: linkId, sender_id: senderId }); //send back pug file
+  orderDAO
+    .getLastOrderBySender(senderId)
+    .then(order => {
+      return order._items.filter(x => {
+        return (
+          x._link.equals(linkId) &&
+          x._order.equals(order._id) &&
+          x.itemType != "burger"
+        );
+      });
+    })
+    .then(itemsArray => {
+      res.render("burgercombopage", {
+        _link: linkId,
+        sender_id: senderId,
+        itemsArray: itemsArray
+      });
+    });
 });
 
 routes.post("/combo", (req, res) => {
