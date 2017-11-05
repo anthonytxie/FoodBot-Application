@@ -46,24 +46,24 @@ const sendOrderedBurgerUpsizeMessage = (recipientId, linkId) => {
 };
 
 const sendConfirmPaidMessageDelivery = (recipientId, data) => {
-    sendMessage(recipientId, messages.messageTemplate(`Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId.substr(-5)}.`));
+    sendMessage(recipientId, messages.messageTemplate(`Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at in 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`));
     sendMessage(recipientId, messages.nextOrderMessage())
 
 };
 
 const sendConfirmPaidMessagePickup = (recipientId, data) => {
-    sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up at ${data.fulfillmentDate}. Your confirmation code is ${data.orderId.substr(-5)}.`));
+    sendMessage(recipientId, messages.messageTemplate(`Awesome! Your payment has been processed! We'll have the order ready for you to pick-up in around 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`));
     sendMessage(recipientId, messages.nextOrderMessage())
 
 };
 
 const sendConfirmUnpaidMessagePickup = (recipientId, data) => {
-    sendMessage(recipientId, messages.messageTemplate(`Awesome. We sent your order to the restaurant. It should be ready around ${data.fulfillmentDate}. Tell the cashier your order Id is ${data.orderId.substr(-5)}`));
+    sendMessage(recipientId, messages.messageTemplate(`Awesome. We sent your order to the restaurant. It should be ready in around 30-45 minutes. Tell the cashier your order Id is ${data.confirmationNumber}`));
     sendMessage(recipientId, messages.nextOrderMessage())
 };
 
 const sendConfirmUnpaidMessageDelivery = (recipientId, data) => {
-    sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered. It should be ready around ${data.fulfillmentDate}. Your confirmation code is ${data.orderId.substr(-5)}.`));
+    sendMessage(recipientId, messages.messageTemplate(`Awesome. We have your order delivered to ${data.address}. It should be ready in around 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`));
     sendMessage(recipientId, messages.nextOrderMessage())
 
 };

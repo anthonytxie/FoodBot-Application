@@ -1,4 +1,4 @@
-const { menuItems, findItem } = require("./menuItems");
+const { menuItems, findItem, getCurrencyFromIntegerPrice } = require("./menuItems");
 const websiteURL = process.env.websiteURL;
 
 const burgerTemplate = function(data, linkId, recipientId) {
@@ -10,7 +10,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
         template_type: "generic",
         elements: [
           {
-            title: `${burger.itemName} ($${burger.basePrice})`,
+            title: `${burger.itemName} ($${getCurrencyFromIntegerPrice(burger.basePrice)})`,
             subtitle: burger.subtitle,
             image_url: burger.horizontal_image_url,
             buttons: [

@@ -74,7 +74,7 @@ routes.post("/delete", (req, res) => {
 });
 
 routes.post("/confirm", (req, res) => {
-
+    let confirmationNumber;
     let {
         orderId,
         method,
@@ -110,6 +110,7 @@ routes.post("/confirm", (req, res) => {
                 return orderDAO.returnPaidOrderNumber()
             })
             .then((orderNumber) => {
+                confirmationNumber = orderNumber
                 return orderDAO.confirmOrder({
                     orderId,
                     method,
@@ -128,12 +129,13 @@ routes.post("/confirm", (req, res) => {
                     send.sendConfirmPaidMessageDelivery(user.PSID, {
                         fulfillmentDate,
                         address,
-                        orderId
+                        confirmationNumber
                     });
                 } else {
                     send.sendConfirmPaidMessagePickup(user.PSID, {
                         fulfillmentDate,
-                        orderId
+                        orderId,
+                        confirmationNumber
                     });
                 }
                 return sessionDAO.closeSession(user._sessions.slice(-1).pop());
@@ -157,12 +159,13 @@ routes.post("/confirm", (req, res) => {
             .then(order => {
                 if (method === "delivery") {
                     send.sendConfirmUnpaidMessageDelivery(order._user.PSID, {
-                        fulfillmentDate
+                        fulfillmentDate,
+                        confirmationNumber
                     });
                 } else {
                     send.sendConfirmUnpaidMessagePickup(order._user.PSID, {
                         fulfillmentDate,
-                        orderId
+                        confirmationNumber
                     });
                 }
                 return sessionDAO.closeSession(order._session);
