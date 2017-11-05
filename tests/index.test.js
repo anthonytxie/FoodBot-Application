@@ -23,14 +23,16 @@ chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
 
-const firstSenderId = 78907890;
-const secondSenderId = 56786789;
-let userId;
+const firstSenderId = "78907890";
+const secondSenderId = "56786789";
+let firstUserId;
+let firstLinkId;
+let secondLinkId;
 let firstSessionId;
 let secondSessionId;
-let PSID;
-let orderId;
-let itemId;
+let secondOrderId;
+let firstSideNoComboId;
+let firstBurgerNoComboId;
 let testBurger = {
   Patties: 2,
   itemName: "Top Bun",
@@ -70,27 +72,93 @@ beforeEach(done => {
       return userDAO.createUser(firstSenderId);
     })
     .then(user => {
-      userId = user._id;
+      firstUserId = user._id;
       firstSessionId = user._sessions[0]._id;
       firstSessionActiveTime = user._sessions[0].lastActiveDate;
-      PSID = user.PSID;
-      return orderDAO.initializeOrder(PSID, firstSessionId);
+      return orderDAO.initializeOrder(firstSenderId, firstSessionId);
     })
     .then(order => {
-      orderId = order._id;
       return sessionDAO.closeSession(firstSessionId);
     })
     .then(session => {
-      return sessionDAO.renewSession(PSID);
+      return sessionDAO.renewSession(firstSenderId);
     })
     .then(session => {
       secondSessionId = session._id;
-      return itemDAO.postSide(testSide, firstSenderId);
+      return orderDAO.initializeOrder(firstSenderId, session._id);
     })
-    .then(item => {
-      itemId = item._id;
+    .then(order => {
+      return orderDAO.getLastOrderBySender(firstSenderId);
+    })
+    .then(order => {
+      secondOrderId = order._id;
+      return linkDAO.createNewLink();
+    })
+    .then(link => {
+      firstLinkId = link._id;
+      return itemDAO.postBurger(
+        {
+          _link: link._id,
+          _order: secondOrderId,
+          itemName: "Single Burger",
+          Patties: 2,
+          standardToppings: ["Tomatoes", "Lettuce"],
+          premiumToppings: ["Bacon"]
+        },
+        firstSenderId
+      );
+    })
+    .then(burger => {
+      return itemDAO.postSide(
+        {
+          _link: firstLinkId,
+          _order: secondOrderId,
+          itemName: "Poutine",
+          itemCombo: true,
+          itemSize: "Medium"
+        },
+        firstSenderId
+      );
+    })
+    .then(side => {
+      return itemDAO.postDrink(
+        {
+          _link: firstLinkId,
+          _order: secondOrderId,
+          itemName: "Vanilla Milkshake",
+          itemCombo: true
+        },
+        firstSenderId
+      );
+    })
+    .then(drink => {
+      return linkDAO.createNewLink()
+    })
+    .then((link) => {
+      secondLinkId = link._id
+      return itemDAO.postBurger(
+        {
+          _link: link._id,
+          _order: secondOrderId,
+          itemName: "Single Cheeseburger",
+          Patties: 2,
+          standardToppings: ["Tomatoes", "Lettuce"],
+          premiumToppings: ["Bacon", "Standard Cheese"]
+        },
+        firstSenderId
+      );
+    })
+    .then((burger) => {
+      firstBurgerNoComboId = burger._id;
+      return itemDAO.postDrink({
+        itemName: "Strawberry Milkshake",
+      },firstSenderId)
+    })
+    .then((side) => {
+      firstSideNoComboId = side._id;
       return done();
-    });
+    })
+    .catch(err => console.log(err));
 });
 
 describe("USER DAO", () => {
@@ -109,7 +177,7 @@ describe("USER DAO", () => {
 
   it("should return true for find function on existing user", () => {
     let trueResult = userDAO.isUserCreated(firstSenderId);
-    let falseResult = userDAO.isUserCreated(123456);
+    let falseResult = userDAO.isUserCreated(secondSenderId);
 
     return Promise.all([
       trueResult.should.eventually.equal(true),
@@ -118,7 +186,7 @@ describe("USER DAO", () => {
   });
 
   it("should update e-mail for user", () => {
-    let result = userDAO.updateEmail(userId, "anthony112244@hotmail.com");
+    let result = userDAO.updateEmail(firstUserId, "anthony112244@hotmail.com");
 
     return Promise.all([
       result.should.eventually.have.property("emails").that.has.length(1),
@@ -131,7 +199,7 @@ describe("USER DAO", () => {
 
 describe("Session DAO", () => {
   it("should return whether most recent session is active", () => {
-    let result = sessionDAO.isSessionActive(PSID);
+    let result = sessionDAO.isSessionActive(firstSenderId);
     return Promise.all([
       result.should.eventually.be.true
       // should test a false version true
@@ -139,7 +207,7 @@ describe("Session DAO", () => {
   });
 
   it("should renew the most recent session and keep it active", () => {
-    let result = sessionDAO.renewSession(PSID);
+    let result = sessionDAO.renewSession(firstSenderId);
     return Promise.all([
       result.should.eventually.have.property("_id"),
       result.should.eventually.have.property("isActive", true),
@@ -150,7 +218,7 @@ describe("Session DAO", () => {
   });
 
   it("should close the session", () => {
-    let result = sessionDAO.closeSession(firstSessionId);
+    let result = sessionDAO.closeSession(secondSessionId);
     return Promise.all([
       result.should.eventually.have.property("_id"),
       result.should.eventually.have.property("isActive", false)
@@ -161,10 +229,10 @@ describe("Session DAO", () => {
     return result.then(session => {
       return Promise.all([
         sessionDAO
-          .renewSession(PSID)
+          .renewSession(firstSenderId)
           .should.eventually.have.property("isActive", true),
         sessionDAO
-          .renewSession(PSID)
+          .renewSession(firstSenderId)
           .should.eventually.have.property("_id")
           .not.equal(secondSessionId)
       ]);
@@ -174,40 +242,51 @@ describe("Session DAO", () => {
 
 describe("ORDER DAO", () => {
   it("should return initialize a new Order with session and user reference", () => {
-    let result = orderDAO.initializeOrder(PSID, firstSessionId);
+    let thirdSessionId;
+    let result = sessionDAO
+      .closeSession(secondSessionId)
+      .then(session => {
+        return sessionDAO.renewSession(firstSenderId);
+      })
+      .then(thirdSessionId => {
+        thirdSessionId = thirdSessionId;
+        return orderDAO.initializeOrder(firstSenderId, thirdSessionId);
+      })
+      .then(order => {
+        return order;
+      });
+    // eventually could make this better to check for _session and user PSID reference
     return Promise.all([
-      result.should.eventually.have.property("_id"),
-      result.should.eventually.have.property("isConfirmed", false),
-      result.should.eventually.have.property("isPaid", false),
-      result.should.eventually.have.property("_session", firstSessionId),
-      result.should.eventually.have.property("_user") // weird bug here
+      result.should.eventually.have.deep.property("_session").that.is.not
+        .undefined,
+      result.should.eventually.have.deep.property("_user").that.is.not.undefined
     ]);
   });
 
   it("should find order by ID", () => {
-    let result = orderDAO.findOrderById(orderId);
+    let result = orderDAO.findOrderById(secondOrderId);
     return Promise.all([
       result.should.eventually.have.deep.property("_id"),
-      result.should.eventually.have.property("_items").that.has.length(1)
+      result.should.eventually.have.property("_items").that.has.length(5)
     ]);
   });
 
   it("should find order by sessionId", () => {
-    let result = orderDAO.getOrderBySessionId(firstSessionId);
+    let result = orderDAO.getOrderBySessionId(secondSessionId);
     return Promise.all([
       result.should.eventually.have.deep.property("_id"),
-      result.should.eventually.have.property("_items").that.has.length(1)
+      result.should.eventually.have.property("_items").that.has.length(5)
     ]);
   });
 
-  it("should find all incomplete orders", () => {
+  it("should find all incomplete/ not inputted orders", () => {
     let result = orderDAO.showIncompleteOrders();
     return Promise.all([result.should.eventually.have.length(0)]);
   });
 
   it("should confirm order", () => {
     let result = orderDAO.confirmOrder({
-      orderId: orderId,
+      orderId: secondOrderId,
       method: "pickup",
       time: Date.now(),
       isPaid: true,
@@ -226,7 +305,7 @@ describe("ORDER DAO", () => {
   });
 
   it("should update inputted order", () => {
-    let result = orderDAO.updateInputtedOrder(orderId);
+    let result = orderDAO.updateInputtedOrder(secondOrderId);
     return Promise.all([
       result.should.eventually.have.property("_id"),
       result.should.eventually.have.property("isInputted", true),
@@ -260,21 +339,63 @@ describe("LINK DAO", () => {
 });
 
 describe("ITEM DAO", () => {
-  it("should add a new combo burger", () => {
-    linkDAO.createNewLink().then(link => {
-      itemDAO
+  it("should add a new burger", () => {
+    let result = 
+    linkDAO.createNewLink()
+    .then(link => {
+      return itemDAO
         .postBurger({
           _link: link._id,
+          _order: secondOrderId,
           itemName: "Single Burger",
           Patties: 2,
-          standardToppings: ["tomato", "Lettuce"],
+          standardToppings: ["Tomatoes", "Lettuce"],
           premiumToppings: ["Bacon"]
-        })
+        }, firstSenderId)
         .then(burger => {
-          return result.should.eventually.have.property("_id");
+          return burger;
         });
     });
+    return Promise.all([
+      result.should.eventually.have.deep.property("_link").that.is.not.undefined,
+      result.should.eventually.have.deep.property("_order").that.is.not.undefined,
+      result.should.eventually.have.deep.property("itemName", "Single Burger"),
+      result.should.eventually.have.deep.property("itemCombo").that.is.false,
+      result.should.eventually.have.deep.property("Patties", 2)
+    ]);
   });
+
+  it("should update a burger", () => {
+
+
+
+  })
+
+
+
+   it("should add combo items" ,() => {
+
+
+
+
+   })
+
+
+    it("should update combo items" ,() => {
+
+
+
+
+   })
+
+
+   it("should remove combo items", () => {
+
+
+
+   })
+
+
 });
 
 // describe("ROUTES", () => {
