@@ -22,12 +22,32 @@ routes.get("/burgercustomize", (req, res) => {
   let senderId = req.query.sender;
 
   let burger = findItem(burgerName);
-  console.log(burger);
-  res.status(200).render("burgercustomize", {
-    sender_id: senderId,
-    burger: burger,
-    _link: _link
-  });
+  orderDAO
+    .getLastOrderBySender(senderId)
+    .then(order => {
+      return order._items.filter(x => {
+        return (
+          (x._link.equals(_link)) &&  (x._order.equals(order._id)) && (x.itemType === "burger")
+        );
+      });
+    })
+    .then(itemsArray => {
+      console.log(itemsArray)
+
+      if (itemsArray[0]) {
+        res.render("burgercustomize", {
+          sender_id: senderId,
+          burger: itemsArray[0],
+          _link: _link
+        });
+      } else {
+        res.render("burgercustomize", {
+          sender_id: senderId,
+          burger: burger,
+          _link: _link
+        });
+      }
+    });
 });
 
 routes.post("/burger", (req, res) => {
