@@ -225,21 +225,22 @@ itemDAO.removeComboItems = function(senderId, linkId) {
         });
       })
       .then(() => {
-        Burger.findOneAndUpdate(
+        return Burger.findOneAndUpdate(
           {
             _order: orderId,
-            _link: foodObject._link
+            _link: linkId,
+            itemCombo: true
           },
           {
             $set: {
-              itemCombo: true
+              itemCombo: false
             }
           },
           { new: true }
         );
       })
       .then(burger => {
-        resolve(deleteStatus);
+        resolve(burger);
       })
       .catch(err => reject(err));
   });

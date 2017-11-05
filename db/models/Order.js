@@ -71,6 +71,10 @@ const orderSchema = new Schema(
 
     inputDate: {
       type: Date
+    },
+
+    orderNumber: {
+      type: String
     }
   },
   schemaOptions

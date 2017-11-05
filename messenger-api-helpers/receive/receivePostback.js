@@ -57,6 +57,7 @@ const handleReceivePostback = messagingEvent => {
           
           break;
         case "order-burger":
+          console.log(data)
           runner
             .addBurgerToOrder(senderId, data)
             .then((burger) => {
