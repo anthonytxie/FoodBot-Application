@@ -1,6 +1,6 @@
-const { User, Session } = require('./../models/index');
+const { User, Session } = require("./../models/index");
 const userDAO = {};
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 userDAO.createUser = function(PSID) {
   return new Promise((resolve, reject) => {
@@ -20,23 +20,22 @@ userDAO.createUser = function(PSID) {
       })
       .then(user => {
         resolve(user);
-      }).catch(err => reject(err))
+      })
+      .catch(err => reject(err));
   });
 };
 
-
-
 userDAO.isUserCreated = function(PSID) {
   return new Promise((resolve, reject) => {
-    User.findOne({PSID})
-      .then((user) => {
+    User.findOne({ PSID })
+      .then(user => {
         if (user) {
           resolve(true);
-        }
-        else {
+        } else {
           resolve(false);
         }
-      }).catch((err) => reject(err));
+      })
+      .catch(err => reject(err));
   });
 };
 
@@ -58,5 +57,24 @@ userDAO.updateEmail = function(userId, email) {
   });
 };
 
+userDAO.updatePhoneNumber = (userId, phoneNumber) => {
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $addToSet: {
+          phoneNumbers: phoneNumber
+        }
+      },
+      { new: true }
+    )
+      .then(user => {
+        resolve(user);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
 module.exports = userDAO;
