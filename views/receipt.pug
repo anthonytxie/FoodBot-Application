@@ -1,16 +1,18 @@
 doctype html
 html(lang="en")
+
 	head
 		title Burger
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
-		//- link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
-		//- script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="dragend-master/dragend.js")
 		script(src="form.js")
 		script(src='https://checkout.stripe.com/checkout.js')
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js")
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.js')
+
 	body
 		script.
 			// code to connect to the extension necessary to close this view
@@ -26,6 +28,8 @@ html(lang="en")
 		- let index = 0;
 
 		form#view1container(style="position:relative;", method="post", action="delete")
+
+		
 
 			h4 RECEIPT
 			input(type="hidden", name="orderId", value=order._id)
@@ -45,6 +49,7 @@ html(lang="en")
 							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
 
 				- order_price += combo_price;
+
 				span
 					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
 					.wide_checkbox
@@ -81,25 +86,13 @@ html(lang="en")
 
 								- index += 2; // this is so we don't enter drinks and sides twice
 				- index++;
-
-			//- base, delivery, tax, stripe, total
-			- const base   = parseFloat(order_price).toFixed(2);
-			- let delivery = 7.00;
-			- if (subTotal >= 15) {  delivery = 3.00; }
-			- const tax    = parseFloat((parseFloat(base) + parseFloat(delivery)) * .13).toFixed(2);
-			- const stripe = parseFloat((parseFloat(base) + parseFloat(delivery) + parseFloat(tax)) * .029).toFixed(2);
-			- const temp   = parseFloat(parseFloat(delivery) + parseFloat(stripe)).toFixed(2);
-			- const total  = parseFloat(parseFloat(base) + parseFloat(delivery) + parseFloat(tax) + parseFloat(stripe)).toFixed(2)
-
-			- console.log(delivery);
-			- console.log(stripe);
 				
 			div.list_prices
-				p#original_total Order Total: #{base}
-				p#stripe_fees Delivery: #{temp}
-				p#tax_total Tax: #{tax}
-				
-				p#order_total Total: #{total}
+				p#base
+				p#delivery_stripe
+				p#tax
+				p#order_total
+
 			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
 
 		//- VIEW 2
@@ -112,13 +105,42 @@ html(lang="en")
 			p#get_total
 
 			input#address(name="address", type="text", placeholder="Address")
-			input#postal(name="postal", type="text", placeholder="Postal Code")
+			input#postal(name="phone", type="text", placeholder="Phone")
 			input(name="room", type="text", placeholder="Room Number (Optional)")
 
 			.pay_row
 				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Now")
 
 		script.
+
+			$(document).ready(function(){
+				$("#postal").inputmask("(999)999-9999");
+			})
+
+			// could just take in a single "cost object"
+			function update_cost(base, delivery_stripe, tax, total) {
+				$("#base").html("Order Total: #{base}");
+				$("#delivery_stripe").html("Delivery: #{delivery_stripe}");
+				$("#tax").html("Tax: #{tax}");
+				$("#order_total").html("Order Total: #{total}");
+			}
+
+			//- // add & remove handling for receipt view
+			//- $("form").on("click", ".wide_checkbox", function() {
+
+			//- 	let on  = $(this).children(".custom_check_on");
+			//- 	let off = $(this).children(".custom_check_off");
+
+			//- 	// remove
+			//- 	if (on.length) {
+
+			//- 	// add
+			//- 	} else if (off.length) {
+
+			//- 		checkbox = 
+
+			//- 	}
+			//- })
 
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {
@@ -202,14 +224,6 @@ html(lang="en")
 				$("#view2container").show();
 			})
 
-			// view 2
-			// all payment stuff
-			// produces a length 4 list: 
-			// Order
-			// HST
-			// Stripe
-			// Total
-
 			// amount they have to pay
 			let pay_total = null;
 
@@ -222,20 +236,14 @@ html(lang="en")
 					console.log("this is when something happens with token");
 					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-					if ($("input[name=method]").val() == "delivery") {
-						if ($("#address").val() == "") {
-							$(".errors").text("Enter an address");
-						} else if ($("#postal").val() == "") {
-							$(".errors").text("Enter a postal code");
-						} else {
-							$("#view2container").hide();
-							$("#view2container").ajaxSubmit();
-							MessengerExtensions.requestCloseBrowser(function success() {
-								console.log("success");
-							}, function error(err) {
-								console.log(err);
-							});
-						}
+
+					// address validations
+					if ($("#address").val() == "") {
+						$(".errors").text("Enter an address");
+					} else if ($("#postal").val() == "") {
+						$(".errors").text("Enter a postal code");
+
+					// passes validations
 					} else {
 						$("#view2container").hide();
 						$("#view2container").ajaxSubmit();
@@ -292,22 +300,12 @@ html(lang="en")
 				}
 			})
 
-			// delivery / pickup toggle
-			$(".lightswitch").on("click", ".lightswitch_option", function(){
-				$(".lightswitch").children("div").removeClass("selected");
-				$(this).addClass("selected");
-				$(".lightswitch").children("input").attr("value", $(this).text().toLowerCase());
-				if ($(this).text() == "Pickup") {
-					$("input[type=text]").hide();
-				} else {
-					$("input[type=text]").show();
-				}
-			})
-
+			// useful?
 			// view 3
 			window.addEventListener('popstate', function() { // close checkout on page navigation
 				handler.close();
 			});
+
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
 				$("#view3button").click(function(){

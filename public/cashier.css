@@ -132,7 +132,6 @@ ol {
 }
 
 .item {
-	height: 30px;
 	line-height: 30px;
 	padding-left: 12px;
 	font-weight: 700;
@@ -145,18 +144,54 @@ ol {
 	font-weight: 300;
 }
 
+.plus, .minus, .combo {
+	line-height: 24px;
+	padding-left: 30px;
+}
+
 /*each section in the order*/
 .top, .bottom {
 	min-height: 45px;
 	color: #191a1a;
 }
 
+.bottom {
+	display: flex;
+}
+
 button {
+	cursor: pointer;
 	width: 100%;
 	height: 45px;
-	background: #3d8478;
+	background: #4369ff;
 	margin: 0px;
 	border: 0px;
 	padding: 0px;
 	color: white;
+	font-size: 16px;
+	font-weight: 400;
 }
+
+button:focus {outline:0;}
+
+.mobile {
+	display: none;
+}
+
+@media(max-width: 720px){
+
+	.tab, .vr {
+		display: none;
+	}
+
+	section {
+		display: none;
+	}
+
+	.mobile {
+		display: initial;
+	}
+}
+
+
+

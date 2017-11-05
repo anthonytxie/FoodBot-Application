@@ -304,6 +304,3 @@ const findDifferentItemsOnBurger = burgerObject => {
 
 
 module.exports = { menuItems, findItem, findDifferentItemsOnBurger };
-
-
-
