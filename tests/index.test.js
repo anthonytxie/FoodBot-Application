@@ -5,6 +5,7 @@ const itemDAO = require("./../db/DAO/itemDAO");
 const userDAO = require("./../db/DAO/userDAO");
 const sessionDAO = require("./../db/DAO/sessionDAO");
 const orderDAO = require("./../db/DAO/orderDAO");
+const linkDAO = require("./../db/DAO/linkDAO");
 const { Item, User, Session, Order } = require("./../db/models/index");
 const { app } = require("./../server/index");
 const request = require("supertest");
@@ -12,19 +13,18 @@ const sinon = require("sinon");
 const pug = require("pug");
 const send = require("./../messenger-api-helpers/send");
 
-
-
-
 mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE,
   useMongoClient: true
-});mongoose.Promise = global.Promise;
+});
+mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
 
-
+const firstSenderId = 78907890;
+const secondSenderId = 56786789;
 let userId;
 let firstSessionId;
 let secondSessionId;
@@ -67,7 +67,7 @@ beforeEach(done => {
       return Item.remove({});
     })
     .then(() => {
-      return userDAO.createUser(12345);
+      return userDAO.createUser(firstSenderId);
     })
     .then(user => {
       userId = user._id;
@@ -85,20 +85,20 @@ beforeEach(done => {
     })
     .then(session => {
       secondSessionId = session._id;
-      return itemDAO.postSide(testSide, orderId);
+      return itemDAO.postSide(testSide, firstSenderId);
     })
-    .then(order => {
-      itemId = order._items[0]._id;
+    .then(item => {
+      itemId = item._id;
       return done();
     });
 });
 
 describe("USER DAO", () => {
   it("should return a new user and append isActive session", () => {
-    let result = userDAO.createUser(12341234);
+    let result = userDAO.createUser(secondSenderId);
     return Promise.all([
       result.should.eventually.have.property("_id"),
-      result.should.eventually.have.property("PSID", "12341234"),
+      result.should.eventually.have.property("PSID", "56786789"),
       result.should.eventually.have.property("_sessions").that.has.length(1),
       result.should.eventually.have
         .property("_sessions")
@@ -108,7 +108,7 @@ describe("USER DAO", () => {
   });
 
   it("should return true for find function on existing user", () => {
-    let trueResult = userDAO.isUserCreated(12345);
+    let trueResult = userDAO.isUserCreated(firstSenderId);
     let falseResult = userDAO.isUserCreated(123456);
 
     return Promise.all([
@@ -233,488 +233,395 @@ describe("ORDER DAO", () => {
       result.should.eventually.have.property("inputDate")
     ]);
   });
+
+  it("should return paid order number", () => {
+    let result = orderDAO.returnPaidOrderNumber();
+    return result.should.eventually.equal("00001");
+  });
+
+  it("it should return all inputted orders", () => {
+    let result = orderDAO.showInputtedOrderHistory();
+    return result.should.eventually.have.length(0);
+  });
+
+  it("should get the most recent order by sender", () => {
+    let result = orderDAO.getLastOrderBySender(firstSenderId);
+    return result.should.eventually.have
+      .property("_user")
+      .that.has.property("PSID", "78907890");
+  });
+});
+
+describe("LINK DAO", () => {
+  it("should create a new link", () => {
+    let result = linkDAO.createNewLink();
+    return result.should.eventually.have.property("_id");
+  });
 });
 
 describe("ITEM DAO", () => {
-  it("should add a burger to the order", () => {
-    let result = itemDAO.postBurger(testBurger, orderId);
-    return Promise.all([
-      result.should.eventually.have.property("_items").that.has.length(2),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("itemName", testBurger.itemName),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("Patties", 2),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("standardToppings")
-        .to.include.deep.members(testBurger.standardToppings),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("premiumToppings")
-        .to.include.deep.members(testBurger.premiumToppings),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("itemType")
-        .to.equal("burger")
-    ]);
-  });
-
-  it("should add a drink to the order", () => {
-    let result = itemDAO.postDrink(testDrink, orderId);
-    return Promise.all([
-      result.should.eventually.have.property("_items").that.has.length(2),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("itemName", testDrink.itemName),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("itemCombo", false)
-    ]);
-  });
-
-  it("should add a side to the order", () => {
-    let result = itemDAO.postSide(testSide, orderId);
-    return Promise.all([
-      result.should.eventually.have.property("_items").that.has.length(2),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("itemName", testSide.itemName),
-      result.should.eventually.have
-        .property("_items")
-        .that.has.property([1])
-        .that.has.property("itemCombo", false)
-    ]);
-  });
-
-  it("should not add a combo drink to the order", () => {
-    let result = itemDAO.postDrink(testComboDrink, orderId);
-    return Promise.all([result.should.eventually.be.false]);
-  });
-
-  it("should not add not a combo drink to the order", () => {
-    let result = itemDAO.postSide(testComboSide, orderId);
-    return Promise.all([result.should.eventually.be.false]);
-  });
-
-  it("should add a combo drink to the order", () => {
-    let result = itemDAO.postBurger(testBurger, orderId);
-    return result.then(order => {
-      return Promise.all([
-        itemDAO
-          .postDrink(testComboDrink, orderId)
-          .should.eventually.have.property("_items")
-          .that.has.length.above(2),
-        itemDAO
-          .postDrink(testComboDrink, orderId)
-          .should.eventually.have.property("_items")
-          .that.has.property([2])
-          .that.has.property("itemName", testComboDrink.itemName),
-        itemDAO
-          .postDrink(testComboDrink, orderId)
-          .should.eventually.have.property("_items")
-          .that.has.property([2])
-          .that.has.property("itemCombo", testComboDrink.itemCombo),
-        itemDAO
-          .postDrink(testComboDrink, orderId)
-          .should.eventually.have.property("_items")
-          .that.has.property([2])
-          .that.has.property("itemCombo", testComboDrink.itemCombo)
-      ]);
-    });
-  });
-  it("should add a combo side to the order", () => {
-    let result = itemDAO.postBurger(testBurger, orderId);
-    return result
-      .then(order => {
-        return itemDAO.postDrink(testComboDrink, orderId);
-      })
-      .then(order => {
-        return Promise.all([
-          itemDAO
-            .postSide(testComboSide, orderId)
-            .should.eventually.have.property("_items")
-            .that.has.length.above(3),
-          itemDAO
-            .postSide(testComboSide, orderId)
-            .should.eventually.have.property("_items")
-            .that.has.property([3])
-            .that.has.property("itemName", testComboSide.itemName),
-          itemDAO
-            .postSide(testComboSide, orderId)
-            .should.eventually.have.property("_items")
-            .that.has.property([3])
-            .that.has.property("itemCombo", testComboSide.itemCombo)
-        ]);
-      });
-  });
-
-  it("should delete item by ID", () => {
-    let result = itemDAO.deleteItemById(itemId, orderId);
-    return Promise.all([
-      result.should.eventually.have.property("_items").that.has.length(0)
-    ]);
-  });
-});
-
-describe("ROUTES", () => {
-  it("should get burger customize", () => {
-    let spy = sinon.spy(pug, "__express");
-    return request(app)
-      .get("/burgercustomize?order=${orderId}&name=Top+Bun&sender=${PSID}")
-      .expect(200)
-      .then(() => {
-        spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
-        spy.restore();
-      });
-  });
-
-  it("should post a new burger", () => {
-    let postBody = {
-      "order_id": orderId,
-      "title": "Swiss Bank Account",
-      "sender_id": PSID,
-      "Patties": "2",
-      "beef": "true",
-      "Chicken Patty": "",
-      "Sesame Bun": "true",
-      "Lettuce Bun": "",
-      "Gluten Free Bun": "",
-      "Grilled Cheese Bun": "",
-      "Ketchup": "",
-      "Mayo": "",
-      "Mustard": "",
-      "Relish": "",
-      "Fancy Sauce": "",
-      "Hot Sauce": "",
-      "Lettuce": "",
-      "Tomatoes": "",
-      "Pickles": "",
-      "Onions": "",
-      "Hot Peppers": "",
-      "Bacon": "",
-      "Standard Cheese": "",
-      "American Cheese": "",
-      "Blue Cheese": "",
-      "Caramelized Onions": "",
-      "Sauteed Mushrooms": "true",
-      "Stuffed Portobello": "",
-      "Cheese Sauce": "",
-      "Side of Gravy": ""
-    };
-    let stub = sinon.stub(send, "sendOrderedBurgerUpsizeMessage");
-    return request(app)
-      .post("/burger")
-      .send(postBody)
-      .then(res => {
-        res.status.should.equal(200);
-        stub.called.should.be.true;
-        stub.restore();
-      })
-      .then(res => {
-        return orderDAO
-          .findOrderById(orderId)
-          .should.eventually.have.property("_items")
-          .that.has.property([1])
-          .that.has.property("itemName")
-          .that.equals("Swiss Bank Account");
-      });
-  });
-  it("should get render customize", () => {
-    let spy = sinon.spy(pug, "__express");
-    return request(app)
-      .get("/burgercombo?order=${orderId}&sender=${senderId}")
-      .expect(200)
-      .then(() => {
-        spy.calledWithMatch(/\/burgercombopage\.pug$/).should.be.true;
-        spy.restore();
-      });
-  });
-  it("should post to /combo and send error message", () => {
-    let stub = sinon.stub(send, "sendComboError");
-    let postBody = {
-      order_id: orderId,
-      sender_id: PSID,
-      food_type: "Fries",
-      drink_type: "milkshake",
-      milkshake_flavor: "strawberry",
-      soda_flavor: ""
-    };
-    return request(app).post("/combo").send(postBody).then(res => {
-      res.status.should.equal(200);
-      stub.called.should.be.true;
-      stub.restore();
-    });
-  });
-
-  it("should post to /combo and send confirm message", () => {
-    let stub = sinon.stub(send, "sendOrderedMessage");
-    let postBody = {
-      order_id: orderId,
-      sender_id: PSID,
-      food_type: "Fries",
-      drink_type: "milkshake",
-      milkshake_flavor: "strawberry",
-      soda_flavor: ""
-    };
-    return itemDAO.postBurger(testBurger, orderId).then(() => {
-      return request(app)
-        .post("/combo")
-        .send(postBody)
-        .then(res => {
-          res.status.should.equal(200);
-          stub.called.should.be.true;
-          stub.restore();
+  it("should add a new combo burger", () => {
+    linkDAO.createNewLink().then(link => {
+      itemDAO
+        .postBurger({
+          _link: link._id,
+          itemName: "Single Burger",
+          Patties: 2,
+          standardToppings: ["tomato", "Lettuce"],
+          premiumToppings: ["Bacon"]
         })
-        .then(() => {
-          return Promise.all([
-            orderDAO
-              .findOrderById(orderId)
-              .should.eventually.have.property("_items")
-              .that.has.length(4),
-            orderDAO
-              .findOrderById(orderId)
-              .should.eventually.have.property("_items")
-              .that.has.property([2])
-              .that.has.property("itemName", "Strawberry Milkshake"),
-            orderDAO
-              .findOrderById(orderId)
-              .should.eventually.have.property("_items")
-              .that.has.property([3])
-              .that.has.property("itemName", "Fries"),
-            orderDAO
-              .findOrderById(orderId)
-              .should.eventually.have.property("_items")
-              .that.has.property([3])
-              .that.has.property("itemSize", "Medium")
-          ]);
+        .then(burger => {
+          return result.should.eventually.have.property("_id");
         });
     });
   });
-
-  it("should get render receipt", () => {
-    let spy = sinon.spy(pug, "__express");
-    return request(app)
-      .get(`/receipt?order=${orderId}`)
-      .expect(200)
-      .then(() => {
-        spy.calledWithMatch(/\/receipt\.pug$/).should.be.true;
-        spy.restore();
-      });
-  });
-  it("should confirm order without pay for pick-up", () => {
-    let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
-    let postBody = {
-      orderId: orderId,
-      method: "pickup",
-      address: "",
-      postal: "",
-      time: '"2017-08-14T01:18:00.000Z"',
-      room: "",
-      authorized_payment: "1192"
-    };
-    return request(app)
-      .post("/confirm")
-      .send(postBody)
-      .then(res => {
-        res.status.should.equal(200);
-        stub.called.should.be.true;
-        stub.restore();
-      })
-      .then(() => {
-        return Promise.all([
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isConfirmed", true),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("methodFulfillment", "pickup"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isPaid", false),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("fulfillmentDate"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("orderConfirmDate")
-        ]);
-      });
-  });
-
-    it("should confirm order without pay for pick-up", () => {
-    let stub = sinon.stub(send, "sendConfirmUnpaidMessageDelivery");
-    let postBody = {
-      orderId: orderId,
-      method: "delivery",
-      address: "",
-      postal: "",
-      time: '"2017-08-14T01:18:00.000Z"',
-      room: "",
-      authorized_payment: "1192"
-    };
-    return request(app)
-      .post("/confirm")
-      .send(postBody)
-      .then(res => {
-        res.status.should.equal(200);
-        stub.called.should.be.true;
-        stub.restore();
-      })
-      .then(() => {
-        return Promise.all([
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isConfirmed", true),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("methodFulfillment", "delivery"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isPaid", false),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("fulfillmentDate"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("orderConfirmDate")
-        ]);
-      });
-  });
-
-  it("should confirm order with pay for delivery", () => {
-    let stub = sinon.stub(send, "sendConfirmPaidMessageDelivery");
-    let postBody = {
-      orderId: orderId,
-      method: "delivery",
-      address: "330 phillip street",
-      time: '"2017-08-15T18:00:00.000Z"',
-      postal: "l9t2x5",
-      room: "1234",
-      authorized_payment: "1192",
-      token_id: "tok_visa",
-      token_email: "anthony112244@hotmail.com"
-    };
-    return request(app)
-      .post("/confirm")
-      .send(postBody)
-      .then(res => {
-        return res.status.should.equal(200);
-        stub.called.should.be.true;
-        stub.restore();
-      })
-      .then(() => {
-        return Promise.all([
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isConfirmed", true),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("methodFulfillment", "delivery"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isPaid", true),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("fulfillmentDate"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("orderConfirmDate")
-        ]);
-      });
-  });
-
-
-
-  it("should confirm order with pay for pick-up", () => {
-    let stub = sinon.stub(send, "sendConfirmPaidMessagePickup");
-    let postBody = {
-      orderId: orderId,
-      method: "pickup",
-      time: '"2017-08-15T18:00:00.000Z"',
-      address: "330 phillip street",
-      postal: "l9t2x5",
-      authorized_payment: "1192",
-      token_id: "tok_visa",
-      token_email: "anthony112244@hotmail.com"
-    };
-    return request(app)
-      .post("/confirm")
-      .send(postBody)
-      .then(res => {
-        return res.status.should.equal(200);
-        stub.called.should.be.true;
-        stub.restore();
-      })
-      .then(() => {
-        return Promise.all([
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isConfirmed", true),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("methodFulfillment", "pickup"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("isPaid", true),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("fulfillmentDate"),
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("orderConfirmDate")
-        ]);
-      });
-  });
-
-  it("should delete items when posting to /delete", () => {
-    let postBody = {
-      orderId: orderId,
-      removeIds: [itemId]
-    };
-    return request(app)
-      .post("/delete")
-      .send(postBody)
-      .then(res => {
-        res.status.should.equal(200);
-      })
-      .then(() => {
-        return Promise.all([
-          orderDAO
-            .findOrderById(orderId)
-            .should.eventually.have.property("_items")
-            .that.has.length(0)
-        ]);
-      });
-  });
-
-  it("should render cashier view", () => {
-    let spy = sinon.spy(pug, "__express");
-    return request(app).get(`/cashier`).expect(200).then(() => {
-      spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
-      spy.restore();
-    });
-  });
-
-  it("should render cashier history view", () => {
-    return request(app).get(`/history`).expect(200).then(() => {
-    });
-  })
-
-  it("should get orderId", () => {
-    return request(app).get(`/getorder/${orderId}`).then(res => {
-      res.status.should.equal(200);
-    });
-  });
 });
 
+// describe("ROUTES", () => {
+//   it("should get burger customize", () => {
+//     let spy = sinon.spy(pug, "__express");
+//     return request(app)
+//       .get("/burgercustomize?order=${orderId}&name=Top+Bun&sender=${PSID}")
+//       .expect(200)
+//       .then(() => {
+//         spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
+//         spy.restore();
+//       });
+//   });
 
+//   it("should post a new burger", () => {
+//     let postBody = {
+//       "order_id": orderId,
+//       "title": "Swiss Bank Account",
+//       "sender_id": PSID,
+//       "Patties": "2",
+//       "beef": "true",
+//       "Chicken Patty": "",
+//       "Sesame Bun": "true",
+//       "Lettuce Bun": "",
+//       "Gluten Free Bun": "",
+//       "Grilled Cheese Bun": "",
+//       "Ketchup": "",
+//       "Mayo": "",
+//       "Mustard": "",
+//       "Relish": "",
+//       "Fancy Sauce": "",
+//       "Hot Sauce": "",
+//       "Lettuce": "",
+//       "Tomatoes": "",
+//       "Pickles": "",
+//       "Onions": "",
+//       "Hot Peppers": "",
+//       "Bacon": "",
+//       "Standard Cheese": "",
+//       "American Cheese": "",
+//       "Blue Cheese": "",
+//       "Caramelized Onions": "",
+//       "Sauteed Mushrooms": "true",
+//       "Stuffed Portobello": "",
+//       "Cheese Sauce": "",
+//       "Side of Gravy": ""
+//     };
+//     let stub = sinon.stub(send, "sendOrderedBurgerUpsizeMessage");
+//     return request(app)
+//       .post("/burger")
+//       .send(postBody)
+//       .then(res => {
+//         res.status.should.equal(200);
+//         stub.called.should.be.true;
+//         stub.restore();
+//       })
+//       .then(res => {
+//         return orderDAO
+//           .findOrderById(orderId)
+//           .should.eventually.have.property("_items")
+//           .that.has.property([1])
+//           .that.has.property("itemName")
+//           .that.equals("Swiss Bank Account");
+//       });
+//   });
+//   it("should get render customize", () => {
+//     let spy = sinon.spy(pug, "__express");
+//     return request(app)
+//       .get("/burgercombo?order=${orderId}&sender=${senderId}")
+//       .expect(200)
+//       .then(() => {
+//         spy.calledWithMatch(/\/burgercombopage\.pug$/).should.be.true;
+//         spy.restore();
+//       });
+//   });
+//   it("should post to /combo and send error message", () => {
+//     let stub = sinon.stub(send, "sendComboError");
+//     let postBody = {
+//       order_id: orderId,
+//       sender_id: PSID,
+//       food_type: "Fries",
+//       drink_type: "milkshake",
+//       milkshake_flavor: "strawberry",
+//       soda_flavor: ""
+//     };
+//     return request(app).post("/combo").send(postBody).then(res => {
+//       res.status.should.equal(200);
+//       stub.called.should.be.true;
+//       stub.restore();
+//     });
+//   });
+
+//   it("should post to /combo and send confirm message", () => {
+//     let stub = sinon.stub(send, "sendOrderedMessage");
+//     let postBody = {
+//       order_id: orderId,
+//       sender_id: PSID,
+//       food_type: "Fries",
+//       drink_type: "milkshake",
+//       milkshake_flavor: "strawberry",
+//       soda_flavor: ""
+//     };
+//     return itemDAO.postBurger(testBurger, orderId).then(() => {
+//       return request(app)
+//         .post("/combo")
+//         .send(postBody)
+//         .then(res => {
+//           res.status.should.equal(200);
+//           stub.called.should.be.true;
+//           stub.restore();
+//         })
+//         .then(() => {
+//           return Promise.all([
+//             orderDAO
+//               .findOrderById(orderId)
+//               .should.eventually.have.property("_items")
+//               .that.has.length(4),
+//             orderDAO
+//               .findOrderById(orderId)
+//               .should.eventually.have.property("_items")
+//               .that.has.property([2])
+//               .that.has.property("itemName", "Strawberry Milkshake"),
+//             orderDAO
+//               .findOrderById(orderId)
+//               .should.eventually.have.property("_items")
+//               .that.has.property([3])
+//               .that.has.property("itemName", "Fries"),
+//             orderDAO
+//               .findOrderById(orderId)
+//               .should.eventually.have.property("_items")
+//               .that.has.property([3])
+//               .that.has.property("itemSize", "Medium")
+//           ]);
+//         });
+//     });
+//   });
+
+//   it("should get render receipt", () => {
+//     let spy = sinon.spy(pug, "__express");
+//     return request(app)
+//       .get(`/receipt?order=${orderId}`)
+//       .expect(200)
+//       .then(() => {
+//         spy.calledWithMatch(/\/receipt\.pug$/).should.be.true;
+//         spy.restore();
+//       });
+//   });
+//   it("should confirm order without pay for pick-up", () => {
+//     let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
+//     let postBody = {
+//       orderId: orderId,
+//       method: "pickup",
+//       address: "",
+//       postal: "",
+//       time: '"2017-08-14T01:18:00.000Z"',
+//       room: "",
+//       authorized_payment: "1192"
+//     };
+//     return request(app)
+//       .post("/confirm")
+//       .send(postBody)
+//       .then(res => {
+//         res.status.should.equal(200);
+//         stub.called.should.be.true;
+//         stub.restore();
+//       })
+//       .then(() => {
+//         return Promise.all([
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isConfirmed", true),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("methodFulfillment", "pickup"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isPaid", false),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("fulfillmentDate"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("orderConfirmDate")
+//         ]);
+//       });
+//   });
+
+//     it("should confirm order without pay for pick-up", () => {
+//     let stub = sinon.stub(send, "sendConfirmUnpaidMessageDelivery");
+//     let postBody = {
+//       orderId: orderId,
+//       method: "delivery",
+//       address: "",
+//       postal: "",
+//       time: '"2017-08-14T01:18:00.000Z"',
+//       room: "",
+//       authorized_payment: "1192"
+//     };
+//     return request(app)
+//       .post("/confirm")
+//       .send(postBody)
+//       .then(res => {
+//         res.status.should.equal(200);
+//         stub.called.should.be.true;
+//         stub.restore();
+//       })
+//       .then(() => {
+//         return Promise.all([
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isConfirmed", true),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("methodFulfillment", "delivery"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isPaid", false),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("fulfillmentDate"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("orderConfirmDate")
+//         ]);
+//       });
+//   });
+
+//   it("should confirm order with pay for delivery", () => {
+//     let stub = sinon.stub(send, "sendConfirmPaidMessageDelivery");
+//     let postBody = {
+//       orderId: orderId,
+//       method: "delivery",
+//       address: "330 phillip street",
+//       time: '"2017-08-15T18:00:00.000Z"',
+//       postal: "l9t2x5",
+//       room: "1234",
+//       authorized_payment: "1192",
+//       token_id: "tok_visa",
+//       token_email: "anthony112244@hotmail.com"
+//     };
+//     return request(app)
+//       .post("/confirm")
+//       .send(postBody)
+//       .then(res => {
+//         return res.status.should.equal(200);
+//         stub.called.should.be.true;
+//         stub.restore();
+//       })
+//       .then(() => {
+//         return Promise.all([
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isConfirmed", true),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("methodFulfillment", "delivery"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isPaid", true),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("fulfillmentDate"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("orderConfirmDate")
+//         ]);
+//       });
+//   });
+
+//   it("should confirm order with pay for pick-up", () => {
+//     let stub = sinon.stub(send, "sendConfirmPaidMessagePickup");
+//     let postBody = {
+//       orderId: orderId,
+//       method: "pickup",
+//       time: '"2017-08-15T18:00:00.000Z"',
+//       address: "330 phillip street",
+//       postal: "l9t2x5",
+//       authorized_payment: "1192",
+//       token_id: "tok_visa",
+//       token_email: "anthony112244@hotmail.com"
+//     };
+//     return request(app)
+//       .post("/confirm")
+//       .send(postBody)
+//       .then(res => {
+//         return res.status.should.equal(200);
+//         stub.called.should.be.true;
+//         stub.restore();
+//       })
+//       .then(() => {
+//         return Promise.all([
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isConfirmed", true),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("methodFulfillment", "pickup"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("isPaid", true),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("fulfillmentDate"),
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("orderConfirmDate")
+//         ]);
+//       });
+//   });
+
+//   it("should delete items when posting to /delete", () => {
+//     let postBody = {
+//       orderId: orderId,
+//       removeIds: [itemId]
+//     };
+//     return request(app)
+//       .post("/delete")
+//       .send(postBody)
+//       .then(res => {
+//         res.status.should.equal(200);
+//       })
+//       .then(() => {
+//         return Promise.all([
+//           orderDAO
+//             .findOrderById(orderId)
+//             .should.eventually.have.property("_items")
+//             .that.has.length(0)
+//         ]);
+//       });
+//   });
+
+//   it("should render cashier view", () => {
+//     let spy = sinon.spy(pug, "__express");
+//     return request(app).get(`/cashier`).expect(200).then(() => {
+//       spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
+//       spy.restore();
+//     });
+//   });
+
+//   it("should render cashier history view", () => {
+//     return request(app).get(`/history`).expect(200).then(() => {
+//     });
+//   })
+
+//   it("should get orderId", () => {
+//     return request(app).get(`/getorder/${orderId}`).then(res => {
+//       res.status.should.equal(200);
+//     });
+//   });
+// });

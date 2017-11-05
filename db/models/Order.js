@@ -31,6 +31,11 @@ const orderSchema = new Schema(
       default: false
     },
 
+    isPaid: {
+      type: Boolean,
+      default: false
+    },
+
     stripeToken: {
       type: String
     },

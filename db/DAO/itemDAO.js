@@ -21,17 +21,7 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
 };
 
 itemDAO.postBurger = function(foodObject, senderId) {
-  /*
-                    foodObject: {
-                      _link: 1234,
-                      itemName: 'Single Burger',
-                      Patties: 2,
-                      standardToppings: ['tomato', 'Lettuce'],
-                      premiumToppings: ['Bacon']
-                    }
-                  
 
-  */
   let orderId;
   return new Promise((resolve, reject) => {
     orderDAO.getLastOrderBySender(senderId).then(order => {
