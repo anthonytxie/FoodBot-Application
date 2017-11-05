@@ -74,7 +74,7 @@ routes.post("/delete", (req, res) => {
 });
 
 routes.post("/confirm", (req, res) => {
-    console.log(req.body);
+
     let {
         orderId,
         method,
@@ -85,6 +85,7 @@ routes.post("/confirm", (req, res) => {
         token_email,
         authorized_payment
     } = req.body;
+
     time = new Date(time.split('"')[1]);
     let parsedDate = Date.parse(time);
     let fulfillmentDate = moment(parsedDate)
@@ -106,13 +107,17 @@ routes.post("/confirm", (req, res) => {
                 })
             )
             .then(() => {
+                return orderDAO.returnPaidOrderNumber()
+            })
+            .then((orderNumber) => {
                 return orderDAO.confirmOrder({
                     orderId,
                     method,
                     time,
                     address,
                     postal,
-                    isPaid: true
+                    isPaid: true,
+                    orderNumber: orderNumber
                 });
             })
             .then(order => {

@@ -27,7 +27,8 @@ const drinkSchema = new Schema(
       ]
     },
     itemCombo: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   disciminatorOptions
