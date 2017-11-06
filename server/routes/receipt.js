@@ -79,15 +79,15 @@ routes.post("/confirm", (req, res) => {
     let {
         orderId,
         method,
-        time,
         address,
         postal,
         token_id,
         token_email,
-        authorized_payment
+        authorized_payment,
+        phoneNumber
     } = req.body;
 
-    time = new Date(time.split('"')[1]);
+    let time = new Date()
     let parsedDate = Date.parse(time);
     let fulfillmentDate = moment(parsedDate)
         .tz("America/Toronto")
@@ -124,6 +124,9 @@ routes.post("/confirm", (req, res) => {
             })
             .then(order => {
                 return userDAO.updateEmail(order._user._id, token_email);
+            })
+            .then((user) => {
+                return userDAO.updatePhoneNumber(user._id, phoneNumber)
             })
             .then(user => {
                 if (method === "delivery") {

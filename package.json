@@ -47,5 +47,6 @@
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.2",
     "winston": "^2.4.0"
+
   }
 }
