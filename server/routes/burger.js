@@ -27,12 +27,14 @@ routes.get("/burgercustomize", (req, res) => {
     .then(order => {
       return order._items.filter(x => {
         return (
-          (x._link.equals(_link)) &&  (x._order.equals(order._id)) && (x.itemType === "burger")
+          x._link.equals(_link) &&
+          x._order.equals(order._id) &&
+          x.itemType === "burger"
         );
       });
     })
     .then(itemsArray => {
-      console.log(itemsArray)
+      console.log(itemsArray);
 
       if (itemsArray[0]) {
         res.render("burgercustomize", {
@@ -47,7 +49,8 @@ routes.get("/burgercustomize", (req, res) => {
           _link: _link
         });
       }
-    });
+    })
+    .catch(err => console.log(err));
 });
 
 routes.post("/burger", (req, res) => {

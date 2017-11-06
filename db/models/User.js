@@ -19,6 +19,13 @@ const userSchema = new Schema({
     }
   ],
 
+  phoneNumbers: [
+    {
+      type: String,
+      dropDups: true
+    }
+  ],
+
   createdAt: {
     type: Date,
     default: Date.now

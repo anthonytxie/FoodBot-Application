@@ -1,8 +1,11 @@
-const { User, Session } = require('./../models/index');
+const { User, Session } = require("./../models/index");
 const userDAO = {};
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const { logger } = require("./../../server/logger/logger");
+
 
 userDAO.createUser = function(PSID) {
+  logger.info(`${PSID} userDAO createUser`);
   return new Promise((resolve, reject) => {
     const newUser = new User({ PSID });
     newUser
@@ -20,27 +23,35 @@ userDAO.createUser = function(PSID) {
       })
       .then(user => {
         resolve(user);
-      }).catch(err => reject(err))
+      })
+      .catch(err => {
+        logger.error(`${PSID} userDAO createUser`, { err });
+        reject(err);
+      });
   });
 };
 
-
-
 userDAO.isUserCreated = function(PSID) {
+  logger.info(`${PSID} userDAO isUserCreated`);
+
   return new Promise((resolve, reject) => {
-    User.findOne({PSID})
-      .then((user) => {
+    User.findOne({ PSID })
+      .then(user => {
         if (user) {
           resolve(true);
-        }
-        else {
+        } else {
           resolve(false);
         }
-      }).catch((err) => reject(err));
+      })
+      .catch(err => {
+        logger.error(`${PSID} userDAO isUserCreated`, { err });
+        reject(err);
+      });
   });
 };
 
 userDAO.updateEmail = function(userId, email) {
+  logger.info(`${userId} userDAO updateEmail`);
   return new Promise((resolve, reject) => {
     User.findOneAndUpdate(
       { _id: userId },
@@ -54,9 +65,33 @@ userDAO.updateEmail = function(userId, email) {
       .then(user => {
         resolve(user);
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        logger.error(`${userId} userDAO updateEmail`, { err });
+        reject(err);
+      });
   });
 };
 
+userDAO.updatePhoneNumber = (userId, phoneNumber) => {
+  logger.info(`${userId} userDAO updatePhoneNumber`);
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $addToSet: {
+          phoneNumbers: phoneNumber
+        }
+      },
+      { new: true }
+    )
+      .then(user => {
+        resolve(user);
+      })
+      .catch(err => {
+        logger.error(`${userId} userDAO updatePhoneNumber`, { err });
+        reject(err);
+      });
+  });
+};
 
 module.exports = userDAO;
