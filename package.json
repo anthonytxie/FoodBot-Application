@@ -45,7 +45,5 @@
     "stripe": "^4.23.2",
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.2",
-    "winston": "^3.0.0-rc1",
-    "winston-daily-rotate-file": "^1.7.2"
-  }
+    "winston": "^3.0.0-rc1"  }
 }
