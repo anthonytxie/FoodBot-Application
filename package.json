@@ -39,11 +39,13 @@
     "moment-timezone": "^0.5.13",
     "mongoose": "^4.10.8",
     "mongoose-auto-increment": "^5.0.1",
+    "opbeat": "^4.16.0",
     "pug": "^2.0.0-rc.2",
     "request": "^2.81.0",
     "sinon": "^3.2.0",
     "stripe": "^4.23.2",
     "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2"
+    "supertest-as-promised": "^4.0.2",
+    "winston": "^2.4.0"
   }
 }
