@@ -40,6 +40,7 @@ app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
+app.use(opbeat.middleware.express())
 
 
 module.exports = app
