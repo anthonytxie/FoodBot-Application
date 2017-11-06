@@ -29,16 +29,14 @@ html(lang="en")
 
 		form#view1container(style="position:relative;", method="post", action="delete")
 
-		
-
 			h4 RECEIPT
 			input(type="hidden", name="orderId", value=order._id)
 
 			- let order_price = 0;
 
 			while index < items.length
-				- let item = items[index];  // loop through each item in the list
-				- let name = item.itemName; // name of current item
+				- let item = items[index];  		// loop through each item in the list
+				- let name = item.itemName; 		// name of current item
 				- let combo_price = item.price; // equal to the price of the item or combo, if applicable
 
 				- let combo = "";
@@ -124,23 +122,6 @@ html(lang="en")
 				$("#tax").html("Tax: #{tax}");
 				$("#order_total").html("Order Total: #{total}");
 			}
-
-			//- // add & remove handling for receipt view
-			//- $("form").on("click", ".wide_checkbox", function() {
-
-			//- 	let on  = $(this).children(".custom_check_on");
-			//- 	let off = $(this).children(".custom_check_off");
-
-			//- 	// remove
-			//- 	if (on.length) {
-
-			//- 	// add
-			//- 	} else if (off.length) {
-
-			//- 		checkbox = 
-
-			//- 	}
-			//- })
 
 			// add to deleteIds
 			$("form").on("click", ".custom_check_on", function() {

@@ -31,18 +31,20 @@ html, body {
 section {
 	background-color: white;
 	color: black;
-	border-top: 1px solid #e7e7e7;
-	border-bottom: 1px solid #e7e7e7;
+	border-bottom: 1px solid #ccc;
 	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
 }
 
 h4 {
+	background: white;
+	height: 38px;
 	letter-spacing: .08em;
-	color: #b8b8b8;
-	padding-top: 28px!important;
-	padding-bottom: 10px!important;
+	color: #4a4949;
+	padding-top: 22px!important;
+	padding-bottom: 0px!important;
 	padding-left: 14px!important;
 	font-size: .8em;
+	border-bottom: 1px solid #ccc;
 }
 
 h3, h4 {
@@ -293,9 +295,9 @@ h3 {
 	padding-right: 13px;
 }
 
-.milkshake_container, .soda_container {
+/*.milkshake_container, .soda_container {
 	display: none;
-}
+}*/
 
 p.price {
 	font-size: .9em;
@@ -331,6 +333,29 @@ button {
 
 button:active {
 	background-color: #0073e0!important;
+}
+
+.i {
+	float: right;
+	position: relative;
+	right: 17px;
+	bottom: 0px;
+	display: inline-block;
+	font-size: 20px;
+	color: #0073e0;
+}
+
+.button_container {
+  width: 100%;
+  height: 75px;
+  border-top: 1px solid #ccc;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+}
+
+form {
+	margin-bottom: 75px;
 }
 
 /*.quantity:nth-of-type(1) {

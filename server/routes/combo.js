@@ -25,6 +25,8 @@ routes.get("/burgercombo", (req, res) => {
       });
     })
     .then(itemsArray => {
+      console.log("Items Array:");
+      console.log(itemsArray);
       res.render("burgercombopage", {
         _link: linkId,
         sender_id: senderId,
