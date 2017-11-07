@@ -1,3 +1,5 @@
+// PUT MENU ITEMS IN CONFIG 
+// library to manage currency 
 const menuItems = [
 	{
 		itemName: "Single Hamburger",
@@ -263,8 +265,9 @@ const menuItems = [
 	}
 ];
 
+// ARRAY PROTOTYPE FIND 
 const findItem = function(name) {
-	return [...menuItems]
+	return menuItems
 		.filter(x => {
 			return x.itemName === name;
 		})

@@ -85,6 +85,7 @@ const orderSchema = new Schema(
   schemaOptions
 );
 
+// clean up style with array.prototype.reduce()
 orderSchema.virtual("basePrice").get(function() {
   let price = 0;
   for (let item of this._items) {
