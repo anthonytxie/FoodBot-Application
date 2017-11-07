@@ -39,5 +39,4 @@ const isStoreOpen = () => {
 
 
 
-
 module.exports = {isInDeliveryRange, isStoreOpen};
