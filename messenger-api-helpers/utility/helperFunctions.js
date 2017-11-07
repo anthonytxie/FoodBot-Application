@@ -1,5 +1,6 @@
 const distance = require("google-distance");
 const maxDeliveryRange = 7;
+const { logger } = require('./../../server/logger/logger');
 
 const isInDeliveryRange = destination => {
   return new Promise((resolve, reject) => {
