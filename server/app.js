@@ -1,12 +1,13 @@
 // MODULES
 require('dotenv').config();
+var opbeat = require('opbeat').start();
+
 const express = require('express');
 const pug = require('pug');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const stripe_test_key = process.env.stripe_test_key;
 const stripe = require('stripe')(stripe_test_key);
-var opbeat = require('opbeat').start();
 
 // ROUTES
 const burger = require('./routes/burger');
