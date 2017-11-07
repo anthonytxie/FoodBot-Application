@@ -1,6 +1,8 @@
 const distance = require("google-distance");
 const maxDeliveryRange = 7;
-const { logger } = require('./../../server/logger/logger');
+const { logger } = require("./../../server/logger/logger");
+const moment = require("moment");
+const tz = require("moment-timezone");
 
 const isInDeliveryRange = destination => {
   return new Promise((resolve, reject) => {
@@ -14,32 +16,29 @@ const isInDeliveryRange = destination => {
           reject(err);
         } else {
           if (parseFloat(data.distance[0]) < 7) {
-            resolve(true)
-          }
-          else {
-            resolve(false)
+            resolve(true);
+          } else {
+            resolve(false);
           }
         }
       }
     );
   });
 };
-
-
 const isStoreOpen = () => {
-  currentHour = new Date().getHours()
-  logger.info(`isStoreOpen the hour is currently ${currentHour}`)
+  let myTimezone = "America/Toronto";
+  let currentHour = parseFloat(
+    moment(new Date())
+      .tz(myTimezone)
+      .format("HH")
+  );
+  console.log(currentHour);
+  logger.info(`isStoreOpen the hour is currently ${currentHour}`);
   if (currentHour < 11 || currentHour >= 23) {
-    return false
+    return false;
+  } else {
+    return true;
   }
-  else {
-    return true 
-  }
+};
 
-}
-
-
-
-
-
-module.exports = {isInDeliveryRange, isStoreOpen};
+module.exports = { isInDeliveryRange, isStoreOpen };
