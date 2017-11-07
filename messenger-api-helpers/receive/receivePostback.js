@@ -11,7 +11,7 @@ const handleReceivePostback = messagingEvent => {
 
   logger.info(`${senderId} received postback`);
 
-  if (!isStoreOpen()) {
+  if (isStoreOpen()) {
     runner.isSessionActive(senderId).then(isSessionActive => {
       if (isSessionActive) {
         switch (type) {
