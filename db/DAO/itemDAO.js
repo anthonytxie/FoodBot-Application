@@ -227,7 +227,7 @@ itemDAO.postSide = function(foodObject, senderId) {
 };
 
 itemDAO.removeComboItems = function(senderId, linkId) {
-  logger.info(`${senderId} itemDAO removeComboItems`, { foodObject });
+  logger.info(`${senderId} itemDAO removeComboItems`);
   return new Promise((resolve, reject) => {
     let orderId;
     orderDAO
