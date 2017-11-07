@@ -27,6 +27,7 @@ const isInDeliveryRange = destination => {
 
 const isStoreOpen = () => {
   currentHour = new Date().getHours()
+  logger.info(`isStoreOpen the hour is currently ${currentHour}`)
   if (currentHour < 11 || currentHour >= 23) {
     return false
   }
