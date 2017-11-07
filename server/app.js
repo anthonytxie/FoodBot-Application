@@ -1,7 +1,5 @@
 // MODULES
 require('dotenv').config();
-var opbeat = require('opbeat').start();
-
 const express = require('express');
 const pug = require('pug');
 const bodyParser = require('body-parser');
@@ -41,7 +39,6 @@ app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
-app.use(opbeat.middleware.express())
 
 
 module.exports = app

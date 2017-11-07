@@ -32,13 +32,12 @@ const isStoreOpen = () => {
       .tz(myTimezone)
       .format("HH")
   );
-  console.log(currentHour);
   logger.info(`isStoreOpen the hour is currently ${currentHour}`);
   if (currentHour < 11 || currentHour >= 23) {
     return false;
   } else {
     return true;
   }
-};
+}
 
 module.exports = { isInDeliveryRange, isStoreOpen };
