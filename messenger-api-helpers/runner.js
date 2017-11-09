@@ -23,7 +23,7 @@ const initialize = senderId => {
         });
       }
     })
-    .catch(err => logger.error(`${senderId} error runner initialize`, {err}));
+    .catch(err => logger.error(`${senderId} error runner initialize`, { err }));
 };
 
 // ===== SESSION ===============================================================
@@ -35,7 +35,9 @@ const renewSession = senderId => {
     .then(session => {
       return session;
     })
-    .catch(err => logger.error(`${senderId} error runner renewSession`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner renewSession`, { err })
+    );
 };
 
 const renewSessionAndReturnOrder = senderId => {
@@ -45,7 +47,11 @@ const renewSessionAndReturnOrder = senderId => {
     .then(session => {
       return orderDAO.getOrderBySessionId(session._id);
     })
-    .catch(err => logger.error(`${senderId} error runner renewSessionAndReturnOrder`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner renewSessionAndReturnOrder`, {
+        err
+      })
+    );
 };
 
 const isSessionActive = senderId => {
@@ -55,7 +61,9 @@ const isSessionActive = senderId => {
     .then(isActive => {
       return isActive;
     })
-    .catch(err => logger.error(`${senderId} error runner isSessionActive`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner isSessionActive`, { err })
+    );
 };
 
 // ===== ORDERS ===============================================================
@@ -67,7 +75,9 @@ const createNewOrder = senderId => {
     .then(session => {
       return orderDAO.initializeOrder(senderId, session._id);
     })
-    .catch(err => logger.error(`${senderId} error runner createNewOrder`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner createNewOrder`, { err })
+    );
 };
 
 // ===== Items ===============================================================
@@ -79,7 +89,9 @@ const addBurgerToOrder = (senderId, data) => {
     .then(() => {
       return itemDAO.postBurger(data, senderId);
     })
-    .catch(err => logger.error(`${senderId} error runner addBurgerToOrder`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner addBurgerToOrder`, { err })
+    );
 };
 
 const addSideToOrder = (senderId, data) => {
@@ -89,7 +101,9 @@ const addSideToOrder = (senderId, data) => {
     .then(() => {
       return itemDAO.postSide(data, senderId);
     })
-    .catch(err => logger.error(`${senderId} error runner addSideToOrder`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner addSideToOrder`, { err })
+    );
 };
 
 const addDrinkToOrder = (senderId, data) => {
@@ -99,7 +113,9 @@ const addDrinkToOrder = (senderId, data) => {
     .then(() => {
       return itemDAO.postDrink(data, senderId);
     })
-    .catch(err => logger.error(`${senderId} error runner addDrinkToOrder`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner addDrinkToOrder`, { err })
+    );
 };
 
 const removeComboItems = (senderId, linkId) => {
@@ -109,7 +125,9 @@ const removeComboItems = (senderId, linkId) => {
     .then(() => {
       return itemDAO.removeComboItems(senderId, linkId);
     })
-    .catch(err => logger.error(`${senderId} error runner removeComboItems`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner removeComboItems`, { err })
+    );
 };
 
 // ===== LINK ===============================================================
@@ -124,7 +142,9 @@ const createNewLink = senderId => {
     .then(linkId => {
       return linkId;
     })
-    .catch(err => logger.error(`${senderId} error runner createNewLink`, {err}));
+    .catch(err =>
+      logger.error(`${senderId} error runner createNewLink`, { err })
+    );
 };
 
 module.exports = {

@@ -23,8 +23,8 @@ chai.use(chaiAsPromised);
 chai.should();
 chai.use(require("chai-things"));
 
-const firstSenderId = "78907890";
-const secondSenderId = "56786789";
+const firstSenderId = "1577537135641765"; //anthony xie
+const secondSenderId = "1615052901886719"; //isabelle leeson
 let firstUserId;
 let firstLinkId;
 let secondLinkId;
@@ -172,7 +172,7 @@ describe("USER DAO", () => {
     let result = userDAO.createUser(secondSenderId);
     return Promise.all([
       result.should.eventually.have.property("_id"),
-      result.should.eventually.have.property("PSID", "56786789"),
+      result.should.eventually.have.property("PSID", "1615052901886719"),
       result.should.eventually.have.property("_sessions").that.has.length(1),
       result.should.eventually.have
         .property("_sessions")
@@ -344,7 +344,7 @@ describe("ORDER DAO", () => {
     let result = orderDAO.getLastOrderBySender(firstSenderId);
     return result.should.eventually.have
       .property("_user")
-      .that.has.property("PSID", "78907890");
+      .that.has.property("PSID", "1577537135641765");
   });
 });
 

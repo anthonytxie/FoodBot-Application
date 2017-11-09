@@ -11,7 +11,7 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 const {
   premiumToppingsArray
 } = require("../../messenger-api-helpers/messages/toppings");
-const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
+const { findMenuItemsByItemName } = require("../../messenger-api-helpers/messages/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
@@ -21,7 +21,7 @@ routes.get("/burgercustomize", (req, res) => {
   let burgerName = req.query.name;
   let senderId = req.query.sender;
 
-  let burger = findItem(burgerName);
+  let burger = findMenuItemsByItemName(burgerName);
   orderDAO
     .getLastOrderBySender(senderId)
     .then(order => {
