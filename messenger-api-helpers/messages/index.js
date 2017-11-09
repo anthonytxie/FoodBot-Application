@@ -66,7 +66,7 @@ const welcomeMessage = (firstName) => {
             type: "template",
             payload: {
                 template_type: "button",
-                text: `Hey ${firstName} :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
+                text: `Hey ${firstName || 'friend'} :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
                 buttons: [
                     {
                         type: "postback",
