@@ -1,4 +1,4 @@
-const { menuItems, findMenuItemsByItemName, getCurrencyFromIntegerPrice } = require("./menuItems");
+const { menuItems, findMenuItemsByItemName, getCurrencyFromIntegerPrice } = require("./../../config/menuItems");
 const websiteURL = process.env.websiteURL;
 
 const burgerTemplate = function(data, linkId, recipientId) {

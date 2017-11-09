@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 const {
   menuItems
-} = require("./../../messenger-api-helpers/messages/menuItems");
+} = require("./../../config/menuItems");
 const {
   premiumToppings
-} = require("./../../messenger-api-helpers/messages/toppings");
+} = require("./../../config/toppings");
 
 const burgerSchema = new Schema(
   {

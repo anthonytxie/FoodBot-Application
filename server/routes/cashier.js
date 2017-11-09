@@ -2,13 +2,9 @@
 const express = require("express");
 const routes = express();
 const moment = require("moment");
+const { findDifferentItemsOnBurger } = require("./../../config/menuItems");
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
-const {
-  menuItems,
-  findMenuItemsByItemName,
-  findDifferentItemsOnBurger
-} = require("./../../messenger-api-helpers/messages/menuItems.js");
 
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {

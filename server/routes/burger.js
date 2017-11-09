@@ -10,8 +10,8 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 //HELPER FUNCTIONS
 const {
   premiumToppingsArray
-} = require("../../messenger-api-helpers/messages/toppings");
-const { findMenuItemsByItemName } = require("../../messenger-api-helpers/messages/menuItems");
+} = require("./../../config/toppings");
+const { findMenuItemsByItemName } = require("./../../config/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
