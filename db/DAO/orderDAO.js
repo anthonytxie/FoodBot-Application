@@ -15,7 +15,9 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
         });
         return newOrder.save();
       })
-      .then(order => resolve(order))
+      .then((order) => {
+         resolve(populateOrder(Order.findOne({_id: order._id})))
+      })
       .catch(err => {
         logger.error(`${PSID} orderDAO initializeOrder`, { err });
         reject(err);

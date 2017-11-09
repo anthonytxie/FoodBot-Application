@@ -85,40 +85,34 @@ const orderSchema = new Schema(
   schemaOptions
 );
 
-// clean up style with array.prototype.reduce()
+const addAttributes = attribute => (startingValue, item) =>
+  startingValue + item[attribute];
+
+const sumPriceAndRound = (array, reduceTransformation, startingValue) =>
+  Math.round(array.reduce(reduceTransformation, startingValue));
+
 orderSchema.virtual("basePrice").get(function() {
-  let price = 0;
-  for (let item of this._items) {
-    price = price + item.price;
-  }
-  return Math.round(price);
+  return Math.round(sumPriceAndRound(this._items, addAttributes("price"), 0));
 });
 
 orderSchema.virtual("tax").get(function() {
-  let price = 0;
-  for (let item of this._items) {
-    price = price + item.price;
-  }
-  return Math.round(price * 0.13);
+  return Math.round(sumPriceAndRound(this._items, addAttributes("price"), 0) * 0.13);
 });
 
 orderSchema.virtual("stripeFee").get(function() {
-  let price = 0;
-  for (let item of this._items) {
-    price = price + item.price;
-  }
-  return Math.round(price * 1.13 * 0.029 + 30);
+  return (
+    Math.round((sumPriceAndRound(this._items, addAttributes("price"), 0) * 1.13 * 0.029) + 30)
+  );
 });
 
 orderSchema.virtual("deliveryFee").get(function() {
-  let price = 0;
-  for (let item of this._items) {
-    price = price + item.price;
-  }
   let highDeliveryFee = 700;
   let lowDeliveryFee = 300;
   let orderThreshold = 1500;
-  if (price < orderThreshold) {
+
+  if (
+    sumPriceAndRound(this._items, addAttributes("price"), 0) < orderThreshold
+  ) {
     return highDeliveryFee;
   } else {
     return lowDeliveryFee;

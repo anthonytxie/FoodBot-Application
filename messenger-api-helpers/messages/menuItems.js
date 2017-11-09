@@ -1,5 +1,7 @@
-// PUT MENU ITEMS IN CONFIG 
-// library to manage currency 
+// PUT MENU ITEMS IN CONFIG
+// library to manage currency
+
+const _ = require('lodash');
 const menuItems = [
 	{
 		itemName: "Single Hamburger",
@@ -234,7 +236,6 @@ const menuItems = [
 
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Perfectly cut, golden cripsy, potato Fries.",
-		itemName: "Fries",
 		basePrice: 399
 	},
 	{
@@ -242,7 +243,6 @@ const menuItems = [
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Poutine, the Canadian way.",
-		itemName: "Poutine",
 		basePrice: 799
 	},
 
@@ -251,7 +251,6 @@ const menuItems = [
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Cheesy Fries.",
-		itemName: "Cheesy Fries",
 		basePrice: 649
 	},
 
@@ -260,40 +259,44 @@ const menuItems = [
 		type: "side",
 		image_url: "https://i.imgur.com/6PnW8EE.jpg",
 		subtitle: "Delicious ice-cream milkshake",
-		itemName: "milkshake",
 		basePrice: 399
 	}
 ];
 
-// ARRAY PROTOTYPE FIND 
-const findItem = function(name) {
-	return menuItems
-		.filter(x => {
-			return x.itemName === name;
-		})
-		.pop();
-};
+const findObjectInArrayByAttribute = attribute => array => attributeValue =>
+	array.find(x => x[attribute] == attributeValue);
+
+const findMenuItemsByItemName = findObjectInArrayByAttribute("itemName")(
+	menuItems
+);
+
+
+const differenceAcrossArrays = arrayOne => arrayTwo =>
+	arrayOne.filter(x => !arrayTwo.includes(x)); //return what is in array one that is not in array two
 
 const findDifferentItemsOnBurger = burgerObject => {
 	let normalBurgerToppings = [
-		...findItem(burgerObject.itemName).standardToppings,
-		...findItem(burgerObject.itemName).premiumToppings
+		...findMenuItemsByItemName(burgerObject.itemName).standardToppings,
+		...findMenuItemsByItemName(burgerObject.itemName).premiumToppings
 	].sort();
 
 	let customizedBurgerToppings = [
 		...burgerObject.standardToppings,
 		...burgerObject.premiumToppings
 	].sort();
-	let normalBurgerPatties = findItem(burgerObject.itemName).Patties;
-	let customizedBurgerPatties = burgerObject.Patties;
 
-	const plusToppings = customizedBurgerToppings.filter(x => {
-		return !normalBurgerToppings.includes(x);
-	});
-	const minusToppings = normalBurgerToppings.filter(x => {
-		return !customizedBurgerToppings.includes(x);
-	});
-	const pattyDifference = customizedBurgerPatties - normalBurgerPatties;
+	const minusToppings = differenceAcrossArrays(normalBurgerToppings)(
+		customizedBurgerToppings
+	);
+
+	const plusToppings = differenceAcrossArrays(customizedBurgerToppings)(
+		normalBurgerToppings
+	);
+
+	const pattyDifference =
+		parseFloat(burgerObject.Patties) -
+		parseFloat(findMenuItemsByItemName(burgerObject.itemName).Patties);
+
 	return {
 		pattyDifference,
 		minusToppings,
@@ -301,10 +304,16 @@ const findDifferentItemsOnBurger = burgerObject => {
 	};
 };
 
+
 const getCurrencyFromIntegerPrice = integerPrice => {
 	let dollars = integerPrice / 100;
 	dollars.toLocaleString("en-US", { style: "currency", currency: "CAD" });
 	return dollars;
 };
 
-module.exports = { menuItems, findItem, findDifferentItemsOnBurger, getCurrencyFromIntegerPrice };
+module.exports = {
+	menuItems,
+	findMenuItemsByItemName,
+	findDifferentItemsOnBurger,
+	getCurrencyFromIntegerPrice
+};

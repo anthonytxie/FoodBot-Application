@@ -4,8 +4,8 @@ const sendApi = require('./sendApi');
 
 // SIMPLE SENDER FUNCTIONS
 
-const sendInitializeMessage = (recipientId, data) => {
-    sendMessage(recipientId, messages.welcomeMessage);
+const sendInitializeMessage = (recipientId, data ) => {
+    sendMessage(recipientId, messages.welcomeMessage(data));
 };
 
 

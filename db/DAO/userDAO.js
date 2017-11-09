@@ -1,15 +1,24 @@
 const { User, Session } = require("./../models/index");
 const userDAO = {};
 const mongoose = require("mongoose");
+const {
+  publicProfileRequest
+} = require("./../../messenger-api-helpers/graphAPI/publicProfile");
 const { logger } = require("./../../server/logger/logger");
-
 
 userDAO.createUser = function(PSID) {
   logger.info(`${PSID} userDAO createUser`);
   return new Promise((resolve, reject) => {
-    const newUser = new User({ PSID });
-    newUser
-      .save()
+    publicProfileRequest(PSID)
+      .then(user => {
+        const newUser = new User({
+          PSID,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          profilePicture: user.profile_pic
+        });
+        return newUser.save();
+      })
       .then(user => {
         const newSession = new Session({ _user: user._id });
         return newSession.save();

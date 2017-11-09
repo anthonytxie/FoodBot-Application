@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 const stripe_test_key = process.env.stripe_test_key;
 const stripe = require("stripe")(stripe_test_key);
 const opbeat = require("opbeat");
-
 // ROUTES
 const burger = require("./routes/burger");
 const combo = require("./routes/combo");
@@ -48,7 +47,7 @@ app.use(webhook);
 app.use(cashier);
 app.use(order);
 if (process.env.NODE_ENV == "production") {
-  app.use(opbeat.middleware.express())
+  app.use(opbeat.middleware.express());
 }
 
 module.exports = app;
