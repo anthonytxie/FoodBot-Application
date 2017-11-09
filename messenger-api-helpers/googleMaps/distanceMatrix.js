@@ -11,18 +11,14 @@ const isInDeliveryRange = destination => {
       function(err, data) {
         if (err) {
           reject(err);
+        } else if (parseFloat(data.distance.split(' ')[0]) < maxDeliveryRange) {
+          resolve(true)
         } else {
-          if (parseFloat(data.distance[0]) < 7) {
-            resolve(true)
-          }
-          else {
-            resolve(false)
-          }
+          resolve(false)
         }
       }
     );
   });
 };
-
 
 module.exports = {isInDeliveryRange};

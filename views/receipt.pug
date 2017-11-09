@@ -5,14 +5,14 @@ html(lang="en")
 		title Burger
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+		link(rel ='stylesheet', href="normalize.css", type='text/css')
 		link(rel ='stylesheet', href="receipt.css", type='text/css')
+		script(src="https://use.fontawesome.com/1d07c7b3d1.js")
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
-		script(src="dragend-master/dragend.js")
-		script(src="form.js")
+		script(src="ajaxSubmit.js")
 		script(src='https://checkout.stripe.com/checkout.js')
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js")
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.js')
-
 	body
 		script.
 			// code to connect to the extension necessary to close this view
@@ -24,289 +24,272 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 
-		- const items = order._items; // all items in the order
-		- let index = 0;
-
-		form#view1container(style="position:relative;", method="post", action="delete")
-
-			h4 RECEIPT
+		form#form1(style="position:relative;", method="post", action="delete")
 			input(type="hidden", name="orderId", value=order._id)
+			.errors
+			h4 RECEIPT
+			.items
+				- counter = 1;
+				each item in order._items	
+					if item.itemType == "burger"
+						.item #{counter}. #{item.itemName}
+							span.price ($#{item.price/100})
+							span.actions(mongoId=item._id, type="burger")
+								i.fa.fa-pencil(aria-hidden="true")
+								i.fa.fa-times-circle(aria-hidden="true")
+						- counter++;
+						if item.itemCombo
+							- let side = ""
+							- let drink = ""
+							each inner_item in order._items
+								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "side"))
+									- side = inner_item;
+								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "drink"))
+									- drink = inner_item;
+							.combo w/ #{side.itemName} & #{drink.itemName}
+								span.price ($#{(side.price + drink.price)/100})
+								span.actions(mongoId=item._id, type="combo")
+									i.fa.fa-pencil(aria-hidden="true")
+									i.fa.fa-times-circle(aria-hidden="true")
 
-			- let order_price = 0;
-
-			while index < items.length
-				- let item = items[index];  		// loop through each item in the list
-				- let name = item.itemName; 		// name of current item
-				- let combo_price = item.price; // equal to the price of the item or combo, if applicable
-
-				- let combo = "";
-				if item.itemType === "burger"
-					if index <= items.length - 3
-						if items[index + 1].itemCombo === true
-							- combo = "(Combo)"
-							- combo_price = combo_price + items[index + 1].price + items[index + 2].price
-
-				- order_price += combo_price;
-
-				span
-					input(toggle_input=index, type="hidden", name="keepIds[]", value=item._id)
-					.wide_checkbox
-						.custom_check_on(toggle=index)
-						.toggle
-							h3 #{item.itemName} #{combo}
-						p.price #{combo_price.toFixed(2)}
-
-					if item.itemType === "burger"
-						.zoom(value=item._id, style="display:none")
-							- let toppings = item.standardToppings.concat(item.premiumToppings)
-							each topping in toppings
-								.topping= topping
-							
-							if combo == "(Combo)"
-								- let combo_drink = undefined; // find the drink and side that are part of this combo
-								- let combo_side = undefined;
-								if items[index + 1] === "drink"
-									- combo_drink = items[index + 1];
-									- combo_side = items[index + 2];
-								else
-									- combo_side = items[index + 1];
-									- combo_drink = items[index + 2];
-
-									- price	+= combo_drink.price; // add the drink to the delete id list
-									.drink= combo_drink.itemName
-									.price= combo_drink.price
-									input(toggle_input=index, name="keepIds[]", value=combo_drink._id)
-
-									- price	+= combo_side.price; // add the side to the delete id list
-									.side= combo_side.itemName
-									.price= combo_side.price
-									input(toggle_input=index, name="keepIds[]", value=combo_side._id)
-
-								- index += 2; // this is so we don't enter drinks and sides twice
-				- index++;
-				
-			div.list_prices
+					else
+						unless item.itemCombo
+							.item #{counter}. #{item.itemName}
+								span.price ($#{item.price/100})
+								span.actions(mongoId=item._id, type="item")
+									i.fa.fa-times-circle(aria-hidden="true")
+							- counter++;
+			.prices
 				p#base
 				p#delivery_stripe
 				p#tax
-				p#order_total
+				p#total
+			button Confirm
 
-			button.view1button.doneview1(style="position:absolute; bottom:0;") Confirm
-
-		//- VIEW 2
-		form#view2container(style="display:none;", method="post", action="confirm")
-
+		form#form2(style="display:none;", method="post", action="confirm")
 			input(type="hidden", name="orderId", value=order._id)
-
-			.errors(style="color: red; text-align: center; margin-top:10px; width: 100%;")
-
-			p#get_total
-
-			input#address(name="address", type="text", placeholder="Address")
-			input#postal(name="phoneNumber", type="text", placeholder="Phone")
-			input(name="room", type="text", placeholder="Room Number (Optional)")
-
-			.pay_row
-				input.doneview2(style="-webkit-appearance: none;", type="submit", value="Pay Now")
+			.errors
+			p#final_total
+			.inputs
+				input(name="address", type="text", placeholder="Address")
+				input(name="phoneNumber", type="text", placeholder="Phone")
+				input(name="room", type="text", placeholder="Room Number (Optional)")
+			button Pay Now
 
 		script.
-
-			$(document).ready(function(){
-				$("#postal").inputmask("(999)999-9999");
-			})
-
-			// could just take in a single "cost object"
-			function update_cost(base, delivery_stripe, tax, total) {
-				$("#base").html("Order Total: #{base}");
-				$("#delivery_stripe").html("Delivery: #{delivery_stripe}");
-				$("#tax").html("Tax: #{tax}");
-				$("#order_total").html("Order Total: #{total}");
-			}
-
-			// add to deleteIds
-			$("form").on("click", ".custom_check_on", function() {
-				const toggle = $(this).attr("toggle");
-
-				// get the cost so that we can remove it from the total
-				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
-				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
-				const new_subtotal = (parseFloat(old_subtotal) - parseFloat(price)).toFixed(2);
-				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
-				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
-				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
-
-				$("#original_total").text("Order Total: " + new_subtotal);
-				$("#tax_total").text("Tax: " + tax);
-				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
-				$("#order_total").text("Total: " + total);
-
-				$("input[toggle_input=" + toggle + "]").prop("name", "removeIds[]");
-				$(this).removeClass("custom_check_on");
-				$(this).addClass("custom_check_off");
-			})
-
-			// remove from deleteIds
-			$("form").on("click", ".custom_check_off", function(){
-				const toggle = $(this).attr("toggle");
-
-				// get the cost so that we can remove it from the total
-				const price = parseFloat($(this).parent().find(".price").text()).toFixed(2);
-				const old_subtotal = parseFloat($("#original_total").text().substr(13)).toFixed(2);
-				const new_subtotal = (parseFloat(old_subtotal) + parseFloat(price)).toFixed(2);
-				const tax = parseFloat((new_subtotal * 0.13)).toFixed(2)
-				const stripeFees = (((parseFloat(new_subtotal) + (parseFloat(tax))) * (0.029)) + 0.3).toFixed(2)
-				const total = (parseFloat(new_subtotal) + parseFloat(tax) + parseFloat(stripeFees)).toFixed(2)
-
-				$("#original_total").text("Order Total: " + new_subtotal);
-				$("#tax_total").text("Tax: " + tax);
-				$("#stripe_fees").text("Stripe Fee: " + stripeFees);
-				$("#order_total").text("Total: " + total);
-
-				$("input[toggle_input=" + toggle + "]").prop("name", "keepIds[]");
-				$(this).removeClass("custom_check_off");
-				$(this).addClass("custom_check_on");
-			})
-
-			// does a get request on the otder, does stuff with the price
-			const get_price = (order) => {
-				const order_id = order._id;
-				console.log("get_price triggered");
-				$.get("/getorder/" + order_id).done(function(get_order){
-					const get_order_price = parseFloat(get_order.basePrice)
-					const get_tax = parseFloat(get_order.tax)
-					const get_stripe = parseFloat(get_order.stripeFee)
-					const get_delivery = parseFloat(get_order.deliveryFee)
-					pay_total = get_order_price + get_tax + get_stripe + get_delivery
-
-					// close window if order is now empty
-					if (Math.round(get_order_price) == 0) {
-						MessengerExtensions.requestCloseBrowser(function success() {
-							console.log("success");
-						}, function error(err) {
-							console.log(err);
-						});
-					}
-					// round to 2 decimal places
-					$("#get_order_price").html(get_order_price);
-					$("#get_tax").html(get_tax);
-					$("#get_stripe").html(get_stripe);
-					$("#get_total").html("Total: $" + pay_total);
-					$("#view2container").append("<input type='hidden' name='authorized_payment' value='" + pay_total * 100 + "'>")
-				}, "json");
-			}
-
-			// click confirm button
-			$(".doneview1").click(function(e){
-				e.preventDefault();
-				// TODO: add logic here
-				$("#view1container").ajaxSubmit();
-				$("#view1container").hide();
-				get_price(!{JSON.stringify(order)});
-				$("#view2container").show();
-			})
-
-			// amount they have to pay
-			let pay_total = null;
-
-			var handler = StripeCheckout.configure({
+			const order_id = !{JSON.stringify(order._id)}
+			const handler = StripeCheckout.configure({
 				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
-				image: 'https://stripe.com/img/documentation/checkout/marketplace.png', // use personal image
+				image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
 				locale: 'auto',
 				currency: "CAD",
 				token: function(token) {
-					console.log("this is when something happens with token");
-					$("#view2container").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
-					$("#view2container").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-
-					// address validations
-					if ($("#address").val() == "") {
-						$(".errors").text("Enter an address");
-					} else if ($("#postal").val() == "") {
-						$(".errors").text("Enter a postal code");
-
-					// passes validations
-					} else {
-						$("#view2container").hide();
-						$("#view2container").ajaxSubmit();
-						MessengerExtensions.requestCloseBrowser(function success() {
-							console.log("success");
-						}, function error(err) {
-							console.log(err);
-						});
-					}
+					$("#form2").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
+					$("#form2").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
+					$("#form2").append("<input type='hidden' name='authorized_payment' value='2000'>");
+					$("#form2").ajaxSubmit();
+					console.log("token function ran");
+					closeWebview();
 				}
 			});
 
-			// either closes the session or brings up the payment prompt
-			$(".doneview2").click(function(e){
-				// this was sending twice
-				e.preventDefault();
-				
-				if ($(this).val() == "Pay Now") {
-					console.log("b");
-					handler.open({
-						name: 'FoodBot',
-						description: 'Your Order',
-						zipCode: true,
-						amount: pay_total * 100
-					})
-					
-				} else {
-					console.log("pay later");
-					console.log($("input[name=method]").val());
-					if ($("input[name=method]").val() == "delivery") {
-						if ($("#address").val() == "") {
-							console.log("pay later, no address")
-							$(".errors").text("Enter an address");
-						} else if ($("#postal").val() == "") {
-							$(".errors").text("Enter a postal code");
-						} else {
-							$("#view2container").hide();
-							$("#view2container").ajaxSubmit();
-							MessengerExtensions.requestCloseBrowser(function success() {
-								console.log("success");
-							}, function error(err) {
-								console.log(err);
-							});
-						}
-					} else {
-						$("#view2container").hide();
-						$("#view2container").ajaxSubmit();
-						MessengerExtensions.requestCloseBrowser(function success() {
-							console.log("success");
-						}, function error(err) {
-							console.log(err);
-						});
-					}
+			$(".fa-pencil").on("click", function(){
+				// get mongo id of burger (or side, if not a combo)
+				const id = $(this).parent().attr("mongoId");
+				//- editView(id);
+			})
+
+			$(".fa-times-circle").on("click", function(){
+				const id 	 = $(this).parent().attr("mongoId");
+				const type = $(this).parent().attr("type");
+				switch(type) {
+					case "item": // delete only this item
+						deleteItem(id).then(function(result){
+							return getOrder(order_id);
+						}).then(function(order){
+							updateReceipt(order);
+						}).catch(function(error) {
+
+						})
+						break;
+					case "combo": // delete the burger's combo
+						deleteCombo(id).then(function(result){
+							return getOrder(order_id);
+						}).then(function(order){
+							updateReceipt(order);
+						})
+						break;
+					case "burger": // delete the burger (and combo, if applicable)
+						deleteBurger(id).then(function(result){
+							return getOrder(order_id);
+						}).then(function(order){
+							updateReceipt(order);
+						})
+						break;
 				}
 			})
 
-			// useful?
-			// view 3
-			window.addEventListener('popstate', function() { // close checkout on page navigation
-				handler.close();
-			});
+			$("#form1 button").on("click", function(e){
+				("#form1").hide();
+				$("#form2").show();
+			})
 
-			// called when MessengerExtensions is done loading
-			window.extAsyncInit = function() {
-				$("#view3button").click(function(){
+			$("#form2 button").on("click", function(e){
+				e.preventDefault();
+				$("#form2").hide();
+				handler.open({
+					name: 'FoodBot',
+					description: 'Your Order',
+					zipCode: true,
+					amount: 2000
+				})
+			})
+
+			// VALIDATIONS
+				// address only
+				function checkAddress() {
+					return new Promise((resolve, reject) => {
+						$.get(
+						  "/address",
+						  { address: address }
+						)
+							.done(function(result) {
+								resolve(result); // result: true, false or error object
+							})
+							.fail(function(error) {
+								reject(error)
+							})
+					})
+				}
+
+				// not address
+				function Validations(address) {
+					return new Promise((resolve, reject) => {
+						let room = $("input[name='room']").text();
+						let phoneNumber = $("input[name='phoneNumber']").text();
+						if (address === false) {
+							reject("The address is outside of range");
+						} else if ((address !== true) && (address !== false)) {
+							reject("The addres is invalid");
+						} else if (isNan(room)) {
+							reject("The room number is not a number");
+						} else if (isNan(phoneNumber)) {
+							reject("The phone number is not a number");
+						} else if (phoneNumber <= 1000000000) {
+							reject("Must enter a phone number");
+						} else {
+							resolve(true);					
+						}
+					})
+				}
+
+			// DELETE
+				// burger & combo items
+				// NOTE: add a visual element
+				// NOTE: after delete, close if no order
+				function deleteBurger(itemId) {
+					return new Promise((resolve, reject) => {
+						$.post("/deleteburger/" + itemId)
+							.done(function(result) {
+								resolve(result)
+							})
+							.fail(function(error) {
+								reject(error);
+							})
+					});	
+				}
+
+				// combo items
+				function deleteCombo(burgerId) {
+					return new Promise((resolve, reject) => {
+						$.post("/deletecombo/" + burgerId)
+							.done(function(result) {
+								resolve(result)
+							})
+							.fail(function(error) {
+								reject(error);
+							})
+					})
+				}
+
+				// solo item
+				function deleteItem(itemId) {
+					return new Promise((resolve, reject) => {
+						$.post("/deleteitem/" + itemId)
+							.done(function(result) {
+								resolve(result)
+							})
+							.fail(function(error) {
+								reject(error);
+							})
+					});	
+				}
+
+			// EDIT
+
+				// edit 
+
+				// NOTE: no edit item yet, only delete
+
+
+
+
+				// OTHER
+				function closeWebview() {
 					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
+						console.log("Webview closed");
 					}, function error(err) {
 						console.log(err);
 					});
+				}
+
+			
+
+			// gets the order
+			function getOrder(id) {
+				return new Promise((resolve, reject) => {
+					$.get("/getorder/" + id)
+						.done(function(order) {
+							resolve(order);
+						})
+						.fail(function(error) {
+							reject(error);
+						})
 				})
 			}
 
-		if order.isConfirmed
-			script.
-				$(document).ready(function(){
-					setTimeout(function(){
-						MessengerExtensions.requestCloseBrowser(function success() {
-							console.log("success");
-						}, function error(err) {
-							console.log(err);
-						});
-					}, 100);
-				})
-				
+			// deletes burger and combo items if applicable
+			
+
+			// deletes the combo items from the burger
+			// NOTE: add a visual element
+			
+
+			
+
+			
+
+			// HELPER: convert integer to cents to standard price format
+			function displayPrice(price) {
+				return ("$ " + (price / 100).toFixed(2));
+			}
+
+			// gets the order, then the price
+			function loadPrices(order) {
+				$("#base").text(displayPrice(order.basePrice));																 // base
+				$("#delivery_stripe").text(displayPrice(order.stripeFee + order.deliveryFee)); // delivery + stripe
+				$("#tax").text(displayPrice(order.tax));																			 // tax
+				$("#total").text(displayPrice(order.basePrice + order.stripeFee + order.deliveryFee + order.tax))
+				$("#final_total").text(displayPrice(order.basePrice + order.stripeFee + order.deliveryFee + order.tax))
+			}
+
+			$(document).ready(function(){
+
+				// if they already paid, close the webview (isConfirmed)
+
+				// determine prices
+				//- loadPrices();
+
+				// format the phone number
+				$("#postal").inputmask("(999)999-9999");
+			})

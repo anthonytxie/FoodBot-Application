@@ -10,9 +10,21 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 const itemDAO = require("./../../db/DAO/itemDAO");
 const userDAO = require("./../../db/DAO/userDAO");
 const stripe = require("stripe")(process.env.stripe_test_key);
-
-//SEND FUNCTIONS
+// JS FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
+const { isInDeliveryRange } = require("../../messenger-api-helpers/googleMaps/distanceMatrix.js");
+
+routes.get("/address", (req, res) => {
+  let address = req.query.address;
+
+  isInDeliveryRange(address)
+  .then((result) => { 
+    res.send(result); 
+  })
+  .catch((err) => { 
+    res.send(err); 
+  })
+});
 
 routes.get("/getorder/:orderid", (req, res) => {
 	let orderId = req.params.orderid;
