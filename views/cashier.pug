@@ -23,7 +23,7 @@ html(lang="en")
 					each order in orders
 						unless order.isInputted
 							if order.isPaid
-								div
+								div.order(orderId=order._id)
 									- const display_id = order.orderNumber;
 									.top 
 										.id
@@ -72,7 +72,7 @@ html(lang="en")
 													.item #{counter}. #{item.itemName}
 
 									.bottom
-										button Cooking
+										button(value="cooking") Cooking
 
 			section
 				.title
@@ -82,7 +82,7 @@ html(lang="en")
 						if order.isInputted
 							unless order.isReady
 								if order.isPaid
-									div
+									div.order(orderId=order._id)
 										- const display_id = order.orderNumber;
 										.top 
 											.id
@@ -131,8 +131,8 @@ html(lang="en")
 														.item #{counter}. #{item.itemName}
 
 										.bottom
-											button New
-											button Ready
+											button(value="new") New
+											button(value="ready") Ready
 
 			section
 				.title
@@ -141,7 +141,7 @@ html(lang="en")
 					each order in orders
 						if order.isReady
 							if order.isPaid
-								div
+								div.order(orderId=order._id)
 									- const display_id = order.orderNumber;
 									.top 
 										.id
@@ -190,7 +190,40 @@ html(lang="en")
 													.item #{counter}. #{item.itemName}
 
 									.bottom
-										button New
-										button Ready
+										button(value="cooking") Cooking
 
 			.mobile Mobile view still in development. Please use a tablet or computer.
+
+		script.
+			$("button").on("click", function(){
+				const column   = $(this).attr("value");
+				let id         = $(this).closest(".order").attr("orderId");
+				let isInputted = null;
+				let isReady 	 = null;
+				switch (column) {
+					case "new":
+						isInputted = false;
+						isReady = false;
+						break;		
+					case "cooking":
+						isInputted = true;
+						isReady = false;
+						break;		
+					case "ready":
+						isInputted = true;
+						isReady = true;
+						break;
+				}
+				$.post("cashier", {
+					id,
+					isInputted,
+					isReady
+				}).done(function(e){
+					location.reload();
+				})
+			})
+
+
+
+
+
