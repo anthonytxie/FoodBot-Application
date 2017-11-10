@@ -31,13 +31,13 @@ routes.get("/burger", (req, res) => {
     })
     .then(item => {
       if (item) {
-        res.status(200).render("burgercustomize", {
+        res.status(200).render("burger", {
           sender_id: senderId,
           burger: item,
           _link: _link
         });
       } else {
-        res.status(200).render("burgercustomize", {
+        res.status(200).render("burger", {
           sender_id: senderId,
           burger: burger,
           _link: _link
@@ -45,7 +45,7 @@ routes.get("/burger", (req, res) => {
       }
     })
     .catch(err => {
-      logger.error(`GET on /burgercustomize`, { err });
+      logger.error(`GET on /burger`, { err });
       res.status(500).send({ success: false });
     });
 });
