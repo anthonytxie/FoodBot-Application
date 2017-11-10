@@ -48,7 +48,7 @@ h4 {
 	padding-bottom: 0px!important;
 	padding-left: 14px!important;
 	font-size: .8em;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #E4E6EA;
 }
 
 h3, h4 {
@@ -189,14 +189,14 @@ img {
 }
 
 .toggle p {
-	color: rgba(0,0,0,.4)
+	color: rgba(0,0,0,.5)
 }
 
 .wide_checkbox {
 	width: 100%;
 	height: 70px;
 	cursor: pointer;
-	background-color: white;
+	background-color: #f9f9f9;
 }
 
 /*.wide_checkbox:hover, .quantity:hover {
@@ -208,11 +208,7 @@ img {
 }*/
 
 .wide_checkbox {
-	border-bottom: 1px solid #eee;
-}
-
-.wide_checkbox:last-child {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #E4E6EA;
 }
 
 h3 {
@@ -281,7 +277,7 @@ h3 {
 
 p.price {
 	font-size: .9em;
-	color: rgba(0,0,0,.4);
+	color: rgba(0,0,0,.55);
 	display: inline-block;
 	position: relative;
 	bottom: 8px;
@@ -322,7 +318,7 @@ button:active {
 	bottom: 4px;
 	display: inline-block;
 	font-size: 20px;
-	color: #0073e0;
+	color: #0080ff;
 }
 
 .button_container {
