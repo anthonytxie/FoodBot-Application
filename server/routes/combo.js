@@ -2,6 +2,7 @@
 const express = require("express");
 const routes = express();
 const mongoose = require("mongoose");
+const { logger } = require("./../logger/logger");
 
 //DAO
 const itemDAO = require("./../../db/DAO/itemDAO");
@@ -11,6 +12,7 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/combo", (req, res) => {
+  logger.info("GET on /combo");
   let linkId = req.query.linkId;
   let senderId = req.query.sender;
   orderDAO
@@ -32,11 +34,15 @@ routes.get("/combo", (req, res) => {
         sender_id: senderId,
         itemsArray: itemsArray
       });
+    })
+    .catch(err => {
+      logger.error(`GET on /burgercombo`, { err });
+      res.status(500).send({ success: false });
     });
 });
 
 routes.post("/combo", (req, res) => {
-  console.log(JSON.stringify(req.body));
+  logger.info("POST on /combo");
   let senderId = req.body.sender_id;
   let linkId = req.body._link;
 
@@ -58,7 +64,7 @@ routes.post("/combo", (req, res) => {
         }
         break;
       default:
-        console.log("no idea");
+        logger.error("error parsing drink for POST on /combo");
         break;
     }
   };
@@ -89,9 +95,12 @@ routes.post("/combo", (req, res) => {
       send.sendOrderedMessage(senderId, side);
     })
     .then(() => {
-      res.status(200).send({success:true});
+      res.status(200).send({ success: true });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      logger.error(`POST on /combo`, { err });
+      res.status(500).send({ success: false });
+    });
 });
 
 module.exports = routes;

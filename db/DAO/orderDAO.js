@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder, pad } = require("./helperFunctions");
 const { logger } = require("./../../server/logger/logger");
+const { findMenuItemsByItemName } = require('./../../config/menuItems');
+
+
 
 orderDAO.initializeOrder = function(PSID, sessionId) {
   logger.info(`${PSID} orderDAO initializeOrder`);
@@ -189,5 +192,7 @@ orderDAO.returnPaidOrderNumber = () => {
 };
 
 //worried about this... will this sometimes result in same number for two orders if they are happening concurrently?
+
+
 
 module.exports = orderDAO;

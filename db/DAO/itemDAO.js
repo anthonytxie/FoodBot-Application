@@ -2,30 +2,10 @@ const { Order, Item, Burger, Drink, Side } = require("./../models/index");
 const orderDAO = require("./orderDAO");
 const mongoose = require("mongoose");
 var itemDAO = {};
-const { populateOrder } = require("./helperFunctions");
+const { populateOrder, saveItemAndUpdateOrder } = require("./helperFunctions");
 const { logger } = require("./../../server/logger/logger");
 
-const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
-  logger.info(`itemDAO saveItemAndUpdateOrder ${item.itemType}`)
-  item
-    .save()
-    .then(item => {
-      return Order.findOneAndUpdate(
-        { _id: orderId },
-        { $push: { _items: item._id } },
-        { new: true }
-      ).populate("_items");
-    })
-    .then(order => {
-      resolve(order._items.slice(-1).pop());
-    })
-    .catch(err => {
-      logger.error(`itemDAO saveItemAndUpdateOrder ${item.itemType}`, {
-        err
-      });
-      reject(err);
-    });
-};
+
 
 itemDAO.postBurger = function(foodObject, senderId) {
   logger.info(`${senderId} itemDAO postBurger`, { foodObject });

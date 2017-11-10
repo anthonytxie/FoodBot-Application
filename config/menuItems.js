@@ -1,7 +1,7 @@
 // PUT MENU ITEMS IN CONFIG
 // library to manage currency
 
-const _ = require('lodash');
+const _ = require("lodash");
 const menuItems = [
 	{
 		itemName: "Single Hamburger",
@@ -270,7 +270,6 @@ const findMenuItemsByItemName = findObjectInArrayByAttribute("itemName")(
 	menuItems
 );
 
-
 const differenceAcrossArrays = arrayOne => arrayTwo =>
 	arrayOne.filter(x => !arrayTwo.includes(x)); //return what is in array one that is not in array two
 
@@ -315,5 +314,6 @@ module.exports = {
 	menuItems,
 	findMenuItemsByItemName,
 	findDifferentItemsOnBurger,
-	getCurrencyFromIntegerPrice
+	getCurrencyFromIntegerPrice,
+	differenceAcrossArrays
 };

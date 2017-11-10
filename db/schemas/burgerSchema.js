@@ -2,12 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 const {
+  differenceAcrossArrays,
+  findMenuItemsByItemName,
   menuItems
 } = require("./../../config/menuItems");
-const {
-  premiumToppings
-} = require("./../../config/toppings");
-
+const { premiumToppings } = require("./../../config/toppings");
 const burgerSchema = new Schema(
   {
     // ===== Type ===============================================================
@@ -79,26 +78,10 @@ const burgerSchema = new Schema(
 );
 
 burgerSchema.virtual("price").get(function() {
-  const burgerList = menuItems.filter(x => {
-    return x.itemName === this.itemName;
-  });
-  const standardBurgerPremiumToppings = burgerList[0].premiumToppings.sort();
-  const customizedBurgerPremiumToppings = this.premiumToppings.sort();
-  const additionalPremiumToppings = customizedBurgerPremiumToppings.filter(
-    x => {
-      return standardBurgerPremiumToppings.indexOf(x) === -1;
-    }
+  const plusToppings = differenceAcrossArrays(this.premiumToppings)(
+    findMenuItemsByItemName(this.itemName).premiumToppings
   );
-  let price = burgerList[0].basePrice;
-  additionalPremiumToppings.forEach(x => {
-    price += premiumToppings[x];
-  });
-
-  let differencePatty = this.Patties - burgerList[0].Patties;
-  if (differencePatty > 0) {
-    price += differencePatty * 200;
-  }
-  return Math.round(price)
+  return plusToppings.map(x => premiumToppings[x]).reduce((x, y) => x + y, 0);
 });
 
 module.exports = { burgerSchema };
