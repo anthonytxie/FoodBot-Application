@@ -25,13 +25,13 @@ routes.get("/combo", (req, res) => {
     .then(itemsArray => {
       if (itemsArray) {
         console.log(`THIS IS THE ITEMS ARRAY ${itemsArray}`);
-        res.render("burgercombopage", {
+        res.render("combo", {
           _link: linkId,
           sender_id: senderId,
           itemsArray: itemsArray
         });
       } else {
-        res.render("burgercombopage", {
+        res.render("combo", {
           _link: linkId,
           sender_id: senderId
         });
