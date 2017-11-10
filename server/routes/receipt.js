@@ -67,7 +67,7 @@ routes.post("/delete", (req, res) => {
 		itemDAO
 			.deleteItemById(itemId, orderId)
 			.then(item => {
-				res.status(200).send();
+				res.status(200).send({success:true});
 			})
 			.catch(err => console.log(err));
 	});
@@ -145,7 +145,7 @@ routes.post("/confirm", (req, res) => {
                 return sessionDAO.closeSession(user._sessions.slice(-1).pop());
             })
             .then(session => {
-                res.status(200).send();
+                res.status(200).send({success:true});
             })
             .catch(err => {
                 // payment didn't go through send message back to user

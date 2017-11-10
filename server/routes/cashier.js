@@ -2,13 +2,13 @@
 const express = require("express");
 const routes = express();
 const moment = require("moment");
+const { findDifferentItemsOnBurger } = require("./../../config/menuItems");
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
-const { menuItems, findMenuItemsByItemName, findDifferentItemsOnBurger } = require("./../../messenger-api-helpers/messages/menuItems.js");
 
 routes.get("/cashier", (req, res) => {
   orderDAO.showIncompleteOrders().then(orders => {
-    res.status(200).render("cashier.pug", { 
+    res.status(200).render("cashier.pug", {
       orders,
       findDifferentItemsOnBurger
     });
@@ -34,6 +34,21 @@ routes.post("/input", (req, res) => {
     .then(orders => {
       res.render("cashier.pug", { orders });
     });
+});
+
+routes.post("/cashier", (req, res) => {
+  console.log(req.body)
+  const isInputted = parseInt(req.body.isInputted);
+
+  if (isInputted) {
+    orderDAO.updateInputtedOrder(req.body.id, true).then(() => {
+      res.status(200).send({success:true});
+    });
+  } else {
+    orderDAO.updateInputtedOrder(req.body.id, false).then(() => {
+      res.status(200).send({success: true});
+    });
+  }
 });
 
 module.exports = routes;

@@ -1,4 +1,4 @@
-const { menuItems, getCurrencyFromIntegerPrice } = require("./menuItems");
+const { menuItems, getCurrencyFromIntegerPrice } = require("./../../config/menuItems");
 
 // ===== GENERAL MENU ===============================================================
 
