@@ -74,10 +74,10 @@ routes.get("/orders", (req, res) => {
 
 routes.post("/delete", (req, res) => {
 	let orderId = req.body.orderId;
-	let itemIds = req.body.removeIds;
+	let itemIds = req.body.itemIds;
 	async.each(itemIds, itemId => {
 		itemDAO
-			.deleteItemById(itemId, orderId)
+			.deleteItemById(itemIds, orderId)
 			.then(item => {
 				res.status(200).send({success:true});
 			})

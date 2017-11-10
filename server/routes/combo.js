@@ -10,7 +10,7 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-routes.get("/burgercombo", (req, res) => {
+routes.get("/combo", (req, res) => {
   let linkId = req.query.linkId;
   let senderId = req.query.sender;
   orderDAO
@@ -27,7 +27,7 @@ routes.get("/burgercombo", (req, res) => {
     .then(itemsArray => {
       console.log("Items Array:");
       console.log(itemsArray);
-      res.render("burgercombopage", {
+      res.render("combo", {
         _link: linkId,
         sender_id: senderId,
         itemsArray: itemsArray

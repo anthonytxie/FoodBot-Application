@@ -14,16 +14,6 @@ html(lang="en")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js")
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.js')
 	body
-		script.
-			// code to connect to the extension necessary to close this view
-			(function(d, s, id){
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'Messenger'));
-
 		form#form1(style="position:relative;", method="post", action="delete")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
@@ -34,7 +24,7 @@ html(lang="en")
 					if item.itemType == "burger"
 						.item #{counter}. #{item.itemName}
 							span.price ($#{item.price/100})
-							span.actions(burgerId=item._id, combo=item.itemCombo, type="burger")
+							span.actions(name=item.itemName, burgerId=item._id, combo=item.itemCombo, type="burger", linkId=item._link)
 								i.fa.fa-pencil(aria-hidden="true")
 								i.fa.fa-times-circle(aria-hidden="true")
 						- counter++;
@@ -48,7 +38,7 @@ html(lang="en")
 									- drink = inner_item;
 							.combo w/ #{side.itemName} & #{drink.itemName}
 								span.price ($#{(side.price + drink.price)/100})
-								span.actions(drinkId=item._id, sideId=side._id, type="combo")
+								span.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, type="combo")
 									i.fa.fa-pencil(aria-hidden="true")
 									i.fa.fa-times-circle(aria-hidden="true")
 
@@ -77,10 +67,17 @@ html(lang="en")
 			button Pay Now
 
 		script.
-			// burger: name (of burger), sender, linkId
-			// combo: linkId, sender
-			
-			const order_id = !{JSON.stringify(order._id)}
+			// burger needs: name, sender, linkId, receipt
+
+			// close setup
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'Messenger'));
+			// stripe setup
 			const handler = StripeCheckout.configure({
 				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
 				image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
@@ -95,16 +92,37 @@ html(lang="en")
 				}
 			});
 
+
+			// constants
+			const order_id = !{JSON.stringify(order._id)}
+			const order_paid = !{JSON.stringify(order.isPaid)}
+			const sender = !{JSON.stringify(order._user.PSID)}
+
+
+			// edit
 			$(".fa-pencil").on("click", function(){
-				// get mongo id of burger (or side, if not a combo)
-				const id = $(this).parent().attr("mongoId");
-				//- editView(id);
+				const actions = $(this).parent();
+				const type = actions.attr("type");
+				switch (type) {
+					case "burger":
+						const linkId = actions.attr("linkId");
+						const name = actions.attr("name");
+						window.location = `burger?name=${name}&sender=${sender}&linkId=${linkId}&receipt=1`;
+						break;
+				}
 			})
 
-			function smartDelete(ids) {
+
+			// delete (done)
+			function smartDelete(itemIds) {
 				return new Promise(function(resolve, reject){
-					$.post("/delete", {
-						ids
+					$.ajax({
+					  method: "POST",
+					  url: "delete",
+					  data: { 
+					  	itemIds, 
+					  	orderId: order_id
+					  }
 					}).done(function(success){
 						resolve(success);
 					}).fail(function(failure){
@@ -112,7 +130,6 @@ html(lang="en")
 					})
 				})
 			}
-
 			$(".fa-times-circle").on("click", function(){
 				
 				const actions = $(this).parent();
@@ -128,7 +145,7 @@ html(lang="en")
 						ids.push(actions.attr("sideId"));
 						break;
 					case "burger": // delete the burger (and combo, if applicable)
-						ids.push("burgerId");
+						ids.push(actions.attr("burgerId"));
 						if (actions.attr("combo")){
 							comboIds = actions.closest(".item").children(".combo").children(".actions");
 							ids.push(comboIds.attr("drinkId"));
@@ -139,18 +156,23 @@ html(lang="en")
 				smartDelete(ids).then(function(result) {
 						return getOrder(order_id);
 					}).then(function(order) {
+						console.log("reload");
 						// this should be ajax
 						location.reload();
 					}).catch(function(error) {
+						console.log("error");
 						$(".errors").text("Whoops! There was an error deleting that item.");
 					})
 			})
 
+
+			// button logic
 			$("#form1 button").on("click", function(e){
+				closeWebview();
 				("#form1").hide();
 				$("#form2").show();
 			})
-
+			// TODO: get price
 			$("#form2 button").on("click", function(e){
 				e.preventDefault();
 				$("#form2").hide();
@@ -162,103 +184,53 @@ html(lang="en")
 				})
 			})
 
-			// VALIDATIONS
-				// address only
-				function checkAddress() {
-					return new Promise((resolve, reject) => {
-						$.get(
-						  "/address",
-						  { address: address }
-						)
-							.done(function(result) {
-								resolve(result); // result: true, false or error object
-							})
-							.fail(function(error) {
-								reject(error)
-							})
-					})
-				}
+			// this line might let us not use set timeout
+			// window.extAsyncInit = function ...
 
-				// not address
-				function Validations(address) {
-					return new Promise((resolve, reject) => {
-						let room = $("input[name='room']").text();
-						let phoneNumber = $("input[name='phoneNumber']").text();
-						if (address === false) {
-							reject("The address is outside of range");
-						} else if ((address !== true) && (address !== false)) {
-							reject("The addres is invalid");
-						} else if (isNan(room)) {
-							reject("The room number is not a number");
-						} else if (isNan(phoneNumber)) {
-							reject("The phone number is not a number");
-						} else if (phoneNumber <= 1000000000) {
-							reject("Must enter a phone number");
-						} else {
-							resolve(true);					
-						}
-					})
-				}
-
-			// DELETE
-				// burger & combo items
-				function deleteBurger(itemId) {
-					return new Promise((resolve, reject) => {
-						$.post("/deleteburger/" + itemId)
-							.done(function(result) {
-								resolve(result)
-							})
-							.fail(function(error) {
-								reject(error);
-							})
-					});	
-				}
-
-				// combo items
-				function deleteCombo(burgerId) {
-					return new Promise((resolve, reject) => {
-						$.post("/deletecombo/" + burgerId)
-							.done(function(result) {
-								resolve(result)
-							})
-							.fail(function(error) {
-								reject(error);
-							})
-					})
-				}
-
-				// solo item
-				function deleteItem(itemId) {
-					return new Promise((resolve, reject) => {
-						$.post("/deleteitem/" + itemId)
-							.done(function(result) {
-								resolve(result)
-							})
-							.fail(function(error) {
-								reject(error);
-							})
-					});	
-				}
-
-			// EDIT
-
-				// edit 
-
-				// NOTE: no edit item yet, only delete
-
-
-
-
-				// OTHER
-				function closeWebview() {
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("Webview closed");
-					}, function error(err) {
-						console.log(err);
-					});
-				}
-
+			// address validation
+			function checkAddress() {
+				return new Promise((resolve, reject) => {
+					$.get(
+					  "/address",
+					  { address: address }
+					)
+						.done(function(result) {
+							resolve(result); // result: true, false or error object
+						})
+						.fail(function(error) {
+							reject(error)
+						})
+				})
+			}
+			// not address validation
+			function Validations(address) {
+				return new Promise((resolve, reject) => {
+					let room = $("input[name='room']").text();
+					let phoneNumber = $("input[name='phoneNumber']").text();
+					if (address === false) {
+						reject("The address is outside of range");
+					} else if ((address !== true) && (address !== false)) {
+						reject("The addres is invalid");
+					} else if (isNan(room)) {
+						reject("The room number is not a number");
+					} else if (isNan(phoneNumber)) {
+						reject("The phone number is not a number");
+					} else if (phoneNumber <= 1000000000) {
+						reject("Must enter a phone number");
+					} else {
+						resolve(true);					
+					}
+				})
+			}
 			
+
+			function closeWebview() {
+				MessengerExtensions.requestCloseBrowser(function success() {
+					console.log("Webview closed");
+				}, function error(err) {
+					console.log(err);
+				});
+			}
 
 			// gets the order
 			function getOrder(id) {
@@ -272,17 +244,6 @@ html(lang="en")
 						})
 				})
 			}
-
-			// deletes burger and combo items if applicable
-			
-
-			// deletes the combo items from the burger
-			// NOTE: add a visual element
-			
-
-			
-
-			
 
 			// HELPER: convert integer to cents to standard price format
 			function displayPrice(price) {
@@ -300,6 +261,17 @@ html(lang="en")
 
 			$(document).ready(function(){
 
+				// close the webview is order is paid or empty
+				if ((!($(".item").length)) || (order_paid)) {
+					(function(d, s, id){
+						var js, fjs = d.getElementsByTagName(s)[0];
+						if (d.getElementById(id)) {return;}
+						js = d.createElement(s); js.id = id;
+						js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+						fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'Messenger'));
+					setTimeout(closeWebview, 200);
+				}
 				// if they already paid, close the webview (isConfirmed)
 
 				// determine prices

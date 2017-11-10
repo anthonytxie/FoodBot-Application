@@ -16,7 +16,7 @@ const { findMenuItemsByItemName } = require("./../../config/menuItems");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-routes.get("/burgercustomize", (req, res) => {
+routes.get("/burger", (req, res) => {
   let _link = req.query.linkId;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
@@ -37,13 +37,13 @@ routes.get("/burgercustomize", (req, res) => {
       console.log(itemsArray);
 
       if (itemsArray[0]) {
-        res.render("burgercustomize", {
+        res.render("burger", {
           sender_id: senderId,
           burger: itemsArray[0],
           _link: _link
         });
       } else {
-        res.render("burgercustomize", {
+        res.render("burger", {
           sender_id: senderId,
           burger: burger,
           _link: _link

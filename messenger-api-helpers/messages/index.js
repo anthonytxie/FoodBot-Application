@@ -93,7 +93,7 @@ const upsizeOrderMessage = (senderId, linkId) => {
                 buttons: [
                     {
                         type: "web_url",
-                        url: `${websiteURL}/burgercombo?linkId=${linkId}&sender=${senderId}`,
+                        url: `${websiteURL}/combo?linkId=${linkId}&sender=${senderId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true

@@ -5,7 +5,7 @@ html(lang="en")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
 		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
-		link(rel ='stylesheet', href="burgercustomize.css", type='text/css')
+		link(rel ='stylesheet', href="burger.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
 		script(src="https://use.fontawesome.com/1d07c7b3d1.js")
@@ -393,7 +393,28 @@ html(lang="en")
 			.button_container
 				button.done DONE
 			
-		
+		if receipt
+			script.
+				window.extAsyncInit = function() {
+					$("button").click(function(){
+						// send to receipt
+						// may need to add delay
+					})
+				}
+				
+		else
+			script.
+				window.extAsyncInit = function() {
+					$("button").click(function(){
+						// document.getElementById("only_form").submit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					})
+				}
+			
 		script.
 
 			$("body").on("click", "h4", function(){
