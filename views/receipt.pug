@@ -67,6 +67,10 @@ html(lang="en")
 			button Pay Now
 
 		script.
+
+
+
+
 			// burger needs: name, sender, linkId, receipt
 
 			// close setup
@@ -94,9 +98,17 @@ html(lang="en")
 
 
 			// constants
-			const order_id = !{JSON.stringify(order._id)}
+			const orderId = !{JSON.stringify(order._id)}
 			const order_paid = !{JSON.stringify(order.isPaid)}
 			const sender = !{JSON.stringify(order._user.PSID)}
+
+			// call this to add a ton of food to your order
+			function secret() {
+				$.post("addMassiveOrder", {
+					orderId,
+					senderId: sender
+				})
+			}
 
 
 			// edit
@@ -107,7 +119,7 @@ html(lang="en")
 					case "burger":
 						const linkId = actions.attr("linkId");
 						const name = actions.attr("name");
-						window.location = `burger?name=${name}&sender=${sender}&linkId=${linkId}&receipt=1`;
+						window.location = `/burger?name=${name}&sender=${sender}&linkId=${linkId}&receipt=1`;
 						break;
 				}
 			})
@@ -120,8 +132,8 @@ html(lang="en")
 					  method: "POST",
 					  url: "delete",
 					  data: { 
-					  	itemIds, 
-					  	orderId: order_id
+					  	itemIds,
+					  	orderId
 					  }
 					}).done(function(success){
 						resolve(success);
@@ -154,7 +166,7 @@ html(lang="en")
 						break;
 				}
 				smartDelete(ids).then(function(result) {
-						return getOrder(order_id);
+						return getOrder(orderId);
 					}).then(function(order) {
 						console.log("reload");
 						// this should be ajax

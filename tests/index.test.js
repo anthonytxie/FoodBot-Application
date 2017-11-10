@@ -566,11 +566,11 @@ describe("ROUTES", function() {
     let spy = sinon.spy(pug, "__express");
     return request(app)
       .get(
-        `/burgercustomize?name=${"Top Bun"}&sender=${firstSenderId}&linkId=${secondLinkId}`
+        `/burger?name=${"Top Bun"}&sender=${firstSenderId}&linkId=${secondLinkId}`
       )
       .expect(200)
       .then(() => {
-        spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
+        spy.calledWithMatch(/\/burger\.pug$/).should.be.true;
         spy.restore();
       });
   });
