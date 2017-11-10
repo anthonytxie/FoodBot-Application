@@ -354,7 +354,10 @@ describe("ITEM DAO", () => {
         .undefined,
       result.should.eventually.have.deep.property("_order").that.is.not
         .undefined,
-      result.should.eventually.have.deep.property("itemName", "Single Hambuger"),
+      result.should.eventually.have.deep.property(
+        "itemName",
+        "Single Hambuger"
+      ),
       result.should.eventually.have.deep.property("itemCombo").that.is.false,
       result.should.eventually.have.deep.property("Patties", 2)
     ]);
@@ -559,43 +562,43 @@ describe("ITEM DAO", () => {
 describe("ROUTES", function() {
   this.timeout(15000);
 
-  // it("should get burger customize", () => {
-  //   let spy = sinon.spy(pug, "__express");
-  //   return request(app)
-  //     .get(
-  //       `/burger?name=${testBurger.itemName}&sender=${firstSenderId}&linkId=${secondLinkId}`
-  //     )
-  //     .expect(200)
-  //     .then(() => {
-  //       spy.calledWithMatch(/\/burger\.pug$/).should.be.true;
-  //       spy.restore();
-  //     });
-  // });
+  it("should get burger customize", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(
+        `/burgercustomize?name=${"Top Bun"}&sender=${firstSenderId}&linkId=${secondLinkId}`
+      )
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
 
   it("should post a new burger", () => {
     let postBody = {
-      "_link": secondLinkId,
-      "title": "Single Cheeseburger",
-      "sender_id": firstSenderId,
-      "Patties": "2",
-      "beef": "true",
+      _link: secondLinkId,
+      title: "Single Cheeseburger",
+      sender_id: firstSenderId,
+      Patties: "2",
+      beef: "true",
       "Chicken Patty": "",
       "Sesame Bun": "true",
       "Lettuce Bun": "",
       "Gluten Free Bun": "",
       "Grilled Cheese Bun": "",
-      "Ketchup": "",
-      "Mayo": "",
-      "Mustard": "",
-      "Relish": "",
+      Ketchup: "",
+      Mayo: "",
+      Mustard: "",
+      Relish: "",
       "Fancy Sauce": "true",
       "Hot Sauce": "",
-      "Lettuce": "true",
-      "Tomatoes": "",
-      "Pickles": "true",
-      "Onions": "true",
+      Lettuce: "true",
+      Tomatoes: "",
+      Pickles: "true",
+      Onions: "true",
       "Hot Peppers": "",
-      "Bacon": "",
+      Bacon: "",
       "Standard Cheese": "",
       "American Cheese": "",
       "Blue Cheese": "",
@@ -678,7 +681,7 @@ describe("ROUTES", function() {
       authorized_payment: "1192",
       token_id: "tok_visa",
       token_email: "anthony112244@hotmail.com",
-      phoneNumber: '(905) 257-4282'
+      phoneNumber: "(905) 257-4282"
     };
     return request(app)
       .post("/confirm")

@@ -25,23 +25,19 @@ routes.get("/burger", (req, res) => {
   orderDAO
     .getLastOrderBySender(senderId)
     .then(order => {
-      return order._items.filter(x => {
-        return (
-          x._link.equals(_link) &&
-          x._order.equals(order._id) &&
-          x.itemType === "burger"
-        );
-      });
+      return order._items
+        .filter(x => x.itemType === "burger" && x._link)
+        .find(x => x._link.equals(_link) && x._order.equals(order._id));
     })
-    .then(itemsArray => {
-      if (itemsArray[0]) {
-        res.render("burger", {
+    .then(item => {
+      if (item) {
+        res.status(200).render("burgercustomize", {
           sender_id: senderId,
-          burger: itemsArray[0],
+          burger: item,
           _link: _link
         });
       } else {
-        res.render("burger", {
+        res.status(200).render("burgercustomize", {
           sender_id: senderId,
           burger: burger,
           _link: _link
