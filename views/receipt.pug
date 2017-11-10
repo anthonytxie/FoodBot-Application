@@ -38,7 +38,7 @@ html(lang="en")
 									- drink = inner_item;
 							.combo w/ #{side.itemName} & #{drink.itemName}
 								span.price ($#{(side.price + drink.price)/100})
-								span.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, type="combo")
+								span.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, linkId=item._link, type="combo")
 									i.fa.fa-pencil(aria-hidden="true")
 									i.fa.fa-times-circle(aria-hidden="true")
 
@@ -67,9 +67,6 @@ html(lang="en")
 			button Pay Now
 
 		script.
-
-
-
 
 			// burger needs: name, sender, linkId, receipt
 
@@ -115,11 +112,16 @@ html(lang="en")
 			$(".fa-pencil").on("click", function(){
 				const actions = $(this).parent();
 				const type = actions.attr("type");
+				const linkId = actions.attr("linkId");
+				console.log("linkid sent:");
+				console.log(linkId);
 				switch (type) {
 					case "burger":
-						const linkId = actions.attr("linkId");
 						const name = actions.attr("name");
 						window.location = `/burger?name=${name}&sender=${sender}&linkId=${linkId}&receipt=1`;
+						break;
+					case "combo":
+						window.location = `/combo?sender=${sender}&linkId=${linkId}&receipt=1?`;
 						break;
 				}
 			})

@@ -14,7 +14,10 @@ const send = require("../../messenger-api-helpers/send");
 routes.get("/combo", (req, res) => {
   logger.info("GET on /combo");
   let linkId = req.query.linkId;
+  console.log("link received:");
+  console.log(linkId);
   let senderId = req.query.sender;
+  let receipt = req.query.receipt;
   orderDAO
     .getLastOrderBySender(senderId)
     .then(order => {
@@ -25,25 +28,28 @@ routes.get("/combo", (req, res) => {
     .then(itemsArray => {
       if (itemsArray) {
         console.log(`THIS IS THE ITEMS ARRAY ${itemsArray}`);
-        res.render("burgercombopage", {
+        res.render("combo", {
           _link: linkId,
           sender_id: senderId,
-          itemsArray: itemsArray
+          itemsArray: itemsArray,
+          receipt
         });
       } else {
-        res.render("burgercombopage", {
+        res.render("combo", {
           _link: linkId,
-          sender_id: senderId
+          sender_id: senderId,
+          receipt
         });
       }
     })
     .catch(err => {
-      logger.error(`GET on /burgercombo`, { err });
+      logger.error(`GET on /combo`, { err });
       res.status(500).send({ success: false });
     });
 });
 
 routes.post("/combo", (req, res) => {
+  console.log(req.body);
   logger.info("POST on /combo");
   let senderId = req.body.sender_id;
   let linkId = req.body._link;

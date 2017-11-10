@@ -20,6 +20,7 @@ routes.get("/burger", (req, res) => {
   let _link = req.query.linkId;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
+  let receipt = req.query.receipt;
 
   let burger = findMenuItemsByItemName(burgerName);
   orderDAO
@@ -34,13 +35,15 @@ routes.get("/burger", (req, res) => {
         res.status(200).render("burger", {
           sender_id: senderId,
           burger: item,
-          _link: _link
+          _link: _link,
+          receipt
         });
       } else {
         res.status(200).render("burger", {
           sender_id: senderId,
           burger: burger,
-          _link: _link
+          _link: _link,
+          receipt
         });
       }
     })
