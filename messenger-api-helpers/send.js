@@ -119,7 +119,7 @@ const sendMessage = (recipientId, messagePayloads) => {
     const messagePayloadArray = castArray(messagePayloads)
         .map((messagePayload) => messageToJSON(recipientId, messagePayload));
 
-    console.log(messagePayloadArray)
+    logger.verbose(`${recipientId} ${messagePayloadArray}`)
     sendApi.callMessagesAPI([
         typingOn(recipientId),
         ...messagePayloadArray,

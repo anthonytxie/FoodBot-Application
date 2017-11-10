@@ -17,32 +17,41 @@ const handleReceivePostback = messagingEvent => {
         switch (type) {
           case "initialize":
             logger.info(`${senderId} initialize from Get Started`);
-            runner.initialize(senderId).then((order) => {
-              send.sendInitializeMessage(senderId, order._user.firstName);
-            });
+            runner
+              .initialize(senderId)
+              .then(order => {
+                send.sendInitializeMessage(senderId, order._user.firstName);
+              })
+              .catch(err => logger.error(`initialize command`, { err }));
+
             break;
           case "see-menu":
             logger.info(`${senderId} see-menu command`);
-            runner.renewSession(senderId).then(order => {
-              send.sendMenuMessage(senderId);
-            });
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendMenuMessage(senderId);
+              })
+              .catch(err => logger.error(`see-menu command`, { err }));
+
             break;
           case "create-new-order":
             logger.info(`${senderId} create-new-order command`);
-            runner.createNewOrder(senderId).then(order => {
-              send.sendMenuMessage(senderId);
-            });
+            runner
+              .createNewOrder(senderId)
+              .then(order => {
+                send.sendMenuMessage(senderId);
+              })
+              .catch(err => logger.error(`create-new-order command`, { err }));
             break;
           case "show-burger":
-            logger.info(
-              `${senderId} show-burger command ${data.itemName}`
-            );
+            logger.info(`${senderId} show-burger command ${data.itemName}`);
             runner
               .createNewLink(senderId)
               .then(link => {
                 send.sendBurgerOrderPrompt(senderId, data, link._id);
               })
-              .catch(err => console.log(err));
+              .catch(err => logger.error(`show-burger command`, { err }));
             break;
           case "order-side":
             logger.info(
@@ -61,28 +70,33 @@ const handleReceivePostback = messagingEvent => {
                 })
                 .then(() => {
                   send.sendOrderedMessage(senderId);
-                });
+                })
+                .catch(err => logger.error(`order-side command`, { err }));
             } else if (data.foodObject.itemName === "Fries") {
-              runner.renewSessionAndReturnOrder(senderId).then(() => {
-                send.askFriesSize(senderId);
-              });
+              runner
+                .renewSessionAndReturnOrder(senderId)
+                .then(() => {
+                  send.askFriesSize(senderId);
+                })
+                .catch(err => logger.error(`order-side command`, { err }));
             } else if (data.foodObject.itemName === "milkshake") {
-              runner.renewSessionAndReturnOrder(senderId).then(() => {
-                send.askMilkshakeFlavor(senderId);
-              });
+              runner
+                .renewSessionAndReturnOrder(senderId)
+                .then(() => {
+                  send.askMilkshakeFlavor(senderId);
+                })
+                .catch(err => logger.error(`order-side command`, { err }));
             }
 
             break;
           case "order-burger":
-            logger.info(
-              `${senderId} order-burger command ${data.itemName}`
-            );
+            logger.info(`${senderId} order-burger command ${data.itemName}`);
             runner
               .addBurgerToOrder(senderId, data)
               .then(burger => {
                 send.sendOrderedBurgerUpsizeMessage(senderId, burger._link);
               })
-              .catch(err => console.log(err));
+              .catch(err => logger.error(`order-burger command`, { err }));
             break;
           case "order-no-combo":
             logger.info(`${senderId} order-no-combo`);
@@ -91,7 +105,7 @@ const handleReceivePostback = messagingEvent => {
               .then(() => {
                 send.sendOrderedMessage(senderId);
               })
-              .catch(err => console.log(err));
+              .catch(err => logger.error(`order-no-combo command`, { err }));
             break;
           case "edit-order":
             logger.info(`${senderId} edit-order`);
@@ -100,7 +114,8 @@ const handleReceivePostback = messagingEvent => {
               .then(order => {
                 send.sendEditOrderMessage(senderId);
               })
-              .catch(err => console.log(err));
+              .catch(err => logger.error(`edit-order command`, { err }));
+
             break;
 
           default:
@@ -108,10 +123,15 @@ const handleReceivePostback = messagingEvent => {
             break;
         }
       } else {
-        logger.info(`${senderId} initialize not from Get Started`);
-        runner.initialize(senderId).then((order) => {
-          send.sendInitializeMessage(senderId, order._user.firstName);
-        });
+        logger.info(`${senderId} initialize not from Get Started command`);
+        runner
+          .initialize(senderId)
+          .then(order => {
+            send.sendInitializeMessage(senderId, order._user.firstName);
+          })
+          .catch(err =>
+            logger.error(`initialize not from Get Started command`, { err })
+          );
       }
     });
   } else {

@@ -8,15 +8,14 @@ const itemDAO = require("./../../db/DAO/itemDAO");
 const orderDAO = require("./../../db/DAO/orderDAO");
 
 //HELPER FUNCTIONS
-const {
-  premiumToppingsArray
-} = require("./../../config/toppings");
+const { premiumToppingsArray } = require("./../../config/toppings");
 const { findMenuItemsByItemName } = require("./../../config/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/burgercustomize", (req, res) => {
+  logger.info("GET on /burgercustomize");
   let _link = req.query.linkId;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
@@ -34,8 +33,6 @@ routes.get("/burgercustomize", (req, res) => {
       });
     })
     .then(itemsArray => {
-      console.log(itemsArray);
-
       if (itemsArray[0]) {
         res.render("burgercustomize", {
           sender_id: senderId,
@@ -50,10 +47,14 @@ routes.get("/burgercustomize", (req, res) => {
         });
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      logger.error(`GET on /burgercustomize`, { err });
+      res.status(500).send({ success: false });
+    });
 });
 
 routes.post("/burger", (req, res) => {
+  logger.info("POST on /burger");
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
@@ -90,9 +91,12 @@ routes.post("/burger", (req, res) => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
     })
     .then(() => {
-      return res.status(200).send({success:true});
+      return res.status(200).send({ success: true });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      logger.error(`POST on /burger`, { err });
+      res.status(500).send({ success: false });
+    });
 });
 
 module.exports = routes;

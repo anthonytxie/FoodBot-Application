@@ -22,41 +22,63 @@ const handleReceiveMessage = messagingEvent => {
         //assuming payload is an object that has type and data
         switch (type) {
           case "see-special-burgers":
-            runner.renewSession(senderId).then(order => {
-              send.sendSpecialBurgerMenu(senderId);
-            });
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendSpecialBurgerMenu(senderId);
+              })
+              .catch(err =>
+                logger.error(`see-special-burgers comand`, { err })
+              );
+
             break;
           case "see-normal-burgers":
-            runner.renewSession(senderId).then(order => {
-              send.sendNormalBurgerMenu(senderId);
-            });
-            break;
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendNormalBurgerMenu(senderId);
+              })
+              .catch(err =>
+                logger.error(`see-normal-burgers command`, { err })
+              );
           case "see-sides":
-            runner.renewSession(senderId).then(order => {
-              send.sendSideMenu(senderId);
-            });
-            break;
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendSideMenu(senderId);
+              })
+              .catch(err => logger.error(`see-sides command`, { err }));
           case "order-Fries":
-            runner.addSideToOrder(senderId, data.foodObject).then(() => {
-              send.sendOrderedMessage(senderId);
-            });
+            runner
+              .addSideToOrder(senderId, data.foodObject)
+              .then(() => {
+                send.sendOrderedMessage(senderId);
+              })
+              .catch(err => logger.error(`order-Fries postBurger`, { err }));
+
             break;
           case "order-shake":
-            runner.addDrinkToOrder(senderId, data.foodObject).then(() => {
-              send.sendOrderedMessage(senderId);
-            });
+            runner
+              .addDrinkToOrder(senderId, data.foodObject)
+              .then(() => {
+                send.sendOrderedMessage(senderId);
+              })
+              .catch(err => logger.error(`order-shake command`, { err }));
             break;
           default:
-            console.log(`unknown postback called ${type}`);
+            logger.info(`unknown postback called ${type}`);
             break;
         }
       } else {
         send.sendMessageGeneric(senderId, "Sorry I didn't understand that.");
       }
     } else {
-      runner.initialize(senderId).then(() => {
-        send.sendInitializeMessage(senderId);
-      });
+      runner
+        .initialize(senderId)
+        .then(() => {
+          send.sendInitializeMessage(senderId);
+        })
+        .catch(err => logger.error(`initialize not get started `, { err }));
     }
   });
 };

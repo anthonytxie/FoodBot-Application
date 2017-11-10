@@ -42,7 +42,7 @@ const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 5) => {
   }, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       // Message has been successfully received by Facebook.
-      console.log(
+      logger.verbose(
         `Successfully sent message to ${endPoint} endpoint: `,
         JSON.stringify(body)
       );
