@@ -202,16 +202,16 @@ html(lang="en")
 				let isReady 	 = null;
 				switch (column) {
 					case "new":
-						isInputted = false;
-						isReady = false;
+						isInputted = 0;
+						isReady = 0;
 						break;		
 					case "cooking":
-						isInputted = true;
-						isReady = false;
+						isInputted = 1;
+						isReady = 0;
 						break;		
 					case "ready":
-						isInputted = true;
-						isReady = true;
+						isInputted = 1;
+						isReady = 1;
 						break;
 				}
 				$.post("cashier", {

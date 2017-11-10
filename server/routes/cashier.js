@@ -37,7 +37,17 @@ routes.post("/input", (req, res) => {
 });
 
 routes.post("/cashier", (req, res) => {
-  console.log(req.body);
+  const isInputted = parseInt(req.body.isInputted);
+
+  if (isInputted) {
+    orderDAO.updateInputtedOrder(req.body.id, true).then(() => {
+      res.status(200);
+    });
+  } else {
+    orderDAO.updateInputtedOrder(req.body.id, true).then(() => {
+      res.status(200);
+    });
+  }
 });
 
 module.exports = routes;

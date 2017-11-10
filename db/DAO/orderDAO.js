@@ -149,7 +149,7 @@ orderDAO.showInputtedOrderHistory = function() {
   });
 };
 
-orderDAO.updateInputtedOrder = function(orderId) {
+orderDAO.updateInputtedOrder = function(orderId, isInputted) {
   logger.info(`${orderId} orderDAO updateInputtedOrder`);
   return new Promise((resolve, reject) => {
     populateOrder(
@@ -157,7 +157,7 @@ orderDAO.updateInputtedOrder = function(orderId) {
         { _id: orderId },
         {
           $set: {
-            isInputted: true,
+            isInputted: isInputted,
             inputDate: Date.now()
           }
         },
