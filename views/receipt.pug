@@ -48,7 +48,7 @@ html(lang="en")
 									- drink = inner_item;
 							.combo w/ #{side.itemName} & #{drink.itemName}
 								span.price ($#{(side.price + drink.price)/100})
-								span.actions(mongoId=item._id, type="combo")
+								span.actions(drinkId=item._id, sideId=side._id, type="combo")
 									i.fa.fa-pencil(aria-hidden="true")
 									i.fa.fa-times-circle(aria-hidden="true")
 
@@ -56,7 +56,7 @@ html(lang="en")
 						unless item.itemCombo
 							.item #{counter}. #{item.itemName}
 								span.price ($#{item.price/100})
-								span.actions(mongoId=item._id, type="item")
+								span.actions(sideId=item._id, type="item")
 									i.fa.fa-times-circle(aria-hidden="true")
 							- counter++;
 			.prices
@@ -88,7 +88,6 @@ html(lang="en")
 					$("#form2").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
 					$("#form2").append("<input type='hidden' name='authorized_payment' value='2000'>");
 					$("#form2").ajaxSubmit();
-					console.log("token function ran");
 					closeWebview();
 				}
 			});
@@ -98,6 +97,18 @@ html(lang="en")
 				const id = $(this).parent().attr("mongoId");
 				//- editView(id);
 			})
+
+			function smartDelete(ids) {
+				return new Promise(function(resolve, reject){
+					$.post("/delete", {
+						ids
+					}).done(function(success){
+						resolve(success);
+					}).fail(function(failure){
+						reject(failure);
+					})
+				})
+			}
 
 			$(".fa-times-circle").on("click", function(){
 				const id 	 = $(this).parent().attr("mongoId");
@@ -185,8 +196,6 @@ html(lang="en")
 
 			// DELETE
 				// burger & combo items
-				// NOTE: add a visual element
-				// NOTE: after delete, close if no order
 				function deleteBurger(itemId) {
 					return new Promise((resolve, reject) => {
 						$.post("/deleteburger/" + itemId)
