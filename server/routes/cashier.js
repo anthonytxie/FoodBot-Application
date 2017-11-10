@@ -3,28 +3,47 @@ const express = require("express");
 const routes = express();
 const moment = require("moment");
 const { findDifferentItemsOnBurger } = require("./../../config/menuItems");
+
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
 
+// LOGGER
+const { logger } = require("./../logger/logger");
+
 routes.get("/cashier", (req, res) => {
-  orderDAO.showIncompleteOrders().then(orders => {
-    res.status(200).render("cashier.pug", {
-      orders,
-      findDifferentItemsOnBurger
+  logger.info("GET on /cashier");
+  orderDAO
+    .showIncompleteOrders()
+    .then(orders => {
+      res.status(200).render("cashier.pug", {
+        orders,
+        findDifferentItemsOnBurger
+      });
+    })
+    .catch(err => {
+      logger.error(`GET on /cashier`, { err });
+      res.status(500).send({ success: false });
     });
-  });
 });
 
 routes.get("/history", (req, res) => {
-  orderDAO.showInputtedOrderHistory().then(orders => {
-    orders = orders.sort(function(a, b) {
-      return parseFloat(a.inputDate) - parseFloat(b.inputDate);
+  logger.info("GET on /history");
+  orderDAO
+    .showInputtedOrderHistory()
+    .then(orders => {
+      orders = orders.sort(function(a, b) {
+        return parseFloat(a.inputDate) - parseFloat(b.inputDate);
+      });
+      res.status(200).render("cashierHistory.pug", { orders });
+    })
+    .catch(err => {
+      logger.error(`GET on /history`, { err });
+      res.status(500).send({ success: false });
     });
-    res.status(200).render("cashierHistory.pug", { orders });
-  });
 });
 
 routes.post("/input", (req, res) => {
+  logger.info("POST on /input");
   let { orderId } = req.body;
   orderDAO
     .updateInputtedOrder(orderId)
@@ -33,21 +52,36 @@ routes.post("/input", (req, res) => {
     })
     .then(orders => {
       res.render("cashier.pug", { orders });
+    })
+    .catch(err => {
+      logger.error(`POST on /input`, { err });
+      res.status(500).send({ success: false });
     });
 });
 
 routes.post("/cashier", (req, res) => {
-  console.log(req.body)
+  logger.info("POST on /cashier");
   const isInputted = parseInt(req.body.isInputted);
-
   if (isInputted) {
-    orderDAO.updateInputtedOrder(req.body.id, true).then(() => {
-      res.status(200).send({success:true});
-    });
+    orderDAO
+      .updateInputtedOrder(req.body.id, true)
+      .then(() => {
+        res.status(200).send({ success: true });
+      })
+      .catch(err => {
+        logger.error(`POST on /cashier`, { err });
+        res.status(500).send({ success: false });
+      });
   } else {
-    orderDAO.updateInputtedOrder(req.body.id, false).then(() => {
-      res.status(200).send({success: true});
-    });
+    orderDAO
+      .updateInputtedOrder(req.body.id, false)
+      .then(() => {
+        res.status(200).send({ success: true });
+      })
+      .catch(err => {
+        logger.error(`POST on /cashier`, { err });
+        res.status(500).send({ success: false });
+      });
   }
 });
 

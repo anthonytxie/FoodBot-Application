@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const stripe_test_key = process.env.stripe_test_key;
 const stripe = require("stripe")(stripe_test_key);
 const opbeat = require("opbeat");
+const { logger } = require('./logger/logger');
 // ROUTES
 const burger = require("./routes/burger");
 const combo = require("./routes/combo");

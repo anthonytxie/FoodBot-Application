@@ -1,7 +1,7 @@
 const messages = require('././messages/index');
 const castArray = require('lodash/castArray');
 const sendApi = require('./sendApi');
-
+const { logger } = require("./../server/logger/logger");
 // SIMPLE SENDER FUNCTIONS
 
 const sendInitializeMessage = (recipientId, data ) => {
@@ -119,7 +119,7 @@ const sendMessage = (recipientId, messagePayloads) => {
     const messagePayloadArray = castArray(messagePayloads)
         .map((messagePayload) => messageToJSON(recipientId, messagePayload));
 
-    console.log(messagePayloadArray)
+    logger.verbose(`${recipientId} ${messagePayloadArray}`)
     sendApi.callMessagesAPI([
         typingOn(recipientId),
         ...messagePayloadArray,

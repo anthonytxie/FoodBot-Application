@@ -3,13 +3,20 @@ const express = require("express");
 const routes = express();
 
 //SEND FUNCTIONS
-const { handleReceivePostback } = require("../../messenger-api-helpers/receive/receivePostback");
-const {  handleReceiveMessage } = require("../../messenger-api-helpers/receive/receiveMessage");
+const {
+  handleReceivePostback
+} = require("../../messenger-api-helpers/receive/receivePostback");
+const {
+  handleReceiveMessage
+} = require("../../messenger-api-helpers/receive/receiveMessage");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/", (req, res) => {
   res.status(200).send("hello welcome to foodbot api");
 });
+
+// LOGGER
+const { logger } = require("./../logger/logger");
 
 routes.get("/webhook", (req, res) => {
   if (req.query["hub.verify_token"] === process.env.secret) {
@@ -36,21 +43,21 @@ routes.post("/webhook", (req, res) => {
     data.entry.forEach(pageEntry => {
       // Iterate over each messaging event and handle accordingly
       pageEntry.messaging.forEach(messagingEvent => {
-        console.log({ messagingEvent });
+        logger.verbose({ messagingEvent });
         if (messagingEvent.postback) {
           handleReceivePostback(messagingEvent);
         } else if (messagingEvent.message) {
           handleReceiveMessage(messagingEvent);
         } else if (messagingEvent.delivery) {
-          console.log("delivery");
+          logger.verbose("delivery");
         } else if (messagingEvent.read) {
-          console.log("read");
+          logger.verbose("read");
         } else if (messagingEvent.optin) {
-          console.log("auth log in");
+          logger.verbose("auth log in");
         } else if (messagingEvent.account_linking) {
-          console.log("account link");
+          logger.verbose("account link");
         } else {
-          console.log(
+          logger.info(
             "Webhook received unknown messagingEvent: ",
             messagingEvent
           );
