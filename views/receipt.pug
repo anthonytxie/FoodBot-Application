@@ -34,7 +34,7 @@ html(lang="en")
 					if item.itemType == "burger"
 						.item #{counter}. #{item.itemName}
 							span.price ($#{item.price/100})
-							span.actions(mongoId=item._id, type="burger")
+							span.actions(burgerId=item._id, combo=item.itemCombo, type="burger")
 								i.fa.fa-pencil(aria-hidden="true")
 								i.fa.fa-times-circle(aria-hidden="true")
 						- counter++;
@@ -77,6 +77,9 @@ html(lang="en")
 			button Pay Now
 
 		script.
+			// burger: name (of burger), sender, linkId
+			// combo: linkId, sender
+			
 			const order_id = !{JSON.stringify(order._id)}
 			const handler = StripeCheckout.configure({
 				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
@@ -111,33 +114,36 @@ html(lang="en")
 			}
 
 			$(".fa-times-circle").on("click", function(){
-				const id 	 = $(this).parent().attr("mongoId");
-				const type = $(this).parent().attr("type");
+				
+				const actions = $(this).parent();
+				const type = actions.attr("type");
+				let ids = [];
+
 				switch(type) {
 					case "item": // delete only this item
-						deleteItem(id).then(function(result){
-							return getOrder(order_id);
-						}).then(function(order){
-							updateReceipt(order);
-						}).catch(function(error) {
-
-						})
+						ids.push(actions.attr("sideId"));
 						break;
 					case "combo": // delete the burger's combo
-						deleteCombo(id).then(function(result){
-							return getOrder(order_id);
-						}).then(function(order){
-							updateReceipt(order);
-						})
+						ids.push(actions.attr("drinkId"));
+						ids.push(actions.attr("sideId"));
 						break;
 					case "burger": // delete the burger (and combo, if applicable)
-						deleteBurger(id).then(function(result){
-							return getOrder(order_id);
-						}).then(function(order){
-							updateReceipt(order);
-						})
+						ids.push("burgerId");
+						if (actions.attr("combo")){
+							comboIds = actions.closest(".item").children(".combo").children(".actions");
+							ids.push(comboIds.attr("drinkId"));
+							ids.push(comboIds.attr("sideId"));
+						}
 						break;
 				}
+				smartDelete(ids).then(function(result) {
+						return getOrder(order_id);
+					}).then(function(order) {
+						// this should be ajax
+						location.reload();
+					}).catch(function(error) {
+						$(".errors").text("Whoops! There was an error deleting that item.");
+					})
 			})
 
 			$("#form1 button").on("click", function(e){
