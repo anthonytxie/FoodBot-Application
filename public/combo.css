@@ -16,6 +16,7 @@
 }
 
 /* 414px max width */
+
 html, body {
 	width: 100%;
 	height: 100%;
@@ -30,18 +31,20 @@ html, body {
 section {
 	background-color: white;
 	color: black;
-	border-top: 1px solid #e7e7e7;
-	border-bottom: 1px solid #e7e7e7;
+	border-bottom: 1px solid #ccc;
 	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
 }
 
 h4 {
+	background: white;
+	height: 38px;
 	letter-spacing: .08em;
 	color: #4a4949;
-	padding-top: 28px!important;
-	padding-bottom: 10px!important;
+	padding-top: 22px!important;
+	padding-bottom: 0px!important;
 	padding-left: 14px!important;
 	font-size: .8em;
+	border-bottom: 1px solid #ccc;
 }
 
 h3, h4 {
@@ -103,6 +106,9 @@ form {
 	/*border-radius: 10%;*/
 }
 
+/*left*/
+.square:nth-child(1)
+
 /*top*/
 .square:nth-child(1), .square:nth-child(2), .square:nth-child(3), .square:nth-child(4) {
 	border-top: 0px solid black;
@@ -139,6 +145,10 @@ p {
 img {
 	max-width: 100%;
 	height: 50%;
+}
+
+.custom_dropdown {
+
 }
 
 .custom_check_off {
@@ -189,6 +199,11 @@ img {
 	width: 100%;
 	height: 70px;
 	cursor: pointer;
+	border-bottom: 1px solid #eee;
+}
+
+.wide_checkbox:last-child {
+	border-bottom: 0px solid black;
 }
 
 .wide_checkbox:hover, .quantity:hover {
@@ -197,14 +212,6 @@ img {
 
 .quantity.patty_selected:hover {
 	background-color: #0080ff;
-}
-
-.wide_checkbox {
-	border-bottom: 1px solid #eee;
-}
-
-.wide_checkbox:last-child {
-	border-bottom: 0px solid #eee;
 }
 
 h3 {
@@ -216,7 +223,7 @@ h3 {
 
 .toggle p {
 	margin-top: 3px;
-	font-size: .7em;
+	font-size: .8em;
 	letter-spacing: .3px;
 	padding-left: 5px;
 }
@@ -236,7 +243,6 @@ h3 {
 	text-align: center;
 	background-color: white;
 	font-size: 1.3em;
-	font-weight: 200;
 	cursor: pointer;
 }
 
@@ -253,23 +259,45 @@ h3 {
 
 .quantity:nth-of-type(1), .quantity:nth-of-type(3) {
 	border-bottom: 1px solid #ddd;
-	/*border-top: 1px solid #ddd;*/
+	border-top: 1px solid #ddd;
 }
 
 .quantity:nth-of-type(1).patty_selected, .quantity:nth-of-type(3).patty_selected {
-	/*border-top: 1px solid #0080ff;*/
+	border-top: 1px solid #0080ff;
 	border-bottom: 1px solid #0080ff;
 }
 
 .quantity:nth-of-type(2).patty_selected {
 	border: 1px solid #0080ff;
-	border-top: 0px solid red;
 }
 
 .patty_selected {
 	background-color: #0080ff;
 	color: white;
 }
+
+#section3 {
+	border-top: 0px;
+}
+
+.fa {
+	font-size: 20px;
+	color: #0080ff;
+	padding-left: 15px;
+	padding-right: 10px;
+	position: relative;
+	right: 3px;
+	bottom: 5px;
+}
+
+.fa-chevron-right {
+	right: 0px;
+	padding-right: 13px;
+}
+
+/*.milkshake_container, .soda_container {
+	display: none;
+}*/
 
 p.price {
 	font-size: .9em;
@@ -285,7 +313,7 @@ button {
 	color: white !important;
 	text-decoration: none!important;
 	text-shadow: 0 0 0 #f3f3f3!important;
-	font-weight: 300!important;
+	font-weight: 350!important;
 	letter-spacing: .1em;
 	border-radius: 0 !important;
 	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
@@ -295,8 +323,8 @@ button {
 .done {
 	width: 85% !important;
 	height: 45px;
+	font-weight: 300 !important;
 	letter-spacing: .06em;
-	font-weight: 300;
 	margin: 15px 15px 15px 8% !important;
 	box-shadow: 0px 3px 5px -3px black;
     box-sizing: content-box;
@@ -305,6 +333,29 @@ button {
 
 button:active {
 	background-color: #0073e0!important;
+}
+
+.i {
+	float: right;
+	position: relative;
+	right: 17px;
+	bottom: 0px;
+	display: inline-block;
+	font-size: 20px;
+	color: #0073e0;
+}
+
+.button_container {
+  width: 100%;
+  height: 75px;
+  border-top: 1px solid #ccc;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+}
+
+form {
+	margin-bottom: 75px;
 }
 
 /*.quantity:nth-of-type(1) {

@@ -2,6 +2,7 @@
 const express = require("express");
 const routes = express();
 const mongoose = require("mongoose");
+const { logger } = require("./../logger/logger");
 
 // DAOS
 const itemDAO = require("./../../db/DAO/itemDAO");
@@ -14,11 +15,8 @@ const { findMenuItemsByItemName } = require("./../../config/menuItems");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-// LOGGER
-const { logger } = require("./../logger/logger");
-
-routes.get("/burgercustomize", (req, res) => {
-  logger.info("GET on /burgercustomize");
+routes.get("/burger", (req, res) => {
+  logger.info("GET on /burger");
   let _link = req.query.linkId;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
@@ -33,14 +31,12 @@ routes.get("/burgercustomize", (req, res) => {
     })
     .then(item => {
       if (item) {
-        console.log(item);
         res.status(200).render("burgercustomize", {
           sender_id: senderId,
           burger: item,
           _link: _link
         });
       } else {
-        console.log(burger);
         res.status(200).render("burgercustomize", {
           sender_id: senderId,
           burger: burger,

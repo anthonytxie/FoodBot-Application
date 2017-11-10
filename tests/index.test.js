@@ -627,17 +627,6 @@ describe("ROUTES", function() {
       });
   });
 
-  // it("should get render combo customize", () => {
-  //   let spy = sinon.spy(pug, "__express");
-  //   return request(app)
-  //     .get(`/burgercombo?linkId=${firstLinkId.toString}&sender=${firstSenderId}`)
-  //     .expect(200)
-  //     .then(() => {
-  //       spy.calledWithMatch(/\/burgercombopage\.pug$/).should.be.true;
-  //       spy.restore();
-  //     });
-  // });
-
   it("should post to /combo and send confirm message", () => {
     let stub = sinon.stub(send, "sendOrderedMessage");
     let postBody = {
