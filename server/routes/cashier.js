@@ -37,7 +37,7 @@ routes.get("/history", (req, res) => {
       res.status(200).render("cashierHistory.pug", { orders });
     })
     .catch(err => {
-      logger.error(`GET on /history`, { err });
+      logger.error(`GET on /history`, { err:JSON.stringify(err) });
       res.status(500).send({ success: false });
     });
 });

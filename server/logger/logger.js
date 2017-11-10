@@ -4,10 +4,10 @@ const { combine, timestamp, label, printf } = format;
 
 const myFormat = printf(info => {
   return `${info.timestamp}: ${info.level}: ${info.message}: ${info.err ||
-    "Successful"}`;
+    "Entered"}`;
 });
 
-const logger = expandErrors(
+const logger =
   winston.createLogger({
     level: "info",
     format: combine(timestamp(), myFormat),
@@ -25,7 +25,6 @@ const logger = expandErrors(
       })
     ]
   })
-);
 
 if (process.env.NODE_ENV != "production") {
   logger.add(
@@ -35,16 +34,5 @@ if (process.env.NODE_ENV != "production") {
   );
 }
 
-function expandErrors(logger) {
-  var oldLogFunc = logger.log;
-  logger.log = function() {
-    var args = Array.prototype.slice.call(arguments, 0);
-    if (args.length >= 2 && args[1] instanceof Error) {
-      args[1] = args[1].stack;
-    }
-    return oldLogFunc.apply(this, args);
-  };
-  return logger;
-}
 
 module.exports = { logger };
