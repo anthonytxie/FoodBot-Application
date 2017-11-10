@@ -15,7 +15,9 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
         });
         return newOrder.save();
       })
-      .then(order => resolve(order))
+      .then((order) => {
+         resolve(populateOrder(Order.findOne({_id: order._id})))
+      })
       .catch(err => {
         logger.error(`${PSID} orderDAO initializeOrder`, { err });
         reject(err);
@@ -122,7 +124,7 @@ orderDAO.getLastOrderBySender = function(senderId) {
 orderDAO.showIncompleteOrders = function() {
   logger.info(`orderDAO showIncompleteOrders`);
   return new Promise((resolve, reject) => {
-    populateOrder(Order.find({ isInputted: false, isConfirmed: true }))
+    populateOrder(Order.find({ isPaid: true, isConfirmed: true }))
       .then(orders => {
         resolve(orders);
       })
@@ -147,7 +149,7 @@ orderDAO.showInputtedOrderHistory = function() {
   });
 };
 
-orderDAO.updateInputtedOrder = function(orderId) {
+orderDAO.updateInputtedOrder = function(orderId, isInputted) {
   logger.info(`${orderId} orderDAO updateInputtedOrder`);
   return new Promise((resolve, reject) => {
     populateOrder(
@@ -155,7 +157,7 @@ orderDAO.updateInputtedOrder = function(orderId) {
         { _id: orderId },
         {
           $set: {
-            isInputted: true,
+            isInputted: isInputted,
             inputDate: Date.now()
           }
         },

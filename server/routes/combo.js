@@ -89,7 +89,7 @@ routes.post("/combo", (req, res) => {
       send.sendOrderedMessage(senderId, side);
     })
     .then(() => {
-      res.status(200).send();
+      res.status(200).send({success:true});
     })
     .catch(err => console.log(err));
 });

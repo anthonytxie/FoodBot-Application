@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 const { disciminatorOptions } = require("./settings/schemaSettings");
 const {
   menuItems
-} = require("./../../messenger-api-helpers/messages/menuItems");
+} = require("./../../config/menuItems");
 const {
   premiumToppings
-} = require("./../../messenger-api-helpers/messages/toppings");
+} = require("./../../config/toppings");
 
 const burgerSchema = new Schema(
   {
@@ -79,7 +79,7 @@ const burgerSchema = new Schema(
 );
 
 burgerSchema.virtual("price").get(function() {
-  const burgerList = [...menuItems].filter(x => {
+  const burgerList = menuItems.filter(x => {
     return x.itemName === this.itemName;
   });
   const standardBurgerPremiumToppings = burgerList[0].premiumToppings.sort();

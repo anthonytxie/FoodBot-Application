@@ -60,23 +60,25 @@ const getStarted = {
     }
 };
 
-const welcomeMessage = {
-    attachment: {
-        type: "template",
-        payload: {
-            template_type: "button",
-            text: `Hey :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
-            buttons: [
-                {
-                    type: "postback",
-                    title: "Order",
-                    payload: JSON.stringify({
-                        type: "see-menu"
-                    })
-                }
-            ]
+const welcomeMessage = (firstName) => {
+    return {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "button",
+                text: `Hey ${firstName || 'friend'} :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
+                buttons: [
+                    {
+                        type: "postback",
+                        title: "Order",
+                        payload: JSON.stringify({
+                            type: "see-menu"
+                        })
+                    }
+                ]
+            }
         }
-    }
+    };
 };
 
 // ===== ORDERS ===============================================================
@@ -143,7 +145,7 @@ const orderAskContinue = senderId => {
     return attachment;
 };
 
-const editOrder = (recipientId) => {
+const editOrder = recipientId => {
     const attachment = {
         attachment: {
             type: "template",

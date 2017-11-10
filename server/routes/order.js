@@ -33,7 +33,7 @@ routes.post("/editorder", (req, res) => {
       .deleteItemById(itemId, orderId)
       .then(() => {
         send.sendOrderedMessage(senderId);
-        res.status(200);
+        res.status(200).send({success:true});
       })
       .catch(err => console.log(err));
   });

@@ -1,8 +1,8 @@
-const { menuItems, findItem, getCurrencyFromIntegerPrice } = require("./menuItems");
+const { menuItems, findMenuItemsByItemName, getCurrencyFromIntegerPrice } = require("./../../config/menuItems");
 const websiteURL = process.env.websiteURL;
 
 const burgerTemplate = function(data, linkId, recipientId) {
-  const burger = findItem(data.itemName);
+  const burger = findMenuItemsByItemName(data.itemName);
   const attachment = {
     attachment: {
       type: "template",

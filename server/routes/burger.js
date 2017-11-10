@@ -10,8 +10,8 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 //HELPER FUNCTIONS
 const {
   premiumToppingsArray
-} = require("../../messenger-api-helpers/messages/toppings");
-const { findItem } = require("../../messenger-api-helpers/messages/menuItems");
+} = require("./../../config/toppings");
+const { findMenuItemsByItemName } = require("./../../config/menuItems");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
@@ -21,7 +21,7 @@ routes.get("/burgercustomize", (req, res) => {
   let burgerName = req.query.name;
   let senderId = req.query.sender;
 
-  let burger = findItem(burgerName);
+  let burger = findMenuItemsByItemName(burgerName);
   orderDAO
     .getLastOrderBySender(senderId)
     .then(order => {
@@ -90,7 +90,7 @@ routes.post("/burger", (req, res) => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
     })
     .then(() => {
-      return res.status(200).send();
+      return res.status(200).send({success:true});
     })
     .catch(err => console.log(err));
 });

@@ -16,9 +16,9 @@ const handleReceivePostback = messagingEvent => {
       if (isSessionActive) {
         switch (type) {
           case "initialize":
-            logger.info(`${senderId} initialize`);
-            runner.initialize(senderId).then(() => {
-              send.sendInitializeMessage(senderId);
+            logger.info(`${senderId} initialize from Get Started`);
+            runner.initialize(senderId).then((order) => {
+              send.sendInitializeMessage(senderId, order._user.firstName);
             });
             break;
           case "see-menu":
@@ -108,9 +108,9 @@ const handleReceivePostback = messagingEvent => {
             break;
         }
       } else {
-        logger.info(`${senderId} initialize new session`);
-        runner.initialize(senderId).then(() => {
-          send.sendInitializeMessage(senderId);
+        logger.info(`${senderId} initialize not from Get Started`);
+        runner.initialize(senderId).then((order) => {
+          send.sendInitializeMessage(senderId, order._user.firstName);
         });
       }
     });
