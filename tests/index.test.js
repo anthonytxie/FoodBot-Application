@@ -559,18 +559,18 @@ describe("ITEM DAO", () => {
 describe("ROUTES", function() {
   this.timeout(15000);
 
-  // it("should get burger customize", () => {
-  //   let spy = sinon.spy(pug, "__express");
-  //   return request(app)
-  //     .get(
-  //       `/burgercustomize?name=${testBurger.itemName}&sender=${firstSenderId}&linkId=${secondLinkId}`
-  //     )
-  //     .expect(200)
-  //     .then(() => {
-  //       spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
-  //       spy.restore();
-  //     });
-  // });
+  it("should get burger customize", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(
+        `/burgercustomize?name=${"Top Bun"}&sender=${firstSenderId}&linkId=${secondLinkId}`
+      )
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
 
   it("should post a new burger", () => {
     let postBody = {

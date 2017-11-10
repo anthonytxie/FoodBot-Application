@@ -27,7 +27,7 @@ routes.get("/burgercustomize", (req, res) => {
   orderDAO
     .getLastOrderBySender(senderId)
     .then(order => {
-      return order._items.filter(x => {
+      return order._items.find(x => {
         return (
           x._link.equals(_link) &&
           x._order.equals(order._id) &&
@@ -35,15 +35,15 @@ routes.get("/burgercustomize", (req, res) => {
         );
       });
     })
-    .then(itemsArray => {
-      if (itemsArray[0]) {
-        res.render("burgercustomize", {
+    .then(item => {
+      if (item) {
+        res.status(200).render("burgercustomize", {
           sender_id: senderId,
           burger: itemsArray[0],
           _link: _link
         });
       } else {
-        res.render("burgercustomize", {
+        res.status(200).render("burgercustomize", {
           sender_id: senderId,
           burger: burger,
           _link: _link
