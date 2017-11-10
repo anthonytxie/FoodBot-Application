@@ -80,7 +80,7 @@ const handleReceivePostback = messagingEvent => {
                   send.askFriesSize(senderId);
                 })
                 .catch(err => logger.error(`order-side command`, { err }));
-            } else if (data.foodObject.itemName === "milkshake") {
+            } else if (data.foodObject.itemName === "Milkshake") {
               runner
                 .renewSessionAndReturnOrder(senderId)
                 .then(() => {

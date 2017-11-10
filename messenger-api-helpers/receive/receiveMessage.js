@@ -22,6 +22,7 @@ const handleReceiveMessage = messagingEvent => {
         //assuming payload is an object that has type and data
         switch (type) {
           case "see-special-burgers":
+            logger.info(`${senderId} see-special-burgers`);
             runner
               .renewSession(senderId)
               .then(order => {
@@ -33,6 +34,7 @@ const handleReceiveMessage = messagingEvent => {
 
             break;
           case "see-normal-burgers":
+            logger.info(`${senderId} see-normal-burgers`);
             runner
               .renewSession(senderId)
               .then(order => {
@@ -42,13 +44,18 @@ const handleReceiveMessage = messagingEvent => {
                 logger.error(`see-normal-burgers command`, { err })
               );
           case "see-sides":
+            logger.info(`${senderId} see-sides`);
+
             runner
               .renewSession(senderId)
               .then(order => {
                 send.sendSideMenu(senderId);
               })
               .catch(err => logger.error(`see-sides command`, { err }));
+              break;
           case "order-Fries":
+            logger.info(`${senderId} order-Fries`);
+
             runner
               .addSideToOrder(senderId, data.foodObject)
               .then(() => {
@@ -58,6 +65,8 @@ const handleReceiveMessage = messagingEvent => {
 
             break;
           case "order-shake":
+            logger.info(`${senderId} order-shake`);
+
             runner
               .addDrinkToOrder(senderId, data.foodObject)
               .then(() => {
@@ -70,6 +79,8 @@ const handleReceiveMessage = messagingEvent => {
             break;
         }
       } else {
+        logger.info(`${senderId} send-dont-understand-message`);
+
         send.sendMessageGeneric(senderId, "Sorry I didn't understand that.");
       }
     } else {

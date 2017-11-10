@@ -81,7 +81,7 @@ burgerSchema.virtual("price").get(function() {
   const plusToppings = differenceAcrossArrays(this.premiumToppings)(
     findMenuItemsByItemName(this.itemName).premiumToppings
   );
-  return plusToppings.map(x => premiumToppings[x]).reduce((x, y) => x + y, 0);
+  return plusToppings.map(x => premiumToppings[x]).reduce((x, y) => x + y, findMenuItemsByItemName(this.itemName).basePrice);
 });
 
 module.exports = { burgerSchema };
