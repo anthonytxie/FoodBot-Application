@@ -90,7 +90,7 @@ routes.post("/burger", (req, res) => {
       return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
     })
     .then(() => {
-      return res.status(200).send();
+      return res.status(200).send({success:true});
     })
     .catch(err => console.log(err));
 });

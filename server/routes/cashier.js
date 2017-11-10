@@ -37,15 +37,16 @@ routes.post("/input", (req, res) => {
 });
 
 routes.post("/cashier", (req, res) => {
+  console.log(req.body)
   const isInputted = parseInt(req.body.isInputted);
 
   if (isInputted) {
     orderDAO.updateInputtedOrder(req.body.id, true).then(() => {
-      res.status(200);
+      res.status(200).send({success:true});
     });
   } else {
-    orderDAO.updateInputtedOrder(req.body.id, true).then(() => {
-      res.status(200);
+    orderDAO.updateInputtedOrder(req.body.id, false).then(() => {
+      res.status(200).send({success: true});
     });
   }
 });

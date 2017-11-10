@@ -124,7 +124,7 @@ orderDAO.getLastOrderBySender = function(senderId) {
 orderDAO.showIncompleteOrders = function() {
   logger.info(`orderDAO showIncompleteOrders`);
   return new Promise((resolve, reject) => {
-    populateOrder(Order.find({ isInputted: false, isConfirmed: true }))
+    populateOrder(Order.find({ isPaid: true, isConfirmed: true }))
       .then(orders => {
         resolve(orders);
       })
