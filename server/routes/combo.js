@@ -20,20 +20,24 @@ routes.get("/burgercombo", (req, res) => {
   orderDAO
     .getLastOrderBySender(senderId)
     .then(order => {
-      return order._items.filter(x => {
-        return (
-          x._link.equals(linkId) &&
-          x._order.equals(order._id) &&
-          x.itemType != "burger"
-        );
-      });
+      return order._items
+        .filter(x => x.itemType != "burger" && x._link != undefined)
+        .filter(x => x._link.equals(linkId) && x._order.equals(order._id));
     })
     .then(itemsArray => {
-      res.render("burgercombopage", {
-        _link: linkId,
-        sender_id: senderId,
-        itemsArray: itemsArray
-      });
+      if (itemsArray) {
+        console.log(`THIS IS THE ITEMS ARRAY ${itemsArray}`)
+        res.render("burgercombopage", {
+          _link: linkId,
+          sender_id: senderId,
+          itemsArray: itemsArray
+        });
+      } else {
+        res.render("burgercombopage", {
+          _link: linkId,
+          sender_id: senderId
+        });
+      }
     })
     .catch(err => {
       logger.error(`GET on /burgercombo`, { err });

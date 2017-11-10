@@ -354,7 +354,10 @@ describe("ITEM DAO", () => {
         .undefined,
       result.should.eventually.have.deep.property("_order").that.is.not
         .undefined,
-      result.should.eventually.have.deep.property("itemName", "Single Hambuger"),
+      result.should.eventually.have.deep.property(
+        "itemName",
+        "Single Hambuger"
+      ),
       result.should.eventually.have.deep.property("itemCombo").that.is.false,
       result.should.eventually.have.deep.property("Patties", 2)
     ]);
@@ -689,7 +692,7 @@ describe("ROUTES", function() {
       authorized_payment: "1192",
       token_id: "tok_visa",
       token_email: "anthony112244@hotmail.com",
-      phoneNumber: '(905) 257-4282'
+      phoneNumber: "(905) 257-4282"
     };
     return request(app)
       .post("/confirm")

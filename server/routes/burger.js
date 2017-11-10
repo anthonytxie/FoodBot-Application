@@ -28,7 +28,7 @@ routes.get("/burgercustomize", (req, res) => {
     .getLastOrderBySender(senderId)
     .then(order => {
       return order._items
-        .filter(x => x.itemType === "burger")
+        .filter(x => x.itemType === "burger" && x._link)
         .find(x => x._link.equals(_link) && x._order.equals(order._id));
     })
     .then(item => {
