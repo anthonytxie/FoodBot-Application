@@ -3,13 +3,20 @@ const express = require("express");
 const routes = express();
 
 //SEND FUNCTIONS
-const { handleReceivePostback } = require("../../messenger-api-helpers/receive/receivePostback");
-const {  handleReceiveMessage } = require("../../messenger-api-helpers/receive/receiveMessage");
+const {
+  handleReceivePostback
+} = require("../../messenger-api-helpers/receive/receivePostback");
+const {
+  handleReceiveMessage
+} = require("../../messenger-api-helpers/receive/receiveMessage");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/", (req, res) => {
   res.status(200).send("hello welcome to foodbot api");
 });
+
+// LOGGER
+const { logger } = require("./../logger/logger");
 
 routes.get("/webhook", (req, res) => {
   if (req.query["hub.verify_token"] === process.env.secret) {

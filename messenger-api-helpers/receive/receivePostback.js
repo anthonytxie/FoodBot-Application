@@ -2,6 +2,7 @@ const send = require("./../send");
 const runner = require("./../runner");
 const { isStoreOpen } = require("./../utility/helperFunctions");
 const { logger } = require("./../../server/logger/logger");
+
 const handleReceivePostback = messagingEvent => {
   //assuming payload is an object that has type and data
   const { type, data } = JSON.parse(messagingEvent.postback.payload);
@@ -11,7 +12,7 @@ const handleReceivePostback = messagingEvent => {
 
   logger.info(`${senderId} received postback`);
 
-  if (isStoreOpen()) {
+  if (!isStoreOpen()) {
     runner.isSessionActive(senderId).then(isSessionActive => {
       if (isSessionActive) {
         switch (type) {

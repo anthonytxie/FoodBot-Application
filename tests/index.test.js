@@ -33,30 +33,7 @@ let secondSessionId;
 let secondOrderId;
 let firstSideNoComboId;
 let firstBurgerNoComboId;
-let testBurger = {
-  itemName: "Single Burger",
-  Patties: 2,
-  standardToppings: ["Tomatoes", "Lettuce"],
-  premiumToppings: ["Bacon"]
-};
 
-let testDrink = {
-  itemName: "Vanilla Milkshake",
-  itemCombo: false
-};
-let testSide = {
-  itemName: "Poutine",
-  itemCombo: false
-};
-let testComboDrink = {
-  itemName: "Vanilla Milkshake",
-  itemCombo: true
-};
-let testComboSide = {
-  itemName: "Poutine",
-  itemCombo: true,
-  itemSize: "Medium"
-};
 beforeEach(done => {
   User.remove({})
     .then(() => {
@@ -103,8 +80,7 @@ beforeEach(done => {
         {
           _link: link._id,
           _order: secondOrderId,
-          itemName: "Single Burger",
-          Patties: 2,
+          itemName: "The Portobello",
           standardToppings: ["Tomatoes", "Lettuce"],
           premiumToppings: ["Bacon"]
         },
@@ -143,8 +119,7 @@ beforeEach(done => {
         {
           _link: link._id,
           _order: secondOrderId,
-          itemName: "Single Cheeseburger",
-          Patties: 2,
+          itemName: "Chicken Chicken",
           standardToppings: ["Tomatoes", "Lettuce"],
           premiumToppings: ["Bacon", "Standard Cheese"]
         },
@@ -322,7 +297,7 @@ describe("ORDER DAO", () => {
   });
 
   it("should update inputted order", () => {
-    let result = orderDAO.updateInputtedOrder(secondOrderId);
+    let result = orderDAO.updateInputtedOrder(secondOrderId, true);
     return Promise.all([
       result.should.eventually.have.property("_id"),
       result.should.eventually.have.property("isInputted", true),
@@ -363,7 +338,7 @@ describe("ITEM DAO", () => {
           {
             _link: link._id,
             _order: secondOrderId,
-            itemName: "Single Burger",
+            itemName: "Single Hambuger",
             Patties: 2,
             standardToppings: ["Tomatoes", "Lettuce"],
             premiumToppings: ["Bacon"]
@@ -379,7 +354,7 @@ describe("ITEM DAO", () => {
         .undefined,
       result.should.eventually.have.deep.property("_order").that.is.not
         .undefined,
-      result.should.eventually.have.deep.property("itemName", "Single Burger"),
+      result.should.eventually.have.deep.property("itemName", "Single Hambuger"),
       result.should.eventually.have.deep.property("itemCombo").that.is.false,
       result.should.eventually.have.deep.property("Patties", 2)
     ]);
@@ -402,7 +377,7 @@ describe("ITEM DAO", () => {
       });
 
     return Promise.all([
-      result.should.eventually.have.deep.property("itemName", "Single Burger"),
+      result.should.eventually.have.deep.property("itemName", "The Portobello"),
       result.should.eventually.have.deep
         .property("premiumToppings")
         .that.has.property([0], "Stuffed Portobello")

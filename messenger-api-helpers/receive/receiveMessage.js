@@ -1,6 +1,6 @@
+const { logger } = require("./../../server/logger/logger");
 const send = require("./../send");
 const runner = require("./../runner");
-
 const handleReceiveMessage = messagingEvent => {
   const message = messagingEvent.message;
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string

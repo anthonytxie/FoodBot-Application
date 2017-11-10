@@ -10,6 +10,9 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
+// LOGGER
+const { logger } = require("./../logger/logger");
+
 routes.get("/burgercombo", (req, res) => {
   logger.info("GET on /burgercombo");
   let linkId = req.query.linkId;

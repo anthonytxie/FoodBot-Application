@@ -14,6 +14,9 @@ const { findMenuItemsByItemName } = require("./../../config/menuItems");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
+// LOGGER
+const { logger } = require("./../logger/logger");
+
 routes.get("/burgercustomize", (req, res) => {
   logger.info("GET on /burgercustomize");
   let _link = req.query.linkId;

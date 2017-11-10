@@ -3,8 +3,12 @@ const express = require("express");
 const routes = express();
 const moment = require("moment");
 const { findDifferentItemsOnBurger } = require("./../../config/menuItems");
+
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
+
+// LOGGER
+const { logger } = require("./../logger/logger");
 
 routes.get("/cashier", (req, res) => {
   logger.info("GET on /cashier");

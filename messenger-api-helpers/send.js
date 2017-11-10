@@ -1,7 +1,7 @@
 const messages = require('././messages/index');
 const castArray = require('lodash/castArray');
 const sendApi = require('./sendApi');
-
+const { logger } = require("./../server/logger/logger");
 // SIMPLE SENDER FUNCTIONS
 
 const sendInitializeMessage = (recipientId, data ) => {

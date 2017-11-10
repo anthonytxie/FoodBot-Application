@@ -10,6 +10,9 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
+const { addMassiveOrder } = require("./../../db/DAO/garbage")
+// LOGGER
+const { logger } = require("./../logger/logger");
 
 routes.get("/editorder", (req, res) => {
   logger.info("GET on /editorder");
@@ -46,4 +49,18 @@ routes.post("/editorder", (req, res) => {
       });
   });
 });
+
+// FOR CHANDLER'S DEPRAVED TESTING PURPOSES ONLY
+routes.post("/addMassiveOrder", (req, res) => {
+  let orderId = req.body.orderId;
+  let senderId = req.body.senderId
+  console.log(req.body)
+  addMassiveOrder(senderId, orderId)
+    .then((order) => {
+      res.status(200).send({success: true})
+    }).catch((err) => res.send(err))
+})
+
+
+
 module.exports = routes;

@@ -14,6 +14,9 @@ const stripe = require("stripe")(process.env.stripe_test_key);
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
+// LOGGER
+const { logger } = require("./../logger/logger");
+
 routes.get("/getorder/:orderid", (req, res) => {
     logger.info("GET on /getorder");
     let orderId = req.params.orderid;
@@ -24,6 +27,7 @@ routes.get("/getorder/:orderid", (req, res) => {
         })
         .catch(err => {
             logger.error(`GET on /getorder`, { err });
+            console.log(err)
             res.status(500).send({ success: false });
         });
 });

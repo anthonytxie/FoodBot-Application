@@ -1,6 +1,10 @@
+//APP & MONGOOSE
 const app = require( './app');
 const config = require('./../config/config');
 const mongooseConnection = require('./../db/mongoose.js')
+
+// LOGGER
+const { logger } = require('./logger/logger');
 
 const port = process.env.PORT;
 app.listen(port, () => {
