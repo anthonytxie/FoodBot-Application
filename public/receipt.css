@@ -1,52 +1,28 @@
-@font-face {
-  font-family: "San Francisco";
-  font-weight: 350;
-  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+body {
+	position: relative;
 }
 
-@font-face {
-  font-family: "Roboto";
-  font-weight: 350;
-  src: url("https://fonts.googleapis.com/css?family=Roboto");
-}
-
-.ui-page-theme-a {
-	text-shadow: 0 0 0 white;
-}
-
-span {
-	background-color: white;
-}
-
-/* 414px max width */
-html, body {
-	width: 100%;
-	height: 100%;
-	background-color: #f7f7f7;
-	color: rgba(0,0,0,0.4);
-    font-family: BlinkMacSystemFont, San Francisco, Roboto, Helvetica, Arial, sans-serif;
-	font-weight: 350;
-	margin: 0;
-	padding: 0;
-	overflow-x: hidden;
-	-webkit-appearance: none;
+form {
 }
 
 section {
 	background-color: white;
 	color: black;
-	border-top: 1px solid #e7e7e7;
-	border-bottom: 1px solid #e7e7e7;
+	/*border-top: 1px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;*/
 	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
 }
 
 h4 {
+	background-color: white;
+	height: 38px;
 	letter-spacing: .08em;
-	color: #b8b8b8;
-	padding-top: 28px!important;
-	padding-bottom: 10px!important;
+	color: #4a4949;
+	padding-top: 22px!important;
+	padding-bottom: 0px!important;
 	padding-left: 14px!important;
 	font-size: .8em;
+	border-bottom: 1px solid #ccc;
 }
 
 h3, h4 {
@@ -57,7 +33,6 @@ h3, h4 {
 form {
 	border-left: 1px solid #ddd;
 	width: 100%;
-	height: 100vh;
 	max-width: 414px;
 	margin: 0 auto;
 }
@@ -157,17 +132,12 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: white;
-	top: 7px;
+	top: -2px;
 	right: 10px;
 }
 
-.toggle h3, .price {
-	height: 70px;
-	line-height: 70px;
-	color: #222;
-}
-
 .custom_check_on {
+	/*background-color: red;*/
 	margin-left: 20px;
 	width: 20px;
 	height: 20px;
@@ -176,7 +146,7 @@ img {
 	display: inline-block;
 	position: relative;
 	background-color: #0080ff;
-	top: 7px;
+	top: -2px;
 	right: 10px;
 }
 
@@ -203,29 +173,27 @@ img {
 	background-color: white;
 }
 
-.wide_checkbox:hover, .quantity:hover {
-	background-color: #f7f7f7;
+/*.wide_checkbox:hover, .quantity:hover {
+	background-color: #f4f5f8;
 }
 
 .quantity.patty_selected:hover {
-	background-color: #0080ff;
-}
+	background-color: #f4f5f8;
+}*/
 
 .wide_checkbox {
 	border-bottom: 1px solid #eee;
 }
 
 .wide_checkbox:last-child {
-	border-bottom: 0px solid #eee;
+	border-bottom: 1px solid #ccc;
 }
 
 h3 {
-	/*make bigger when 2 line works*/
-	font-size: .85em;
-	margin-top: 0px;
+	font-size: .95em;
+	margin-top: 15px;
 	padding-left: 5px;
 	font-weight: 350;
-	color: darkgrey;
 }
 
 .toggle p {
@@ -250,6 +218,7 @@ h3 {
 	text-align: center;
 	background-color: white;
 	font-size: 1.3em;
+	font-weight: 200;
 	cursor: pointer;
 }
 
@@ -288,215 +257,29 @@ p.price {
 	font-size: .9em;
 	color: rgba(0,0,0,.4);
 	display: inline-block;
-}
-
-button {
-    font-family: BlinkMacSystemFont, San Francisco, Roboto, Helvetica, Arial, sans-serif;
-	background-color: #0080ff !important;
-	color: white !important;
-	text-decoration: none!important;
-	text-shadow: 0 0 0 #f3f3f3!important;
-	font-weight: 350!important;
-	letter-spacing: .1em;
-	border-radius: 0 !important;
-	/*box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;*/
-	border: 0px solid white!important;
-}
-
-button:active {
-	background-color: #1E847B!important;
-}
-
-button.view1button {
-	margin: 0;
-}
-
-/*#original_total {
-	width: 95%;
-	position: fixed;
-	bottom: 15%;
-	text-align: right;
-}
-*/
-.list_prices {
-	width: 95%;
-	position: absolute;
-	bottom: 15%;
-	text-align: right;
-}
-
-.lightswitch div {
-	color: rgba(0,0,0,0.2);
-	text-align: center;
-	display: inline-block;
-	width: 50%;
-	background-color: #eee;
-	height: 90%;
-	line-height: 70px;
-	font-size: 1.2em;
-	font-weight: 350;
-	cursor: pointer;
-	box-sizing: border-box;
-}
-
-.lightswitch div:nth-child(3) {
-}
-
-.lightswitch div:nth-child(2) {
-}
-
-.lightswitch div.selected {
-	background-color: #f7f7f7;
-	color: #666;
-	border: 1px solid #e2e2e2;
-	box-shadow: 0.001px 0.001px 0.001px 0.001px;
-
-}
-
-/*.quantity:nth-of-type(1) {
-	border-radius: 20px 0 0 20px;
-}
-
-.quantity:nth-of-type(3) {
-	border-radius: 0 20px 20px 0;
-}*/
-
-.ui-input-text, .ui-input-search {
-	border-width: 0px;
-}
-
-#view2container {
-	background: rgba(253, 253, 253, 0.6);
 	position: relative;
+	bottom: 8px;
 }
 
-#view2container input[type=text], #time {
-	border: 0px solid black !important;
-	color: rgba(0,0,0,0.5);
-	height: 50px !important;
-	border-bottom: 1px solid #ccc !important;	
-	width: 90% !important;
-	margin-left: 5% !important;
-	border-radius: 0px !important;
-	font-size: 20px !important;
-	padding-left: 8px !important;
-	margin-bottom: 20px !important;
-    font-family: BlinkMacSystemFont, San Francisco, Roboto, Helvetica, Arial, sans-serif;
-	background-color: rgba(249, 249, 249, 0.51);
-}
+/*DONE BUTTON*/
+	/*button*/
+	.done {
+		width: 85% !important;
+		height: 45px;
+		letter-spacing: .06em;
+		font-weight: 300;
+		margin: 15px 15px 15px 8% !important;
+		box-shadow: 0px 3px 5px -3px black;
+	    box-sizing: content-box;
+	    border-radius: 7px !important;
+	}
 
-#view2container input:focus {
-	outline: none;
-}
-
-#get_total {
-	height: 11%;
-	line-height: 70px;
-	text-align: center;
-	color: rgba(0,0,0, 0.5);
-	font-size: 1.3em;
-	font-weight: 350;
-	margin-top: -6%;
-}
-
-.doneview1 {
-	width: 80%;
-	height: 45px;
-	font-size: 1.1em;
-	font-weight: 300 !important;
-	letter-spacing: .06em;
-	margin: 15px 15px 15px 5% !important;
-	box-shadow: 0px 3px 5px -3px black;
-  box-sizing: content-box;
-  border-radius: 7px !important;
-}
-
-.doneview1:active {
-  background-color: #0073e0 !important;
-}
-
-p.label {
-	width: 90%;
-	margin-left: 5%;
-	color: rgb(120,120,120);
-	font-size: .7em;
-	letter-spacing: .1em;
-	font-weight: 500;
-	margin-bottom: 5px;
-	margin-top: 28px;
-}
-
-p.label:nth-child(4) {
-	margin-top: 0px;
-}
-
-.pay_row {
-	width: 100%;
-	position: relative;
-	bottom: 0;
-	text-align: center;
-}
-
-	
-.pay_row input {
-	height: 50px;
-	font-size: 1.1em;
-	font-weight: 300;
-	border: 0px;
-	background-color: #0084ff;
-	color: white;
-	display: inline-block;
-	width: 44%;
-	box-sizing: border-box;
-	margin: 10px 9.5px;
-	box-shadow: 2px 5px 7px -3px rgba(0, 0, 0, 0.3);
-	border-radius: 7px;
-}
-
-.pay_row input:active {
-	background-color:#0073e0;
-}
-
-.pay_row input:active:nth-child(2) {
-    border: 1px solid #0073e0 !important;
-    color: #0073e0!important;
-}
-
-.pay_row input:nth-child(2) {
-    background-color: #ffffff;
-    color: #0084ff;
-    border: 1px solid #0084ff;
-}
-
-input::-webkit-input-placeholder {
-	color: #ddd !important;
-}
- 
-input:-moz-placeholder { /* Firefox 18- */
-	color: #ddd !important;  
-}
- 
-input::-moz-placeholder {  /* Firefox 19+ */
-	color: #ddd !important;  
-}
- 
-input:-ms-input-placeholder {  
-	color: #ddd !important;  
-}
-
-input[type=time]::-webkit-inner-spin-button, 
-input[type=time]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
-
-
-
-
-
-
-
-
-
-
+	/*container*/
+	.button_container {
+		width: 100%;
+		height: 75px;
+		border-top: 1px solid #ccc;
+		background-color: white;
+		position: fixed;
+		bottom: 0;
+	}

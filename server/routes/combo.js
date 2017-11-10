@@ -2,6 +2,7 @@
 const express = require("express");
 const routes = express();
 const mongoose = require("mongoose");
+const { logger } = require("./../logger/logger");
 
 //DAO
 const itemDAO = require("./../../db/DAO/itemDAO");
@@ -10,11 +11,8 @@ const orderDAO = require("./../../db/DAO/orderDAO");
 //SEND FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
 
-// LOGGER
-const { logger } = require("./../logger/logger");
-
-routes.get("/burgercombo", (req, res) => {
-  logger.info("GET on /burgercombo");
+routes.get("/combo", (req, res) => {
+  logger.info("GET on /combo");
   let linkId = req.query.linkId;
   let senderId = req.query.sender;
   orderDAO
@@ -29,7 +27,9 @@ routes.get("/burgercombo", (req, res) => {
       });
     })
     .then(itemsArray => {
-      res.render("burgercombopage", {
+      console.log("Items Array:");
+      console.log(itemsArray);
+      res.render("combo", {
         _link: linkId,
         sender_id: senderId,
         itemsArray: itemsArray

@@ -5,9 +5,10 @@ html(lang="en")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
 		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
-		link(rel ='stylesheet', href="burgercustomize.css", type='text/css')
+		link(rel ='stylesheet', href="burger.css", type='text/css')
 		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
 		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+		script(src="https://use.fontawesome.com/1d07c7b3d1.js")
 	body
 		script.
 			// code to connect to the extension necessary to close this view
@@ -27,38 +28,52 @@ html(lang="en")
 			input(type="hidden" name="itemName" value=burger.itemName)
 			input(type="hidden" name="sender_id" value=sender_id)
 			input(type="hidden" name="_link" value=_link)
-			- console.log(_link)
-			if !(toppings.includes('Chicken Patty'))
-				h4 PATTIES
-				section.radio.section1.required
-					if burger.Patties == 3
-						input(type="hidden", name="Patties", value=3)
-						.quantity#one 1
-						.quantity#two 2
-						.quantity.patty_selected#three 3
-					else if burger.Patties == 2
-						input(type="hidden", name="Patties", value=2)
-						.quantity#one 1
-						.quantity.patty_selected#two 2
-						.quantity#three 3
-					else
-						input(type="hidden", name="Patties", value=1)
-						.quantity.patty_selected#one 1
-						.quantity#two 2
-						.quantity#three 3
-					
-					.wide_checkbox
-						.custom_check_on
-						input(type="hidden", name="beef", value="true")
+
+			unless ((burger.itemName == "Chicken Chicken") || (burger.itemName == "The Portobello"))
+				h4 
+					span PATTIES
+					.i
+						i(class="fa fa-chevron-circle-right", aria-hidden="true")
+				section(style="display:none")
+
+					input#patties(type="hidden", name="Patties", value="#{burger.Patties}")
+
+					.wide_checkbox.patty_option(val=1)
+						if burger.Patties == 1
+							.custom_check_on
+						else
+							.custom_check_off
 						.toggle
-							h3 Beef
-							p Moo
+							h3 1 Patty
+							p For small mouths
 						p.price $2.00
-			else
-				input(type="hidden" name="Patties", value=3)
-			br
-			h4 BUN
-			section.radio.section2.required
+
+					.wide_checkbox.patty_option(val=2)
+						if burger.Patties == 2
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 2 Patties
+							p A more elegant burger
+						p.price $4.00
+
+					.wide_checkbox.patty_option(val=3)
+						if burger.Patties == 3
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 3 Patties
+							p For big appetites
+						p.price $6.00
+
+			
+			h4 
+				span BUN
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section.radio.section2.required(style="display:none")
 
 				.wide_checkbox
 					if toppings.includes('Sesame Bun') || (!toppings.includes('Lettuce Bun') && !toppings.includes('Gluten Free Bun') && !toppings.includes('Grilled Cheese Bun'))
@@ -108,9 +123,12 @@ html(lang="en")
 						p Fun in the bun
 					p.price $3.00
 
-			br
-			h4 SAUCES
-			section
+			
+			h4 
+				span SAUCES
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section(style="display:none")
 
 				.wide_checkbox
 					if toppings.includes('Ketchup')
@@ -184,9 +202,12 @@ html(lang="en")
 						p Feelin' hot hot hot
 					p.price FREE
 
-			br
-			h4 TOPPINGS
-			section
+			
+			h4 
+				span TOPPINGS
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section(style="display:none")
 				.wide_checkbox
 					if toppings.includes('Chicken Patty')
 						.custom_check_on
@@ -199,7 +220,6 @@ html(lang="en")
 						p bok bok boooooookkkkk
 					p.price $5.00
 
-				// FREE
 				.wide_checkbox
 					if toppings.includes('Lettuce')
 						.custom_check_on
@@ -370,11 +390,43 @@ html(lang="en")
 						p One step closer to Poutine
 					p.price $1.50
 
-			br
-			button.done DONE
-			br
-		
+			.button_container
+				button.done DONE
+			
+		if receipt
+			script.
+				window.extAsyncInit = function() {
+					$("button").click(function(){
+						// send to receipt
+						// may need to add delay
+					})
+				}
+				
+		else
+			script.
+				window.extAsyncInit = function() {
+					$("button").click(function(){
+						// document.getElementById("only_form").submit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					})
+				}
+			
 		script.
+
+			$("body").on("click", "h4", function(){
+				$(this).next("section").toggle();
+				const i = $(this).children(".i").children("i");
+				if (i.hasClass("fa-chevron-circle-right")){
+					i.removeClass("fa-chevron-circle-right").addClass("fa-chevron-circle-down");
+				} else {
+					i.removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+				}
+			})
+
 			// called when MessengerExtensions is done loading
 			window.extAsyncInit = function() {
 				$("button").click(function(){
@@ -387,39 +439,17 @@ html(lang="en")
 				})
 			}
 
-			// section idk
-			$(".radio").on("click", ".wide_checkbox", function() {
-				let checkbox = $(this).children("div:first-child");
-				if (checkbox.hasClass("custom_check_on")) {
-				} else {
-					$(this).parent().find("input[value='true']").attr("value", "");
-					$(this).children("input").attr("value", "true");
-					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
-					checkbox.removeClass("custom_check_off").addClass("custom_check_on");
-				}
-			})
-
-			// section 1
-			$("body").on("click", ".quantity", function() {
-				if ($(this).hasClass(".patty_selected")) {
-				} else {
-					$(".patty_selected").removeClass("patty_selected");
-					$(this).addClass("patty_selected");
-					if ($(this).attr("id") === "one") {
-						$("input[name='Patties']").attr("value", 1);
-					} else if ($(this).attr("id") === "two") {
-						$("input[name='Patties']").attr("value", 2);
-					} else if ($(this).attr("id") === "three") {
-						$("input[name='Patties']").attr("value", 3);
-					}
-				}
+			// radio for patties
+			$("body").on("click", ".patty_option", function() {
+				const quantity = $(this).attr("val");
+				$("#patties").attr("value", quantity);
+				$(".patty_option").children(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+				$(this).children(".custom_check_off").removeClass("custom_check_off").addClass("custom_check_on");
 			})
 
 			// section 2
 			$("body").on("click", ".wide_checkbox", function() {
-				if ($(this).parent().hasClass("radio")) {
-					// lmao
-				} else {
+				if (!($(this).hasClass("patty_option"))) {
 					let checkbox = $(this).children("div:first-child");
 					if (checkbox.hasClass("custom_check_on")) { // turn off
 						checkbox.removeClass("custom_check_on");
@@ -432,17 +462,3 @@ html(lang="en")
 					}
 				}
 			})
-
-			//- $(".required").on("click", ".wide_checkbox", function() {
-			//- 	if(($(".section1").find(".custom_check_on").length >= 1 || (toppings.includes('Chicken Patty'))) && $(".section2").find(".custom_check_on").length >= 1) {
-			//- 		$("button").prop('disabled', false);
-			//- 	}
-			//- })
-
-			//- $(document).ready(function(){
-			//- 	console.log(toppings)
-			//- 	console.log((toppings.includes('Chicken Patty')))
-			//- 	if(($(".section1").find(".custom_check_on").length >= 1 || (toppings.includes('Chicken Patty'))) && $(".section2").find(".custom_check_on").length >= 1) {
-			//- 		$("button").prop('disabled', false);
-			//- 	}
-			//- })

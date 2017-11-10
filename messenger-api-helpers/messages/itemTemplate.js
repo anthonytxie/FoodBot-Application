@@ -31,7 +31,7 @@ const burgerTemplate = function(data, linkId, recipientId) {
               },
               {
                 type: "web_url",
-                url: `${websiteURL}/burgercustomize?name=${burger.itemName}&sender=${recipientId}&linkId=${linkId.toString()}`,
+                url: `${websiteURL}/burger?name=${burger.itemName}&sender=${recipientId}&linkId=${linkId.toString()}`,
                 title: "Customize Burger",
                 webview_height_ratio: "full",
                 messenger_extensions: true

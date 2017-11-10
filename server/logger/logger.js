@@ -1,6 +1,6 @@
 const winston = require("winston");
 
-const { createLogger, format, transports } = require("winston");
+const { createLogger, format, transports }  = require("winston");
 const { combine, timestamp, label, printf } = format;
 
 const myFormat = printf(info => {
@@ -33,4 +33,4 @@ if (process.env.NODE_ENV != "production") {
   );
 }
 
-module.exports = { logger };
+module.exports = {logger} ;

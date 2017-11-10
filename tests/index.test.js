@@ -563,39 +563,39 @@ describe("ROUTES", function() {
   //   let spy = sinon.spy(pug, "__express");
   //   return request(app)
   //     .get(
-  //       `/burgercustomize?name=${testBurger.itemName}&sender=${firstSenderId}&linkId=${secondLinkId}`
+  //       `/burger?name=${testBurger.itemName}&sender=${firstSenderId}&linkId=${secondLinkId}`
   //     )
   //     .expect(200)
   //     .then(() => {
-  //       spy.calledWithMatch(/\/burgercustomize\.pug$/).should.be.true;
+  //       spy.calledWithMatch(/\/burger\.pug$/).should.be.true;
   //       spy.restore();
   //     });
   // });
 
   it("should post a new burger", () => {
     let postBody = {
-      _link: secondLinkId,
-      title: "Single Cheeseburger",
-      sender_id: firstSenderId,
-      Patties: "2",
-      beef: "true",
+      "_link": secondLinkId,
+      "title": "Single Cheeseburger",
+      "sender_id": firstSenderId,
+      "Patties": "2",
+      "beef": "true",
       "Chicken Patty": "",
       "Sesame Bun": "true",
       "Lettuce Bun": "",
       "Gluten Free Bun": "",
       "Grilled Cheese Bun": "",
-      Ketchup: "",
-      Mayo: "",
-      Mustard: "",
-      Relish: "",
+      "Ketchup": "",
+      "Mayo": "",
+      "Mustard": "",
+      "Relish": "",
       "Fancy Sauce": "true",
       "Hot Sauce": "",
-      Lettuce: "true",
-      Tomatoes: "",
-      Pickles: "true",
-      Onions: "true",
+      "Lettuce": "true",
+      "Tomatoes": "",
+      "Pickles": "true",
+      "Onions": "true",
       "Hot Peppers": "",
-      Bacon: "",
+      "Bacon": "",
       "Standard Cheese": "",
       "American Cheese": "",
       "Blue Cheese": "",
@@ -623,17 +623,6 @@ describe("ROUTES", function() {
           .that.has.length(5);
       });
   });
-
-  // it("should get render combo customize", () => {
-  //   let spy = sinon.spy(pug, "__express");
-  //   return request(app)
-  //     .get(`/burgercombo?linkId=${firstLinkId.toString}&sender=${firstSenderId}`)
-  //     .expect(200)
-  //     .then(() => {
-  //       spy.calledWithMatch(/\/burgercombopage\.pug$/).should.be.true;
-  //       spy.restore();
-  //     });
-  // });
 
   it("should post to /combo and send confirm message", () => {
     let stub = sinon.stub(send, "sendOrderedMessage");
