@@ -34,7 +34,8 @@ let secondOrderId;
 let firstSideNoComboId;
 let firstBurgerNoComboId;
 
-beforeEach(done => {
+beforeEach(function(done) {
+  this.timeout(15000);
   User.remove({})
     .then(() => {
       return Session.remove({});
