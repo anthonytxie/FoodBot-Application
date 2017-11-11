@@ -43,6 +43,7 @@ const handleReceiveMessage = messagingEvent => {
               .catch(err =>
                 logger.error(`see-normal-burgers command`, { err })
               );
+              break;
           case "see-sides":
             logger.info(`${senderId} see-sides`);
 
