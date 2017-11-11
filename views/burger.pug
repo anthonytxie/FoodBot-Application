@@ -24,7 +24,10 @@ html(lang="en")
 		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
 
 		form#only_form(method="post", action="burger")
-
+			if receipt
+				input(type="hidden" name="sendMessage" value=0)
+			else
+				input(type="hidden" name="sendMessage" value=1)
 			input(type="hidden" name="itemName" value=burger.itemName)
 			input(type="hidden" name="sender_id" value=sender_id)
 			input(type="hidden" name="_link" value=_link)
@@ -34,39 +37,39 @@ html(lang="en")
 					span PATTIES
 					.i
 						i(class="fa fa-chevron-circle-right", aria-hidden="true")
-				section(style="display:none")
+			section(style="display:none")
 
-					input#patties(type="hidden", name="Patties", value=burger.Patties)
+				input#patties(type="hidden", name="Patties", value=burger.Patties)
 
-					.wide_checkbox.patty_option(val=1)
-						if burger.Patties == 1
-							.custom_check_on
-						else
-							.custom_check_off
-						.toggle
-							h3 1 Patty
-							p For small mouths
-						p.price $2.00
+				.wide_checkbox.patty_option(val=1)
+					if burger.Patties == 1
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 1 Patty
+						p For small mouths
+					p.price $2.00
 
-					.wide_checkbox.patty_option(val=2)
-						if burger.Patties == 2
-							.custom_check_on
-						else
-							.custom_check_off
-						.toggle
-							h3 2 Patties
-							p A more elegant burger
-						p.price $4.00
+				.wide_checkbox.patty_option(val=2)
+					if burger.Patties == 2
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 2 Patties
+						p A more elegant burger
+					p.price $4.00
 
-					.wide_checkbox.patty_option(val=3)
-						if burger.Patties == 3
-							.custom_check_on
-						else
-							.custom_check_off
-						.toggle
-							h3 3 Patties
-							p For big appetites
-						p.price $6.00
+				.wide_checkbox.patty_option(val=3)
+					if burger.Patties == 3
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 3 Patties
+						p For big appetites
+					p.price $6.00
 
 			
 			h4 
@@ -75,7 +78,7 @@ html(lang="en")
 					i(class="fa fa-chevron-circle-right", aria-hidden="true")
 			section.radio.section2.required(style="display:none")
 
-				.wide_checkbox
+				.wide_checkbox.bun
 					if toppings.includes('Sesame Bun') || (!toppings.includes('Lettuce Bun') && !toppings.includes('Gluten Free Bun') && !toppings.includes('Grilled Cheese Bun'))
 						.custom_check_on
 						input(type="hidden", name="Sesame Bun", value="true")
@@ -87,7 +90,7 @@ html(lang="en")
 						p Solid choice
 					p.price FREE
 
-				.wide_checkbox
+				.wide_checkbox.bun
 					if toppings.includes('Lettuce Bun')
 						.custom_check_on
 						input(type="hidden", name="Lettuce Bun", value="true")
@@ -99,7 +102,7 @@ html(lang="en")
 						p Lettuce eat this bun
 					p.price FREE
 
-				.wide_checkbox
+				.wide_checkbox.bun
 					if toppings.includes('Gluten Free Bun')
 						.custom_check_on
 						input(type="hidden", name="Gluten Free Bun", value="true")
@@ -111,7 +114,7 @@ html(lang="en")
 						p Mo' gluten mo' problems
 					p.price $1.50
 
-				.wide_checkbox
+				.wide_checkbox.bun
 					if toppings.includes('Grilled Cheese Bun')
 						.custom_check_on
 						input(type="hidden", name="Grilled Cheese Bun", value="true")
@@ -392,24 +395,28 @@ html(lang="en")
 
 			.button_container
 				button.done DONE
-			
+		
 		if receipt
 			script.
-				window.extAsyncInit = function() {
-					$("button").click(function(){
-						// send to receipt
-						// may need to add delay
+				var senderId = !{JSON.stringify(sender_id)}
+				$("button").click(function(e){
+					e.preventDefault();
+					$.post('burger', $('form').serialize()).done(function(success){
+						window.location = `receipt?senderId=${senderId}`;
+					}).fail(function(fail){
+						console.log("burger update through receipt failed");
 					})
-				}
+				})
 				
 		else
 			script.
-				window.extAsyncInit = function() {
+				// called when MessengerExtensions is done loading
+				window.extAsyncInit = function(){
 					$("button").click(function(){
 						// document.getElementById("only_form").submit();
 						MessengerExtensions.requestCloseBrowser(function success() {
 							console.log("success");
-						}, function error(err) {
+						}, function error(err){
 							console.log(err);
 						});
 					})
@@ -417,6 +424,7 @@ html(lang="en")
 			
 		script.
 
+			// collapse
 			$("body").on("click", "h4", function(){
 				$(this).next("section").toggle();
 				const i = $(this).children(".i").children("i");
@@ -427,18 +435,6 @@ html(lang="en")
 				}
 			})
 
-			// called when MessengerExtensions is done loading
-			window.extAsyncInit = function() {
-				$("button").click(function(){
-					// document.getElementById("only_form").submit();
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-					});
-				})
-			}
-
 			// radio for patties
 			$("body").on("click", ".patty_option", function() {
 				const quantity = $(this).attr("val");
@@ -447,18 +443,22 @@ html(lang="en")
 				$(this).children(".custom_check_off").removeClass("custom_check_off").addClass("custom_check_on");
 			})
 
-			// section 2
+			// radio for buns
+			$("body").on("click", ".bun", function() {
+				$(".bun").children(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+				$(this).children(".custom_check_off").removeClass("custom_check_off").addClass("custom_check_on");
+			})
+
+			// checkboxes
 			$("body").on("click", ".wide_checkbox", function() {
-				if (!($(this).hasClass("patty_option"))) {
+				if (!($(this).hasClass("patty_option") || $(this).hasClass("bun"))) {
 					let checkbox = $(this).children("div:first-child");
 					if (checkbox.hasClass("custom_check_on")) { // turn off
-						checkbox.removeClass("custom_check_on");
-						checkbox.addClass("custom_check_off");
 						$(this).children("input").attr("value", "");
 					} else {
-						checkbox.removeClass("custom_check_off"); // turn on
-						checkbox.addClass("custom_check_on");
-						$(this).children("input").attr("value", "true")
+						$(this).children("input").attr("value", "true");
 					}
+					checkbox.toggleClass("custom_check_on");
+					checkbox.toggleClass("custom_check_off");
 				}
 			})
