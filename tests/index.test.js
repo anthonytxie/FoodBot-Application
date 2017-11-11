@@ -188,6 +188,22 @@ describe("USER DAO", () => {
         .that.has.property([0], "(905) 257-4282")
     ]);
   });
+
+  it("should update address and room number for user", () => {
+    let result = userDAO.updateAddress(
+      firstUserId,
+      "25 Brentwood Crescent",
+      ""
+    );
+
+    return Promise.all([
+      result.should.eventually.have.property(
+        "address",
+        "25 Brentwood Crescent"
+      ),
+      result.should.eventually.have.property("roomNumber", "")
+    ]);
+  });
 });
 
 describe("Session DAO", () => {
@@ -560,7 +576,7 @@ describe("ITEM DAO", () => {
   });
 });
 
-describe("ROUTES", function() {
+describe("COMBO, BURGER, CASHIER, AND DELETE ROUTES", function() {
   this.timeout(15000);
 
   it("should get burger customize", () => {
@@ -581,6 +597,7 @@ describe("ROUTES", function() {
       _link: secondLinkId,
       title: "Single Cheeseburger",
       sender_id: firstSenderId,
+      sendMessage: "1",
       Patties: "2",
       beef: "true",
       "Chicken Patty": "",
@@ -633,6 +650,7 @@ describe("ROUTES", function() {
     let postBody = {
       _link: firstLinkId,
       sender_id: firstSenderId,
+      sendMessage: "1",
       food_type: "Fries",
       drink_type: "milkshake",
       milkshake_flavor: "strawberry",
@@ -661,16 +679,60 @@ describe("ROUTES", function() {
       });
   });
 
-  // it("should get render receipt", () => {
-  //   let spy = sinon.spy(pug, "__express");
-  //   return request(app)
-  //     .get(`/receipt?senderId=${firstSenderId}`)
-  //     .expect(200)
-  //     .then(() => {
-  //       spy.calledWithMatch(/\/receipt\.pug$/).should.be.true;
-  //       spy.restore();
-  //     });
-  // });
+  it("should get render receipt", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(`/receipt?senderId=${firstSenderId}`)
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/receipt\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
+
+  it("should delete items when posting to /delete", () => {
+    let postBody = {
+      orderId: secondOrderId,
+      itemIds: [firstSideNoComboId, firstBurgerNoComboId]
+    };
+    return request(app)
+      .post("/delete")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .getLastOrderBySender(firstSenderId)
+            .should.eventually.have.property("_items")
+            .that.has.length(3)
+        ]);
+      });
+  });
+
+  it("should render cashier view", () => {
+    let spy = sinon.spy(pug, "__express");
+    return request(app)
+      .get(`/cashier`)
+      .expect(200)
+      .then(() => {
+        spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
+        spy.restore();
+      });
+  });
+
+  it("should get orderId", () => {
+    return request(app)
+      .get(`/getorder/${secondOrderId}`)
+      .then(res => {
+        res.status.should.equal(200);
+      });
+  });
+});
+
+describe("RECEIPT ROUTES", function() {
+  this.timeout(15000);
 
   it("should confirm order with pay for delivery", () => {
     let stub = sinon.stub(send, "sendConfirmPaidMessageDelivery");
@@ -707,172 +769,122 @@ describe("ROUTES", function() {
       });
   });
 
-  it("should delete items when posting to /delete", () => {
+  it("should confirm order with pay for pickup", () => {
+    let stub = sinon.stub(send, "sendConfirmPaidMessagePickup");
     let postBody = {
       orderId: secondOrderId,
-      removeIds: [firstSideNoComboId, firstBurgerNoComboId]
+      method: "pickup",
+      address: "",
+      postal: "",
+      authorized_payment: "1192",
+      token_id: "tok_visa",
+      token_email: "anthony112244@hotmail.com",
+      phoneNumber: ""
     };
     return request(app)
-      .post("/delete")
+      .post("/confirm")
       .send(postBody)
       .then(res => {
-        res.status.should.equal(200);
+        return res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
       })
       .then(() => {
         return Promise.all([
           orderDAO
             .getLastOrderBySender(firstSenderId)
-            .should.eventually.have.property("_items")
-            .that.has.length(3)
+            .should.eventually.have.property("isPaid", true),
+          orderDAO
+            .getLastOrderBySender(firstSenderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .getLastOrderBySender(firstSenderId)
+            .should.eventually.have.property("methodFulfillment", "pickup")
         ]);
       });
   });
 
-  it("should render cashier view", () => {
-    let spy = sinon.spy(pug, "__express");
+  it("should confirm order without pay for pick-up", () => {
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
+    let postBody = {
+      orderId: secondOrderId,
+      method: "pickup",
+      address: "",
+      postal: "",
+      time: '"2017-08-14T01:18:00.000Z"',
+      room: "",
+      authorized_payment: "1192"
+    };
     return request(app)
-      .get(`/cashier`)
-      .expect(200)
-      .then(() => {
-        spy.calledWithMatch(/\/cashier\.pug$/).should.be.true;
-        spy.restore();
-      });
-  });
-
-  it("should render cashier history view", () => {
-    return request(app)
-      .get(`/history`)
-      .expect(200)
-      .then(() => {});
-  });
-
-  it("should get orderId", () => {
-    return request(app)
-      .get(`/getorder/${secondOrderId}`)
+      .post("/confirm")
+      .send(postBody)
       .then(res => {
         res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("methodFulfillment", "pickup"),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("isPaid", false),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
       });
   });
 
-  //   it("should confirm order without pay for pick-up", () => {
-  //     let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
-  //     let postBody = {
-  //       orderId: orderId,
-  //       method: "pickup",
-  //       address: "",
-  //       postal: "",
-  //       time: '"2017-08-14T01:18:00.000Z"',
-  //       room: "",
-  //       authorized_payment: "1192"
-  //     };
-  //     return request(app)
-  //       .post("/confirm")
-  //       .send(postBody)
-  //       .then(res => {
-  //         res.status.should.equal(200);
-  //         stub.called.should.be.true;
-  //         stub.restore();
-  //       })
-  //       .then(() => {
-  //         return Promise.all([
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("isConfirmed", true),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("methodFulfillment", "pickup"),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("isPaid", false),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("fulfillmentDate"),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("orderConfirmDate")
-  //         ]);
-  //       });
-  //   });
+  it("should confirm order without pay for delivery", () => {
+    let stub = sinon.stub(send, "sendConfirmUnpaidMessageDelivery");
+    let postBody = {
+      orderId: secondOrderId,
+      method: "delivery",
+      address: "330 phillip street",
+      postal: "l9t2x5",
+      time: '"2017-08-14T01:18:00.000Z"',
+      room: "",
+      authorized_payment: "1192"
+    };
+    return request(app)
+      .post("/confirm")
+      .send(postBody)
+      .then(res => {
+        res.status.should.equal(200);
+        stub.called.should.be.true;
+        stub.restore();
+      })
+      .then(() => {
+        return Promise.all([
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("isConfirmed", true),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("methodFulfillment", "delivery"),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("isPaid", false),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("fulfillmentDate"),
+          orderDAO
+            .findOrderById(secondOrderId)
+            .should.eventually.have.property("orderConfirmDate")
+        ]);
+      });
+  });
+});
 
-  //     it("should confirm order without pay for pick-up", () => {
-  //     let stub = sinon.stub(send, "sendConfirmUnpaidMessageDelivery");
-  //     let postBody = {
-  //       orderId: orderId,
-  //       method: "delivery",
-  //       address: "",
-  //       postal: "",
-  //       time: '"2017-08-14T01:18:00.000Z"',
-  //       room: "",
-  //       authorized_payment: "1192"
-  //     };
-  //     return request(app)
-  //       .post("/confirm")
-  //       .send(postBody)
-  //       .then(res => {
-  //         res.status.should.equal(200);
-  //         stub.called.should.be.true;
-  //         stub.restore();
-  //       })
-  //       .then(() => {
-  //         return Promise.all([
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("isConfirmed", true),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("methodFulfillment", "delivery"),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("isPaid", false),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("fulfillmentDate"),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("orderConfirmDate")
-  //         ]);
-  //       });
-  //   });
-
-  //   it("should confirm order with pay for delivery", () => {
-  //     let stub = sinon.stub(send, "sendConfirmPaidMessageDelivery");
-  //     let postBody = {
-  //       orderId: orderId,
-  //       method: "delivery",
-  //       address: "330 phillip street",
-  //       time: '"2017-08-15T18:00:00.000Z"',
-  //       postal: "l9t2x5",
-  //       room: "1234",
-  //       authorized_payment: "1192",
-  //       token_id: "tok_visa",
-  //       token_email: "anthony112244@hotmail.com"
-  //     };
-  //     return request(app)
-  //       .post("/confirm")
-  //       .send(postBody)
-  //       .then(res => {
-  //         return res.status.should.equal(200);
-  //         stub.called.should.be.true;
-  //         stub.restore();
-  //       })
-  //       .then(() => {
-  //         return Promise.all([
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("isConfirmed", true),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("methodFulfillment", "delivery"),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("isPaid", true),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("fulfillmentDate"),
-  //           orderDAO
-  //             .findOrderById(orderId)
-  //             .should.eventually.have.property("orderConfirmDate")
-  //         ]);
-  //       });
-  //   });
+describe("POST /WEBHOOK", function() {
+  this.timeout(15000);
 });

@@ -112,6 +112,7 @@ routes.post("/confirm", (req, res) => {
     orderId,
     method,
     address,
+    roomNumber,
     postal,
     token_id,
     token_email,
@@ -159,6 +160,9 @@ routes.post("/confirm", (req, res) => {
       })
       .then(user => {
         return userDAO.updatePhoneNumber(user._id, phoneNumber);
+      })
+      .then((user) => {
+        return userDAO.updateAddress(user._id, address, roomNumber)
       })
       .then(user => {
         if (method === "delivery") {
