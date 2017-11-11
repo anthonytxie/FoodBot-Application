@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const stripe_test_key = process.env.stripe_test_key;
 const stripe = require("stripe")(stripe_test_key);
-const opbeat = require("opbeat");
+// const opbeat = require("opbeat");
 const { logger } = require("./logger/logger");
 // ROUTES
 const burger = require("./routes/burger");
@@ -16,10 +16,10 @@ const webhook = require("./routes/webhook");
 const cashier = require("./routes/cashier");
 const order = require("./routes/order");
 
-// APP
-if (process.env.NODE_ENV == "production") {
-  opbeat.start();
-}
+// // APP
+// if (process.env.NODE_ENV == "production") {
+//   opbeat.start();
+// }
 
 const app = express();
 
@@ -47,8 +47,8 @@ app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
-if (process.env.NODE_ENV == "production") {
-  app.use(opbeat.middleware.express());
-}
+// if (process.env.NODE_ENV == "production") {
+//   app.use(opbeat.middleware.express());
+// }
 
 module.exports = app;
