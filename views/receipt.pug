@@ -51,20 +51,20 @@ html(lang="en")
 									i.fa.fa-times-circle(aria-hidden="true")
 							- counter++;
 			.prices
-				p#base
-				p#delivery_stripe
-				p#tax
-				p#total
+				p#base $ #{((order.basePrice)/100).toFixed(2)}
+				p#delivery_stripe $ #{((order.stripeFee + order.deliveryFee)/100).toFixed(2)}
+				p#tax $ #{((order.tax)/100).toFixed(2)}
+				p#total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
 			button Confirm
 
 		form#form2(style="display:none;", method="post", action="confirm")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
-			p#final_total
+			p#final_total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
 			.inputs
 				input(name="address", type="text", placeholder="Address")
 				input(name="phoneNumber", type="text", placeholder="Phone Number")
-				input(name="room", type="text", placeholder="Room Number (Optional)")
+				input(name="roomNumber", type="text", placeholder="Room Number (Optional)")
 			button Pay Now
 
 		script.
@@ -80,18 +80,16 @@ html(lang="en")
 			// stripe setup
 			const handler = StripeCheckout.configure({
 				key: 'pk_test_tetHRTsQOph2yuOSaHGZG3pZ',
-				image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+				image: 'logo.jpg',
 				locale: 'auto',
 				currency: "CAD",
 				token: function(token) {
 					$("#form2").append("<input type='hidden' name='token_id' value='" + token.id + "'>");
 					$("#form2").append("<input type='hidden' name='token_email' value='" + token.email + "'>");
-					$("#form2").append("<input type='hidden' name='authorized_payment' value='2000'>");
 					$("#form2").ajaxSubmit();
 					closeWebview();
 				}
 			});
-
 
 			// constants
 			const orderId = !{JSON.stringify(order._id)}
@@ -105,7 +103,6 @@ html(lang="en")
 					senderId: sender
 				})
 			}
-
 
 			// edit
 			$(".fa-pencil").on("click", function(){
@@ -168,18 +165,13 @@ html(lang="en")
 						}
 						break;
 				}
-
-				console.log(ids);
-
 				smartDelete(ids).then(function(result) {
 					//- 	return getOrder(orderId);
 					//- }).then(function(order) {
-						console.log("reload");
 						// this should be ajax
 						location.reload();
 					}).catch(function(error) {
-						console.log("error");
-						$(".errors").text("Whoops! There was an error deleting that item.");
+						$("#form1").children(".errors").text("Whoops! There was an error deleting that item.");
 					})
 			})
 
@@ -191,13 +183,25 @@ html(lang="en")
 			// TODO: get price
 			$("#form2 button").on("click", function(e){
 				e.preventDefault();
-				$("#form2").hide();
-				handler.open({
-					name: 'FoodBot',
-					description: 'Your Order',
-					zipCode: true,
-					amount: 2000
+				checkAddress().then(function(mapsResult){
+					return Validations(mapsResult);
+				}).then(function(result){
+					return getOrder(orderId);
+				}).then(function(order){
+					const totalPrice = order.basePrice + order.tax + order.stripeFee + order.deliveryFee;
+					$("#form2").hide();
+					$("#form2").append(`<input type='hidden' name='authorized_payment' value='${totalPrice}'>`);
+					handler.open({
+						name: 'Burger Burger',
+						description: 'Your Order',
+						zipCode: true,
+						amount: totalPrice
+					})
+				}).catch(function(fail){
+					$("#form2").children(".errors").text(fail);
 				})
+
+				
 			})
 
 			// this line might let us not use set timeout
@@ -205,40 +209,40 @@ html(lang="en")
 
 			// address validation
 			function checkAddress() {
+				let address = $("input[name='address']").val();
 				return new Promise((resolve, reject) => {
 					$.get(
 					  "/address",
-					  { address: address }
+					  { address }
 					)
 						.done(function(result) {
 							resolve(result); // result: true, false or error object
+							console.log(result);
 						})
 						.fail(function(error) {
-							reject(error)
+							resolve(error)
 						})
 				})
 			}
 			// not address validation
-			function Validations(address) {
+			function Validations(mapsResult) {
 				return new Promise((resolve, reject) => {
-					let room = $("input[name='room']").text();
-					let phoneNumber = $("input[name='phoneNumber']").text();
-					if (address === false) {
+					let phoneNumber = $("input[name='phoneNumber']").val();
+					phoneNumber = parseInt(phoneNumber.substr(1,3) + phoneNumber.substr(6,3) + phoneNumber.substr(10,4));
+					console.log(phoneNumber);
+					if (mapsResult === false) { // out of range
 						reject("The address is outside of range");
-					} else if ((address !== true) && (address !== false)) {
-						reject("The addres is invalid");
-					} else if (isNan(room)) {
-						reject("The room number is not a number");
-					} else if (isNan(phoneNumber)) {
-						reject("The phone number is not a number");
+					} else if ((mapsResult !== true) && (mapsResult !== false)) { // error
+						reject("The address is  not valid");
+					} else if (isNaN(phoneNumber)) {
+						reject("That phone number is not valid");
 					} else if (phoneNumber <= 1000000000) {
-						reject("Must enter a phone number");
+						reject("That phone number is not valid");
 					} else {
 						resolve(true);					
 					}
 				})
 			}
-			
 
 			function closeWebview() {
 				MessengerExtensions.requestCloseBrowser(function success() {

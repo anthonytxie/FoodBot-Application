@@ -12,9 +12,9 @@ const isInDeliveryRange = destination => {
         if (err) {
           reject(err);
         } else if (parseFloat(data.distance.split(' ')[0]) < maxDeliveryRange) {
-          resolve(true)
+          resolve(true);
         } else {
-          reject(false)
+          reject(false);
         }
       }
     );
