@@ -5,8 +5,6 @@ var itemDAO = {};
 const { populateOrder, saveItemAndUpdateOrder } = require("./helperFunctions");
 const { logger } = require("./../../server/logger/logger");
 
-
-
 itemDAO.postBurger = function(foodObject, senderId) {
   logger.info(`${senderId} itemDAO postBurger`, { foodObject });
   let orderId;

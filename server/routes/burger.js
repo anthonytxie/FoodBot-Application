@@ -16,7 +16,6 @@ const { findMenuItemsByItemName } = require("./../../config/menuItems");
 const send = require("../../messenger-api-helpers/send");
 
 routes.get("/burger", (req, res) => {
-  logger.info("GET on /burger");
   let _link = req.query.linkId;
   let burgerName = req.query.name;
   let senderId = req.query.sender;
@@ -55,6 +54,7 @@ routes.get("/burger", (req, res) => {
 
 routes.post("/burger", (req, res) => {
   logger.info("POST on /burger");
+  const sendMessage = parseInt(req.body.sendMessage);
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
@@ -88,7 +88,9 @@ routes.post("/burger", (req, res) => {
   itemDAO
     .postBurger(foodObject, senderId)
     .then(() => {
-      return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
+      if (sendMessage) {
+        return send.sendOrderedBurgerUpsizeMessage(senderId, linkId);
+      }
     })
     .then(() => {
       return res.status(200).send({ success: true });

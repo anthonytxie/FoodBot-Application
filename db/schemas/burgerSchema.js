@@ -4,7 +4,8 @@ const { disciminatorOptions } = require("./settings/schemaSettings");
 const {
   differenceAcrossArrays,
   findMenuItemsByItemName,
-  menuItems
+  menuItems,
+  getPattyExtraPrice
 } = require("./../../config/menuItems");
 const { premiumToppings } = require("./../../config/toppings");
 const burgerSchema = new Schema(
@@ -81,7 +82,12 @@ burgerSchema.virtual("price").get(function() {
   const plusToppings = differenceAcrossArrays(this.premiumToppings)(
     findMenuItemsByItemName(this.itemName).premiumToppings
   );
-  return plusToppings.map(x => premiumToppings[x]).reduce((x, y) => x + y, findMenuItemsByItemName(this.itemName).basePrice);
+
+  const pattyExtraPrice = getPattyExtraPrice(this.itemName, this.Patties)
+
+  return (plusToppings
+    .map(x => premiumToppings[x])
+    .reduce((x, y) => x + y, findMenuItemsByItemName(this.itemName).basePrice)) + pattyExtraPrice
 });
 
 module.exports = { burgerSchema };
