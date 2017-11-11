@@ -5,6 +5,9 @@
 - const fries = itemsArray[1];
 - if (fries) {fries_name = fries.itemName}
 
+- console.log("link:");
+- console.log(_link);
+
 doctype html
 html(lang="en")
 	head
@@ -26,6 +29,10 @@ html(lang="en")
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'Messenger'));
 		form(method="post" action="combo")
+			if receipt
+				input(type="hidden" name="sendMessage" value=0)
+			else
+				input(type="hidden" name="sendMessage" value=1)
 			input(type="hidden" name="sender_id", value=sender_id)
 			input(type="hidden" name="_link", value=_link)
 
@@ -166,7 +173,7 @@ html(lang="en")
 						i(class="fa fa-chevron-circle-right", aria-hidden="true")
 				section.section4.radio.required(style="display:none")
 
-					- if (drink) { let drink_type = drink_name; } else { let drink_type = ""; }
+					- drink_type = drink_name;
 					input(type="hidden" name="soda_flavor", value=drink_type)
 
 
@@ -254,6 +261,32 @@ html(lang="en")
 			.button_container
 				button.done(disabled = 'true') DONE
 
+		if receipt
+			script.
+				var senderId = !{JSON.stringify(sender_id)}
+				$("button").click(function(e){
+					e.preventDefault();
+					$.post('combo', $('form').serialize()).done(function(success){
+						window.location = `receipt?senderId=${senderId}`;
+					}).fail(function(fail){
+						console.log("combo update through receipt failed");
+					})
+				})
+
+		else
+			script.
+				// called when MessengerExtensions is done loading
+				window.extAsyncInit = function() {
+					$("button").click(function(){
+						// document.getElementById("only_form").submit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					})
+				}
+
 		script.
 
 			$("body").on("click", "h4", function(){
@@ -271,17 +304,7 @@ html(lang="en")
 				$(this).parent().children("input").attr("value", val);
 			})
 
-			// called when MessengerExtensions is done loading
-			window.extAsyncInit = function() {
-				$("button").click(function(){
-					// document.getElementById("only_form").submit();
-					MessengerExtensions.requestCloseBrowser(function success() {
-						console.log("success");
-					}, function error(err) {
-						console.log(err);
-					});
-				})
-			}
+			
 
 			// first 2 sections (radio)
 			$(".radio").on("click", ".wide_checkbox", function() {
