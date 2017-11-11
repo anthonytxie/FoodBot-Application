@@ -5,7 +5,7 @@ const isEmpty = require('lodash/isEmpty');
 // ===== MODULES ===============================================================
 const request =  require('request');
 const { logger } = require("./../server/logger/logger");
-require('dotenv').config();
+// require('dotenv').config();
 
 
 const PAGE_ACCESS_TOKEN = process.env.page_access_token;
