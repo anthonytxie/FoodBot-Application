@@ -24,7 +24,8 @@ html(lang="en")
 					if item.itemType == "burger"
 						.item #{counter}. #{item.itemName}
 							span.price ($#{item.price/100})
-							span.actions(name=item.itemName, burgerId=item._id, combo=item.itemCombo, type="burger", linkId=item._link)
+							- console.log(item.itemCombo);
+							span.actions(name=item.itemName, burgerId=item._id, combo=`${item.itemCombo}`, type="burger", linkId=item._link)
 								i.fa.fa-pencil(aria-hidden="true")
 								i.fa.fa-times-circle(aria-hidden="true")
 						- counter++;
@@ -62,13 +63,11 @@ html(lang="en")
 			p#final_total
 			.inputs
 				input(name="address", type="text", placeholder="Address")
-				input(name="phoneNumber", type="text", placeholder="Phone")
+				input(name="phoneNumber", type="text", placeholder="Phone Number")
 				input(name="room", type="text", placeholder="Room Number (Optional)")
 			button Pay Now
 
 		script.
-
-			// burger needs: name, sender, linkId, receipt
 
 			// close setup
 			(function(d, s, id){
@@ -127,7 +126,7 @@ html(lang="en")
 			})
 
 
-			// delete (done)
+			// delete
 			function smartDelete(itemIds) {
 				return new Promise(function(resolve, reject){
 					$.ajax({
@@ -160,16 +159,21 @@ html(lang="en")
 						break;
 					case "burger": // delete the burger (and combo, if applicable)
 						ids.push(actions.attr("burgerId"));
+						console.log(actions.attr("combo"));
 						if (actions.attr("combo")){
-							comboIds = actions.closest(".item").children(".combo").children(".actions");
+							console.log("combo should be deleted");
+							comboIds = actions.closest(".item").next(".combo").children(".actions");
 							ids.push(comboIds.attr("drinkId"));
 							ids.push(comboIds.attr("sideId"));
 						}
 						break;
 				}
+
+				console.log(ids);
+
 				smartDelete(ids).then(function(result) {
-						return getOrder(orderId);
-					}).then(function(order) {
+					//- 	return getOrder(orderId);
+					//- }).then(function(order) {
 						console.log("reload");
 						// this should be ajax
 						location.reload();
@@ -179,11 +183,9 @@ html(lang="en")
 					})
 			})
 
-
 			// button logic
 			$("#form1 button").on("click", function(e){
-				closeWebview();
-				("#form1").hide();
+				$("#form1").hide();
 				$("#form2").show();
 			})
 			// TODO: get price
@@ -292,5 +294,5 @@ html(lang="en")
 				//- loadPrices();
 
 				// format the phone number
-				$("#postal").inputmask("(999)999-9999");
+				$("input[name='phoneNumber']").inputmask("(999) 999-9999");
 			})

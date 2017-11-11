@@ -55,7 +55,6 @@ routes.get("/burger", (req, res) => {
 
 routes.post("/burger", (req, res) => {
   logger.info("POST on /burger");
-  console.log(req.body)
   const burgerFormat = function(body) {
     let standardToppings = [];
     let premiumToppings = [];
