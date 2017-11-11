@@ -17,7 +17,7 @@ html(lang="en")
 		form#form1(style="position:relative;", method="post", action="delete")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
-			h4 RECEIPT
+			h4 YOUR ORDER
 			.items
 				- counter = 1;
 				each item in order._items	
@@ -55,7 +55,8 @@ html(lang="en")
 				p#delivery_stripe $ #{((order.stripeFee + order.deliveryFee)/100).toFixed(2)}
 				p#tax $ #{((order.tax)/100).toFixed(2)}
 				p#total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
-			button Confirm
+			.button_container
+				button Confirm
 
 		form#form2(style="display:none;", method="post", action="confirm")
 			input(type="hidden", name="orderId", value=order._id)
@@ -65,7 +66,8 @@ html(lang="en")
 				input(name="address", type="text", placeholder="Address")
 				input(name="phoneNumber", type="text", placeholder="Phone Number")
 				input(name="roomNumber", type="text", placeholder="Room Number (Optional)")
-			button Pay Now
+			.button_container
+				button Pay Now
 
 		script.
 
