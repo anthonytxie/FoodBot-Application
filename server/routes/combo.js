@@ -13,6 +13,7 @@ const send = require("../../messenger-api-helpers/send");
 
 routes.get("/combo", (req, res) => {
   logger.info("GET on /combo");
+  console.log(req.body);
   let linkId = req.query.linkId;
   console.log("link received:");
   console.log(linkId);
@@ -49,8 +50,8 @@ routes.get("/combo", (req, res) => {
 });
 
 routes.post("/combo", (req, res) => {
-  console.log(req.body);
   logger.info("POST on /combo");
+  const sendMessage = parseInt(req.body.sendMessage);
   let senderId = req.body.sender_id;
   let linkId = req.body._link;
 
@@ -100,7 +101,9 @@ routes.post("/combo", (req, res) => {
       return itemDAO.postSide(sideObject, senderId);
     })
     .then(side => {
-      send.sendOrderedMessage(senderId, side);
+      if (sendMessage) {
+        return send.sendOrderedMessage(senderId, side);
+      }
     })
     .then(() => {
       res.status(200).send({ success: true });
