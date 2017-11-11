@@ -19,10 +19,10 @@ routes.get("/address", (req, res) => {
 
   isInDeliveryRange(address)
   .then((result) => { 
-  res.send(result); 
+    res.send(result); 
   })
   .catch((err) => { 
-  res.send(err); 
+    res.send(err); 
   })
 });
 
