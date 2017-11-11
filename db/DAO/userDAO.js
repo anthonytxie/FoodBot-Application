@@ -103,4 +103,23 @@ userDAO.updatePhoneNumber = (userId, phoneNumber) => {
   });
 };
 
+userDAO.updateAddress = (userId, address, roomNumber) => {
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: { address, roomNumber }
+      },
+      { new: true }
+    )
+      .then(user => {
+        resolve(user);
+      })
+      .catch(err => {
+        logger.error(`${userId} userDAO updateAddress`, { err });
+        reject(err);
+      });
+  });
+};
+
 module.exports = userDAO;

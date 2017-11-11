@@ -24,22 +24,6 @@ routes.get("/cashier", (req, res) => {
     });
 });
 
-routes.get("/history", (req, res) => {
-  logger.info("GET on /history");
-  orderDAO
-    .showInputtedOrderHistory()
-    .then(orders => {
-      orders = orders.sort(function(a, b) {
-        return parseFloat(a.inputDate) - parseFloat(b.inputDate);
-      });
-      res.status(200).render("cashierHistory.pug", { orders });
-    })
-    .catch(err => {
-      logger.error(`GET on /history`, { err: serializError(err) });
-      res.status(500).send({ success: false });
-    });
-});
-
 routes.post("/input", (req, res) => {
   logger.info("POST on /input");
   let { orderId } = req.body;

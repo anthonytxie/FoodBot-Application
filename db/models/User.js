@@ -28,6 +28,10 @@ const userSchema = new Schema({
     }
   ],
 
+  address: String,
+
+  roomNumber: String,
+
   createdAt: {
     type: Date,
     default: Date.now
