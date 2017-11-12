@@ -3,7 +3,7 @@ const userDAO = {};
 const mongoose = require("mongoose");
 const {
   publicProfileRequest
-} = require("./../../messenger-api-helpers/graphAPI/publicProfile");
+} = require("./../../messenger-api-helpers/graphApi/publicProfile");
 const { logger } = require("./../../server/logger/logger");
 
 userDAO.createUser = function(PSID) {
