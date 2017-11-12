@@ -16,10 +16,10 @@ const webhook = require("./routes/webhook");
 const cashier = require("./routes/cashier");
 const order = require("./routes/order");
 
-// // APP
-// if (process.env.NODE_ENV == "production") {
-//   opbeat.start();
-// }
+// APP
+if (process.env.NODE_ENV == "production") {
+  opbeat.start();
+}
 
 const app = express();
 
@@ -47,8 +47,8 @@ app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
-// if (process.env.NODE_ENV == "production") {
-//   app.use(opbeat.middleware.express());
-// }
+if (process.env.NODE_ENV == "production") {
+  app.use(opbeat.middleware.express());
+}
 
 module.exports = app;
