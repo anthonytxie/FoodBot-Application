@@ -17,17 +17,21 @@ html(lang="en")
 		form#form1(style="position:relative;", method="post", action="delete")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
-			h4 RECEIPT
+			h4 YOUR ORDER
 			.items
 				- counter = 1;
 				each item in order._items	
 					if item.itemType == "burger"
 						.item #{counter}. #{item.itemName}
-							span.price ($#{item.price/100})
-							- console.log(item.itemCombo);
-							span.actions(name=item.itemName, burgerId=item._id, combo=`${item.itemCombo}`, type="burger", linkId=item._link)
-								i.fa.fa-pencil(aria-hidden="true")
-								i.fa.fa-times-circle(aria-hidden="true")
+							.right
+								.price $#{item.price/100}
+								.actions(name=item.itemName, burgerId=item._id, combo=`${item.itemCombo}`, type="burger", linkId=item._link)
+									.edit
+										i.fa.fa-pencil(aria-hidden="true")
+										//- span Edit
+									.delete
+										i.fa.fa-trash(aria-hidden="true")
+										//- span Delete
 						- counter++;
 						if item.itemCombo
 							- let side = ""
@@ -37,35 +41,61 @@ html(lang="en")
 									- side = inner_item;
 								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "drink"))
 									- drink = inner_item;
-							.combo w/ #{side.itemName} & #{drink.itemName}
-								span.price ($#{(side.price + drink.price)/100})
-								span.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, linkId=item._link, type="combo")
-									i.fa.fa-pencil(aria-hidden="true")
-									i.fa.fa-times-circle(aria-hidden="true")
+							.combo • #{side.itemName} & #{drink.itemName}
+								.right
+									.price $#{(side.price + drink.price)/100}
+									.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, linkId=item._link, type="combo")
+										.edit
+											i.fa.fa-pencil(aria-hidden="true")
+											//- span Edit
+										.delete
+											i.fa.fa-trash(aria-hidden="true") 
+											//- span Delete
 
 					else
 						unless item.itemCombo
 							.item #{counter}. #{item.itemName}
-								span.price ($#{item.price/100})
-								span.actions(sideId=item._id, type="item")
-									i.fa.fa-times-circle(aria-hidden="true")
+								.right
+									.price $#{item.price/100}
+									.actions(sideId=item._id, type="item")
+										.delete
+											i.fa.fa-trash(aria-hidden="true")
+											//- span Delete
 							- counter++;
 			.prices
-				p#base $ #{((order.basePrice)/100).toFixed(2)}
-				p#delivery_stripe $ #{((order.stripeFee + order.deliveryFee)/100).toFixed(2)}
-				p#tax $ #{((order.tax)/100).toFixed(2)}
-				p#total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
-			button Confirm
+				#base 
+					.header Price: 
+					.number &nbsp$#{((order.basePrice)/100).toFixed(2)}
+				#delivery_stripe 
+					.header Delivery: 
+					.number &nbsp$#{((order.stripeFee + order.deliveryFee)/100).toFixed(2)}
+				#tax
+					.header Tax: 
+					.number &nbsp$#{((order.tax)/100).toFixed(2)}
+				#total 
+					.header Total: 
+					.number &nbsp$#{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
+			.button_container
+				button CONFIRM
 
 		form#form2(style="display:none;", method="post", action="confirm")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
-			p#final_total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
+			//- p#final_total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
 			.inputs
-				input(name="address", type="text", placeholder="Address")
-				input(name="phoneNumber", type="text", placeholder="Phone Number")
-				input(name="roomNumber", type="text", placeholder="Room Number (Optional)")
-			button Pay Now
+				.input
+					p Address
+					input(name="address", type="text", placeholder="123 Baker Street")
+				.input
+					p Phone Number
+					input(name="phoneNumber", type="text", placeholder="(123) 456-7890")
+				.input
+					p Room Number (Optional)
+					input(name="roomNumber", type="text", placeholder="123")
+			.button_container
+				button 
+					span PAY NOW
+					span#final_total
 
 		script.
 
@@ -105,7 +135,7 @@ html(lang="en")
 			}
 
 			// edit
-			$(".fa-pencil").on("click", function(){
+			$(".edit").on("click", function(){
 				const actions = $(this).parent();
 				const type = actions.attr("type");
 				const linkId = actions.attr("linkId");
@@ -140,7 +170,7 @@ html(lang="en")
 					})
 				})
 			}
-			$(".fa-times-circle").on("click", function(){
+			$(".delete").on("click", function(){
 				
 				const actions = $(this).parent();
 				const type = actions.attr("type");
