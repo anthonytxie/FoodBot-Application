@@ -41,7 +41,9 @@ html(lang="en")
 									- side = inner_item;
 								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "drink"))
 									- drink = inner_item;
-							.combo • #{side.itemName} & #{drink.itemName}
+							.combo 
+								span.thick - 
+								span #{side.itemName} & #{drink.itemName}
 								.right
 									.price $#{(side.price + drink.price)/100}
 									.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, linkId=item._link, type="combo")

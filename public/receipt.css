@@ -25,6 +25,7 @@ h4 {
 	/*border-bottom: 1px solid #E4E6EA;*/
 	font-weight: 400;
 	margin: 0;
+	color: #4a4949;
 }
 
 .items {
@@ -48,6 +49,7 @@ h4 {
 
 .items .item {
 	padding-left: 10px;
+	color: black;
 }
 
 .right {
@@ -72,7 +74,12 @@ h4 {
 
 .items .combo {
 	margin-left: 30px;
+	color: rgba(0,0,0,.4);
 	/*font-size: .9em;*/
+}
+
+.items .thick {
+	font-weight: 400;
 }
 
 /*.items .combo .right {
@@ -128,10 +135,12 @@ h4 {
 .prices .header {
 	font-weight: 400;
 	font-size: 1em;
+	color: #4a4949;
 }
 
 .prices .number {
 	font-size: .9em;
+	color: rgba(0,0,0,.4);
 }
 
 .header, .number {
