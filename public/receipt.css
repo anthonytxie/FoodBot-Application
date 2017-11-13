@@ -32,10 +32,12 @@ h4 {
 }
 
 .items .item {
+	/*overflow: hidden;*/
 	border-top: 1px solid #E4E6EA;
 }
 
 .items > div {
+	clear: both;
 	line-height: 40px;
 	/*border-top: 1px solid #E4E6EA;*/
 	color: #4a4949;

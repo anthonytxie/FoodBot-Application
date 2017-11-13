@@ -20,11 +20,24 @@ html(lang="en")
 			h4 YOUR ORDER
 			.items
 				- counter = 1;
-				each item in order._items	
+				each item in order._items
+					- let side = ""
+					- let drink = ""
 					if item.itemType == "burger"
+
+						if item.itemCombo
+							each inner_item in order._items
+								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "side"))
+									- side = inner_item;
+								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "drink"))
+									- drink = inner_item;
+
 						.item #{counter}. #{item.itemName}
 							.right
-								.price $#{item.price/100}
+								if item.itemCombo
+									.price $#{(item.price+side.price + drink.price)/100}
+								else
+									.price $#{(item.price)/100}
 								.actions(name=item.itemName, burgerId=item._id, combo=`${item.itemCombo}`, type="burger", linkId=item._link)
 									.edit
 										i.fa.fa-pencil(aria-hidden="true")
@@ -33,17 +46,11 @@ html(lang="en")
 										i.fa.fa-trash(aria-hidden="true")
 										//- span Delete
 						- counter++;
+						
 						if item.itemCombo
-							- let side = ""
-							- let drink = ""
-							each inner_item in order._items
-								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "side"))
-									- side = inner_item;
-								if ((item._link.equals(inner_item._link)) && (item._order.equals(inner_item._order)) && (inner_item.itemType == "drink"))
-									- drink = inner_item;
 							.combo • #{side.itemName} & #{drink.itemName}
 								.right
-									.price $#{(side.price + drink.price)/100}
+									//- .price $#{(side.price + drink.price)/100}
 									.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, linkId=item._link, type="combo")
 										.edit
 											i.fa.fa-pencil(aria-hidden="true")
