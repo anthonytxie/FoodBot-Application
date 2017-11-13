@@ -33,10 +33,12 @@ h4 {
 }
 
 .items .item {
+	/*overflow: hidden;*/
 	border-top: 1px solid #E4E6EA;
 }
 
 .items > div {
+	clear: both;
 	line-height: 40px;
 	/*border-top: 1px solid #E4E6EA;*/
 	color: #4a4949;
@@ -130,6 +132,7 @@ h4 {
 	margin-right: auto;
 	display: block;
 	width: 200px;
+	clear: both;
 }
 
 .prices .header {

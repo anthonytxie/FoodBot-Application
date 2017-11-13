@@ -33,11 +33,11 @@ html(lang="en")
 			input(type="hidden" name="_link" value=_link)
 
 			unless ((burger.itemName == "Chicken Chicken") || (burger.itemName == "The Portobello"))
-				h4 
+				h4#pattiesToggle
 					span PATTIES
 					.i
-						i(class="fa fa-chevron-circle-right", aria-hidden="true")
-			section(style="display:none")
+						i(class="fa fa-chevron-circle-down", aria-hidden="true")
+			section
 
 				input#patties(type="hidden", name="Patties", value=burger.Patties)
 
@@ -424,14 +424,22 @@ html(lang="en")
 			
 		script.
 
+			//- $(".patty_option").on("click", function(){
+			//- 	$("#pattiesToggle").click();
+			//- })
+
 			// collapse
 			$("body").on("click", "h4", function(){
-				$(this).next("section").toggle();
 				const i = $(this).children(".i").children("i");
-				if (i.hasClass("fa-chevron-circle-right")){
+				// close all other tabs
+				if ($(this).next("section").css("display") == "none") {
+					$("section").hide();
+					$("i").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
 					i.removeClass("fa-chevron-circle-right").addClass("fa-chevron-circle-down");
+					$(this).next("section").show();
 				} else {
-					i.removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+					$("i").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+					$("section").hide();
 				}
 			})
 
