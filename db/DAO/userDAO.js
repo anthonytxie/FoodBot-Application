@@ -3,7 +3,7 @@ const userDAO = {};
 const mongoose = require("mongoose");
 const {
   publicProfileRequest
-} = require("./../../messenger-api-helpers/graphAPI/publicProfile");
+} = require("./../../messenger-api-helpers/graphApi/publicProfile");
 const { logger } = require("./../../server/logger/logger");
 
 userDAO.createUser = function(PSID) {
@@ -98,6 +98,25 @@ userDAO.updatePhoneNumber = (userId, phoneNumber) => {
       })
       .catch(err => {
         logger.error(`${userId} userDAO updatePhoneNumber`, { err });
+        reject(err);
+      });
+  });
+};
+
+userDAO.updateAddress = (userId, address, roomNumber) => {
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: { address, roomNumber }
+      },
+      { new: true }
+    )
+      .then(user => {
+        resolve(user);
+      })
+      .catch(err => {
+        logger.error(`${userId} userDAO updateAddress`, { err });
         reject(err);
       });
   });

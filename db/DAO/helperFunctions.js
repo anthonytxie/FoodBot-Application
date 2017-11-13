@@ -1,5 +1,5 @@
 const { Order } = require("./../models/index");
-const { logger } = require("./../../server/logger/logger")
+const { logger } = require("./../../server/logger/logger");
 const populateOrder = function(operation) {
   return operation
     .populate("_session")
@@ -13,9 +13,8 @@ const pad = function(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };
 
-
 const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
-  logger.info(`itemDAO saveItemAndUpdateOrder ${item.itemType}`)
+  logger.info(`itemDAO saveItemAndUpdateOrder ${item.itemType}`);
   item
     .save()
     .then(item => {
@@ -35,6 +34,5 @@ const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
       reject(err);
     });
 };
-
 
 module.exports = { populateOrder, pad, saveItemAndUpdateOrder };

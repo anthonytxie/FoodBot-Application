@@ -273,6 +273,12 @@ const findMenuItemsByItemName = findObjectInArrayByAttribute("itemName")(
 const differenceAcrossArrays = arrayOne => arrayTwo =>
 	arrayOne.filter(x => !arrayTwo.includes(x)); //return what is in array one that is not in array two
 
+const getPattyExtraPrice = (itemName, patties) => {
+	if (parseFloat(patties) - findMenuItemsByItemName(itemName).Patties >= 1) {
+		return (parseFloat(patties) - findMenuItemsByItemName(itemName).Patties) * 200;
+	} else return 0;
+};
+
 const findDifferentItemsOnBurger = burgerObject => {
 	let normalBurgerToppings = [
 		...findMenuItemsByItemName(burgerObject.itemName).standardToppings,
@@ -303,7 +309,6 @@ const findDifferentItemsOnBurger = burgerObject => {
 	};
 };
 
-
 const getCurrencyFromIntegerPrice = integerPrice => {
 	let dollars = integerPrice / 100;
 	dollars.toLocaleString("en-US", { style: "currency", currency: "CAD" });
@@ -315,5 +320,6 @@ module.exports = {
 	findMenuItemsByItemName,
 	findDifferentItemsOnBurger,
 	getCurrencyFromIntegerPrice,
-	differenceAcrossArrays
+	differenceAcrossArrays,
+	getPattyExtraPrice
 };

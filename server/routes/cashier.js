@@ -3,12 +3,10 @@ const express = require("express");
 const routes = express();
 const moment = require("moment");
 const { findDifferentItemsOnBurger } = require("./../../config/menuItems");
+const { logger } = require("./../logger/logger");
 
 //DAO
 const orderDAO = require("./../../db/DAO/orderDAO");
-
-// LOGGER
-const { logger } = require("./../logger/logger");
 
 routes.get("/cashier", (req, res) => {
   logger.info("GET on /cashier");
@@ -22,22 +20,6 @@ routes.get("/cashier", (req, res) => {
     })
     .catch(err => {
       logger.error(`GET on /cashier`, { err });
-      res.status(500).send({ success: false });
-    });
-});
-
-routes.get("/history", (req, res) => {
-  logger.info("GET on /history");
-  orderDAO
-    .showInputtedOrderHistory()
-    .then(orders => {
-      orders = orders.sort(function(a, b) {
-        return parseFloat(a.inputDate) - parseFloat(b.inputDate);
-      });
-      res.status(200).render("cashierHistory.pug", { orders });
-    })
-    .catch(err => {
-      logger.error(`GET on /history`, { err });
       res.status(500).send({ success: false });
     });
 });

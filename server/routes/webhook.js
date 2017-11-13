@@ -35,7 +35,6 @@ routes.post("/webhook", (req, res) => {
   res.sendStatus(200);
 
   const data = req.body;
-
   // Make sure this is a page subscription
   if (data.object === "page") {
     // Iterate over each entry

@@ -25,6 +25,7 @@ h4 {
 	/*border-bottom: 1px solid #E4E6EA;*/
 	font-weight: 400;
 	margin: 0;
+	color: #4a4949;
 }
 
 .items {
@@ -50,6 +51,7 @@ h4 {
 
 .items .item {
 	padding-left: 10px;
+	color: black;
 }
 
 .right {
@@ -73,8 +75,13 @@ h4 {
 }
 
 .items .combo {
-	margin-left: 30px;
+	margin-left: 40px;
+	color: rgba(0,0,0,.4);
 	/*font-size: .9em;*/
+}
+
+.items .thick {
+	font-weight: 400;
 }
 
 /*.items .combo .right {
@@ -131,10 +138,12 @@ h4 {
 .prices .header {
 	font-weight: 400;
 	font-size: 1em;
+	color: #4a4949;
 }
 
 .prices .number {
 	font-size: .9em;
+	color: rgba(0,0,0,.4);
 }
 
 .header, .number {
@@ -162,10 +171,15 @@ h4 {
 		width: 89%;
 		margin-left: 4.5%;
 		height: 50px;
+		font-weight: 200
 	}
 
 	.inputs .input {
-		margin-top: 20px;
+		margin-top: 0px;
+	}
+
+	.inputs h4 {
+		margin-bottom:  -20px
 	}
 
 	input {
@@ -175,6 +189,7 @@ h4 {
 	input::placeholder {
 	  color: lightgrey;
 	}
+
 
 	.errors {
 		font-weight: 400;
