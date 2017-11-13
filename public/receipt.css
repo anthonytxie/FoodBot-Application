@@ -4,7 +4,9 @@
 	}
 
 	body {
+		font-weight: 100;
 		position: relative;
+		background-color: #f7f7f8;
 	}
 
 section {
@@ -12,19 +14,167 @@ section {
 	color: black;
 }
 
+/*your order*/
 h4 {
-	background-color: white;
 	height: 38px;
 	letter-spacing: .08em;
-	color: #4a4949;
 	padding-top: 22px!important;
 	padding-bottom: 0px!important;
 	padding-left: 14px!important;
 	font-size: .8em;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #E4E6EA;
 	font-weight: 400;
 	margin: 0;
 }
+
+.items {
+	background-color: white;
+}
+
+.items .item {
+	border-top: 1px solid #dee0e5;
+}
+
+.items > div {
+	line-height: 40px;
+	/*border-bottom: 1px solid #E4E6EA;*/
+	color: #4a4949;
+	font-size: 15.2px;
+}
+
+.items .item {
+	padding-left: 10px;
+}
+
+.right {
+	display: inline-block;
+	float: right;
+	width: 135px;
+}
+
+.items .edit, .items .delete {
+	display: inline-block;
+	color: white;
+	font-weight: 100;
+	letter-spacing: .03em;
+	/*padding: 0 5px;*/
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	margin-top: 5px;
+	border-radius: 10%;
+	margin-right: 5px;
+}
+
+.items .combo {
+	margin-left: 30px;
+	/*font-size: .9em;*/
+}
+
+/*.items .combo .right {
+	font-size: 1.1em;
+}*/
+/*
+.fa {
+	position: relative;
+	bottom: 15px;
+
+}*/
+
+.price {
+	margin-right: 8px;
+	height: 38px;
+	font-size: .9em;
+	display: inline-block;
+	width: 52px;
+	color: rgba(0,0,0,.55);
+	text-align: center;
+}
+
+.actions {
+	float: right;
+	height: 40px;
+}
+
+.edit {
+	background-color: #3d67f6;
+}
+
+.delete {
+	background-color: #e2202b;
+	float: right;
+}
+
+.fa {
+	position: relative;
+	bottom: 7px;
+}
+
+/*the price totals*/
+.prices {
+	text-align: right;
+	margin-top: 30px;
+	margin-bottom: 76px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 200px;
+}
+
+.prices .header {
+	font-weight: 400;
+	font-size: 1em;
+}
+
+.prices .number {
+	font-size: .9em;
+}
+
+.header, .number {
+	display: inline-block;
+}
+
+.number, .header {
+	width: 100px;
+}
+
+.number {
+	text-align: left;
+}
+
+
+
+/*second page*/
+	.inputs p {
+		margin-left: 5%;
+		font-size: .9em;
+		font-weight: 400;
+	}
+
+	.inputs input[type="text"] {
+		width: 89%;
+		margin-left: 4.5%;
+		height: 50px;
+	}
+
+	.inputs .input {
+		margin-top: 20px;
+	}
+
+	input {
+		font-size: 1.5em;
+	}
+
+	input::placeholder {
+	  color: lightgrey;
+	}
+
+	.errors {
+		font-weight: 400;
+		text-align: center;
+		color: crimson;
+		margin-top: 20px;
+	}
 
 
 
@@ -32,15 +182,126 @@ h4 {
 	/*button*/
 	button:focus {outline:0;}
 
+
+	/*edit this mess*/
 	.button_container button {
+
+		background-color:rgb(0, 132, 255);
+		border-bottom-color:rgb(255, 255, 255);
+		border-bottom-left-radius:7px;
+		border-bottom-right-radius:7px;
+		border-bottom-style:solid;
+		border-bottom-width:0px;
+		border-image-outset:0px;border-image-repeat:
+stretch
+;
+border-image-slice:
+100%
+;
+border-image-source:
+none
+;
+border-image-width:
+1
+;
+border-left-color:
+rgb(255, 255, 255)
+;
+border-left-style:
+solid
+;
+border-left-width:
+0px
+;
+border-right-color:
+rgb(255, 255, 255)
+;
+border-right-style:
+solid
+;
+border-right-width:
+0px
+;
+border-top-color:
+rgb(255, 255, 255)
+;
+border-top-left-radius:
+7px
+;
+border-top-right-radius:
+7px
+;
+border-top-style:
+solid
+;
+border-top-width:
+0px
+;
+box-shadow:
+rgb(0, 0, 0) 0px 3px 5px -3px
+;
+box-sizing:
+border-box
+;
+color:
+rgb(255, 255, 255)
+;
+cursor:
+pointer
+;
+display:
+block
+;
+font-family:
+sans-serif
+;
+font-size:
+16px
+;
+font-stretch:
+normal
+;
+font-style:
+normal
+;
+font-variant-caps:
+normal
+;
+font-variant-ligatures:
+normal
+;
+font-variant-numeric:
+normal
+;
+font-weight:
+300
+;
+height:
+45px
+;
+
+
+
+
+
+
+
+		letter-spacing: .96px;
+		padding: 11.2px 16px;
+		margin: 15px auto;
+		line-height: 20.8px;
+		font-weight: 300;
+
+
+		text-shadow: rgb(243, 243, 243) 0px 0px 0px;
 		width: 85% !important;
-		height: 45px;
+		height: 22.6px;
 		letter-spacing: .06em;
 		font-weight: 300;
-		margin: 15px 15px 15px 8% !important;
 		box-shadow: 0px 3px 5px -3px black;
 	  box-sizing: content-box;
 	  border-radius: 7px !important;
+	  text-decoration-color: rgb(255, 255, 255);
 	}
 
 	/*container*/
