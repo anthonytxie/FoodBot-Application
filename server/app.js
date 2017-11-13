@@ -50,5 +50,6 @@ app.use(order);
 if (process.env.NODE_ENV == "production") {
   app.use(opbeat.middleware.express());
 }
+console.log("THIS IS THE FUCKING ENVIROMENT " + process.env.NODE_ENV)
 
 module.exports = app;

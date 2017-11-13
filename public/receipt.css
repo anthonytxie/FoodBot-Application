@@ -168,10 +168,15 @@ h4 {
 		width: 89%;
 		margin-left: 4.5%;
 		height: 50px;
+		font-weight: 200
 	}
 
 	.inputs .input {
-		margin-top: 20px;
+		margin-top: 0px;
+	}
+
+	.inputs h4 {
+		margin-bottom:  -20px
 	}
 
 	input {
@@ -181,6 +186,7 @@ h4 {
 	input::placeholder {
 	  color: lightgrey;
 	}
+
 
 	.errors {
 		font-weight: 400;
