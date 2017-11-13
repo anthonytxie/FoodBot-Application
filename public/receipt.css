@@ -125,6 +125,7 @@ h4 {
 	margin-right: auto;
 	display: block;
 	width: 200px;
+	clear: both;
 }
 
 .prices .header {

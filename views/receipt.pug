@@ -106,6 +106,9 @@ html(lang="en")
 
 		script.
 
+			
+
+
 			// close setup
 			(function(d, s, id){
 				var js, fjs = d.getElementsByTagName(s)[0];
@@ -127,6 +130,28 @@ html(lang="en")
 					closeWebview();
 				}
 			});
+
+			// css for very long items
+			$("document").ready(function(){
+				var pricesMargin = 40;
+				var windowWidth = $("body").css("width");
+				console.log("window width", windowWidth);
+				$(".right").each(function(){
+					var textOffset = $(this).parent().offset().top
+					var buttonOffset = $(this).offset().top;
+					console.log(textOffset);
+					console.log(buttonOffset);
+					if (buttonOffset > textOffset + 10) {
+						pricesMargin += 41;
+						console.log("uh oh");
+						$(this).css("width", windowWidth);
+						$(this).css("background", "white");
+						$(this).css("border-bottom", "1px solid #E4E6EA");
+						$(".prices").css("margin-top", `${pricesMargin}px`);
+						//- $(this).css("")
+					}
+				})
+			})
 
 			// constants
 			const orderId = !{JSON.stringify(order._id)}
