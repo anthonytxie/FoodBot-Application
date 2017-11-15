@@ -1,75 +1,259 @@
 const { Order, Item, Burger, Drink, Side } = require("./../models/index");
+const orderDAO = require("./orderDAO");
 const mongoose = require("mongoose");
 var itemDAO = {};
-const { populateOrder } = require("./helperFunctions");
+const { populateOrder, saveItemAndUpdateOrder } = require("./helperFunctions");
+const { logger } = require("./../../server/logger/logger");
 
-const saveItemAndUpdateOrder = function(item, orderId, resolve, reject) {
-  return item
-    .save()
-    .then(item => {
-      resolve(
-        populateOrder(
-          Order.findOneAndUpdate(
-            { _id: orderId },
-            { $push: { _items: item._id } },
-            { new: true }
-          )
-        )
-      );
-    })
-    .catch(err => reject(err));
-};
-
-itemDAO.postBurger = function(data, orderId) {
+itemDAO.postBurger = function(foodObject, senderId) {
+  logger.info(`${senderId} itemDAO postBurger`, { foodObject });
+  let orderId;
   return new Promise((resolve, reject) => {
-    const burger = new Burger(data)
-    saveItemAndUpdateOrder(burger, orderId, resolve, reject);
+    orderDAO.getLastOrderBySender(senderId).then(order => {
+      orderId = order._id;
+      Burger.findOne({
+        _link: foodObject._link,
+        _order: order._id
+      })
+        .then(burger => {
+          if (burger) {
+            return resolve(
+              Burger.findOneAndUpdate(
+                {
+                  _order: order._id,
+                  _link: foodObject._link
+                },
+                {
+                  $set: {
+                    Patties: foodObject.Patties,
+                    standardToppings: foodObject.standardToppings,
+                    premiumToppings: foodObject.premiumToppings
+                  }
+                },
+                { new: true }
+              )
+            );
+            // no catch here???
+          } else {
+            const newBurger = new Burger({
+              _order: order._id,
+              _link: foodObject._link,
+              Patties: foodObject.Patties,
+              standardToppings: foodObject.standardToppings,
+              premiumToppings: foodObject.premiumToppings,
+              itemName: foodObject.itemName
+            });
+            saveItemAndUpdateOrder(newBurger, orderId, resolve, reject);
+          }
+        })
+        .catch(err => {
+          logger.error(`itemDAO postBurger`, {
+            err
+          });
+          reject(err);
+        });
+    });
   });
 };
 
-itemDAO.postDrink = function(data, orderId) {
-return new Promise((resolve, reject) => {
-    const drink = new Drink(data);
-    if (data.itemCombo) {
-      populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (!order._items[0]) {
-          resolve (false)
-        }
-        else if (order._items.slice(-1)[0].itemType ==='burger') {
-          saveItemAndUpdateOrder(drink, orderId, resolve, reject);
-        }
-        else {
-          resolve(false);
-        }
-      }).catch((err) => reject(err));
+itemDAO.postDrink = function(foodObject, senderId) {
+  logger.info(`${senderId} itemDAO postDrink`, { foodObject });
+  let orderId;
+  return new Promise((resolve, reject) => {
+    if (foodObject.itemCombo) {
+      orderDAO
+        .getLastOrderBySender(senderId)
+        .then(order => {
+          orderId = order._id;
+          return Drink.findOne({
+            _link: foodObject._link,
+            _order: order._id
+          });
+        })
+        .then(drink => {
+          if (drink) {
+            return resolve(
+              Drink.findOneAndUpdate(
+                {
+                  _order: orderId,
+                  _link: foodObject._link
+                },
+                {
+                  $set: {
+                    itemName: foodObject.itemName
+                  }
+                },
+                { new: true }
+              )
+            );
+          } else {
+            const newDrink = new Drink({
+              _order: orderId,
+              _link: foodObject._link,
+              itemName: foodObject.itemName,
+              itemCombo: foodObject.itemCombo
+            });
+            newDrink
+              .save()
+              .then(item => {
+                return Order.findOneAndUpdate(
+                  { _id: orderId },
+                  { $push: { _items: item._id } },
+                  { new: true }
+                ).populate("_items");
+              })
+              .then(order => {
+                return Burger.findOneAndUpdate(
+                  {
+                    _order: orderId,
+                    _link: foodObject._link
+                  },
+                  {
+                    $set: {
+                      itemCombo: true
+                    }
+                  },
+                  { new: true }
+                );
+              })
+              .then(item => {
+                resolve(item);
+              })
+              .catch(err => {
+                logger.error(`itemDAO postDrink`, {
+                  err
+                });
+                reject(err);
+              });
+          }
+        })
+        .catch(err => {
+          logger.error(`itemDAO postDrink`, {
+            err
+          });
+          reject(err);
+        });
     } else {
-      saveItemAndUpdateOrder(drink, orderId, resolve, reject);
-    }
-  });
-};
-
-itemDAO.postSide = function(data, orderId) {
-  const side = new Side(data);
-  return new Promise((resolve, reject) => {
-    if (data.itemCombo) {
-      populateOrder(Order.findOne({ _id: orderId })).then(order => {
-        if (!order._items[0]) {
-          resolve (false)
-        }
-        else if (order._items.slice(-1)[0].itemCombo) {
-          saveItemAndUpdateOrder(side, orderId, resolve, reject);
-        }
-        else {
-          resolve(false);
-        }
+      orderDAO.getLastOrderBySender(senderId).then(order => {
+        const newDrink = new Drink({
+          _order: order._id,
+          itemName: foodObject.itemName
+        });
+        saveItemAndUpdateOrder(newDrink, order._id, resolve, reject);
       });
-    } else {
-      saveItemAndUpdateOrder(side, orderId, resolve, reject)
     }
+  });
+};
+
+itemDAO.postSide = function(foodObject, senderId) {
+  logger.info(`${senderId} itemDAO postSide`, { foodObject });
+  let orderId;
+  return new Promise((resolve, reject) => {
+    if (foodObject.itemCombo) {
+      orderDAO
+        .getLastOrderBySender(senderId)
+        .then(order => {
+          orderId = order._id;
+          return Side.findOne({
+            _link: foodObject._link,
+            _order: order._id
+          });
+        })
+        .then(side => {
+          if (side) {
+            return resolve(
+              Side.findOneAndUpdate(
+                {
+                  _order: orderId,
+                  _link: foodObject._link
+                },
+                {
+                  $set: {
+                    itemName: foodObject.itemName
+                  }
+                },
+                { new: true }
+              )
+            );
+          } else {
+            const newSide = new Side({
+              _order: orderId,
+              _link: foodObject._link,
+              itemName: foodObject.itemName,
+              itemSize: foodObject.itemSize,
+              itemCombo: foodObject.itemCombo
+            });
+            saveItemAndUpdateOrder(newSide, orderId, resolve, reject);
+          }
+        });
+    } else {
+      orderDAO.getLastOrderBySender(senderId).then(order => {
+        const newSide = new Side({
+          _order: order._id,
+          itemName: foodObject.itemName,
+          itemSize: foodObject.itemSize
+        });
+        saveItemAndUpdateOrder(newSide, order._id, resolve, reject);
+      });
+    }
+  }).catch(err => {
+    logger.error(`itemDAO postSide`, {
+      err
+    });
+    reject(err);
+  });
+};
+
+itemDAO.removeComboItems = function(senderId, linkId) {
+  logger.info(`${senderId} itemDAO removeComboItems`);
+  return new Promise((resolve, reject) => {
+    let orderId;
+    orderDAO
+      .getLastOrderBySender(senderId)
+      .then(order => {
+        orderId = order._id;
+        return Drink.findOneAndRemove({
+          _link: linkId,
+          _order: order._id,
+          itemCombo: true
+        });
+      })
+      .then(() => {
+        return Side.findOneAndRemove({
+          _link: linkId,
+          _order: orderId,
+          itemCombo: true
+        });
+      })
+      .then(() => {
+        return Burger.findOneAndUpdate(
+          {
+            _order: orderId,
+            _link: linkId,
+            itemCombo: true
+          },
+          {
+            $set: {
+              itemCombo: false
+            }
+          },
+          { new: true }
+        );
+      })
+      .then(burger => {
+        resolve(burger);
+      })
+      .catch(err => {
+        logger.error(`itemDAO removeComboItems`, {
+          err
+        });
+        reject(err);
+      });
   });
 };
 
 itemDAO.deleteItemById = function(itemId, orderId) {
+  logger.info(`${itemId} itemDAO deleteItemById`);
   return new Promise((resolve, reject) => {
     Item.findOneAndRemove({ _id: itemId })
       .then(item => {
@@ -82,7 +266,12 @@ itemDAO.deleteItemById = function(itemId, orderId) {
       .then(order => {
         resolve(order);
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        logger.error(`itemDAO removeComboItems`, {
+          err
+        });
+        reject(err);
+      });
   });
 };
 

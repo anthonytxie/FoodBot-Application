@@ -4,6 +4,8 @@ const isEmpty = require('lodash/isEmpty');
 
 // ===== MODULES ===============================================================
 const request =  require('request');
+const { logger } = require("./../server/logger/logger");
+require('dotenv').config();
 
 
 const PAGE_ACCESS_TOKEN = process.env.page_access_token;
@@ -41,7 +43,7 @@ const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 5) => {
   }, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       // Message has been successfully received by Facebook.
-      console.log(
+      logger.verbose(
         `Successfully sent message to ${endPoint} endpoint: `,
         JSON.stringify(body)
       );
@@ -74,8 +76,5 @@ const callMessagesAPI = (messageDataArray, queryParams = {}) => {
 const callThreadAPI = (endpoint, messageDataArray, queryParams = {}) => {
   return callAPI(endpoint, messageDataArray, queryParams);
 };
-
-
-
 
 module.exports = { callAPI, callMessagesAPI, callThreadAPI };

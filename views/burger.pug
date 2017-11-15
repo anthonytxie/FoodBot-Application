@@ -1,0 +1,472 @@
+doctype html
+html(lang="en")
+	head
+		title Burger
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+		link(rel ='stylesheet', href="burger.css", type='text/css')
+		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+		script(src="https://use.fontawesome.com/1d07c7b3d1.js")
+	body
+		script.
+			// code to connect to the extension necessary to close this view
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'Messenger'));
+
+			// toppings to be used in 
+		- var toppings = burger.standardToppings.concat(burger.premiumToppings)
+
+		form#only_form(method="post", action="burger")
+			if receipt
+				input(type="hidden" name="sendMessage" value=0)
+			else
+				input(type="hidden" name="sendMessage" value=1)
+			input(type="hidden" name="itemName" value=burger.itemName)
+			input(type="hidden" name="sender_id" value=sender_id)
+			input(type="hidden" name="_link" value=_link)
+
+			unless ((burger.itemName == "Chicken Chicken") || (burger.itemName == "The Portobello"))
+				h4#pattiesToggle
+					span PATTIES
+					.i
+						i(class="fa fa-chevron-circle-down", aria-hidden="true")
+			section
+
+				input#patties(type="hidden", name="Patties", value=burger.Patties)
+
+				.wide_checkbox.patty_option(val=1)
+					if burger.Patties == 1
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 1 Patty
+						p For small mouths
+					p.price $2.00
+
+				.wide_checkbox.patty_option(val=2)
+					if burger.Patties == 2
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 2 Patties
+						p A more elegant burger
+					p.price $4.00
+
+				.wide_checkbox.patty_option(val=3)
+					if burger.Patties == 3
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 3 Patties
+						p For big appetites
+					p.price $6.00
+
+			
+			h4 
+				span BUN
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section.radio.section2.required(style="display:none")
+
+				.wide_checkbox.bun
+					if toppings.includes('Sesame Bun') || (!toppings.includes('Lettuce Bun') && !toppings.includes('Gluten Free Bun') && !toppings.includes('Grilled Cheese Bun'))
+						.custom_check_on
+						input(type="hidden", name="Sesame Bun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Sesame Bun', value="")
+					.toggle
+						h3 Sesame Bun
+						p Solid choice
+					p.price FREE
+
+				.wide_checkbox.bun
+					if toppings.includes('Lettuce Bun')
+						.custom_check_on
+						input(type="hidden", name="Lettuce Bun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Lettuce Bun', value="")
+					.toggle
+						h3 Lettuce Bun
+						p Lettuce eat this bun
+					p.price FREE
+
+				.wide_checkbox.bun
+					if toppings.includes('Gluten Free Bun')
+						.custom_check_on
+						input(type="hidden", name="Gluten Free Bun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Gluten Free Bun', value="")
+					.toggle
+						h3 Gluten Free Bun
+						p Mo' gluten mo' problems
+					p.price $1.50
+
+				.wide_checkbox.bun
+					if toppings.includes('Grilled Cheese Bun')
+						.custom_check_on
+						input(type="hidden", name="Grilled Cheese Bun", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Grilled Cheese Bun', value="")
+					.toggle
+						h3 Grilled Cheese Bun
+						p Fun in the bun
+					p.price $3.00
+
+			
+			h4 
+				span SAUCES
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section(style="display:none")
+
+				.wide_checkbox
+					if toppings.includes('Ketchup')
+						.custom_check_on
+						input(type="hidden", name="Ketchup", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Ketchup', value="")
+					.toggle
+						h3 Ketchup
+						p Tomato inspired
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Mustard')
+						.custom_check_on
+						input(type="hidden", name="Mustard", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Mustard', value="")
+					.toggle
+						h3 Mustard
+						p The Robin to Ketchups Batman
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Mayo')
+						.custom_check_on
+						input(type="hidden", name="Mayo", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Mayo', value="")
+					.toggle
+						h3 Mayo
+						p Mayo wishes come true
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Relish')
+						.custom_check_on
+						input(type="hidden", name="Relish", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Relish', value="")
+					.toggle
+						h3 Relish
+						p I Relish the idea of this burger
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Fancy Sauce')
+						.custom_check_on
+						input(type="hidden", name="Fancy Sauce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Fancy Sauce', value="")
+					.toggle
+						h3 Fancy Sauce
+						p Comes with a monocle
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Hot Sauce')
+						.custom_check_on
+						input(type="hidden", name="Hot Sauce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Hot Sauce', value="")
+					.toggle
+						h3 Hot Sauce
+						p Feelin' hot hot hot
+					p.price FREE
+
+			
+			h4 
+				span TOPPINGS
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section(style="display:none")
+				.wide_checkbox
+					if toppings.includes('Chicken Patty')
+						.custom_check_on
+						input(type="hidden", name="Chicken Patty", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Chicken Patty', value="")
+					.toggle
+						h3 Chicken Patty
+						p bok bok boooooookkkkk
+					p.price $5.00
+
+				.wide_checkbox
+					if toppings.includes('Lettuce')
+						.custom_check_on
+						input(type="hidden", name="Lettuce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Lettuce', value="")
+					.toggle
+						h3 Lettuce
+						p Now it's a salad
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Tomatoes')
+						.custom_check_on
+						input(type="hidden", name="Tomatoes", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Tomatoes', value="")
+					.toggle
+						h3 Tomato
+						p Solid Ketchup
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Pickles')
+						.custom_check_on
+						input(type="hidden", name="Pickles", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Pickles', value="")
+					.toggle
+						h3 Pickle
+						p Salty cucumber
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Onions')
+						.custom_check_on
+						input(type="hidden", name="Onions", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Onions', value="")
+					.toggle
+						h3 Onions
+						p Like ogres
+					p.price FREE
+
+				.wide_checkbox
+					if toppings.includes('Hot Peppers')
+						.custom_check_on
+						input(type="hidden", name="Hot Peppers", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Hot Peppers', value="")
+					.toggle
+						h3 Hot Peppers
+						p Hotter than my mixtape
+					p.price FREE
+
+				// NOT FREE
+				.wide_checkbox
+					if toppings.includes('Bacon')
+						.custom_check_on
+						input(type="hidden", name="Bacon", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Bacon', value="")
+					.toggle
+						h3 Bacon
+						p Fresh 
+					p.price $1.50
+
+				.wide_checkbox
+					if toppings.includes('Standard Cheese')
+						.custom_check_on
+						input(type="hidden", name="Standard Cheese", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Standard Cheese', value="")
+					.toggle
+						h3 Regular Cheese
+						p Some call it fromage
+					p.price $1.00
+
+				.wide_checkbox
+					if toppings.includes('American Cheese')
+						.custom_check_on
+						input(type="hidden", name="American Cheese", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='American Cheese', value="")
+					.toggle
+						h3 American Style Cheese
+						p For the Southerners
+					p.price $1.00
+
+				.wide_checkbox
+					if toppings.includes('Blue Cheese')
+						.custom_check_on
+						input(type="hidden", name="Blue Cheese", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Blue Cheese', value="")
+					.toggle
+						h3 Blue Cheese
+						p Not actually blue
+					p.price $1.50
+
+				.wide_checkbox
+					if toppings.includes('Caramelized Onions')
+						.custom_check_on
+						input(type="hidden", name="Caramelized Onions", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Caramelized Onions', value="")
+					.toggle
+						h3 Caramelized Onions
+						p Like Onions but caramelized
+					p.price $1.00
+
+				.wide_checkbox
+					if toppings.includes('Stuffed Portobello')
+						.custom_check_on
+						input(type="hidden", name="Stuffed Portobello", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Stuffed Portobello', value="")
+					.toggle
+						h3 Stuffed Portobello
+						p Fancy mushrooms
+					p.price $6.00
+
+				.wide_checkbox
+					if toppings.includes('Sauteed Mushrooms')
+						.custom_check_on
+						input(type="hidden", name="Sauteed Mushrooms", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Sauteed Mushrooms', value="")
+					.toggle
+						h3 Sauteed Mushrooms
+						p All about the oil
+					p.price $1.50
+
+				// SIDES
+				.wide_checkbox
+					if toppings.includes('Cheese Sauce')
+						.custom_check_on
+						input(type="hidden", name="Cheese Sauce", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Cheese Sauce', value="")
+					.toggle
+						h3 Side of Cheese Sauce
+						p For true fans
+					p.price $2.50
+
+				.wide_checkbox
+					if toppings.includes('Side of Gravy')
+						.custom_check_on
+						input(type="hidden", name="Side of Gravy", value="true")
+					else
+						.custom_check_off
+						input(type="hidden", name='Side of Gravy', value="")
+					.toggle
+						h3 Side of Gravy
+						p One step closer to Poutine
+					p.price $1.50
+
+			.button_container
+				button.done DONE
+		
+		if receipt
+			script.
+				var senderId = !{JSON.stringify(sender_id)}
+				$("button").click(function(e){
+					e.preventDefault();
+					$.post('burger', $('form').serialize()).done(function(success){
+						window.location = `receipt?senderId=${senderId}`;
+					}).fail(function(fail){
+						console.log("burger update through receipt failed");
+					})
+				})
+				
+		else
+			script.
+				// called when MessengerExtensions is done loading
+				window.extAsyncInit = function(){
+					$("button").click(function(){
+						// document.getElementById("only_form").submit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err){
+							console.log(err);
+						});
+					})
+				}
+			
+		script.
+
+			//- $(".patty_option").on("click", function(){
+			//- 	$("#pattiesToggle").click();
+			//- })
+
+			// collapse
+			$("body").on("click", "h4", function(){
+				const i = $(this).children(".i").children("i");
+				// close all other tabs
+				if ($(this).next("section").css("display") == "none") {
+					$("section").hide();
+					$("i").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+					i.removeClass("fa-chevron-circle-right").addClass("fa-chevron-circle-down");
+					$(this).next("section").show();
+				} else {
+					$("i").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+					$("section").hide();
+				}
+			})
+
+			// radio for patties
+			$("body").on("click", ".patty_option", function() {
+				const quantity = $(this).attr("val");
+				$("#patties").attr("value", quantity);
+				$(".patty_option").children(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+				$(this).children(".custom_check_off").removeClass("custom_check_off").addClass("custom_check_on");
+			})
+
+			// radio for buns
+			$("body").on("click", ".bun", function() {
+				$(".bun").children(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+				$(this).children(".custom_check_off").removeClass("custom_check_off").addClass("custom_check_on");
+			})
+
+			// checkboxes
+			$("body").on("click", ".wide_checkbox", function() {
+				if (!($(this).hasClass("patty_option") || $(this).hasClass("bun"))) {
+					let checkbox = $(this).children("div:first-child");
+					if (checkbox.hasClass("custom_check_on")) { // turn off
+						$(this).children("input").attr("value", "");
+					} else {
+						$(this).children("input").attr("value", "true");
+					}
+					checkbox.toggleClass("custom_check_on");
+					checkbox.toggleClass("custom_check_off");
+				}
+			})

@@ -5,6 +5,8 @@ const userSchema = new Schema({
   firstName: String,
 
   lastName: String,
+
+  profilePicture: String,
   // this is the unique page scoped id facebook messenger gives
   PSID: {
     type: String,
@@ -18,6 +20,17 @@ const userSchema = new Schema({
       dropDups: true
     }
   ],
+
+  phoneNumbers: [
+    {
+      type: String,
+      dropDups: true
+    }
+  ],
+
+  address: String,
+
+  roomNumber: String,
 
   createdAt: {
     type: Date,

@@ -1,0 +1,354 @@
+- let drink_name = ""
+- const drink = itemsArray[0];
+- if (drink) {drink_name = drink.itemName}
+- let fries_name = "";
+- const fries = itemsArray[1];
+- if (fries) {fries_name = fries.itemName}
+
+- console.log("link:");
+- console.log(_link);
+
+doctype html
+html(lang="en")
+	head
+		title Combo
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		script(src="https://use.fontawesome.com/3efb1c9419.js")
+		link(href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet")
+		link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+		link(rel ='stylesheet', href="combo.css", type='text/css')
+		script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+		script(src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+	body
+		script.
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'Messenger'));
+		form(method="post" action="combo")
+			if receipt
+				input(type="hidden" name="sendMessage" value=0)
+			else
+				input(type="hidden" name="sendMessage" value=1)
+			input(type="hidden" name="sender_id", value=sender_id)
+			input(type="hidden" name="_link", value=_link)
+
+			h4 
+				span FRIES
+				.i
+					i(class="fa fa-chevron-circle-down", aria-hidden="true")
+			section.section1.radio.required
+				input(type="hidden" name="food_type", value=fries_name)
+
+				.wide_checkbox(val="Fries")
+					if fries_name == "Fries"
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 Fries
+						p Basic Fries
+					p.price $2.00
+
+				.wide_checkbox(val="Cheesy Fries")
+					if fries_name == "Cheesy Fries"
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 Cheesy Fries
+						p Add cheese
+					p.price $4.50
+
+				.wide_checkbox(val="Poutine")
+					if fries_name == "Poutine"
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 Poutine
+						p Add gravy and cheese
+					p.price $6.00
+
+			h4 
+				span DRINKS
+				.i
+					i(class="fa fa-chevron-circle-right", aria-hidden="true")
+			section.section2.radio.required(style="display:none")
+				- let drink_type = "";
+				- let milkshake_display = "display: none";
+				- let soda_display = "display: none";
+				if drink_name == "Water Bottle"
+					- drink_type = "water";
+				if drink_name == "Vanilla Milkshake" || drink_name == "Strawberry Milkshake" || drink_name == "Chocolate Milkshake"
+					- drink_type = "milkshake";
+					- milkshake_display = "display: inital";
+				if drink_name == "Pepsi" || drink_name == "Diet Pepsi" || drink_name == "7-Up" || drink_name == "Orange Crush" || drink_name == "Dr Pepper" || drink_name == "Iced Tea" || drink_name == "Ginger Ale" || drink_name == "Rootbeer" || drink_name == "Mountain Dew"
+					- drink_type = "soda";
+					- soda_display = "display: inital";
+
+				input(type="hidden" name="drink_type", value=drink_type)
+
+				.wide_checkbox.milkshake(val="milkshake")
+					if drink_type == "milkshake"
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 Milkshake
+						p Dairy for days
+					p.price $2.99
+
+				.wide_checkbox.soda(val="soda")
+					if drink_type == "soda"
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 Soda
+						p So many options
+					p.price $1.29
+
+				.wide_checkbox.water(val="water")
+					if drink_type == "water"
+						.custom_check_on
+					else
+						.custom_check_off
+					.toggle
+						h3 Water
+						p Cold and refreshing
+					p.price $2.50
+
+			span.milkshake_container(style=milkshake_display)
+				h4 
+					span MILKSHAKE
+					.i
+						i(class="fa fa-chevron-circle-right", aria-hidden="true")
+				section.section3.radio.required(style="display:none")
+
+					- let milkshake_flavor = "";
+
+					if drink_name == "Vanilla Milkshake"
+						- milkshake_flavor = "vanilla";
+					if drink_name == "Chocolate Milkshake"
+						- milkshake_flavor = "chocolate"
+					if drink_name == "Strawberry Milkshake"
+						- milkshake_flavor = "strawberry"
+					input(type="hidden" name="milkshake_flavor", value=milkshake_flavor)
+
+					.wide_checkbox(val="vanilla")
+						if milkshake_flavor == "vanilla"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Vanilla
+							p Back to the basics
+
+					.wide_checkbox(val="chocolate")
+						if milkshake_flavor == "chocolate"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Chocolate
+							p Made from cocoa
+
+					.wide_checkbox(val="strawberry")
+						if milkshake_flavor == "strawberry"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Strawberry
+							p Scarecrow's favorite fruit
+
+			span.soda_container(style=soda_display)
+				h4 
+					span SODA
+					.i
+						i(class="fa fa-chevron-circle-right", aria-hidden="true")
+				section.section4.radio.required(style="display:none")
+
+					- drink_type = drink_name;
+					input(type="hidden" name="soda_flavor", value=drink_type)
+
+
+					.wide_checkbox(val="Pepsi")
+						if drink_type == "Pepsi"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Pepsi
+							p Tastes like Coke
+
+					.wide_checkbox(val="Diet Pepsi")
+						if drink_type == "Diet Pepsi"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Diet Pepsi
+							p Pepsi for healthy people
+
+					.wide_checkbox(val="Rootbeer")
+						if drink_type == "Rootbeer"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Root Beer
+							p (Root Beer)^2 = Beer
+
+					.wide_checkbox(val="Dr Pepper")
+						if drink_type == "Dr Pepper"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Dr Pepper
+							p That's Mr Pepper to you
+
+					.wide_checkbox(val="7-Up")
+						if drink_type == "7-Up"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 7-Up
+							p Seven down
+
+					.wide_checkbox(val="Mountain Dew")
+						if drink_type == "Mountain Dew"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Mountain Dew
+							p Fresh from the mountain
+
+					.wide_checkbox(val="Ginger Ale")
+						if drink_type == "Ginger Ale"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Ginger Ale
+							p Good for the tummy
+
+					.wide_checkbox(val="Orange Crush")
+						if drink_type == "Orange Crush"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Orange Crush
+							p Crushes all competition
+
+					.wide_checkbox(val="Iced Tea")
+						if drink_type == "Iced Tea"
+							.custom_check_on
+						else
+							.custom_check_off
+						.toggle
+							h3 Iced Tea
+							p I pity the fool
+
+			.button_container
+				button.done(disabled = 'true') DONE
+
+		if receipt
+			script.
+				var senderId = !{JSON.stringify(sender_id)}
+				$("button").click(function(e){
+					e.preventDefault();
+					$.post('combo', $('form').serialize()).done(function(success){
+						window.location = `receipt?senderId=${senderId}`;
+					}).fail(function(fail){
+						console.log("combo update through receipt failed");
+					})
+				})
+
+		else
+			script.
+				// called when MessengerExtensions is done loading
+				window.extAsyncInit = function() {
+					$("button").click(function(){
+						// document.getElementById("only_form").submit();
+						MessengerExtensions.requestCloseBrowser(function success() {
+							console.log("success");
+						}, function error(err) {
+							console.log(err);
+						});
+					})
+				}
+
+		script.
+
+			$("body").on("click", "h4", function(){
+				const i = $(this).children(".i").children("i");
+				if ($(this).next("section").css("display") == "none") {
+					console.log('should open');
+					$("section").hide()
+					$("i").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+					i.removeClass("fa-chevron-circle-right").addClass("fa-chevron-circle-down");
+					$(this).next("section").show();
+				} else {
+					console.log('should close');
+					$("i").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-right");
+					$("section").hide();
+				}
+			})
+
+			$(".wide_checkbox").click(function(){
+				var val = $(this).attr("val");
+				$(this).parent().children("input").attr("value", val);
+			})
+
+			
+
+			// first 2 sections (radio)
+			$(".radio").on("click", ".wide_checkbox", function() {
+				let checkbox = $(this).children("div:first-child");
+				if (checkbox.hasClass("custom_check_on")) {
+				} else {
+					
+					$(this).parent().find(".custom_check_on").removeClass("custom_check_on").addClass("custom_check_off");
+					checkbox.removeClass("custom_check_off").addClass("custom_check_on");
+					if ($(this).attr("val") === "milkshake") {
+						$(".milkshake_container").css("display", "initial");
+						$(".soda_container").css("display", "none");
+					}
+					if ($(this).attr("val") === "soda") {
+						$(".milkshake_container").css("display", "none");
+						$(".soda_container").css("display", "initial");
+					}
+					if ($(this).attr("val") === "water") {
+						$(".milkshake_container").css("display", "none");
+						$(".soda_container").css("display", "none");
+					}
+				}
+			})
+
+			// unlock the button if there is a real combo
+			$(document).ready(function(){
+				if ($(".custom_check_on").length) {
+					$("button").prop('disabled', false);
+				}
+			})
+
+			$(".required").on("click", ".wide_checkbox", function() {
+				if ($(".section1").find(".custom_check_on").length >= 1 &&
+							(($(".water").find(".custom_check_on").length >= 1) ||
+							($(".milkshake").find(".custom_check_on").length >= 1 && $(".section3").find(".custom_check_on").length >= 1) ||
+							($(".soda").find(".custom_check_on").length >= 1 && $(".section4").find(".custom_check_on").length >= 1))) {
+
+					$("button").prop('disabled', false);
+				} else {
+					$("button").prop('disabled', true);
+				}
+			})

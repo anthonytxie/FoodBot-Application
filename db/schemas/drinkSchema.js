@@ -11,23 +11,24 @@ const drinkSchema = new Schema(
     itemName: {
       type: String,
       enum: [
-        "pepsi",
-        "dietPepsi",
-        "7-up",
-        "orangeCrush",
-        "drpepper",
-        "icedTea",
-        "gingerAle",
-        "rootBeer",
-        "waterBottle",
-        "mountainDew",
-        "vanillaMilkshake",
-        "chocolateMilkshake",
-        "strawberryMilkshake"
+        "Pepsi",
+        "Diet Pepsi",
+        "7-Up",
+        "Orange Crush",
+        "Dr Pepper",
+        "Iced Tea",
+        "Ginger Ale",
+        "Rootbeer",
+        "Water Bottle",
+        "Mountain Dew",
+        "Vanilla Milkshake",
+        "Chocolate Milkshake",
+        "Strawberry Milkshake"
       ]
     },
     itemCombo: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   disciminatorOptions
@@ -36,31 +37,31 @@ const drinkSchema = new Schema(
 drinkSchema.virtual("price").get(function() {
   if (this.itemCombo) {
     if (this.itemName.includes('Milkshake')) {
-      return 2.99
+      return 299
     }
     else {
-      return 1.29
+      return 129
     }
   } else {
     let price;
     switch (this.itemName) {
-      case "vanillaMilkshake":
-        return 3.99;
+      case "Vanilla Milkshake":
+        return 399;
         break;
-      case "chocolateMilkshake":
-        return 3.99;
+      case "Chocolate Milkshake":
+        return 399;
         break;
-      case "strawberryMilkshake":
-        return 3.99;
+      case "Strawberry Milkshake":
+        return 399;
         break;
-      case "mountainDew":
-        return 2.47;
+      case "Mountain Dew":
+        return 247;
         break;
-      case "waterBottle":
-        return 2.47;
+      case "Water Bottle":
+        return 247;
         break;
       default:
-        return 1.37;
+        return 137;
         break;
     }
   }

@@ -14,12 +14,14 @@
   "devDependencies": {
     "dotenv": "^4.0.0",
     "expect": "^1.20.2",
+    "inputmask": "^3.3.10",
     "mocha": "^3.4.1",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0"
   },
   "dependencies": {
     "async": "^2.5.0",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
@@ -28,16 +30,23 @@
     "expect": "^1.20.2",
     "express": "^4.15.2",
     "express-session": "^1.15.3",
+    "google-distance": "^1.0.1",
+    "inputmask": "^3.3.10",
+    "jquery.inputmask": "^3.3.4",
     "lodash": "^4.17.4",
     "mocha": "^3.5.0",
-    "moment": "^2.18.1",
-    "moment-timezone": "^0.5.13",
+    "moment": "^2.19.1",
+    "moment-timezone": "^0.5.14",
     "mongoose": "^4.10.8",
+    "mongoose-auto-increment": "^5.0.1",
+    "opbeat": "^4.16.0",
     "pug": "^2.0.0-rc.2",
     "request": "^2.81.0",
+    "serialize-error": "^2.1.0",
     "sinon": "^3.2.0",
     "stripe": "^4.23.2",
     "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2"
+    "supertest-as-promised": "^4.0.2",
+    "winston": "^3.0.0-rc1"
   }
 }

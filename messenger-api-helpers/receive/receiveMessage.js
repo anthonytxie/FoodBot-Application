@@ -1,6 +1,6 @@
+const { logger } = require("./../../server/logger/logger");
 const send = require("./../send");
 const runner = require("./../runner");
-
 const handleReceiveMessage = messagingEvent => {
   const message = messagingEvent.message;
   //On Tue May 17 format of user and page ids delivered via webhooks will change from an int to a string
@@ -22,41 +22,75 @@ const handleReceiveMessage = messagingEvent => {
         //assuming payload is an object that has type and data
         switch (type) {
           case "see-special-burgers":
-            runner.renewSession(senderId).then(order => {
-              send.sendSpecialBurgerMenu(senderId);
-            });
+            logger.info(`${senderId} see-special-burgers`);
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendSpecialBurgerMenu(senderId);
+              })
+              .catch(err =>
+                logger.error(`see-special-burgers comand`, { err })
+              );
+
             break;
           case "see-normal-burgers":
-            runner.renewSession(senderId).then(order => {
-              send.sendNormalBurgerMenu(senderId);
-            });
-            break;
+            logger.info(`${senderId} see-normal-burgers`);
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendNormalBurgerMenu(senderId);
+              })
+              .catch(err =>
+                logger.error(`see-normal-burgers command`, { err })
+              );
+              break;
           case "see-sides":
-            runner.renewSession(senderId).then(order => {
-              send.sendSideMenu(senderId);
-            });
-            break;
-          case "order-fries":
-            runner.addSideToOrder(senderId, data).then(order => {
-              send.sendOrderedMessage(senderId, order);
-            });
+            logger.info(`${senderId} see-sides`);
+
+            runner
+              .renewSession(senderId)
+              .then(order => {
+                send.sendSideMenu(senderId);
+              })
+              .catch(err => logger.error(`see-sides command`, { err }));
+              break;
+          case "order-Fries":
+            logger.info(`${senderId} order-Fries`);
+
+            runner
+              .addSideToOrder(senderId, data.foodObject)
+              .then(() => {
+                send.sendOrderedMessage(senderId);
+              })
+              .catch(err => logger.error(`order-Fries postBurger`, { err }));
+
             break;
           case "order-shake":
-            runner.addDrinkToOrder(senderId, data).then(order => {
-              send.sendOrderedMessage(senderId, order);
-            });
+            logger.info(`${senderId} order-shake`);
+
+            runner
+              .addDrinkToOrder(senderId, data.foodObject)
+              .then(() => {
+                send.sendOrderedMessage(senderId);
+              })
+              .catch(err => logger.error(`order-shake command`, { err }));
             break;
           default:
-            console.log(`unknown postback called ${type}`);
+            logger.info(`unknown postback called ${type}`);
             break;
         }
       } else {
+        logger.info(`${senderId} send-dont-understand-message`);
+
         send.sendMessageGeneric(senderId, "Sorry I didn't understand that.");
       }
     } else {
-      runner.initialize(senderId).then(() => {
-        send.sendInitializeMessage(senderId);
-      });
+      runner
+        .initialize(senderId)
+        .then(() => {
+          send.sendInitializeMessage(senderId);
+        })
+        .catch(err => logger.error(`initialize not get started `, { err }));
     }
   });
 };

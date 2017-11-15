@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { disciminatorOptions } = require("./settings/schemaSettings");
-const { menuItems } = require("./../../messenger-api-helpers/messages/menuItems");
-const { premiumToppings } = require("./../../messenger-api-helpers/messages/toppings");
-
-
-
+const {
+  differenceAcrossArrays,
+  findMenuItemsByItemName,
+  menuItems,
+  getPattyExtraPrice
+} = require("./../../config/menuItems");
+const { premiumToppings } = require("./../../config/toppings");
 const burgerSchema = new Schema(
   {
     // ===== Type ===============================================================
@@ -18,43 +20,74 @@ const burgerSchema = new Schema(
       default: "burger"
     },
 
-    patties: {
+    Patties: {
       type: Number
     },
 
     // ===== Premium Items ===============================================================
-    premiumToppings: [{
-      type: String,
-      enum: ['friedEgg','glutenFreeBun', 'grilledCheeseBun', 'threePartBun', 'chickenPatty', 'soyPatty', 'stuffedPortobello', 'bacon', 'caramelizedOnions', 'americanCheese', 'blueCheese', 'cheeseSauce', 'gravySide', 'sauteedMushrooms', 'blueCheese', 'swissCheese', 'standardCheese']
-    }],
+    premiumToppings: [
+      {
+        type: String,
+        enum: [
+          "Fried Egg",
+          "Gluten Free Bun",
+          "Grilled Cheese Bun",
+          "Three Part Bun",
+          "Chicken Patty",
+          "Soy Patty",
+          "Stuffed Portobello",
+          "Bacon",
+          "Caramelized Onions",
+          "American Cheese",
+          "Blue Cheese",
+          "Cheese Sauce",
+          "Side of Gravy",
+          "Sauteed Mushrooms",
+          "Blue Cheese",
+          "Swiss Cheese",
+          "Standard Cheese"
+        ]
+      }
+    ],
     // ===== Standard Items ===============================================================
-    standardToppings: [{
-      type: String,
-      enum: ['lettuceBun', 'standardBun', 'pickles', 'lettuce', 'tomatoes', 'onions', 'ketchup', 'mustard', 'mayo', 'relish', 'fancySauce', 'hotSauce', 'tomato', 'pickle', 'hotPepper']
-    }]  
-
+    standardToppings: [
+      {
+        type: String,
+        enum: [
+          "Lettuce Bun",
+          "Sesame Bun",
+          "Pickles",
+          "Lettuce",
+          "Tomatoes",
+          "Onions",
+          "Ketchup",
+          "Mustard",
+          "Mayo",
+          "Relish",
+          "Fancy Sauce",
+          "Hot Sauce",
+          "Hot Peppers"
+        ]
+      }
+    ],
+    itemCombo: {
+      type: Boolean,
+      default: false
+    }
   },
   disciminatorOptions
 );
 
-
-
 burgerSchema.virtual("price").get(function() {
-  const burgerList = [...menuItems].filter(x => {
-    return x.title === this.itemName;
-  });
-  const standardBurgerPremiumToppings = burgerList[0].premiumToppings.sort();
-  const customizedBurgerPremiumToppings = this.premiumToppings.sort();
-  const additionalPremiumToppings = customizedBurgerPremiumToppings.filter((x) => {
-    return standardBurgerPremiumToppings.indexOf(x) === -1
-  })
-  let price = burgerList[0].basePrice
-  additionalPremiumToppings.forEach((x) => {
-    price += premiumToppings[x]
-  })
-  return parseFloat(price.toFixed(2))
+  const plusToppings = differenceAcrossArrays(this.premiumToppings)(
+    findMenuItemsByItemName(this.itemName).premiumToppings
+  );
+
+  const pattyExtraPrice = getPattyExtraPrice(this.itemName, this.Patties)
+
+  return (plusToppings
+    .map(x => premiumToppings[x])
+    .reduce((x, y) => x + y, findMenuItemsByItemName(this.itemName).basePrice)) + pattyExtraPrice
 });
-
-
 
 module.exports = { burgerSchema };

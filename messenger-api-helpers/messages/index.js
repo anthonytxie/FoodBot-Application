@@ -2,9 +2,7 @@ const {
     menuMessage,
     specialBurgerMenuMessageOne,
     specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo,
-    normalBurgerMenuMessageThree,
+    normalBurgerMenuMessage,
     sideMenuMessage
 } = require("./menu");
 
@@ -42,13 +40,14 @@ const editOrderButton = {
     })
 };
 
-
 const persistentMenu = {
-    persistent_menu: [{
-        locale: "default",
-        composer_input_disabled: true,
-        call_to_actions: [seeMenuButton, newOrderButton, editOrderButton]
-    }]
+    persistent_menu: [
+        {
+            locale: "default",
+            composer_input_disabled: true,
+            call_to_actions: [seeMenuButton, newOrderButton, editOrderButton]
+        }
+    ]
 };
 
 // ===== GETTING STARTED ===============================================================
@@ -61,35 +60,40 @@ const getStarted = {
     }
 };
 
-const welcomeMessage = {
-    attachment: {
-        type: "template",
-        payload: {
-            template_type: "button",
-            text: `Hey :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
-            buttons: [{
-                type: "postback",
-                title: "Order",
-                payload: JSON.stringify({
-                    type: "see-menu"
-                })
-            }]
+const welcomeMessage = (firstName) => {
+    return {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "button",
+                text: `Hey ${firstName || 'friend'} :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
+                buttons: [
+                    {
+                        type: "postback",
+                        title: "Order",
+                        payload: JSON.stringify({
+                            type: "see-menu"
+                        })
+                    }
+                ]
+            }
         }
-    }
+    };
 };
 
 // ===== ORDERS ===============================================================
 
-const upsizeOrderMessage = (senderId, order) => {
+const upsizeOrderMessage = (senderId, linkId) => {
     const attachment = {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
                 text: "Would you like to make that a combo? (Fries & Drink)",
-                buttons: [{
+                buttons: [
+                    {
                         type: "web_url",
-                        url: `${websiteURL}/burgercombo?order=${order._id}&sender=${senderId}`,
+                        url: `${websiteURL}/combo?linkId=${linkId}&sender=${senderId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -98,7 +102,10 @@ const upsizeOrderMessage = (senderId, order) => {
                         type: "postback",
                         title: "No",
                         payload: JSON.stringify({
-                            type: "order-continue"
+                            type: "order-no-combo",
+                            data: {
+                                linkId: linkId
+                            }
                         })
                     }
                 ]
@@ -108,14 +115,16 @@ const upsizeOrderMessage = (senderId, order) => {
     return attachment;
 };
 
-const orderAskContinue = (order) => {
+const orderAskContinue = senderId => {
     const attachment = {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
-                text: "Alright, that sounds great! Are you done or would you like to order more?",
-                buttons: [{
+                text:
+                    "Alright, that sounds great! Are you done or would you like to order more?",
+                buttons: [
+                    {
                         type: "postback",
                         title: "Order More",
                         payload: JSON.stringify({
@@ -124,7 +133,7 @@ const orderAskContinue = (order) => {
                     },
                     {
                         type: "web_url",
-                        url: `${websiteURL}/receipt?order=${order._id}`,
+                        url: `${websiteURL}/receipt?senderId=${senderId}`,
                         title: "Done",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -136,16 +145,17 @@ const orderAskContinue = (order) => {
     return attachment;
 };
 
-const editOrder = (recipientId, order) => {
+const editOrder = recipientId => {
     const attachment = {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
                 text: "Would you like to remove a few items from your order?",
-                buttons: [{
+                buttons: [
+                    {
                         type: "web_url",
-                        url: `${websiteURL}/editorder?order=${order._id}&sender=${recipientId}`,
+                        url: `${websiteURL}/editorder?sender=${recipientId}`,
                         title: "Yes",
                         webview_height_ratio: "full",
                         messenger_extensions: true
@@ -164,85 +174,90 @@ const editOrder = (recipientId, order) => {
     return attachment;
 };
 
-
-const emptyOrderMessage = (recipientId) => {
+const emptyOrderMessage = recipientId => {
     const attachment = {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
-                text: "Hey! You haven't ordered anything yet. Tap the button to see the menu.",
-                buttons: [{
-                    type: "postback",
-                    title: "See Menu",
-                    payload: JSON.stringify({
-                        type: "see-menu"
-                    })
-                }, ]
+                text:
+                    "Hey! You haven't ordered anything yet. Tap the button to see the menu.",
+                buttons: [
+                    {
+                        type: "postback",
+                        title: "See Menu",
+                        payload: JSON.stringify({
+                            type: "see-menu"
+                        })
+                    }
+                ]
             }
         }
     };
     return attachment;
 };
 
-const nextOrderMessage = (recipientId) => {
+const nextOrderMessage = recipientId => {
     const attachment = {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
-                text: "Thanks for ordering with us. To message us again next time hit the New Order Button!",
-                buttons: [{
-                    type: "postback",
-                    title: "New Order",
-                    payload: JSON.stringify({
-                        type: "see-menu"
-                    })
-                }, ]
+                text:
+                    "Thanks for ordering with us. To message us again next time hit the New Order Button!",
+                buttons: [
+                    {
+                        type: "postback",
+                        title: "New Order",
+                        payload: JSON.stringify({
+                            type: "see-menu"
+                        })
+                    }
+                ]
             }
         }
     };
     return attachment;
-}
+};
 
-const newOrderMessage = (recipientId) => {
+const newOrderMessage = recipientId => {
     const attachment = {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
-                text: "That order has already been confirmed. Hit the button to create a new order!",
-                buttons: [{
-                    type: "postback",
-                    title: "New Order",
-                    payload: JSON.stringify({
-                        type: "create-new-order"
-                    })
-                }, ]
+                text:
+                    "That order has already been confirmed. Hit the button to create a new order!",
+                buttons: [
+                    {
+                        type: "postback",
+                        title: "New Order",
+                        payload: JSON.stringify({
+                            type: "create-new-order"
+                        })
+                    }
+                ]
             }
         }
     };
     return attachment;
-}
-
-
+};
 
 // ===== ITEMS ===============================================================
 
-const askFriesSizeMessage = (order) => {
+const askFriesSizeMessage = () => {
     return {
-        text: "Would you like medium fries ($3.99) or large fries ($4.99)?",
-        quick_replies: [{
+        text: "Would you like Medium Fries ($3.99) or Large Fries ($4.99)?",
+        quick_replies: [
+            {
                 content_type: "text",
                 title: "Medium",
                 payload: JSON.stringify({
-                    type: "order-fries",
+                    type: "order-Fries",
                     data: {
-                        orderId: order._id,
-
                         foodObject: {
-                            itemName: "fries",
-                            itemSize: "medium"
+                            itemName: "Fries",
+                            itemSize: "Medium"
                         }
                     }
                 })
@@ -251,13 +266,11 @@ const askFriesSizeMessage = (order) => {
                 content_type: "text",
                 title: "Large",
                 payload: JSON.stringify({
-                    type: "order-fries",
+                    type: "order-Fries",
                     data: {
-                        orderId: order._id,
-
                         foodObject: {
-                            itemName: "fries",
-                            itemSize: "large"
+                            itemName: "Fries",
+                            itemSize: "Large"
                         }
                     }
                 })
@@ -266,18 +279,18 @@ const askFriesSizeMessage = (order) => {
     };
 };
 
-const askMilkshakeFlavorMessage = (order) => {
+const askMilkshakeFlavorMessage = () => {
     return {
         text: "Would you like vanilla, chocolate, or strawberry?",
-        quick_replies: [{
+        quick_replies: [
+            {
                 content_type: "text",
                 title: "Vanilla",
                 payload: JSON.stringify({
                     type: "order-shake",
                     data: {
-                        orderId: order._id,
                         foodObject: {
-                            itemName: "vanillaMilkshake"
+                            itemName: "Vanilla Milkshake"
                         }
                     }
                 })
@@ -288,10 +301,8 @@ const askMilkshakeFlavorMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-shake",
                     data: {
-                        orderId: order._id,
-
                         foodObject: {
-                            itemName: "chocolateMilkshake"
+                            itemName: "Chocolate Milkshake"
                         }
                     }
                 })
@@ -302,10 +313,8 @@ const askMilkshakeFlavorMessage = (order) => {
                 payload: JSON.stringify({
                     type: "order-shake",
                     data: {
-                        orderId: order._id,
-
                         foodObject: {
-                            itemName: "strawberryMilkshake"
+                            itemName: "Strawberry Milkshake"
                         }
                     }
                 })
@@ -315,8 +324,10 @@ const askMilkshakeFlavorMessage = (order) => {
 };
 
 const comboErrorMessage = {
-    text: "We're sorry. You can't order combo items without order a burger first. See burgers here:",
-    quick_replies: [{
+    text:
+        "We're sorry. You can't order combo items without order a burger first. See burgers here:",
+    quick_replies: [
+        {
             content_type: "text",
             title: "Our Favourites",
             payload: JSON.stringify({
@@ -333,11 +344,6 @@ const comboErrorMessage = {
     ]
 };
 
-
-
-
-
-
 module.exports = {
     messageTemplate,
     persistentMenu,
@@ -346,9 +352,7 @@ module.exports = {
     menuMessage,
     specialBurgerMenuMessageOne,
     specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
-    normalBurgerMenuMessageTwo,
-    normalBurgerMenuMessageThree,
+    normalBurgerMenuMessage,
     sideMenuMessage,
     burgerTemplate,
     upsizeOrderMessage,

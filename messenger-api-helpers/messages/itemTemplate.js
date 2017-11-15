@@ -1,8 +1,8 @@
-const { menuItems, findItem } = require("./menuItems");
+const { menuItems, findMenuItemsByItemName, getCurrencyFromIntegerPrice } = require("./../../config/menuItems");
 const websiteURL = process.env.websiteURL;
 
-const burgerTemplate = function(payloadData, order, senderId) {
-  const burger = findItem(payloadData.title);
+const burgerTemplate = function(data, linkId, recipientId) {
+  const burger = findMenuItemsByItemName(data.itemName);
   const attachment = {
     attachment: {
       type: "template",
@@ -10,30 +10,29 @@ const burgerTemplate = function(payloadData, order, senderId) {
         template_type: "generic",
         elements: [
           {
-            title: `Okay so, ${burger.title}, the usual way or customized?`,
-            image_url: burger.image_url,
+            title: `${burger.itemName} ($${getCurrencyFromIntegerPrice(burger.basePrice)})`,
+            subtitle: burger.subtitle,
+            image_url: burger.horizontal_image_url,
             buttons: [
               {
                 type: "postback",
-                title: "The Usual",
+                title: "Standard Burger",
                 payload: JSON.stringify({
                   type: "order-burger",
-                  data: {
-                    orderId: order._id,
-                    foodObject: {
-                      _order: order._id,
-                      itemName: burger.title,
-                      patties: burger.patties,
+                  data:  {
+                      _link: linkId,
+                      itemName: burger.itemName,
+                      Patties: burger.Patties,
                       standardToppings: burger.standardToppings,
                       premiumToppings: burger.premiumToppings
-                    }
+                    
                   }
                 })
               },
               {
                 type: "web_url",
-                url: `${websiteURL}/burgercustomize?order=${order._id}&name=${burger.title}&sender=${senderId}`,
-                title: "Customize",
+                url: `${websiteURL}/burger?name=${burger.itemName}&sender=${recipientId}&linkId=${linkId.toString()}`,
+                title: "Customize Burger",
                 webview_height_ratio: "full",
                 messenger_extensions: true
               }

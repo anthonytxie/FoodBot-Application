@@ -1,4 +1,4 @@
-const { menuItems } = require("./menuItems");
+const { menuItems, getCurrencyFromIntegerPrice } = require("./../../config/menuItems");
 
 // ===== GENERAL MENU ===============================================================
 
@@ -34,18 +34,18 @@ const menuMessage = {
 
 const specialBurgerMenuTemplate = burgerObject => {
     return {
-        title: burgerObject.title,
+        title: burgerObject.itemName,
         image_url: burgerObject.image_url,
         subtitle: burgerObject.subtitle,
         buttons: [
             {
                 type: "postback",
-                title: "Order Burger",
+                title: `Order $${getCurrencyFromIntegerPrice(burgerObject.basePrice)}`,
                 payload: JSON.stringify({
                     type: "show-burger",
                     data: {
                         foodType: "burger",
-                        title: burgerObject.title
+                        itemName: burgerObject.itemName
                     }
                 })
             }
@@ -55,17 +55,17 @@ const specialBurgerMenuTemplate = burgerObject => {
 
 const normalBurgerMenuTemplate = burgerObject => {
     return {
-        title: burgerObject.title,
+        title: burgerObject.itemName,
         subtitle: burgerObject.subtitle,
         buttons: [
             {
                 type: "postback",
-                title: "Order Burger",
+                title: `Order $${getCurrencyFromIntegerPrice(burgerObject.basePrice)}`,
                 payload: JSON.stringify({
                     type: "show-burger",
                     data: {
                         foodType: "burger",
-                        title: burgerObject.title
+                        itemName: burgerObject.itemName
                     }
                 })
             }
@@ -75,12 +75,12 @@ const normalBurgerMenuTemplate = burgerObject => {
 
 const sideMenuTemplate = sideObject => {
     return {
-        title: sideObject.title,
+        title: sideObject.itemName,
         subtitle: sideObject.subtitle,
         buttons: [
             {
                 type: "postback",
-                title: "Order Side",
+                title: `Order $${getCurrencyFromIntegerPrice(sideObject.basePrice)}`,
                 payload: JSON.stringify({
                     type: "order-side",
                     data: {
@@ -94,7 +94,7 @@ const sideMenuTemplate = sideObject => {
     };
 };
 
-const normalBurgerMenuMessageOne = {
+const normalBurgerMenuMessage = {
     attachment: {
         type: "template",
         payload: {
@@ -108,7 +108,7 @@ const normalBurgerMenuMessageOne = {
             ],
             buttons: [
                 {
-                    title: "View More",
+                    title: "Back to Menu",
                     type: "postback",
                     payload: JSON.stringify({
                         type: "see-menu"
@@ -149,7 +149,7 @@ const specialBurgerMenuMessageTwo = {
             ],
             buttons: [
                 {
-                    title: "View More",
+                    title: "Back to Menu",
                     type: "postback",
                     payload: JSON.stringify({
                         type: "see-menu"
@@ -174,7 +174,7 @@ const sideMenuMessage = {
             ],
             buttons: [
                 {
-                    title: "View More",
+                    title: "Back to Menu",
                     type: "postback",
                     payload: JSON.stringify({
                         type: "see-menu"
@@ -185,10 +185,62 @@ const sideMenuMessage = {
     }
 };
 
+
+
+// const specialBurgerGenericTemplate = burgerObject => {
+//     return {
+//         title: burgerObject.itemName,
+//         image_url: burgerObject.image_url,
+//         subtitle: burgerObject.subtitle,
+//         buttons: [
+//             {
+//                 type: "postback",
+//                 title: "Order Burger",
+//                 payload: JSON.stringify({
+//                     type: "show-burger",
+//                     data: {
+//                         foodType: "burger",
+//                         title: burgerObject.itemName
+//                     }
+//                 })
+//             },
+//             {
+//                 title: "Back to Menu",
+//                 type: "postback",
+//                 payload: JSON.stringify({
+//                     type: "see-menu"
+//                 })
+//             }
+//         ]
+//     };
+// };
+
+// const specialBurgerMenuMessage = {
+//     attachment: {
+//         type: "template",
+//         payload: {
+//             template_type: "generic",
+
+//             elements: [
+//                 specialBurgerGenericTemplate(menuItems[10]),
+//                 specialBurgerGenericTemplate(menuItems[11]),
+//                 specialBurgerGenericTemplate(menuItems[12]),
+//                 specialBurgerGenericTemplate(menuItems[13]),
+//                 specialBurgerGenericTemplate(menuItems[14]),
+//                 specialBurgerGenericTemplate(menuItems[15]),
+//                 specialBurgerGenericTemplate(menuItems[16]),
+//                 specialBurgerGenericTemplate(menuItems[17])
+//             ]
+//         }
+//     }
+// };
+
+
 module.exports = {
     menuMessage,
     specialBurgerMenuMessageOne,
     specialBurgerMenuMessageTwo,
-    normalBurgerMenuMessageOne,
+    normalBurgerMenuMessage,
     sideMenuMessage
 };
+
