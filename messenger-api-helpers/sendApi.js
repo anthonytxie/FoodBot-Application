@@ -8,7 +8,7 @@ const { logger } = require("./../server/logger/logger");
 require('dotenv').config();
 
 
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
+const PAGE_ACCESS_TOKEN = process.env.page_access_token;
 
 const callAPI = (endPoint, messageDataArray, queryParams = {}, retries = 5) => {
   // Error if developer forgot to specify an endpoint to send our request to
