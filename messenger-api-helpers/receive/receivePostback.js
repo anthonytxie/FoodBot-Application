@@ -12,7 +12,7 @@ const handleReceivePostback = messagingEvent => {
 
   logger.info(`${senderId} received postback`);
 
-  if (!isStoreOpen()) {
+  if (isStoreOpen()) {
     runner.isSessionActive(senderId).then(isSessionActive => {
       if (isSessionActive) {
         switch (type) {
@@ -118,7 +118,15 @@ const handleReceivePostback = messagingEvent => {
               .catch(err => logger.error(`edit-order command`, { err }));
 
             break;
-
+          case "call-restaurant":
+            logger.info(`${senderId} call-restaurant command`);
+            runner
+              .renewSession(senderId)
+              .then(() => {
+                send.sendRestaurantNumber(senderId);
+              })
+              .catch(err => logger.error(`call-restaurant command`, { err }));
+              break;
           default:
             logger.info(`${senderId} don't know what command was called`);
             break;
