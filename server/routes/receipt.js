@@ -19,7 +19,7 @@ routes.get("/address", (req, res) => {
 
   isInDeliveryRange(address)
   .then((result) => { 
-    res.send(result); 
+    res.status(200).send(result); 
   })
   .catch((err) => { 
     res.send(err); 
@@ -80,7 +80,7 @@ routes.get("/orders", (req, res) => {
   orderDAO
     .getAllOrders()
     .then(orders => {
-      res.send(orders);
+      res.status(200).send(orders);
     })
     .catch(err => {
       logger.error(`GET on /orders`, { err });
