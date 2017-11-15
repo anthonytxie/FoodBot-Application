@@ -8,6 +8,7 @@ const stripe_test_key = process.env.stripe_test_key;
 const stripe = require("stripe")(stripe_test_key);
 const opbeat = require("opbeat");
 const { logger } = require("./logger/logger");
+
 // ROUTES
 const burger = require("./routes/burger");
 const combo = require("./routes/combo");
@@ -50,6 +51,5 @@ app.use(order);
 if (process.env.NODE_ENV == "production") {
   app.use(opbeat.middleware.express());
 }
-console.log("THIS IS THE FUCKING ENVIROMENT " + process.env.NODE_ENV)
 
 module.exports = app;
