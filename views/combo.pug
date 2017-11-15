@@ -288,6 +288,32 @@ html(lang="en")
 				}
 
 		script.
+			// close first radio and open second when an option is clicked
+			$(".section1 .wide_checkbox").on("click", function(){
+				const section = $(this).closest("section");
+				const h4 = section.prev("h4");
+				const next_h4 = section.next("h4");
+				h4.click();
+				next_h4.click();
+			})
+
+			// close second radio and open third when an option is clicked
+			$(".section2 .wide_checkbox").on("click", function(){
+				const section = $(this).closest("section");
+				const h4 = section.prev("h4");
+				h4.click();
+				const open_section = $(this).attr("val");
+				console.log(open_section);
+				if (open_section == "milkshake") {
+					$(".milkshake_container h4").click();
+				} else if(open_section == "soda") {
+					$(".soda_container h4").click();
+				}
+			})
+
+
+
+
 
 			$("body").on("click", "h4", function(){
 				const i = $(this).children(".i").children("i");
