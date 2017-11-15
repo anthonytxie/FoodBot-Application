@@ -4,18 +4,18 @@ const { menuItems, getCurrencyFromIntegerPrice } = require("./../../config/menuI
 
 const menuMessage = {
     text:
-        "Would you like to see our favourite burgers, standard burgers, or sides?",
+        "Would you like to see our special burgers, simple burgers, or sides?",
     quick_replies: [
         {
             content_type: "text",
-            title: "Favorites",
+            title: "Special Burgers",
             payload: JSON.stringify({
                 type: "see-special-burgers"
             })
         },
         {
             content_type: "text",
-            title: "Burgers",
+            title: "Simple Burgers",
             payload: JSON.stringify({
                 type: "see-normal-burgers"
             })
