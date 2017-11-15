@@ -18,8 +18,6 @@ const cashier = require("./routes/cashier");
 const order = require("./routes/order");
 
 // APP
-opbeat.start();
-
 const app = express();
 
 // webview view engine
@@ -32,6 +30,8 @@ app.use(
 app.set("view engine", "pug");
 
 // Library Middleware
+app.use(opbeat.middleware.express());
+
 app.use(
 	bodyParser.urlencoded({
 		extended: true
@@ -40,12 +40,12 @@ app.use(
 app.use(bodyParser.json());
 
 // Route Middleware
+
 app.use(burger);
 app.use(combo);
 app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
-app.use(opbeat.middleware.express());
 
 module.exports = app;
