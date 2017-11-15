@@ -171,7 +171,8 @@ h4 {
 		width: 89%;
 		margin-left: 4.5%;
 		height: 50px;
-		font-weight: 200
+		font-weight: 200;
+		color: #4a4949;
 	}
 
 	.inputs .input {
