@@ -18,9 +18,7 @@ const cashier = require("./routes/cashier");
 const order = require("./routes/order");
 
 // APP
-if (process.env.NODE_ENV == "production") {
-  opbeat.start();
-}
+opbeat.start();
 
 const app = express();
 
@@ -28,16 +26,16 @@ const app = express();
 app.set("views", __dirname + "/../views");
 app.use(express.static(__dirname + "/../public"));
 app.use(
-  "/messenger-api-helpers",
-  express.static(__dirname + "/../messenger-api-helpers")
+	"/messenger-api-helpers",
+	express.static(__dirname + "/../messenger-api-helpers")
 );
 app.set("view engine", "pug");
 
 // Library Middleware
 app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
+	bodyParser.urlencoded({
+		extended: true
+	})
 );
 app.use(bodyParser.json());
 
@@ -48,8 +46,6 @@ app.use(receipt);
 app.use(webhook);
 app.use(cashier);
 app.use(order);
-if (process.env.NODE_ENV == "production") {
-  app.use(opbeat.middleware.express());
-}
+app.use(opbeat.middleware.express());
 
 module.exports = app;
