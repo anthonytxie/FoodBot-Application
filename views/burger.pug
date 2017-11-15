@@ -37,7 +37,7 @@ html(lang="en")
 					span PATTIES
 					.i
 						i(class="fa fa-chevron-circle-down", aria-hidden="true")
-			section
+			section.section1
 
 				input#patties(type="hidden", name="Patties", value=burger.Patties)
 
@@ -423,6 +423,15 @@ html(lang="en")
 				}
 			
 		script.
+			// close the first 2 sections when an option is selected
+			$(".section1 .wide_checkbox, .section2 .wide_checkbox").on("click", function(){
+				const section = $(this).closest("section");
+				const h4 = section.prev("h4");
+				const next_h4 = section.next("h4");
+				h4.click();
+				next_h4.click();
+			})
+
 
 			//- $(".patty_option").on("click", function(){
 			//- 	$("#pattiesToggle").click();
