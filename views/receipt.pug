@@ -14,7 +14,7 @@ html(lang="en")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.js")
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.js')
 	body
-		form#form1(style="position:relative;")
+		#form1(style="position:relative;")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
 			h4 YOUR ORDER
@@ -85,7 +85,7 @@ html(lang="en")
 			.button_container
 				button CONFIRM
 
-		form#form2(style="display:none;", method="post", action="confirm")
+		#form2(style="display:none;")
 			input(type="hidden", name="orderId", value=order._id)
 			.errors
 			//- p#final_total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
