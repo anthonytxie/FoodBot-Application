@@ -40,12 +40,20 @@ const editOrderButton = {
     })
 };
 
+const callRestaurantButton = {
+    type: "postback",
+    title: "Call Burger Burger",
+    payload: JSON.stringify({
+        type: "call-restaurant"
+    })
+};
+
 const persistentMenu = {
     persistent_menu: [
         {
             locale: "default",
             composer_input_disabled: true,
-            call_to_actions: [seeMenuButton, newOrderButton, editOrderButton]
+            call_to_actions: [seeMenuButton, newOrderButton, callRestaurantButton]
         }
     ]
 };
@@ -60,13 +68,14 @@ const getStarted = {
     }
 };
 
-const welcomeMessage = (firstName) => {
+const welcomeMessage = firstName => {
     return {
         attachment: {
             type: "template",
             payload: {
                 template_type: "button",
-                text: `Hey ${firstName || 'friend'} :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
+                text: `Hey ${firstName ||
+                    "friend"} :)\n\nWelcome to Burger Burger! To see what we have cooking view our Menu! To order, just tap order.`,
                 buttons: [
                     {
                         type: "postback",
@@ -197,6 +206,27 @@ const emptyOrderMessage = recipientId => {
     return attachment;
 };
 
+const callRestaurantMessage = recipientId => {
+    const attachment = {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "button",
+                text:
+                    "If you have any issues with your order please call our restaurant: (226) 663-8955.",
+                buttons: [
+                    {
+                        type: "phone_number",
+                        title: "Call Burger Burger",
+                        payload: "2266638955"
+                    }
+                ]
+            }
+        }
+    };
+    return attachment;
+};
+
 const nextOrderMessage = recipientId => {
     const attachment = {
         attachment: {
@@ -204,7 +234,7 @@ const nextOrderMessage = recipientId => {
             payload: {
                 template_type: "button",
                 text:
-                    "Thanks for ordering with us. To message us again next time hit the New Order Button!",
+                    "Thanks for ordering with us. To order with us again next time hit the New Order Button!",
                 buttons: [
                     {
                         type: "postback",
@@ -329,14 +359,14 @@ const comboErrorMessage = {
     quick_replies: [
         {
             content_type: "text",
-            title: "Our Favourites",
+            title: "Special Burgers",
             payload: JSON.stringify({
                 type: "see-special-burgers"
             })
         },
         {
             content_type: "text",
-            title: "Normal Burgers",
+            title: "Simple Burgers",
             payload: JSON.stringify({
                 type: "see-normal-burgers"
             })
@@ -363,5 +393,6 @@ module.exports = {
     newOrderMessage,
     askFriesSizeMessage,
     askMilkshakeFlavorMessage,
-    comboErrorMessage
+    comboErrorMessage,
+    callRestaurantMessage
 };
