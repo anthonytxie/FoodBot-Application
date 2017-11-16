@@ -459,6 +459,19 @@ html(lang="en")
 				}
 			
 		script.
+
+			// use this to show and hide sections
+			//- const customToggle = (section) => {
+			//- 	if (section.css("display") == "initial") {
+			//- 		section.animate({height: "0px"}, "slow", function(){
+			//- 			section.hide();
+			//- 		})
+			//- 	} else {
+			//- 		let openHeight = 
+			//- 		section.animate();
+			//- 	}
+			//- }
+			
 			// close the first 2 sections when an option is selected
 			$(".section1 .wide_checkbox, .section2 .wide_checkbox").on("click", function(){
 				const section = $(this).closest("section");
@@ -467,11 +480,6 @@ html(lang="en")
 				h4.click();
 				next_h4.click();
 			})
-
-
-			//- $(".patty_option").on("click", function(){
-			//- 	$("#pattiesToggle").click();
-			//- })
 
 			// collapse
 			$("body").on("click", "h4", function(){

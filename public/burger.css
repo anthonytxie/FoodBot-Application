@@ -1,3 +1,7 @@
+h4 {
+	cursor: pointer;
+}
+
 @font-face {
   font-family: "San Francisco";
   font-weight: 350;
