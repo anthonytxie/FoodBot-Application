@@ -106,8 +106,16 @@ html(lang="en")
 
 		script.
 
+			// 2
 			
 
+			
+
+				// 1. Remove (some) automatic opens
+				// 2. Hide button when mobile keyboard
+				// 3. Screen width too wide in receipt?
+				// 4. iPhone 5 click broken
+			// 5. Add animations to collapsibles
 
 			// close setup
 			(function(d, s, id){
@@ -133,6 +141,17 @@ html(lang="en")
 				}
 			});
 
+			
+			if (screen.width < 480) {
+				console.log("mobile detected");
+				$("input[type='text']").focus(function(){
+					$(".button_container").css("display", "none");
+				})
+				$("input[type='text']").focusout(function(){
+					$(".button_container").css("display", "initial");
+				})
+			}
+			
 			// css for very long items
 			$("document").ready(function(){
 				var pricesMargin = 40;
