@@ -1,5 +1,5 @@
 //APP & MONGOOSE
-var opbeat = require('opbeat').start();
+const opbeat = require('opbeat').start();
 const app = require( './app');
 const config = require('./../config/config');
 const mongooseConnection = require('./../db/mongoose.js')

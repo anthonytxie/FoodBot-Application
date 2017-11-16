@@ -1,12 +1,12 @@
 // MODULES
 require("dotenv").config();
+const opbeat = require("opbeat");
 const express = require("express");
 const pug = require("pug");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const stripe_test_key = process.env.stripe_test_key;
 const stripe = require("stripe")(stripe_test_key);
-const opbeat = require("opbeat");
 const { logger } = require("./logger/logger");
 
 // ROUTES
@@ -29,7 +29,7 @@ app.use(
 );
 app.set("view engine", "pug");
 
-// Library Middleware
+// Opbeat Middleware
 app.use(opbeat.middleware.express());
 
 app.use(
