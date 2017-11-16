@@ -49,7 +49,7 @@ html(lang="en")
 						
 						if item.itemCombo
 							.combo • #{side.itemName} & #{drink.itemName}
-								.right
+								.right(style="width: 70px")
 									//- .price $#{(side.price + drink.price)/100}
 									.actions(name="#{item.itemName}" drinkId=item._id, sideId=side._id, linkId=item._link, type="combo")
 										.edit

@@ -156,6 +156,7 @@ h4 {
 	}
 
 	.inputs input[type="text"] {
+		border: 1px solid lightgrey;
 		width: 85%;
 		margin-left: 4.5%;
 		padding-left: 3%;
@@ -194,7 +195,7 @@ h4 {
 
 /*page switching*/
 	/*button*/
-	button:focus {outline:0;}
+	button:focus, input[type="text"] {outline:0;}
 
 
 	/*edit this mess*/
