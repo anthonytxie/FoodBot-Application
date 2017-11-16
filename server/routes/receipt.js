@@ -106,6 +106,7 @@ routes.post("/delete", (req, res) => {
 });
 
 routes.post("/confirm", (req, res) => {
+  console.log(req.body);
   logger.info("POST on /confirm");
   let confirmationNumber;
   let {
