@@ -4,27 +4,38 @@ const param = require("jquery-param");
 const company_id = "10854";
 const access_token = "tkqY7KQDWzys1U74hE3b";
 const secret_key = "YihV3voc3AXbQNEzyQAS";
+const { logger } = require("./../../server/logger/logger");
+const userDAO = require("./../../db/DAO/userDAO");
 
-const createBringgCustomer = user => {
-  let body = {
-    name: user.firstName,
-    company_id: company_id,
-    phone: user.phoneNumber,
-    timestamp: Date.now(),
-    access_token: access_token
-  };
-  body.signature = CryptoJS.HmacSHA1(param(body), secret_key).toString();
-  return request.post({
-    url: "https://developer-api.bringg.com/partner_api/customers",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: body,
-    json: true
+const createCustomer = user => {
+  return new Promise((resolve, reject) => {
+    logger.info("Bringg API createCustomer");
+    let body = {
+      name: user.firstName,
+      company_id: company_id,
+      phone: user.phoneNumbers.slice(-1).pop(),
+      timestamp: Date.now(),
+      access_token: access_token
+    };
+    body.signature = CryptoJS.HmacSHA1(param(body), secret_key).toString();
+    return request
+      .post({
+        url: "https://developer-api.bringg.com/partner_api/customers",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: body,
+        json: true
+      })
+      .then(body => {
+        resolve(userDAO.updateBringgId(user._id, body.customer.id));
+      })
+      .catch(err => reject(err));
   });
 };
 
-const createBringgWaypoint = user => {
+const createWaypoint = user => {
+  logger.info("Bringg API createWaypoint");
   let body = {
     access_token: access_token,
     timestamp: Date.now(),
@@ -56,7 +67,8 @@ const createBringgWaypoint = user => {
   });
 };
 
-const createBringgTask = (taskId, waypointId, confirmationNumber) => {
+const createTask = (taskId, waypointId, confirmationNumber) => {
+  logger.info("Bringg API createTask");
   let body = {
     access_token: access_token,
     timestamp: Date.now(),
@@ -78,21 +90,4 @@ const createBringgTask = (taskId, waypointId, confirmationNumber) => {
   });
 };
 
-
-module.exports = { createBringgCustomer, createBringgWaypoint, createBringgTask}
-
-// createBringgCustomer({ firstName: "Anthony", phoneNumber: "519-857-8997" })
-//   .then(body => {
-//     return createBringgWaypoint({
-//       address: "25 brentwood crescent",
-//       integrationIds: { bringgId: body.customer.id }
-//     });
-//   })
-//   .then(body => {
-//     return createBringgTask(body.task.id, body.task.way_points[1].id)
-//   }).then((body) => {
-//     console.log(body)
-//   })
-
-
-
+module.exports = { createCustomer, createWaypoint, createTask };

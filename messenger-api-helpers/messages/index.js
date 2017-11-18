@@ -53,7 +53,11 @@ const persistentMenu = {
         {
             locale: "default",
             composer_input_disabled: true,
-            call_to_actions: [seeMenuButton, newOrderButton, callRestaurantButton]
+            call_to_actions: [
+                seeMenuButton,
+                newOrderButton,
+                callRestaurantButton
+            ]
         }
     ]
 };
@@ -234,7 +238,7 @@ const nextOrderMessage = recipientId => {
             payload: {
                 template_type: "button",
                 text:
-                    "Thanks for ordering with us. To order with us again next time hit the New Order Button!",
+                    "Thanks for ordering with us. To order with us again next time hit the New Order Button! If you have an issue with your order, please call us !",
                 buttons: [
                     {
                         type: "postback",
@@ -242,6 +246,11 @@ const nextOrderMessage = recipientId => {
                         payload: JSON.stringify({
                             type: "see-menu"
                         })
+                    },
+                    {
+                        type: "phone_number",
+                        title: "Call Burger Burger",
+                        payload: "2266638955"
                     }
                 ]
             }

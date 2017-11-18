@@ -86,7 +86,10 @@ html(lang="en")
 				button CONFIRM
 
 		form#form2(style="display:none;", action="confirm", method="post")
+
 			input(type="hidden", name="orderId", value=order._id)
+			input(type="hidden", name="method", value="delivery")
+			input(type="hidden", name="senderId", value=order._user.PSID)
 			.errors
 			//- p#final_total $ #{((order.basePrice + order.stripeFee + order.deliveryFee + order.tax)/100).toFixed(2)}
 			.inputs

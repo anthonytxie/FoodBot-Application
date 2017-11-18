@@ -738,6 +738,7 @@ describe("RECEIPT ROUTES", function() {
     let stub = sinon.stub(send, "sendConfirmPaidMessageDelivery");
     let postBody = {
       orderId: secondOrderId,
+      senderId: firstSenderId,
       method: "delivery",
       address: "330 phillip street",
       postal: "l9t2x5",
@@ -764,7 +765,10 @@ describe("RECEIPT ROUTES", function() {
             .should.eventually.have.property("isConfirmed", true),
           orderDAO
             .getLastOrderBySender(firstSenderId)
-            .should.eventually.have.property("methodFulfillment", "delivery")
+            .should.eventually.have.property("methodFulfillment", "delivery"),
+          orderDAO
+            .getLastOrderBySender(firstSenderId)
+            .should.eventually.have.property("bringgWaypointCreated", true)
         ]);
       });
   });
@@ -773,6 +777,7 @@ describe("RECEIPT ROUTES", function() {
     let stub = sinon.stub(send, "sendConfirmPaidMessagePickup");
     let postBody = {
       orderId: secondOrderId,
+      senderId: firstSenderId,
       method: "pickup",
       address: "",
       postal: "",
@@ -803,6 +808,10 @@ describe("RECEIPT ROUTES", function() {
         ]);
       });
   });
+});
+
+/*
+
 
   it("should confirm order without pay for pick-up", () => {
     let stub = sinon.stub(send, "sendConfirmUnpaidMessagePickup");
@@ -885,6 +894,4 @@ describe("RECEIPT ROUTES", function() {
   });
 });
 
-describe("POST /WEBHOOK", function() {
-  this.timeout(15000);
-});
+*/

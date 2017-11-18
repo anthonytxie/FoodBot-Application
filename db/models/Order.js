@@ -80,6 +80,10 @@ const orderSchema = new Schema(
 
     orderNumber: {
       type: String
+    },
+
+    bringgWaypointCreated: {
+      type: Boolean
     }
   },
   schemaOptions
@@ -96,12 +100,14 @@ orderSchema.virtual("basePrice").get(function() {
 });
 
 orderSchema.virtual("tax").get(function() {
-  return Math.round(sumPriceAndRound(this._items, addAttributes("price"), 0) * 0.13);
+  return Math.round(
+    sumPriceAndRound(this._items, addAttributes("price"), 0) * 0.13
+  );
 });
 
 orderSchema.virtual("stripeFee").get(function() {
-  return (
-    Math.round((sumPriceAndRound(this._items, addAttributes("price"), 0) * 1.13 * 0.029) + 30)
+  return Math.round(
+    sumPriceAndRound(this._items, addAttributes("price"), 0) * 1.13 * 0.029 + 30
   );
 });
 

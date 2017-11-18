@@ -24,12 +24,13 @@ const userSchema = new Schema({
   phoneNumbers: [
     {
       type: String,
-      dropDups: true
+      dropDups: true,
+      trim: true
     }
   ],
 
   integrationIds: {
-    bringId: {
+    bringgId: {
       type: String
     }
   },
