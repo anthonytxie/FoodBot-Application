@@ -28,6 +28,12 @@ const userSchema = new Schema({
     }
   ],
 
+  integrationIds: {
+    bringId: {
+      type: String
+    }
+  },
+
   address: String,
 
   roomNumber: String,
