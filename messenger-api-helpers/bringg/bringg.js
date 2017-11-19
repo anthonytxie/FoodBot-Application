@@ -11,7 +11,7 @@ const createCustomer = user => {
   return new Promise((resolve, reject) => {
     logger.info("Bringg API createCustomer");
     let body = {
-      name: user.firstName,
+      name: user.firstName || "Unknown",
       company_id: company_id,
       phone: user.phoneNumbers.slice(-1).pop(),
       timestamp: Date.now(),
@@ -49,7 +49,7 @@ const createWaypoint = user => {
       },
       {
         customer_id: user.integrationIds.bringgId,
-        address: user.address,
+        address: user.address || "Unknown please check with restaurant",
         city: "London"
       }
     ])
