@@ -122,4 +122,24 @@ userDAO.updateAddress = (userId, address, roomNumber) => {
   });
 };
 
+userDAO.updateBringgId = (userId, bringgId) => {
+  logger.info("userDAO updateBringgId");
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: { "integrationIds.bringgId": bringgId }
+      },
+      { new: true }
+    )
+      .then(user => {
+        resolve(user);
+      })
+      .catch(err => {
+        logger.error(`userDAO updateBringgId`, { err });
+        reject(err);
+      });
+  });
+};
+
 module.exports = userDAO;

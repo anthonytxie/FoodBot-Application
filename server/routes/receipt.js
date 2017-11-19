@@ -12,18 +12,21 @@ const userDAO = require("./../../db/DAO/userDAO");
 const stripe = require("stripe")(process.env.stripe_test_key);
 // JS FUNCTIONS
 const send = require("../../messenger-api-helpers/send");
-const { isInDeliveryRange } = require("../../messenger-api-helpers/googleMaps/distanceMatrix.js");
+const {
+  isInDeliveryRange
+} = require("../../messenger-api-helpers/googleMaps/distanceMatrix.js");
+const bringg = require("../../messenger-api-helpers/bringg/bringg");
 
 routes.get("/address", (req, res) => {
   let address = req.query.address;
 
   isInDeliveryRange(address)
-  .then((result) => { 
-    res.status(200).send(result); 
-  })
-  .catch((err) => { 
-    res.send(err); 
-  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.send(err);
+    });
 });
 
 // LOGGER
@@ -39,7 +42,7 @@ routes.get("/getorder/:orderid", (req, res) => {
     })
     .catch(err => {
       logger.error(`GET on /getorder`, { err });
-      console.log(err)
+      console.log(err);
       res.status(500).send({ success: false });
     });
 });
@@ -118,15 +121,17 @@ routes.post("/confirm", (req, res) => {
     token_id,
     token_email,
     authorized_payment,
-    phoneNumber
+    phoneNumber,
+    senderId
   } = req.body;
 
+  phoneNumber = phoneNumber.replace(/\s+/g, "");
   let time = new Date();
   let parsedDate = Date.parse(time);
   let fulfillmentDate = moment(parsedDate)
     .tz("America/Toronto")
     .format("YYYY-MM-DD HH:mm:ss");
-  if (token_id) {
+  if (token_id && method === "delivery") {
     let amount = parseFloat(authorized_payment);
     stripe.customers
       .create({
@@ -141,6 +146,12 @@ routes.post("/confirm", (req, res) => {
           customer: customer.id
         })
       )
+      .then(() => {
+        send.sendMessageGeneric(
+          senderId,
+          "Alright! Your payment went through. Give us a sec to process your delivery order!"
+        );
+      })
       .then(() => {
         return orderDAO.returnPaidOrderNumber();
       })
@@ -162,23 +173,93 @@ routes.post("/confirm", (req, res) => {
       .then(user => {
         return userDAO.updatePhoneNumber(user._id, phoneNumber);
       })
-      .then((user) => {
-        return userDAO.updateAddress(user._id, address, roomNumber)
+      .then(user => {
+        return userDAO.updateAddress(user._id, address, roomNumber);
       })
       .then(user => {
-        if (method === "delivery") {
-          send.sendConfirmPaidMessageDelivery(user.PSID, {
-            fulfillmentDate,
-            address,
-            confirmationNumber
-          });
+        if (!user.integrationIds.bringgId) {
+          return bringg.createCustomer(user);
         } else {
-          send.sendConfirmPaidMessagePickup(user.PSID, {
-            fulfillmentDate,
-            orderId,
-            confirmationNumber
-          });
+          return user;
         }
+      })
+      .then(user => {
+        return bringg.createWaypoint(user);
+      })
+      .then(body => {
+        return bringg
+          .createTask(
+            body.task.id,
+            body.task.way_points[1].id,
+            confirmationNumber
+          )
+          .then(response => {
+            return orderDAO.updateBringgStatus(orderId, response.success);
+          });
+      })
+      .then(order => {
+        send.sendConfirmPaidMessageDelivery(order._user.PSID, {
+          fulfillmentDate,
+          address,
+          confirmationNumber
+        });
+        return sessionDAO.closeSession(order._user._sessions.slice(-1).pop());
+      })
+      .then(session => {
+        res.status(200).send({ success: true });
+      })
+      .catch(err => {
+        // send user a message that their payment didn't go through
+        logger.error(`POST on /confirm`, { err });
+        send.sendMessageGeneric(
+          senderId,
+          "Sorry there was an error with processing your order. Please try again later"
+        );
+        res.status(500).send({ success: false });
+      });
+  } else if (token_id && method === "pickup") {
+    let amount = parseFloat(authorized_payment);
+    stripe.customers
+      .create({
+        email: token_email,
+        source: token_id
+      })
+      .then(customer =>
+        stripe.charges.create({
+          amount,
+          description: "Order Charge",
+          currency: "cad",
+          customer: customer.id
+        })
+      )
+      .then(() => {
+        send.sendMessageGeneric(
+          senderId,
+          "Alright! Your payment went through. Give us a sec to process your pickup order!"
+        );
+      })
+      .then(() => {
+        return orderDAO.returnPaidOrderNumber();
+      })
+      .then(orderNumber => {
+        confirmationNumber = orderNumber;
+        return orderDAO.confirmOrder({
+          orderId,
+          method,
+          time,
+          isPaid: true,
+          orderNumber: orderNumber
+        });
+      })
+      .then(order => {
+        return userDAO.updateEmail(order._user._id, token_email);
+      })
+      .then(user => {
+        send.sendConfirmPaidMessagePickup(user.PSID, {
+          fulfillmentDate,
+          orderId,
+          confirmationNumber
+        });
         return sessionDAO.closeSession(user._sessions.slice(-1).pop());
       })
       .then(session => {
@@ -188,43 +269,8 @@ routes.post("/confirm", (req, res) => {
         // send user a message that their payment didn't go through
         logger.error(`POST on /confirm`, { err });
         send.sendMessageGeneric(
-          user.PSID,
-          "Sorry there was an error with processing your order. Please try again later"
-        );
-        res.status(500).send({ success: false });
-      });
-  } else {
-    orderDAO
-      .confirmOrder({
-        orderId,
-        method,
-        time,
-        address,
-        postal,
-        isPaid: false
-      })
-      .then(order => {
-        if (method === "delivery") {
-          send.sendConfirmUnpaidMessageDelivery(order._user.PSID, {
-            fulfillmentDate,
-            confirmationNumber
-          });
-        } else {
-          send.sendConfirmUnpaidMessagePickup(order._user.PSID, {
-            fulfillmentDate,
-            confirmationNumber
-          });
-        }
-        return sessionDAO.closeSession(order._session);
-      })
-      .then(() => {
-        return res.status(200).send();
-      })
-      .catch(err => {
-        logger.error(`POST on /confirm`, { err });
-        send.sendMessageGeneric(
-          user.PSID,
-          "Sorry there was an error with processing your order. Please try again later"
+          senderId,
+          "Sorry there was an error with processing your order. Please try again later."
         );
         res.status(500).send({ success: false });
       });

@@ -24,9 +24,16 @@ const userSchema = new Schema({
   phoneNumbers: [
     {
       type: String,
-      dropDups: true
+      dropDups: true,
+      trim: true
     }
   ],
+
+  integrationIds: {
+    bringgId: {
+      type: String
+    }
+  },
 
   address: String,
 

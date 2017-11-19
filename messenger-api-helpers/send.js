@@ -45,24 +45,25 @@ const sendConfirmPaidMessageDelivery = (recipientId, data) => {
     sendMessage(
         recipientId,
         messages.messageTemplate(
-            `Awesome! the payment has been processed! We'll have the order delivered at ${data.address} at in 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`
+            `Ok! We'll have the order delivered at ${data.address} at in 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`
         )
     );
 
-    sendMessage(recipientId, messages.nextOrderMessage());
+    setTimeout(() => {
+        sendMessage(recipientId, messages.nextOrderMessage());
+    }, 2000);
 };
 
 const sendConfirmPaidMessagePickup = (recipientId, data) => {
     sendMessage(
         recipientId,
         messages.messageTemplate(
-            `Awesome! Your payment has been processed! We'll have the order ready for you to pick-up in around 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`
+            `Ok! We'll have the order ready for you to pick-up in around 30-45 minutes. Your confirmation code is ${data.confirmationNumber}.`
         )
     );
     setTimeout(() => {
         sendMessage(recipientId, messages.nextOrderMessage());
-    }, 1000);
-    sendMessage(recipientId, messages.callRestaurantMessage());
+    }, 2000);
 };
 
 const sendConfirmUnpaidMessagePickup = (recipientId, data) => {

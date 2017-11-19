@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 const orderDAO = {};
 const { populateOrder, pad } = require("./helperFunctions");
 const { logger } = require("./../../server/logger/logger");
-const { findMenuItemsByItemName } = require('./../../config/menuItems');
-
-
+const { findMenuItemsByItemName } = require("./../../config/menuItems");
 
 orderDAO.initializeOrder = function(PSID, sessionId) {
   logger.info(`${PSID} orderDAO initializeOrder`);
@@ -18,8 +16,8 @@ orderDAO.initializeOrder = function(PSID, sessionId) {
         });
         return newOrder.save();
       })
-      .then((order) => {
-         resolve(populateOrder(Order.findOne({_id: order._id})))
+      .then(order => {
+        resolve(populateOrder(Order.findOne({ _id: order._id })));
       })
       .catch(err => {
         logger.error(`${PSID} orderDAO initializeOrder`, { err });
@@ -191,8 +189,28 @@ orderDAO.returnPaidOrderNumber = () => {
   });
 };
 
+orderDAO.updateBringgStatus = (orderId, isUpdated) => {
+  logger.info(`orderDAO updateBringgStatus`);
+  return new Promise((resolve, reject) => {
+    populateOrder(
+      Order.findOneAndUpdate(
+        { _id: orderId },
+        {
+          $set: {
+            bringgWaypointCreated: isUpdated
+          }
+        },
+        { new: true }
+      )
+    )
+      .then(order => {
+        resolve(order);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 //worried about this... will this sometimes result in same number for two orders if they are happening concurrently?
-
-
 
 module.exports = orderDAO;
