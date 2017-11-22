@@ -67,15 +67,19 @@ const createWaypoint = user => {
   });
 };
 
-const createTask = (taskId, waypointId, confirmationNumber) => {
+const createTask = (taskId, waypointId, order) => {
   logger.info("Bringg API createTask");
   let body = {
     access_token: access_token,
     timestamp: Date.now(),
     company_id: company_id,
-    type: 2,
-    note: "this is another test note",
-    url: "http://burgerburger.ca/"
+    type: 1,
+    note: JSON.stringify([
+      ["Item", "Size"],
+      ...order._items.map(x => {
+        return [x.itemName, x.itemSize || "Standard"];
+      })
+    ])
   };
 
   body.signature = CryptoJS.HmacSHA1(param(body), secret_key).toString();

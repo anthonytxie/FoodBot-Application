@@ -124,6 +124,7 @@ routes.post("/confirm", (req, res) => {
     phoneNumber,
     senderId
   } = req.body;
+  let orderObject;
 
   phoneNumber = phoneNumber.replace(/\s+/g, "");
   let time = new Date();
@@ -168,6 +169,7 @@ routes.post("/confirm", (req, res) => {
         });
       })
       .then(order => {
+        orderObject = order
         return userDAO.updateEmail(order._user._id, token_email);
       })
       .then(user => {
@@ -191,7 +193,7 @@ routes.post("/confirm", (req, res) => {
           .createTask(
             body.task.id,
             body.task.way_points[1].id,
-            confirmationNumber
+            orderObject
           )
           .then(response => {
             return orderDAO.updateBringgStatus(orderId, response.success);
