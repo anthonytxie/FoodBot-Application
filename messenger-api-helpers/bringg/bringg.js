@@ -6,7 +6,7 @@ const access_token = "tkqY7KQDWzys1U74hE3b";
 const secret_key = "YihV3voc3AXbQNEzyQAS";
 const { logger } = require("./../../server/logger/logger");
 const userDAO = require("./../../db/DAO/userDAO");
-
+const moment = require("moment");
 const createCustomer = user => {
   return new Promise((resolve, reject) => {
     logger.info("Bringg API createCustomer");
@@ -34,23 +34,26 @@ const createCustomer = user => {
   });
 };
 
-const createWaypoint = user => {
+const createWaypoint = (user, confirmationNumber) => {
   logger.info("Bringg API createWaypoint");
   let body = {
     access_token: access_token,
     timestamp: Date.now(),
     customer_id: user.integrationIds.bringgId,
     company_id: company_id,
+    title: `Burger Burger Order Number ${confirmationNumber}`,
     way_points: JSON.stringify([
       {
         customer_id: "4260514",
         address: "633 Richmond St, London",
-        city: "London"
+        city: "London",
+        scheduled_at: moment()
       },
       {
         customer_id: user.integrationIds.bringgId,
         address: user.address || "Unknown please check with restaurant",
-        city: "London"
+        city: "London",
+        scheduled_at: moment().add(35, "minutes")
       }
     ])
   };

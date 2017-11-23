@@ -169,7 +169,7 @@ routes.post("/confirm", (req, res) => {
         });
       })
       .then(order => {
-        orderObject = order
+        orderObject = order;
         return userDAO.updateEmail(order._user._id, token_email);
       })
       .then(user => {
@@ -186,15 +186,20 @@ routes.post("/confirm", (req, res) => {
         }
       })
       .then(user => {
-        return bringg.createWaypoint(user);
+        return bringg.createWaypoint(user, confirmationNumber);
       })
       .then(body => {
         return bringg
-          .createTask(
-            body.task.id,
-            body.task.way_points[1].id,
-            orderObject
-          )
+          .createTask(body.task.id, body.task.way_points[0].id, orderObject)
+          .then(response => {
+            if (response) {
+              return bringg.createTask(
+                body.task.id,
+                body.task.way_points[1].id,
+                orderObject
+              );
+            } else Promise.reject("first create task was broken");
+          })
           .then(response => {
             return orderDAO.updateBringgStatus(orderId, response.success);
           });
